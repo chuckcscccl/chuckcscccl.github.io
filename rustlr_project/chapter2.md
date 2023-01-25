@@ -1,455 +1,77 @@
 ## Chapter 2: Advanced Calculator
 
-
 In the second chapter of this tutorial, we write a more advanced
 version of the calculator example and describe a more complete set of
-features of RustLr including:
+features as well further details of capabilities introduced in
+[Chapter 1][chap1].
 
-  * How to write ambiguous grammars with operator precedence and associativity
-    declarations.
-  * How to parse, create abstract syntax, and report syntactic and semantic errors for more sophisticated kinds of
-    expressions that include variables
-    and scoping rules, in particular expressions such as `let x=3 in x*x`.
-  * How to use a simple error-recovery technique.
-  * How to use patterns when defining grammar production rules.
-  * How to train the parser interactively for better error reporting.
+The calculator of this chapter supports expressions of the form
+**`let x = 1 in (let x = 10 in x*x) + x`** (which should evaluate to 101).
+The lexical analyzer and parser must recognize alphanumeric symbols
+such as `x` as variables.  This version of the calculator also recongizes
+a series of expressions separated by ; (semicolon), giving us the opportunity
+to demonstrate a simple error recovery mechanism.
 
-The [grammar](https://cs.hofstra.edu/~cscccl/rustlr_project/calc4/calc4.grammar)
-for the more advanced calculator is as follows:
+The grammar (with some additions) is as follows:
+```
+auto
+lifetime 'lt
+terminals + - * / = ;
+terminals let in
+lexterminal LPAREN (
+lexterminal RPAREN )
+valueterminal int ~ i64 ~ Num(n) ~ n
+valueterminal var ~ &'lt str ~ Alphanum(n) ~ n
+lexattribute set_line_comment("#")
 
-```ignore
-!use crate::exprtrees::*; /* ! lines are injected verbatim into parser */
-!use crate::exprtrees::Expr::*;
-!use rustlr::{LBox};
+nonterminals Expr ExprList
+nonterminal UnaryExpr : Expr
+nonterminal LetExpr : Expr
 
-lifetime 'src_lt
-absyntype Expr<'src_lt>
-externtype i64
-nonterminals E ES
-terminals + - * / ( ) = ;
-terminals let in int var
-topsym ES
+topsym ExprList
 resync ;
 
 left * 500
 left / 500
 left + 400
 left - 400
-nonassoc = 200
 
-# for lexical scanner generation:
-lexvalue int Num(n) Val(n)
-lexvalue var Alphanum(x) Var(x)
-lexattribute set_line_comment("#")
+UnaryExpr:Val --> int
+UnaryExpr:Var --> var
+UnaryExpr:Neg --> - UnaryExpr
+UnaryExpr --> LPAREN LetExpr RPAREN
 
-E --> int:m { m.value }
-E --> var:s { s.value }
-E --> E:e1 + E:e2 { Plus(e1.lbox(),parser.lbx(2,e2.value)) }
-E --> E:[e1] - E:[e2] { Minus(e1,e2)}
-E --> E:[e1] / E:[e2] { Divide(e1,e2) } 
-E --> E:[e1] * E:[e2] { Times(e1,e2) }
-E(600) --> - E:[e] { Negative(e) }
-E --> ( E:e )  { e.value }
-E --> let E:@Var(x)@ = E:[e] in E:[b] {Letexp(x,e,b)}
-ES --> E:[n] ; { Seq(vec![n]) }
-ES ==> ES:@Seq(mut v)@  E:[e] ;  {
-   v.push(e);
-   Seq(v)
-   } <==
+Expr --> UnaryExpr
+Expr:Plus --> Expr + Expr
+Expr:Minus --> Expr - Expr
+Expr:Div --> Expr / Expr
+Expr:Times --> Expr * Expr
 
-# ==> and <== are required for rules spanning multiple lines
+LetExpr --> Expr
+LetExpr:Let --> let var:[let_var] = Expr:init_value in LetExpr:let_body
 
-EOF
+ExprList:nil -->
+ExprList:cons --> LetExpr:car ; ExprList:cdr
 ```
 
+The grammar takes full advantage of the 'auto' mode: only the types of
+values carried by terminal symbols `var` and `int` need to be declared.
+All other types and semantic actions are automatically created, as is the
+lexical scanner
 
-### Motivation
+### Input Lifetime
 
-  Using an LR parser generator has a non-trivial learning curve.
-Working with strictly unambiguous grammars can be non-intuitive.
-Intuitively we'd like to see something close to the BNF definition of
-syntax: `E --> E+E | E*E | E-E`, etc.  Every expression `E` can
-be a subexpression of a larger one.  But such grammars are ambiguous
-and thus not LR. The ambiguity comes from the unspecified precedence
-of operators + and *, and the unspecified associativity of -.  Another
-ambiguity is illustrated by the infamous "dangling else" problem.
-In a grammar with
-
-     `E --> if (E) E  |  if (E) E else E`
-
-how should we parse *`if (a) if (b) c else d`*? To associate the
-`else` with the inner `if`, we must delay the reduction by the first
-rule in favor of the second.  Eliminating such ambiguities by
-rewriting the grammar can be non-trivial.  However, these kinds of
-ambiguities can also be eliminated by augmenting the ambiguous grammar with
-operator precedence and associativity declarations.  These are
-evident from declarations such as **`left * 500`**.  In addition to
-giving precedence to symbols, however, each production rule of the grammar
-must also be assigned a precedence.  This can usually be calculated
-automatically by finding the symbol on the right-hand side with the highest
-precedence.  However, there are cases when we must assign the precedence
-manually, as in the rule `E(600) --> - E`.  The - symbol has higher precedence
-when it appears as a unary operator compared to all binary operators.
-
-It is recommended that operator precedence and associativity declarations
-are used with moderation.  If abused, situations can arise that would
-require further, awkward declarations such as declaring `=` to have higher
-precedence than `[`.  It is best to restrict their usage only to the well-known
-binary operators.  Chapters [3][chap3] and [4][chap4] contain examples where
-moderate uses of these declarations are combined with more "grammatical"
-approaches to disambiguate precedence and associativity.
-
-The main purpose of a parser is to transform *concrete syntax*, which
-is usually a string, into *abstract syntax*, which is usually a tree.
-Parsing is only one of the first stages in a modern interpreter or
-compiler. Many important tasks such as type checking can be carried
-out in other stages.  Errors can be syntactic - meaning that the
-syntax is not accepted by the grammar, or semantic, such as type
-incompatibilities.  Usually only syntactic errors are reported by the
-parser.  However, all error reports made by the interpreter/compiler
-must indicate the location in the orignal text (line and column
-numbers) where the error originates.  This implies that the parser
-must insert this location information into the abstract syntax tree.
-All data structures designed for the abstract syntax must accommodate
-this information, which can become rather intrusive when coding all the
-match cases for the AST variants.
-In an object oriented programming language, this problem is easily
-solved by defining an abstract superclass for all AST 
-structures.  But Rust has only minimal support for OOP.  It has no
-direct support for inheritance.  Instead, rustlr implements a mechanism
-called **[LBox][2]**.
-
-Trees are defined recursively - in Rust, this usually means using the
-Box smart pointer.
-An [LBox][2] encapsulates a Box along with a pair of u32 values
-indicating a line and a column number (thus taking up only 64 bits of
-extra space).  It implements Deref and DerefMut by redirecting the
-dereferences to the encapsulated box.  This means that an LBox can be
-used like a Box - except when we need to access the location
-information.
-
-It is recommended (but not required) that the enums and
-structs making up the abstract syntax use [LBox][2], e.g. 
-
-  `enum Expr { Plus(LBox<Expr>,LBox<Expr>), Times(LBox<Expr>,LBox<expr>), etc.. }`
-
-Rustlr has features that facilitate the use of LBox.  For example, on the
-right-hand side of a production rule a labeled symbol in form `E:[a]` means
-that the semantic value associated with the symbol is automatically
-placed in an LBox that also includes the lexical
-location information, and this LBox is assigned to `a`. 
-A similar mechanism for Rc, [LRc][3], also exists, but without the same
-level of support.  
-
-In the following we further detail the additional features of rustlr
-demonstrated by this grammar and associated abstract syntax structures.
-
-### Principal Features
+Rustlr's built-in lexical analyzer, [StrTokenizer<'t>][1] returns
+alphanumeric [tokens][rtk] in the form `Alphanum(s)` where `s` is of type
+`&'t str`.  The **`lifetime 'lt`** declaration allows type
+specifications in the grammar (in `valueterminal` lines) to be
+consistent with the generated AST types.  The lifetime is that of the
+input.  Currently, only a single lifetime declaration is allowed.
+The keywords "let" and "in", though alphanumeric are not recognized as `var`
+because they're declared as terminal symbols.
 
 
-The grammar shown above differs from the [first][chap1] chapter in the following principal ways.
-
-1. The grammar is ambiguous.  There are *shift-reduce* conflicts from
-the pure grammar that are resolved using operator precedence and
-associativity rules as declared by grammar directives such as **`left * 500`**.
-A terminal symbol that's to be used as an operator can be
-declared as left, right or non-associative and a positive integer defines
-the precedence level.  
-If a production rule is not explicitly assigned a precedence,
-it is assigned to be the same as that of the right-hand side
-symbol with the highest precedence.
-The default precedence of all grammar symbols is zero.
-*(Internally, the precedence is represented by the absolute value of a signed integer: positive
-for left-associative, negative for right-associative.  The second-most
-significant bit is used to distinguish these from non-associative values. Zero means unassigned.)*
-
-     Rustlr resolves **shift-reduce** conflicts as follows:
-
-    - A lookahead symbol with strictly higher precedence than the rule results
-      in *shift*. A warning is always given if the rule has precedence zero.
-    - A lookahead symbol with strictly lower precedence than the rule results
-      in *reduce*. A warning is always given if the lookahead has precedence zero (undeclared precedence)  
-    - A lookahead symbol with the same precedence and associativity as the rule,
-      and which is declared right-associative, will result in *shift*.
-    - A lookahead symbol with the same precedence and associativity as the rule,
-      and which is declared left-associative, will result in *reduce*.
-    - In other situations the conflict is *resolved in favor of shift*, with a
-      warning sent to stdout regardless of trace level.  All shift-reduce
-      conflicts are warned at trace level 2 or higher.
-
-     Had we left out the last declaration `left = 200`, for example, rustlr
-     will give multiple shift-reduce warnings, although the generated parser
-     would be the same.
-
-     Using this scheme, the "dangling else" problem can be solved by giving
-     "else" a higher precedence than "if".  
-
-     Rustlr also resolves **reduce-reduce**
-    conflicts by always favoring the rule that appears first in the
-    grammar, although a warning is always sent to stdout regardless of trace
-    level.
-
-2. The language that the grammar defines includes expressions of the form
-   **`let x = 1 in (let x = 10 in x*x) + x`**, which should evaluate to 101.
-   The lexical analyzer and parser must recognize alphanumeric symbols
-   such as `x` as variables.  Since version 0.2.0, rustlr no longer requires
-   owned strings to represent such constructs: the new [Tokenizer][tktrait] trait
-   and [TerminalToken][tt] type allow the construction of zero-copy lexers.
-   The **`lifetime`** declaration in the grammar allows the use of constructs
-   with non-static references (`'src_lt str`) in abstract syntax representations.  Currently, only a single lifetime declaration is allowed: this is usually
-   referring to the lifetime of the input. If it becomes clear that more than
-   one lifetime might be needed, rustlr will be updated accordingly.
-   Evaluating let-expressions also illustrate the separation of syntactic from semantic
-   analysis: checking the scopes of variables introduced by `let` happens after the
-   parsing stage.
-
-3. The grammar's abstract syntax is defined in a separate module,
-[exprtrees.rs](https://cs.hofstra.edu/~cscccl/rustlr_project/calc4/src/exprtrees.rs).  The abstract syntax tree type ('absyntype') 'Expr' of this module
-uses **[LBox][2]**,
-as explained above.  LBox implements deref coercion on the boxed value, but also
-carries the lexical position information when they're needed.  The
-[StackedItem::lbox][5], [ZCParser.lb](https://docs.rs/rustlr/latest/rustlr/zc_parser/struct.ZCParser.html#method.lb) and the [ZCParser.lbx][4] functions can be
-invoked from within the semantic actions to automatically transfer the
-parser's lexical information while creating an LBox.  However, the easiest way to use LBox, in most situation, is to label a grammar symbol as in **`E:[a]`**: this means that in the semantic action of the rule **`a`** will be bound to an LBox enclosing the semantic value associated with the grammar symbol.  It is
-recommended that [LBox][2] (or [LRc][3]) be used instead of Box (Rc) when
-defining the recursive enums and structs that typically form the
-abstract syntax representation.  This allows accurate error reporting
-after the parse tree is built, as in the division-by-zero example
-shown below.
-
-4. The language allows a sequence of arithmetic expressions to be evaluated
-in turn by separating them with semicolons, such as in `2+3; 4-1;`.
-The semicolon also allows us
-to define a simple error-recovery point: **`resync ;`** indicates that when a
-parser error is encountered, the parser will skip past the next semicolon,
-then look down its parse stack for a state with which it can continue parsing.
-In otherwords, failure to parse one expression does not mean it will not try to
-parse the next ones.  Rustlr does implement other error-recovery techniques, which are explored in a [later chapter](https://cs.hofstra.edu/~cscccl/rustlr_project/cpmz.grammar).
-
-5. The labels attached to grammar symbols on the right-hand side of
-   grammar productions can be more than a simple variable or irrefutable pattern
-   (as demonstrated in the first calculator). It can also be a pattern
-   enclosed in @...@.  Rustlr generates an if-let expression that attempts to
-   bind the pattern to what's popped from the parse stack.  The value is
-   moved to a mut variable before being deconstructed by the pattern.
-   In general, the label associated with a right-hand side grammar symbol can
-   be of the following forms (two were used in the first grammar):
-
-   1. **`E:a + E:b`**: this is found in the first grammar, each symbol 'a', 'b'
-   is a mutable Rust variable that's assigned to the [StackedItem][sitem]
-   popped from the parse stack, which includes .value, .line and .column.
-
-   2. **`E:(a,b)`**: The label can also be a simple, irrefutable pattern
-      enclosed in parentheses, which are required even if the pattern is a single
-      variable.  Furthermore, (currently) no whitespaces are allowed in the pattern.
-      The pattern is bound directly to the .value of the StackedItem popped from
-      the stack.  One can recover the line/column information in several
-      ways: it is recommended to use [LBox][2] using
-      the [ZCParser::lbx][4] or the [StackedItem::lbox][5] functions, or a
-      labeled pattern such as `E:[a]`.
-      The [StackedItem::lbox][5] function transforms a [StackedItem][sitem]
-      into an LBox.
-      The [ZCParser::lbx][4] function takes an index and an expression  and produces an LBox.  The index indicates the position, starting
-      from zero, of the grammar
-      symbol on the right-hand side of the production that the value is
-      associated with.  For example, the rule for `E --> E + E` can also be
-      written as
-
-        `E --> E:(a) + E:(b) { Plus(parser.lbx(0,a), parser.lbx(2,b)) }`
-
-
-   3. **`E:[a]`**:  If an alphanumeric label is enclosed in square brackets,
-      then the [StackedItem][sitem] is automatically converted into an [LBox][2]
-      encapsulating the value and the lexical position.  This form is most
-      convenient in the majority of cases if the abstract syntax uses LBox
-      in its recursive definitions.  The labels are already LBoxes:
-   
-        `E --> E:[a] + E:[b] { Plus(a,b) }`   
-
-
-   4. **`E:@Seq(mut v)@`**: as seen in this grammar.  This pattern is if-let
-      bound to the **.value** popped from the stack as a mutable variable (the .value is moved to the pattern).  The
-      specified semantic action is injected into the body of if-let.  A parser
-      error report is generated if the pattern fails to match, in which
-      case the default value of the abstract syntax type is returned.
-      To be precise, the semantic action function generated for the last rule of the
-      grammar is
-      ```
-      |parser|{ let mut _item2_ = parser.popstack();
-         let mut e = parser.popstack(); let mut _item0_ = parser.popstack(); 
-         if let (Seq(mut v),)=(_item0_.value,) { 
-           v.push(e.lbox());
-           Seq(v)
-          }  else {parser.bad_pattern("(Seq(mut v),)")} }
-      ```
-      Rustlr generates a variable of the form `_item{n}_` to hold the
-      value of the [StackedItem][sitem], if no direct label is specified.
-      Notice that `_item0_.value` is *moved* into the pattern so generally
-      it cannot be referenced again.
-
-   5. **`E:es@Seq(v)@`**  The pattern can be named.  'es' will be a mut variable
-      assigned to the StackedItem popped from the stack and an if-let is
-      generated that attempts to match the pattern to **`&mut es`**.
-      The named label can also be in the form **`[es]`**, which will transform
-      the StakedItem into an LBox assigned to es: in this case, the pattern is bound to
-      **`&mut *es`**.
-
-   For example, the last production rule of this grammar is equivalent to:
-      ```
-      ES --> ES:es@Seq(v)@  E:e ;  {
-         v.push(parser.lbx(1,e.value));
-         es.value
-      }   
-      ```
-      In contrast to a non-named pattern, the value is **not** moved into the
-      pattern, which means we can still refer to it as `es.value`.  The call
-      to [parser.lbx][4] requires an index, starting from 0, of the grammar symbol
-      on the right-hand side of the production along with a value and forms
-      an LBox with starting line/column information.  In this case, it is
-      equivalent to `v.push(e.lbox())`: the .lbox function converts the
-      [StackedItem][sitem] to an [LBox][2].  But calling .lbox is only possible because 
-      this form of pattern does not move the .value out of the StackedItem.
-
-
-#### The Abstract Syntax Type **Expr**
-
-To see how [LBox][2] can be used after the parsing stage, let's take a close look at the definition of the abstract syntax type:
-```ignore
-pub enum Expr<'t>
-{
-   Var(&'t str),
-   Val(i64),
-   Plus(LBox<Expr<'t>>,LBox<Expr<'t>>),  // LBox replaces Box for recursive defs
-   Times(LBox<Expr<'t>>,LBox<Expr<'t>>),
-   Divide(LBox<Expr<'t>>,LBox<Expr<'t>>),
-   Minus(LBox<Expr<'t>>,LBox<Expr<'t>>),
-   Negative(LBox<Expr<'t>>),
-   Letexp(&'t str,LBox<Expr<'t>>,LBox<Expr<'t>>), // let x=Expr in Expr
-   Seq(Vec<LBox<Expr<'t>>>),
-   Nothing,
-} 
-```
-The variant `Nothing` allows us to define a default, which is required for
-any 'absyntype' of the grammar:
-```
-impl Default for Expr<'_>  {
-  fn default() -> Self { Nothing }
-}//impl Default
-```
-
-Unlike in the first example, here evaluation is defined after the parsing stage,
-when the abstract syntax tree is available as a complete structure.  'Let'-expressions, which introduce variables to the language, can only be
-evaluated given a set of bindings for the variables.  This "environment"
-structure is defined below:
-```
-pub enum Env<'t> {
-  Nil,
-  Cons(&'t str, i64, Rc<Env<'t>>)
-}
-fn push<'t>(var:&'t str, val:i64, env:&Rc<Env<'t>>) -> Rc<Env<'t>>
-{ Rc::new(Cons(var,val,Rc::clone(env))) }
-fn lookup<'t>(x:&'t str, env:&Rc<Env<'t>>) -> Option<i64>  {
-    let mut current = env;
-    while let Cons(y,v,e) = &**current {
-      if &x==y {return Some(*v);}
-      else {current = e;}
-    }
-    return None;
-}//lookup
-```
-Since this tutorial is about the parser generation stage and not so much about
-later stages of interpretation/compilation, I will not go into too
-much detail as to how such a data structure is needed.  It defines a non-mutable
-linked list, with a constructive `cons`, that we use to emulate
-lexical scoping.  The Env enum also allows lists to share components
-(different 'car', same 'cdr').  The `lookup` function looks up the value
-bound to a variable in an enviornment.
-
-
-The evaluation function is given below.  Sequences of expressions
-(under the `Seq` variant) are evaluated one after the other with their
-results printed, and the value of the last expression of the sequence is
-returned.
-Note that [LBox][2] is used in the same way as a Box in most of the cases except for 
-Division. Here we access the line and column numbers enclosed inside the LBox to print
-an error message when division-by-zero is detected.
-```
-pub fn eval<'t>(env:&Rc<Env<'t>>, exp:&Expr<'t>) -> Option<i64>  {
-   match exp {
-     Var(x) => {
-       if let Some(v) = lookup(x,env) {Some(v)}
-       else { eprint!("UNBOUND VARIABLE {} ... ",x);  None}
-     },
-     Val(x) => Some(*x),
-     Plus(x,y) => eval(env,x).map(|a|{eval(env,y).map(|b|{a+b})}).flatten(),
-     Times(x,y) => eval(env,x).map(|a|{eval(env,y).map(|b|{a*b})}).flatten(),
-     Minus(x,y) => eval(env,x).map(|a|{eval(env,y).map(|b|{a-b})}).flatten(),
-     Negative(x) => eval(env,x).map(|a|{-1*a}), //no need for bind here    
-     Divide(x,y) => {
-       eval(env,y)
-       .map(|yval|{if yval==0 {
-          eprint!("Division by zero (expression starting at column {}) on line {} of {:?} at column {} ... ",y.column(),y.line(),x,x.column());
-	  None
-         } else {eval(env,x).map(|xval|{Some(xval/yval)})}
-       })
-       .flatten().flatten()
-     },
-     Letexp(x,e,b) => {
-       eval(env,e).map(|ve|{
-         let newenv = push(x,ve,env);
-         eval(&newenv,b) }).flatten()
-     }
-     Seq(V) => {
-       let mut ev = None;
-       for x in V
-       {
-         ev = eval(env,x);
-         if let Some(val) = ev {
-	   println!("result for line {}: {} ;",x.line(),&val);
-         } else { eprintln!("Error evaluating line {};",x.line()); }
-       }//for
-       ev
-     },
-     Nothing => None,
-   }//match
-}//eval
-```
-For those not familiar with the monadic functors (map and flatten), 
-the clause for `Plus`, for example, is equivalent to
-
-`if let Some(a)=eval(env,x) { if let Some(b)= eval(env,y) {Some(a+b)} else {None} } else {None}`.
-
-<br>
-
-#### **Lexical scanner and main**
-
-The directives **lexvalue**, **lexname** and **lexattribute** are used to
-configure an automatically generated lexical tokenizer.
-'lexvalue' should be used 
-for all terminal symbols that carry (non-default) semantic values, such as
-numerical constants and string literals.  The two **lexvalue** directives
-state that "int" terminal symbols ([TerminalTokens][tt]) are created
-from RawToken::Num(n) and carray semantic values Val(n), while
-"var" terminals carry values Var(x) and are formed from RawToken::Alphanum(x).
-The generated lexer will distinguish alphanumeric tokens that correspond
-to other declared terminal symbols of the grammar such as "let".
-All other "Alphanums" will be parsed as "var".
-
-The [RawToken][rtk] enum defines n to be an i64 and x to be a &str.
-Generally speaking, for each value-carrying terminal symbol of the grammar,
-write a similar *lexvalue* declaration by identifying the type of RawToken
-that it corresponds to and how to construct the semantic value from the token.
-
-Please note that
-whitespaces are only allowed in the specification of the semantic value (in the
-future we may rewrite rustlr inside rustlr, but this is not a priority as the
-hand-coded grammar parser suffices for most cases if used a little carefully).
-
-Since no reserved symbols such as "|" or "{" are used in this language, the
-**lexname** directive is not used.  These reserved symbols cannot be used
-as terminal symbols.  One must choose names such as VBAR and write
-`lexname VBAR |` to define the correspondence between the grammar symbol
-and its textual form.
+### Additional Tokenizer Customization
 
 The **lexattribute** directive can be used to set any attribute on the
 lexer to be generated.  Consult the docs for [StrTokenizer][1]. 
@@ -463,65 +85,435 @@ The following samples are valid lexattribute declarations
 
 Setting the line_comment or multiline_comments to the empty string will mean
 that such comments are not recognized.  The keep_flags are all false be
-default.  [StrTokenizer][1] recognizes C-style comments by default.
+default.  **[StrTokenizer][1] recognizes C-style comments by default**.
 
 The presence of these directives automatically enables the -genlex option.
 The lexer created is called calc4lexer and is found in with the generated
-parser.  Use the **calc4lexer::from_str** and **calc4lexer::from_source**
-functions to create instances of this zero-copy lexical scanner (consult 
-[main.rs](https://cs.hofstra.edu/~cscccl/rustlr_project/calc4/src/main.rs)
-for example).
+parser.
 
-Generate the parser with
 
-> rustlr calc4.grammar -trace 3 > calculator.states
+### Error Recovery
 
-This creates a file [calc4parser.rs](https://cs.hofstra.edu/~cscccl/rustlr_project/calc4/src/calc4parser.rs), although each time it's generated
-the state numbers may be different: the -trace 3 option prints these states
-to stdout.
-Create a cargo crate with the following dependency in Cargo.toml:
-```
-rustlr = "0.3"
-```
-copy the [main.rs](https://cs.hofstra.edu/~cscccl/rustlr_project/calc4/src/main.rs), [exprtrees.rs](https://cs.hofstra.edu/~cscccl/rustlr_project/calc4/src/exprtrees.rs) and the generated [calc4parser.rs](https://cs.hofstra.edu/~cscccl/rustlr_project/calc4/src/calc4parser.rs) files into src/.  The supplied main parses and evaluates the following input:
-```
--5-(4-2)*5;
-#3(1+2);   # syntax (parsing) error
-#5%2;   # syntax error (% is not defined by grammar)
-5-7- -9 ; 
-4*3-9; 
-2+1/(2-1-1);  # division by 0 (semantic) error
-let x = 10 in 2+x;
-let x = 1 in (x+ (let x=10 in x+x) + x);
-(let x = 2 in x+x) + x;  # unbound variable (semantic) error
-(let x = 4 in x/2) + (let x=10 in x*(let y=100 in y/x));
-```
-**cargo run** produces the following output:
-```
-Expression tree from parse: Seq([Minus(Negative(Val(5)), Times(Minus(Val(4), Val(2)), Val
-(5))), Minus(Minus(Val(5), Val(7)), Negative(Val(9))), Minus(Times(Val(4), Val(3)), Val(9
-)), Plus(Val(2), Divide(Val(1), Minus(Minus(Val(2), Val(1)), Val(1)))), Letexp("x", Val(1
-0), Plus(Val(2), Var("x"))), Letexp("x", Val(1), Plus(Plus(Var("x"), Letexp("x", Val(10),
- Plus(Var("x"), Var("x")))), Var("x"))), Plus(Letexp("x", Val(2), Plus(Var("x"), Var("x")
-)), Var("x")), Plus(Letexp("x", Val(4), Divide(Var("x"), Val(2))), Letexp("x", Val(10), T
-imes(Var("x"), Letexp("y", Val(100), Divide(Var("y"), Var("x"))))))])
----------------------------------------
+The language defined by this grammar allows a sequence of arithmetic
+expressions to be evaluated in turn by separating them with
+semicolons, such as in `2+3; 4-1;`.  The semicolon also allows us to
+define a simple error-recovery point: **`resync ;`** indicates that
+when a parser error is encountered, the parser will skip past the next
+semicolon, then look down its parse stack for a state with which it
+can continue parsing.  In otherwords, failure to parse one expression
+does not mean it will not try to parse the next ones.  Rustlr does
+implement the more traditional LR recovery technique of a designed
+*error recovery symbol*, which is demonstrated in a [later
+chapter](https://chuckcscccl.github.io/rustlr_project/errors.html).
 
-result for line 1: -15 ;
-result for line 4: 7 ;
-result for line 5: 3 ;
-Division by zero (expression starting at column 5) on line 6 of Val(1) at column 3 ... Error evaluating line 6;
-result for line 7: 12 ;
-result for line 8: 22 ;
-UNBOUND VARIABLE x ... Error evaluating line 9;
-result for line 10: 102 ;
-Final result after evaluation: Some(102)
+### Rules of Conflict Resolution
+
+This grammar tempers the use of operator precedence and associativity
+declarations with a more formal approach.  Only the precedence of the
+binary arithmetic operators are declared.  The precedence of other
+expressions, including unary operations, are defined using
+different syntactic categories in the form of extra non-terminals
+`UnaryExpr` and `LetExpr`.  
+
+The operator precedence and associativity declarations are used to
+(statically) resolve *shift-reduce* conflicts in generating the LR
+state machine.  A terminal symbol that's to be used as an operator can
+be declared as left, right or non-associative and a positive integer
+defines the precedence level.  Production rules can also be assigned
+precedence as illustrated in [Chapter 1].  If a production rule is not
+explicitly assigned a precedence, it is assigned to be the same as
+that of the right-hand side symbol with the highest precedence.  The
+default precedence of all grammar symbols is zero.  *(Internally, the
+precedence is represented by the absolute value of a signed integer:
+positive for left-associative, negative for right-associative.  The
+second-most significant bit is used to distinguish these from
+non-associative values. The default value of zero means that no
+precedence is assigned)*.
+
+Rustlr resolves **shift-reduce** conflicts as follows:
+
+  - A lookahead symbol with strictly higher precedence than the rule results
+      in *shift*. A warning is always given if the rule has precedence zero.
+  - A lookahead symbol with strictly lower precedence than the rule results
+      in *reduce*. A warning is always given if the lookahead has precedence zero (undeclared precedence)  
+  - A lookahead symbol with the same precedence and associativity as the rule,
+      and which is declared right-associative, will result in *shift*.
+  - A lookahead symbol with the same precedence and associativity as the rule,
+      and which is declared left-associative, will result in *reduce*.
+  - In other situations the conflict is *resolved in favor of shift*, with a
+      warning sent to stdout regardless of trace level.  All shift-reduce
+      conflicts are warned at trace level 5 or higher.
+
+Rustlr also resolves **reduce-reduce** conflicts by always
+favoring the rule that appears first in the grammar, although a
+warning is always sent to stdout regardless of trace level.
+
+With these rules of resolution, rustlr will generate some
+deterministic parser for any grammar.  But grammars with unresolved
+conflicts usually indicate that the grammar contains serious problems
+that, if left unattended, will eventually lead to unexpected
+consequences.  Fixing the conflicts is often non-trivial, which is
+part of the learning curve of LR parsing.  A parser generator that
+does not warn of conflicts is like a compiler that does not give any
+warnings or error messages.
+
+
+
+### Rules of AST Generation
+
+The three principal types of expressions, `Expr`, `LetExpr` and
+`UnaryExpr` define three levels of precedence. From weakest to
+strongest: `LetExpr`, `Expr`, and `UnaryExpr`.  Generally speaking, a
+new type is created for each non-terminal symbol of the grammar, **which
+will also share the same name as the non-terminal itself**.  However, in
+this grammar we specify that 'LetExpr' and 'UnaryExpr' are
+also expressions at the AST level, and should be considered additional
+variants of 'Expr':
+```
+nonterminal UnaryExpr : Expr
+nonterminal LetExpr : Expr
+```
+The ASTs derived from the productions for `UnaryExpr` and `LetExpr`
+*extend* the enum that's created for `Expr`.  The type created
+for Expr must be an enum for this to work (it would not work if it was
+a struct).  The ASTs generated for the grammar of this chapter are
+```
+#[derive(Debug)]
+pub enum Expr<'lt> {
+  Plus(LBox<Expr<'lt>>,LBox<Expr<'lt>>),
+  Times(LBox<Expr<'lt>>,LBox<Expr<'lt>>),
+  Div(LBox<Expr<'lt>>,LBox<Expr<'lt>>),
+  Minus(LBox<Expr<'lt>>,LBox<Expr<'lt>>),
+  Neg(LBox<Expr<'lt>>),
+  Val(i64),
+  Var(&'lt str),
+  Let{let_var:&'lt str,init_value:LBox<Expr<'lt>>,let_body:LBox<Expr<'lt>>},
+  Expr_Nothing,
+}
+impl<'lt> Default for Expr<'lt> { fn default()->Self { Expr::Expr_Nothing } }
+
+#[derive(Debug)]
+pub enum ExprList<'lt> {
+  nil,
+  cons{car:Expr<'lt>,cdr:LBox<ExprList<'lt>>},
+  ExprList_Nothing,
+}
+impl<'lt> Default for ExprList<'lt> { fn default()->Self { ExprList::ExprList_Nothing } }
 ```
 
-This chapter is followed by an **[addendum](https://cs.hofstra.edu/~cscccl/rustlr_project/minijava/mj.grammar)**, which contains a larger example with further
-illustration of the techniques explained here.
+An enum is created for each non-terminal symbol of the grammar that
+appears on the left-hand side of multiple production rules, unless the
+type of the non-terminal is declared to "extend" another type as
+explained above. The name of the enum is the same as the name of the
+non-terminal.  The names of the variants are derived from the labels
+given to the left-hand side nonterminal, or are automatically
+generated from the nonterminal name and the rule number (e.g. `Expr_8`).
+A special `Nothing` variant is also created to represent a default.
+There is normally an enum variant for each production rule of this
+non-terminal.  Each variant is composed of the right-hand side symbols
+of the rule that are associated with *non-unit* types.  If none of the
+right-hand side symbols are given labels, a tuple-variant is created.  The
+presence of any right-hand side label will result in a struct-like variant
+with named fields: the names will correspond to the labels, or are 
+generated automatically in the form `_item{i}_` where `i` refers to
+the position of the symbol on the right-hand side.
+Unit-typed values can also become part of the enum if the symbol is given an
+explicit label.  For example: **` A:case1 --> a B `** where terminal symbol `a`
+is of unit type, will result in a enum variant
+`case1(B)`. whereas **` A:acase --> a:m B `** will result in a
+variant `case1{m:(), _item1_:B}`.  It is recommended that either
+labels are given to all right-hand side symbols that are to be included in
+the variant, or to none at all.
 
-----------------
+A struct is created for any non-terminal symbol that appears on the
+left-hand side of exactly one production rule, unless the type of that
+nonterminal is declared to extend another type.
+You can also force an enum to be created instead of a struct by
+giving the singleton rule a left-hand side label, in which case the label
+will name the lone variant of the enum (besides the `_Nothing` default).
+This would be required when you know that the type will be extended with
+other variants, as demonstrated above.
+
+The struct may be empty if all right-hand-side symbols of the single production
+rule are associated with the unit type and do not have labels.  In such
+cases, the *flatten* directive can eliminate the presence of these structs
+from ASTs (see below).
+
+Rustlr will generate code to derive or implement the Debug and Default
+traits for all structs (this works fine for recursive structs).
+
+The name of the struct is the same as the non-terminal.  If any of the grammar symbols
+on the right-hand side of the rule is given a label, it would create a struct
+with the fields of each struct named by these labels, or
+with `_item{i}_` if
+no labels are given.  For example, a nonterminal `Ifelse` with a singleton rule
+  ```
+  Ifelse --> if Expr:condition Expr:truecase else Expr:falsecase
+  ```
+will result in the generation of:
+  ```
+  #[derive(Default,Debug)]
+  pub struct Ifelse {
+    pub condition: LBox<Expr>,
+    pub truecase: LBox<Expr>,
+    pub falsecase: LBox<Expr>,
+  }
+  ```
+The presence of [LBox][2] assumes that `Ifelse` is mutually recursive with
+`Expr`, which it likely is in such grammars.
+If none of the symbols on the right have labels, rustlr creates a tuple
+struct.  For Example a singleton rule such as **`whileloop --> while ( expr ) expr`**
+will produce an a `struct whileloop(expr,expr);`  Be careful to avoid
+using Rust keywords as the names of non-terminals.
+
+Rustlr calculates a reachability closure so it is aware of which
+non-terminals are mutually recursive.  It uses this information to
+determine where smart pointers are required when defining these
+recursive types.  Rustlr always uses its [LBox][2] custom smartpointer
+to also include line/column information.  Notice that the variant
+`enum::cons` has only the second component in an LBox.  One can, for
+the sake of recording position information, always create an LBox
+regardless of reachability by giving the component a "boxed label".
+That is,
+```
+  ExprList:cons --> Expr:[car] SEMICOLON ExprList:cdr
+```
+will generate a variant that also has its first component in an
+LBox. The 'cdr' is already an LBox as required for recursion (writing
+`[cdr]` will have no additional effect).  The reachability relation also
+determines if a type requires a lifetime parameter.
+
+Although the generated parser code may not be very readable, rustlr also generated semantic actions that create instances of these AST types.  For example, the rule `Expr:Plus --> Expr + Expr` will have a semantic action equivalent
+the following, manually written one:
+```
+Expr --> Expr:[a] + Expr:[b] {Plus(a,b)}
+```
+When manually writing semantic actions, a label of the form `[a]` indicates
+to the parser to place the semantic value associated with the symbol in
+an [LBox][2].
+
+
+#### **'Passthru'**
+
+There are three production rules in the grammar that do not
+correspond to enum variants: `Expr --> UnaryExpr`, `LetExpr --> Expr`
+and `UnaryExpr --> LPAREN LetExpr RPAREN`. 
+Rustlr infers from the fact that
+  1. there is no left-hand side label for any of these rules
+  2. There is exactly one grammar symbol on the right-hand side that has a non-unit
+     type, and that type is the same as the type of the left-hand side symbol.
+     The other symbols, if any, are of unit type
+  3. There are no labels nor operator precedence/associativity declarations for the other symbols.
+     
+For the rule `UnaryExpr --> LPAREN LetExpr RPAREN`, it therefore infers that
+the parentheses on the right hand side carry no meaning at the AST level, and
+thus generates a semantic action for this rule
+that would be equivalent to:
+```
+  UnaryExpr --> LPAREN LetExpr:e RPAREN { e }
+```
+We refer to such cases as "pass-thru" cases.  If the automatically
+inferred "meaning" of this rule is not what's desired, it can be
+altered by using an explicit left-side label: this will generate a
+separate enum variant (at the cost of an extra LBox) that
+distinguishes the presence of the parentheses.  Note that the 
+rule `UnaryExpr:Neg --> - UnaryExpr`, was not recognized as a pass-thru
+case by virtue of the left-hand side label `Neg`.  Unlike the parentheses,
+the minus symbol certain has meaning beyond the syntactic level.
+We can also force the minus sign to be
+included in the AST by giving it an explicit lable such as `-:minus UnaryExpr`.
+This would create an enum variant that includes a unit type value.
+
+
+#### Flattening Structs
+
+Rustlr provides another way to control the generation of ASTs so that
+it is not always dependent on the structure of the grammar, although
+it is not illustrated in the calculator example.  When writing a
+grammar, we sometimes create extra non-terminal symbols and rules for the
+purpose of organization.  As an abstract example:
+```
+A --> a Threebs c
+Threebs --> b b b
+```
+Rustlr will create two tuple structs for these types. Assuming that a, b, c
+are not of unit type, there will be a `struct A(a,Threebs,c)` and a
+`struct Threebs(b,b,b)`.  However, it is possible to declare in the grammar,
+once the non-terminals `A` and `Threebs` have been declared, that the
+type `Threebs` can be **flattened** into other structures:
+```
+flatten Threebs
+```
+This means that the AST for Threebs should be absorbed into other types if
+possible (multiple nonterminals can be so declared on the same line).
+This will still create a `struct Threebs(b,b,b)`, but it will create for A:
+**`struct A(a,b,b,b,c)`**.
+
+Both structs and enums can absorb 'flatten' types.  However, there
+are several enforced rules governing the flattening of types:
+  1. Only struct types can be flattened: thus only nonterminals that has but a
+  single production rule can have its AST absorbed into other types. Enum
+  types can absorb 'flatten' structs but cannot be absorbed into other types.
+  2. Types already defined to 'extend' the enum of another type cannot be
+  flattened
+  3. A tuple struct can only absorb the flattened form of another tuple struct.
+  In the above example, if `Threeb` was a non-tuple struct with named fields (which can be created
+  by giving of the the b's a label), then it cannot be absorted into `A`.
+  4. A boxed-labeled field cannot absorb a 'flatten' type.  That is, if
+  the rule for `A` above was written `A --> a:a Threebs:[b] c:c` then the AST
+  for A would become `pub struct A{a:a, b:LBox<Threebs>, c:c}`.  This is
+  the only way to prevent the absorption of a 'flatten' type on a case-by-case
+  basis.
+  5. Mutually recursive types cannot flatten into each other.
+  6. Nested flattening is not currently supported.  This is a temporary restriction.
+
+Point 5 is rather subtle.  Consider productions rules `A --> B` and
+`B --> A`.  It is perfectly valid to declare `flatten B`: This will
+result in a `struct A(LBox<A>)`: the [LBox][2] is created for the AST of B using reachability calculations.  What we cannot have is `flatten A` and 
+`flatten B`: the flattening is only allowed in one direction.  Otherwise we
+would be replacing B with A and A with ... what?  One consequence of
+this restriction is that a type cannot flatten into itself: `B --> B`
+would not be valid for `flatten B`: *B is mutually recursive with
+itself.*
+
+The last restriction is related to the mutual-flattening restriction.  However,
+there are cases where it would be safe to flatten A into B and then flatten
+B into C. This ability is not currently supported (as of Rustlr 0.3.5).
+
+
+
+#### Emphasizing the Importance of Labels
+
+The usage of labels greatly affect how the AST datatype is
+generated.  Labels on the left-hand side of a production rule give
+names to enum variants.  Their presence also cancel "pass-thru"
+recognition by always generating an enum variant for the rule.
+A left-hand side label will also prevent a struct from being generated even
+when a nonterminal has but a single production rule.
+The absence of labels on the right-hand side leads to the creation of
+tuple variants or structs.  The presence of right-side labels creates
+structs or struct-variants with named fields.
+A label on unit-typed grammar symbol means that the symbol won't be
+ignored and will be included in the the type.  If a non-terminal has a
+single production rule, the lack of any labels left or right leads
+to the creation of a simpler tuple struct.  The use of boxed
+labels such as `[e]` forces the semantic value to be wrapped inside an LBox
+whether or not it is required to define recursive types.  Boxed labels also
+prevent the absorption of 'flatten' types.
+
+
+#### Overriding Types and Actions
+
+It is always possible to override the automatically generated types and actions.
+In case of ExprList, the labels 'nil' and 'cons' are sufficient for rustlr to create a linked-list data structure.  However, the right-recursive grammar rule is slightly non-optimal for LR parsing (the parse stack grows until the last element of the list before ExprList-reductions take place).  One might wish to use a left-recursive rule and a Rust vector to represent a sequence of expressions.  This can be done in several ways, one of which is by making the following changes to the grammar.  First, change the declaration of the non-terminal symbol `ExprList` as follows:
+
+```
+nonterminal ExprList Vec<LBox<Expr<'lt>>>
+```
+You probably want to use an LBox even inside a Vec to record the
+line/column position information.  When writing your own types for
+non-terminals, it's best to examine the types that are generated to
+determine their correct usage: for example, whether a lifetime
+parameter is required for `Expr`.  It is also possible to write the above as
+```
+nonterminal ExprList Vec<LBox<@Expr>>
+```
+The symbol `@` indicates that the type of LBox will be determined by whatever
+is the type associated with the nonterminal `Expr`.
+
+Now replace the two production rules for `ExprList` with the following:
+
+```rust
+ExprList --> { vec![] }
+ExprList --> ExprList:ev LetExpr:[e] ; { ev.push(e); ev }
+```
+The presence of a non-empty semantic action will override automatic AST generation. It is also possible to **inject custom code into the
+automatically generated code**:
+```
+ExprList -->  {println!("starting a new ExprList sequence"); ... }
+```
+The ellipsis are allowed only before the closing right-brace.  This indicates
+that the automatically generated portion of the semantic action should follow.
+The ellipsis cannot appear anywhere else.
+
+
+An easier way to parse a sequence of expressions separated by ; and to
+create a vector for it, is to
+use the special suffixes `+`, `*`, `?`, `<_*>` and `<_+>`.
+These are described in [next chapter][chap5].
+
+
+
+### Creating and Invoking the Parser
+
+To build a working parser and evaluator, `cargo new` a crate with "rustlr = 0.4"
+in its dependencies. Copy the grammar into the crate directory as
+'calcauto.grammar'.  Then run
+
+>  **`rustlr calcauto.grammar -o src/`**.
+
+#### **rustlr** command line options
+
+The first and the only required argument to the executable is the path of the
+grammar file.  Optional arguments (after the grammar path) that can be
+given to the executable are:
+
+- **-lr1** : this will create a full LR(1) parser if LALR does not suffice.
+  The default is LALR, which works for most examples.  A sample grammar
+  requiring full LR(1) can be found **[here](https://cs.hofstra.edu/~cscccl/rustlr_project/nonlalr.grammar).**
+  Rustlr will always try to resolve shift-reduce conflicts by precedence and associativity
+  declarations (see later examples) and reduce-reduce conflicts by rule order.
+  So it will generate some kind of parser in any case.  The next chapter will
+  explain in detail how conflicts are resolved.
+- **-o filepath** : changes the default destination of the generated parser
+  and AST files.
+- **-nolex** : skips the automatic generation of a lexical scanner using the
+built-in [StrTokenizer][1].  This option is not recommended
+- **-auto** or **-genabsyn** : automatically generates abstract syntax data types and required semantic actions.  See [Chapter 4][oldchap4].  This feature is not recommended for beginners.
+- **-trace n**  : where n is a non-negative integer defining the trace level.
+  Level 0 prints nothing; level 1, which is the default, prints a little more
+  information.  Each greater level will print all information in lower levels.
+  -trace 3 will print the states of the LR finite state machine, which could
+  be useful for debugging and training the parser for error message output.
+- **-nozc** : this produces an older version of the runtime parser that does not use
+  the new zero-copy lexical analyzer trait.  This option is only retained
+  for backwards compatibility with grammars and lexical scanners written prior
+  to rustlr version 0.2.0.  This option is not capable of generating a lexical
+  scanner.
+- **-lrsd** : enables "LR parsing with selective delays".  This is an
+  experimental (but usable) extention of LR(1) parsing and accepts a larger
+  class of grammars.  See the [Appendix][appendix] for details.
+
+
+#### Sample main
+
+Assuming that `calcautoparser.rs` and `calcauto_ast.rs` are in the crate's
+`src/` directory.  Copy the sample input file , [input.txt](https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/input.txt)
+into the crate directory.
+The input intentionally contains both syntactic and semantic errors to
+test error reporting and recovery.
+Copy [main.rs](https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/src/main.rs) into `src/`.
+The `main` function in this main.rs invokes the parser and evaluates the
+cons-list of expressions returned.
+```
+fn main() {
+   let src = rustlr::LexSource::new("input.txt").expect("input not found");
+   let mut scanner4 = calcautoparser::calcautolexer::from_source(&src);
+   let mut parser4 = calcautoparser::make_parser();
+   let tree4= calcautoparser::parse_with(&mut parser4, &mut scanner4);
+   let result4 = tree4.unwrap_or_else(|x|{println!("Parsing errors encountered; 
+results are partial.."); x});
+   println!("\nABSYN: {:?}\n",&result4);
+   let bindings4 = newenv();
+   println!("\nresult after eval: {:?}", eval_seq(&bindings4,&result4,1));
+}//main   
+```
+The last two lines of main relies on additional structures and functions
+defined inside [main.rs](https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/src/main.rs).  
+
+
+
+---------------
 
 ### Training The Parser For Better Error Reporting
 
@@ -623,16 +615,16 @@ training from script has not yet been tested on a large scale.
 
 ------------
 
-
 [1]:https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html
 [2]:https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html
 [3]:https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LRc.html
 [4]:https://docs.rs/rustlr/latest/rustlr/zc_parser/struct.ZCParser.html#method.lbx
 [5]:https://docs.rs/rustlr/latest/rustlr/zc_parser/struct.StackedItem.html#method.lbox
 [sitem]:https://docs.rs/rustlr/latest/rustlr/zc_parser/struct.StackedItem.html
-[chap1]:https://cs.hofstra.edu/~cscccl/rustlr_project/chapter1.html
+[chap1]:https://chuckcscccl.github.io/rustlr_project/chapter1.html
 [chap3]:https://cs.hofstra.edu/~cscccl/rustlr_project/chapter3.html
 [chap4]:https://cs.hofstra.edu/~cscccl/rustlr_project/chapter4.html
+[chap5]:https://chuckcscccl.github.io/rustlr_project/chapter5.html
 [lexsource]:https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.LexSource.html
 [drs]:https://docs.rs/rustlr/latest/rustlr/index.html
 [tktrait]:https://docs.rs/rustlr/latest/rustlr/lexer_interface/trait.Tokenizer.html

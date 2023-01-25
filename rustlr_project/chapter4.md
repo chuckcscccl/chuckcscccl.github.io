@@ -44,14 +44,13 @@ convenient and can make the grammar more readable.  They also lead to
 more reasonable abstract syntax.  Symbols such as `T` in `E --> T`
 often have no meaning at the abstract syntax level.  However, when
 there are a large number of operators and precedence levels, using such
-declarations alone may be problematic (See the original [ANSI C][c11] grammar).
+declarations alone may be problematic (See the [ANSI C][c11] grammar).
 Besides, these categories sometimes have genuine semantic meaning,
 such as the distinction between lvalues and rvalues.  
 
 The following grammar is found
 [here](https://cs.hofstra.edu/~cscccl/rustlr_project/autocalc/calcauto.grammar).
 ```
-# the auto directive means AST types and semantic actions will be generated
 auto
 lifetime 'lt
 terminals + - * / ( ) = ;
@@ -189,9 +188,12 @@ This would be required when you know that the type will be extended with
 other variants, as demonstrated above.
 
 The struct may be empty if all right-hand-side symbols of the single production
-rule are associated with the unit type and do not have labels. Rustlr will
-generate code to derive the Debug and Default traits for all structs (this
-works fine for recursive structs).
+rule are associated with the unit type and do not have labels.  In such
+cases, the *flatten* directive can eliminate the presence of these structs
+from ASTs (see below).
+
+Rustlr will generate code to derive the Debug and Default traits for
+all structs (this works fine for recursive structs).
 
 The name of the struct is the same as the non-terminal.  If any of the grammar symbols
 on the right-hand side of the rule is given a label, it would create a struct
@@ -228,15 +230,18 @@ generate a variant that also has its first component in an LBox.  The
 reachability relation also determines if a type requires a lifetime
 parameter.
 
-Although the generated parser code may not be very readable, rustlr also generated semantic actions that create instances of these AST types.  For example, the rule `Expr:Plus --> Expr + Expr` will have semantic action equivalent to one created from:
-
+Although the generated parser code may not be very readable, rustlr also generated semantic actions that create instances of these AST types.  For example, the rule `Expr:Plus --> Expr + Expr` will have a semantic action equivalent
+the following, manually written one:
 ```
 Expr --> Expr:[a] + Expr:[b] {Plus(a,b)}
 ```
 
-Recall from [Chapter 2][chap2] that a label of the form `[a]` means that the semantic value associated with the symbol is enclosed in an [LBox][2].
+When manually writing semantic actions, a label of the form `[a]` indicates
+to the parser to place the semantic value associated with the symbol in
+an [LBox][2].
 
-##### 'Passthru'
+
+##### **'Passthru'**
 
 There are three production rules in the grammar that do not
 correspond to enum variants: `Expr --> UnaryExpr`, `LetExpr --> Expr`

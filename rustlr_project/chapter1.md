@@ -1,15 +1,18 @@
-## Chapter 1: Unambiguous LR Grammar for Simple Calculator.
+## Chapter 1: Simple Calculator.
 
-Please note that this tutorial has been rewritten for **[Rustlr
-version 0.4][drs]**.  The [older tutorial](https://cs.hofstra.edu/~cscccl/rustlr_project/) is still available.
-Rustlr remains compatible with older grammars,
+Please note that this tutorial is for **[Rustlr version 0.4][drs]**.
+The [older tutorial](https://cs.hofstra.edu/~cscccl/rustlr_project/)
+is still available.  Rustlr remains compatible with older grammars,
 but some may need to be recompiled.
 
-This tutorial is written for those with sufficient background in
-computer science and in Rust programming, with some knowledge of
-context free grammars and basic bottom-up parsing concepts, namely the
-difference between bottom-up parsers and recursive-descent parsers.  The
-tutorial will start with a sample grammar:
+This tutorial is not an introduction to LR parsing, though only minimal
+knowledge of the concept is required to understand the examples.
+The first chapter of the tutorial will present three versions of a
+simple grammar illustrating the core features of Rustlr, while
+additional features and options will be presented in subsequent chapters.
+
+The first grammar parses integer arithmetic expressions and computes their
+values.
 
 ```ignore
 auto
@@ -37,43 +40,15 @@ declarations (see below), but we start with a proper grammar.
 After you **`cargo install rustlr`** you can produce a LALR parser from this
 grammar file, which must end with `.grammar`, with:
 
->  rustlr calc1.grammar
+>  **`rustlr calc1.grammar`**
 
-The first and the only required argument to the executable is the path of the
-grammar file.  Optional arguments (after the grammar path) that can be
-given to the executable are:
+This runs rustlr in its default LALR(1) mode.  This generates two
+files: **`calc1parser.rs`** and **`calc1_ast.rs`** in the working
+directory, although the second file won't contain much for this
+example.  It will derive the name of the grammar (test1) from the file
+path, unless there is a declaration of the form
 
-- **-lr1** : this will create a full LR(1) parser if LALR does not suffice.
-  The default is LALR, which works for most examples.  A sample grammar
-  requiring full LR(1) can be found **[here](https://cs.hofstra.edu/~cscccl/rustlr_project/nonlalr.grammar).**
-  Rustlr will always try to resolve shift-reduce conflicts by precedence and associativity
-  declarations (see later examples) and reduce-reduce conflicts by rule order.
-  So it will generate some kind of parser in any case.  The next chapter will
-  explain in detail how conflicts are resolved.
-- **-o filepath** : changes the default destination of the generated parser
-  and AST files.
-- **-nolex** : skips the automatic generation of a lexical scanner using the
-built-in [StrTokenizer][1].  This option is not recommended
-- **-auto** or **-genabsyn** : automatically generates abstract syntax data types and required semantic actions.  See [Chapter 4][oldchap4].  This feature is not recommended for beginners.
-- **-trace n**  : where n is a non-negative integer defining the trace level.
-  Level 0 prints nothing; level 1, which is the default, prints a little more
-  information.  Each greater level will print all information in lower levels.
-  -trace 3 will print the states of the LR finite state machine, which could
-  be useful for debugging and training the parser for error message output.
-- **-nozc** : this produces an older version of the runtime parser that does not use
-  the new zero-copy lexical analyzer trait.  This option is only retained
-  for backwards compatibility with grammars and lexical scanners written prior
-  to rustlr version 0.2.0.  This option is not capable of generating a lexical
-  scanner.
-- **-lrsd** : enables "LR parsing with selective delays".  This is an
-  experimental (but usable) extention of LR(1) parsing and accepts a larger
-  class of grammars.  See the [Appendix][appendix] for details.
-
-Rustlr generates two files: **`calc1parser.rs`** and **`calc1_ast.rs`**.
-It will derive the name of the grammar
-(test1) from the file path, unless there is a declaration of the form
-
->  grammarname somename
+>  `grammarname somename`
 
 in the grammar spec. The parser must import some elements of rustlr so it
 should be used in a crate.  We will come back to how to use the
@@ -82,8 +57,7 @@ generated parser later.
 ####  **GRAMMAR FORMAT**
 
 The first line in the grammar specification:
- 
->  auto
+>  `auto`
 
 is recommended in most situations.
 Specifically it means to generate the abstract syntax types and semantic actions
@@ -104,7 +78,7 @@ non-terminal before any production rules.
 
 
 ####  **Top Nonterminal**
->  topsym E
+>  `topsym E`
 
 Alternatively, `startsymbol E`.  One particular non-terminal symbol
 should be designated the top/start symbol: The parser generator will
@@ -177,7 +151,8 @@ The format of this line is as follows:
 
 >  valueterminal terminal_name ~ terminal_type ~ expected_token ~ token_value
 
-Each component is separated by a `~`, which is not a Rust operator. The last
+Each component is separated by a `~`, which is not a Rust operator.
+The *token_value* must be of type *terminal_type.*  The last
 two components will be used form a 'match' clause, so we can write,
 for example,
 ```
@@ -257,13 +232,15 @@ fn main() {
                .unwrap_or_else(|x|x);
   println!("result after parsing {}: {}",input,result);
 ```
-The main should be placed in a cargo crate with "rustlr = "0.4" in its
-dependencies.  The function `parse_with` is created *for each grammar*,
+The main.rs should be placed in a cargo crate with **"rustlr = "0.4"** in its
+dependencies. The files produced by rustlr for the grammar should also be
+inside the `src/` folder of the crate.
+ The function `parse_with` is created *for each grammar*,
 and returns a `Result<T,T>` where `T` is the semantic value type of the
 "topsym" (startsymbol) of the grammar. 
 
 This main expects a command-line argument.  Alternatively, 
-we can create a lexer from another source, such as a file, with:
+we can create a lexer from a file source with:
 ```
   let source = rustlr::LexSource::new("file path").unwrap();
   let mut tokenizer1 = calc1lexer::from_source(&source);
@@ -301,21 +278,23 @@ grammars, overusing these declarations can cause problems *(if you find
 yourself declaring the precendence of a bracket such as '[', you're in
 trouble).*  Even in this small grammar, care must be taken. Unary
 operators usually bind tighter than binary ones: the **unary -**
-should have precedence over `*` and `/`.  Thus the *rule* for unary
+should have precedence over `*` and `/` (the outcome may be the same but 
+the manner of evaluation is not).  Thus the *rule* for unary
 minus overrides the declared precedence of `-`.  Each grammar symbol
 is given a precedence level, which is by default zero.  Each *rule* is
 assigned a precedence equal to the symbol on the right-hand side with
 the highest precedence, unless overridden as in the unary minus rule.
 
-One place where precedence declarations are justified is the infamous
+One place where precedence declarations are arguably justified is the infamous
 "dangling else" problem:
 ```
 Statment --> if ( Expression ) Statment
 Statment --> if ( Expression ) Statment else Statment
 ```
 Rewriting this grammar unambiguously would require extra rules for all other
-cases of `Statmentt`.  Rustlr allows this problem to be solved by assigning
-'else' a higher precedence than 'if', which would force a shift.
+cases of `Statment`.  Rustlr allows this problem to be solved by assigning
+'else' a higher precedence than 'if', which would force a shift and associate
+each 'else' with the nearest 'if'.
 
 
 ### Generating Abstract Syntax Trees
@@ -342,6 +321,9 @@ F:Neg --> - F
 F:Val --> num
 F --> ( E )
 ```
+Lines in the grammar that begin with `#` are used for comments. (but
+the `#` must be at the very start of the line).
+
 Unlike the first grammar, there are no overrides for the types of non-terminals
 nor are there manually written semantic actions.  However, the grammar was
 carefully written to distinguish *parse trees* from *abstract syntax trees*.
