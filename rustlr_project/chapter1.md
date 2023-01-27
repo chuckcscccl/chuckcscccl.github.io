@@ -102,7 +102,7 @@ the first type of label and we shall explain the other with the next grammar.
 The right-hand side of a rule may be empty, which will make the
 non-terminal on the left side of `-->` "nullable".
            
-####  **SEMANTIC ACTIONS**
+####  **Semantic Actions**
 
 Every terminal and non-terminal symbol is associated with the type of
 a semantic value.  In the `auto` mode types and semantic actions are
@@ -123,7 +123,7 @@ will have access to any labels associated with the symbols defined
 using ":".
 
 
-#### **CREATING A LEXICAL SCANNER FOR THE TERMINAL SYMBOLS**
+#### **Creating a Lexical Scanner for the Terminal Symbols**
 
 A lexical scanner is automatically created from the declarations of
 the terminal symbols of the grammar.  These terminals can be
@@ -160,56 +160,10 @@ for example,
 ```
 
 The token category **`Num`** is a variant of [RawToken][rtk], the type of token
-produced by the built-in generic tokenizer, [StrTokenizer][1].  
-Readers should become familiar with **[RawToken][rtk]**, which 
-contains the following principal variants:
-
- - **Alphanum(&str)**: where the string represents an (ascii) alphanumeric
-   symbol that does not start with a digit.  The underscore character is
-   also recognized as alphanumeric.
- - **Symbol(&str)**: a string consisting of non alphanumeric characters such as "==",
- - **Num(i64)**: Both decimal and hexidecimals (starting
- with "0x") are recognized as Nums.  However, although the returned value is signed,
- a negative integer such as "-12" is recognized as a Symbol("-") followed by a Num(12),
- and thus must be recognized at the parser level.  Despite this, it is still more convenient
- to return the more generic signed form.  Also, "3u8" would be
- reconized as a Num(3) followed by an Alphanum("u8").
- - **Float(f64)**: like the case of Num, this represents unsigned, decimal floats.
- - **BigNumber(&str)**: Numbers that are too large for i64 or f64 are represented verbatim.
- - **Char(char)**: this represents a character literal in single quotes such as 'c'
- - **Strlit(&str)**: A string literal delineated by double quotes.  These strings can span multiple lines and can contain nested, escaped quotes.  **The
- surrounding double quotes are included in the literal**.
- - **Newline**: optional token indicating a newline character. These tokens
- are **not** returned by the tokenizer by default, but can be returned with
- the directive
-   > lexattribute keep_newline = true
- - **Whitespace(usize)**: another optional token that carries the number of
-   consecutive whitespaces.  This option is likewise enabled with
-   > lexattribute keep_whitespace = true   
- - **Verbatim(&str)**: another optional token carrying verbatim text, usually
-   comments.  Enable with
-   > lexattribute keep_comment = true
-   
-   By default, [StrTokenizer][1] recognizes C-style comments, but this can
-   be customized with, for example,
-   > lexattribute set_line_comment("#")
-
- - **Custom(&'static str, &str)**: user-defined token type.  The static
-   string defines the token type-key and the other string should
-   point to raw text.
-   This token type is intended to be paired with declarations such as
-   
-   > lexattribute add_custom("uint32",r"^[0-9]+u32")
-
-   Text matching the given [regex][regex] will be returned as a
-   Custom("uint32",_) token.  Custom regular expressions
-   should not start with whitespaces and will override all other token types.
-   Multiple custom types are matched by the order in which they appear in
-   the grammar file.  An anchor (^) will always
-   be added to the start of the regex if none is given.
-
-**Please note that malformed lexattribute declarations will only be 
-reported when the generated parser is compiled.**
+produced by the built-in generic tokenizer, [StrTokenizer][1].
+Other common categories include **Alphanum** for alphanumeric sequences,
+**Symbol** for non-alphanumeric symbols, and **Strlit** for string literals.
+Consult the [next chapter][chap2] for their usage.
 
 The generated lexer is a struct called calc1lexer alongside the make_parser()
 function inside the generated parser file.  One creates a mutable instance
@@ -431,3 +385,5 @@ that will be explained fully in subsequent chapters.
 [fromraw]:https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.TerminalToken.html#method.from_raw
 [ttnew]:https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.TerminalToken.html#method.new
 [regex]:https://docs.rs/regex/latest/regex/
+[chap1]:https://chuckcscccl.github.io/rustlr_project/chapter1.html
+[chap2]:https://chuckcscccl.github.io/rustlr_project/chapter2.html
