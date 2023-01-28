@@ -199,6 +199,7 @@ fn main() {
   let result = parse_with(&mut parser1, &mut tokenizer1)
                .unwrap_or_else(|x|x);
   println!("result after parsing {}: {}",input,result);
+}//main
 ```
 The main.rs should be placed in a cargo crate with **"rustlr = "0.4"** in its
 dependencies. The files produced by rustlr for the grammar should also be
