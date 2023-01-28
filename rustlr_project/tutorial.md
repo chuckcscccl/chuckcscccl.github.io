@@ -1,19 +1,16 @@
 ## RUSTLR: Bottom-Up Parser Generator for Rust, Version 0.4.x
 
-<HR>
-
 [Rustlr](https://crates.io/crates/rustlr) was originally created as a
-research platform to explore advanced ideas in
-formal grammars and parsing.  Unlike many academic
-projects, however, rustlr was always designed to be practcial and can compete
-with other parser generators in terms of features and usability.
-Among its abilities are
+research platform to explore advanced ideas in formal grammars and
+parsing.  Unlike many academic projects, however, rustlr was always
+designed to be practcial and can compete with other parser generators
+in terms of features and usability.  Among its abilities are
 
  1. The option of automatically generating the abstract syntax datatypes 
-and required semantic actions from hints given in the grammar, 
+and semantic actions from hints given in the grammar, 
 in whole or in part.  The AST types do not necessarily mirror the format
 of the grammar: one can declare dependencies that allow multiple non-terminal
-symbols to share a common type (see Chapters 4 and 6 of the tutorial).
+symbols to share a common type.
 
  2. The option of generating recursive AST types using the "bumpalo" crate,
 which enables deep pattern matching on recursive structures by replacing
@@ -34,8 +31,9 @@ Other experimental features include an "unexpected wildcard" symbol.
    terminal symbols.
 
 
-Rustlr also implements capabilities found in traditional parsing tools
-such as operator precedence and associativity declarations. 
+Rustlr also implements capabilities found in traditional LR parsing tools
+including operator precedence and associativity declarations and error
+recovery mechanisms. 
 Rustlr is designed for the parsing of programming language
 syntax.  It is not designed to parse natural languages, or binary
 data, although there's also nothing that prevents it from used for
@@ -78,9 +76,7 @@ principal capabilities of rustlr.
 
 <li> Additional Full Example: <a href="https://crates.io/crates/lambdascript">Lambdascript</a>.  Program implementing and tracing beta-reduction
 steps for the untyped lambda calculus.  This crate was created using rustlr 
-and <a href="lambdascript/untyped.grammar">this grammar</a>.
-<li> (Deprecated versions of <a href="test1grammar0.html">chapter 1</a>
-and <a href="calculatorgrammar0.html">chapter 2</a>)
+and <a href="https://cs.hofstra.edu/~cscccl/rustlr_project/lambdascript/untyped.grammar">this grammar</a>.
 </ul>
 
 <p>

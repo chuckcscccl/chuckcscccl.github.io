@@ -1,7 +1,7 @@
 ## Chapter 1: Simple Calculator.
 
 Please note that this tutorial is for **[Rustlr version 0.4.x][drs]**.
-The [older tutorial](https://cs.hofstra.edu/~cscccl/rustlr_project/)
+The [older tutorial](https://cs.hofstra.edu/~cscccl/rustlr_project/index3.html)
 is still available.  Rustlr remains compatible with older grammars,
 but some may need to be recompiled.
 
