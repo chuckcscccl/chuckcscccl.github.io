@@ -747,19 +747,19 @@ The AST types that are created by this grammar are
 ```
 #[derive(Debug)]
 pub enum Number<'lt> {
-  Int(i64),
-  Bignum(Option<()>,&'lt str),
   Float(f64),
+  Int(i64),
+  Bignum{m:Option<()>,_item1_:&'lt str},
   Number_Nothing,
 }
 impl<'lt> Default for Number<'lt> { fn default()->Self { Number::Number_Nothing } }
 
 #[derive(Debug)]
 pub enum Value<'lt> {
-  Str(&'lt str),
-  Number(Number<'lt>),
-  NULL,
   Boolean(bool),
+  Number(Number<'lt>),
+  Str(&'lt str),
+  NULL,
   Object(Vec<LBox<KeyValuePair<'lt>>>),
   List(Vec<LBox<Value<'lt>>>),
   Value_Nothing,
@@ -838,3 +838,6 @@ from the above.
 [ttnew]:https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.TerminalToken.html#method.new
 [regex]:https://docs.rs/regex/latest/regex/
 [appendix]:https://chuckcscccl.github.io/rustlr_project/appendix.html
+[take]:https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html#method.take
+[c11]:https://cs.hofstra.edu/~cscccl/rustlr_project/cparser/cauto.grammar
+[appendix]:  https://cs.hofstra.edu/~cscccl/rustlr_project/appendix.html
