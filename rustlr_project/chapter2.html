@@ -1287,12 +1287,11 @@ input#__markdown-viewer__show-tools:checked ~ #__markdown-viewer__toc::before {
   text-decoration:none;
   margin: .5em auto;
 }
-</style><style id="__markdown-viewer__custom_css"></style><meta name="viewport" content="width=device-width, initial-scale=1"><title>Chapter 2: Advanced Calculator</title></head><body><div id="__markdown-viewer__tools" class="floating"><input type="checkbox" id="__markdown-viewer__show-tools"><label for="__markdown-viewer__show-tools"></label><div id="__markdown-viewer__toc" class="toggleable"><ul><li><a href="#chapter-2-advanced-calculator">Chapter 2: Advanced Calculator</a><ul><li><a href="#1-creating-and-invoking-the-parser">1. Creating and Invoking the Parser</a><ul><li><a href="#rustlr-command-line-options">rustlr command line options</a></li><li><a href="#sample-main">Sample main</a></li></ul></li><li><a href="#2-input-lifetime">2. Input Lifetime</a></li><li><a href="#3-configuring-the-lexical-scanner">3. Configuring the Lexical Scanner</a></li><li><a href="#4-error-recovery">4. Error Recovery</a></li><li><a href="#5-rules-of-conflict-resolution">5. Rules of Conflict Resolution</a></li><li><a href="#6-rules-of-ast-generation">6. Rules of AST Generation</a><ul><li><a href="#passthru">'Passthru'</a></li><li><a href="#flattening-structs">Flattening Structs</a></li><li><a href="#emphasizing-the-importance-of-labels">Emphasizing the Importance of Labels</a></li><li><a href="#overriding-types-and-actions">Overriding Types and Actions</a></li></ul></li><li><a href="#7-using-regular-expression-style-operators-in-grammars">7. Using Regular-Expression Style Operators in Grammars</a><ul><li><a href="#special-operators">Special Operators</a></li><li><a href="#nesting-restriction">Nesting Restriction</a></li></ul></li><li><a href="#8-json-parser">8. JSON Parser</a></li></ul></li></ul></div><p class="toggleable">Pick a markdown and code style:<br><select id="__markdown-viewer__mdselect"><option value="sss">default</option><option value="github">github</option></select><select id="__markdown-viewer__hlselect"><option value="a11y-dark">a11y-dark</option><option value="a11y-light">a11y-light</option><option value="a11y-auto">a11y-auto</option><option value="agate">agate</option><option value="androidstudio">androidstudio</option><option value="an-old-hope">an-old-hope</option><option value="arduino-light">arduino-light</option><option value="arta">arta</option><option value="ascetic">ascetic</option><option value="atelier-cave-dark">atelier-cave-dark</option><option value="atelier-cave-light">atelier-cave-light</option><option value="atelier-cave-auto">atelier-cave-auto</option><option value="atelier-dune-dark">atelier-dune-dark</option><option value="atelier-dune-light">atelier-dune-light</option><option value="atelier-dune-auto">atelier-dune-auto</option><option value="atelier-estuary-dark">atelier-estuary-dark</option><option value="atelier-estuary-light">atelier-estuary-light</option><option value="atelier-estuary-auto">atelier-estuary-auto</option><option value="atelier-forest-dark">atelier-forest-dark</option><option value="atelier-forest-light">atelier-forest-light</option><option value="atelier-forest-auto">atelier-forest-auto</option><option value="atelier-heath-dark">atelier-heath-dark</option><option value="atelier-heath-light">atelier-heath-light</option><option value="atelier-heath-auto">atelier-heath-auto</option><option value="atelier-lakeside-dark">atelier-lakeside-dark</option><option value="atelier-lakeside-light">atelier-lakeside-light</option><option value="atelier-lakeside-auto">atelier-lakeside-auto</option><option value="atelier-plateau-dark">atelier-plateau-dark</option><option value="atelier-plateau-light">atelier-plateau-light</option><option value="atelier-plateau-auto">atelier-plateau-auto</option><option value="atelier-savanna-dark">atelier-savanna-dark</option><option value="atelier-savanna-light">atelier-savanna-light</option><option value="atelier-savanna-auto">atelier-savanna-auto</option><option value="atelier-seaside-dark">atelier-seaside-dark</option><option value="atelier-seaside-light">atelier-seaside-light</option><option value="atelier-seaside-auto">atelier-seaside-auto</option><option value="atelier-sulphurpool-dark">atelier-sulphurpool-dark</option><option value="atelier-sulphurpool-light">atelier-sulphurpool-light</option><option value="atelier-sulphurpool-auto">atelier-sulphurpool-auto</option><option value="atom-one-dark">atom-one-dark</option><option value="atom-one-dark-reasonable">atom-one-dark-reasonable</option><option value="atom-one-light">atom-one-light</option><option value="brown-paper">brown-paper</option><option value="codepen-embed">codepen-embed</option><option value="color-brewer">color-brewer</option><option value="darcula">darcula</option><option value="dark">dark</option><option value="default">default</option><option value="docco">docco</option><option value="dracula">dracula</option><option value="far">far</option><option value="foundation">foundation</option><option value="github">github</option><option value="github-gist">github-gist</option><option value="gml">gml</option><option value="googlecode">googlecode</option><option value="gradient-dark">gradient-dark</option><option value="grayscale">grayscale</option><option value="gruvbox-dark">gruvbox-dark</option><option value="gruvbox-light">gruvbox-light</option><option value="gruvbox-auto">gruvbox-auto</option><option value="hopscotch">hopscotch</option><option value="hybrid">hybrid</option><option value="idea">idea</option><option value="ir-black">ir-black</option><option value="isbl-editor-dark">isbl-editor-dark</option><option value="isbl-editor-light">isbl-editor-light</option><option value="isbl-editor-auto">isbl-editor-auto</option><option value="kimbie">kimbie</option><option value="kimbie">kimbie</option><option value="lightfair">lightfair</option><option value="lioshi">lioshi</option><option value="magula">magula</option><option value="mono-blue">mono-blue</option><option value="monokai">monokai</option><option value="monokai-sublime">monokai-sublime</option><option value="night-owl">night-owl</option><option value="nnfx">nnfx</option><option value="nnfx-dark">nnfx-dark</option><option value="nord">nord</option><option value="obsidian">obsidian</option><option value="ocean">ocean</option><option value="paraiso-dark">paraiso-dark</option><option value="paraiso-light">paraiso-light</option><option value="paraiso-auto">paraiso-auto</option><option value="pojoaque">pojoaque</option><option value="purebasic">purebasic</option><option value="qtcreator_dark">qtcreator_dark</option><option value="qtcreator_light">qtcreator_light</option><option value="qtcreator_auto">qtcreator_auto</option><option value="railscasts">railscasts</option><option value="rainbow">rainbow</option><option value="routeros">routeros</option><option value="school-book">school-book</option><option value="shades-of-purple">shades-of-purple</option><option value="solarized-dark">solarized-dark</option><option value="solarized-light">solarized-light</option><option value="solarized-auto">solarized-auto</option><option value="srcery">srcery</option><option value="sunburst">sunburst</option><option value="tomorrow">tomorrow</option><option value="tomorrow-night">tomorrow-night</option><option value="tomorrow-night-blue">tomorrow-night-blue</option><option value="tomorrow-night-bright">tomorrow-night-bright</option><option value="tomorrow-night-eighties">tomorrow-night-eighties</option><option value="vs">vs</option><option value="vs2015">vs2015</option><option value="xcode">xcode</option><option value="xt256">xt256</option><option value="zenburn">zenburn</option></select></p><p class="toggleable"><a id="__markdown-viewer__download" download="markdown.html" style="display: none;" href="blob:null/855a66b2-9c6c-47ea-98a8-7fc7ba01272c">Download as HTML</a></p></div><div class="markdownRoot"><h2 id="chapter-2-advanced-calculator">Chapter 2: Advanced Calculator</h2>
-<p>In the second chapter of this tutorial, we write a more advanced
-version of the calculator example and describe a more complete set of
-features as well further details of capabilities introduced in
+</style><style id="__markdown-viewer__custom_css"></style><meta name="viewport" content="width=device-width, initial-scale=1"><title>Chapter 2: Advanced Examples</title></head><body><div id="__markdown-viewer__tools" class="floating"><input type="checkbox" id="__markdown-viewer__show-tools"><label for="__markdown-viewer__show-tools"></label><div id="__markdown-viewer__toc" class="toggleable"><ul><li><a href="#chapter-2-advanced-examples">Chapter 2: Advanced Examples</a><ul><li><a href="#1-creating-and-invoking-the-parser">1. Creating and Invoking the Parser</a><ul><li><a href="#rustlr-command-line-options">Rustlr Command-Line Options</a></li><li><a href="#sample-main">Sample main</a></li></ul></li><li><a href="#2-input-lifetime">2. Input Lifetime</a></li><li><a href="#3-configuring-the-lexical-scanner">3. Configuring the Lexical Scanner</a></li><li><a href="#4-error-recovery">4. Error Recovery</a></li><li><a href="#5-rules-of-conflict-resolution">5. Rules of Conflict Resolution</a></li><li><a href="#6-rules-of-ast-generation">6. Rules of AST Generation</a><ul><li><a href="#passthru">'Passthru'</a></li><li><a href="#flattening-structs">Flattening Structs</a></li><li><a href="#emphasizing-the-importance-of-labels">Emphasizing the Importance of Labels</a></li><li><a href="#overriding-types-and-actions">Overriding Types and Actions</a></li></ul></li><li><a href="#7-using-regular-expression-style-operators-in-grammars">7. Using Regular-Expression Style Operators in Grammars</a><ul><li><a href="#special-operators">Special Operators</a></li><li><a href="#nesting-restriction">Nesting Restriction</a></li></ul></li><li><a href="#8-json-parser">8. JSON Parser</a></li></ul></li></ul></div><p class="toggleable">Pick a markdown and code style:<br><select id="__markdown-viewer__mdselect"><option value="sss">default</option><option value="github">github</option></select><select id="__markdown-viewer__hlselect"><option value="a11y-dark">a11y-dark</option><option value="a11y-light">a11y-light</option><option value="a11y-auto">a11y-auto</option><option value="agate">agate</option><option value="androidstudio">androidstudio</option><option value="an-old-hope">an-old-hope</option><option value="arduino-light">arduino-light</option><option value="arta">arta</option><option value="ascetic">ascetic</option><option value="atelier-cave-dark">atelier-cave-dark</option><option value="atelier-cave-light">atelier-cave-light</option><option value="atelier-cave-auto">atelier-cave-auto</option><option value="atelier-dune-dark">atelier-dune-dark</option><option value="atelier-dune-light">atelier-dune-light</option><option value="atelier-dune-auto">atelier-dune-auto</option><option value="atelier-estuary-dark">atelier-estuary-dark</option><option value="atelier-estuary-light">atelier-estuary-light</option><option value="atelier-estuary-auto">atelier-estuary-auto</option><option value="atelier-forest-dark">atelier-forest-dark</option><option value="atelier-forest-light">atelier-forest-light</option><option value="atelier-forest-auto">atelier-forest-auto</option><option value="atelier-heath-dark">atelier-heath-dark</option><option value="atelier-heath-light">atelier-heath-light</option><option value="atelier-heath-auto">atelier-heath-auto</option><option value="atelier-lakeside-dark">atelier-lakeside-dark</option><option value="atelier-lakeside-light">atelier-lakeside-light</option><option value="atelier-lakeside-auto">atelier-lakeside-auto</option><option value="atelier-plateau-dark">atelier-plateau-dark</option><option value="atelier-plateau-light">atelier-plateau-light</option><option value="atelier-plateau-auto">atelier-plateau-auto</option><option value="atelier-savanna-dark">atelier-savanna-dark</option><option value="atelier-savanna-light">atelier-savanna-light</option><option value="atelier-savanna-auto">atelier-savanna-auto</option><option value="atelier-seaside-dark">atelier-seaside-dark</option><option value="atelier-seaside-light">atelier-seaside-light</option><option value="atelier-seaside-auto">atelier-seaside-auto</option><option value="atelier-sulphurpool-dark">atelier-sulphurpool-dark</option><option value="atelier-sulphurpool-light">atelier-sulphurpool-light</option><option value="atelier-sulphurpool-auto">atelier-sulphurpool-auto</option><option value="atom-one-dark">atom-one-dark</option><option value="atom-one-dark-reasonable">atom-one-dark-reasonable</option><option value="atom-one-light">atom-one-light</option><option value="brown-paper">brown-paper</option><option value="codepen-embed">codepen-embed</option><option value="color-brewer">color-brewer</option><option value="darcula">darcula</option><option value="dark">dark</option><option value="default">default</option><option value="docco">docco</option><option value="dracula">dracula</option><option value="far">far</option><option value="foundation">foundation</option><option value="github">github</option><option value="github-gist">github-gist</option><option value="gml">gml</option><option value="googlecode">googlecode</option><option value="gradient-dark">gradient-dark</option><option value="grayscale">grayscale</option><option value="gruvbox-dark">gruvbox-dark</option><option value="gruvbox-light">gruvbox-light</option><option value="gruvbox-auto">gruvbox-auto</option><option value="hopscotch">hopscotch</option><option value="hybrid">hybrid</option><option value="idea">idea</option><option value="ir-black">ir-black</option><option value="isbl-editor-dark">isbl-editor-dark</option><option value="isbl-editor-light">isbl-editor-light</option><option value="isbl-editor-auto">isbl-editor-auto</option><option value="kimbie">kimbie</option><option value="kimbie">kimbie</option><option value="lightfair">lightfair</option><option value="lioshi">lioshi</option><option value="magula">magula</option><option value="mono-blue">mono-blue</option><option value="monokai">monokai</option><option value="monokai-sublime">monokai-sublime</option><option value="night-owl">night-owl</option><option value="nnfx">nnfx</option><option value="nnfx-dark">nnfx-dark</option><option value="nord">nord</option><option value="obsidian">obsidian</option><option value="ocean">ocean</option><option value="paraiso-dark">paraiso-dark</option><option value="paraiso-light">paraiso-light</option><option value="paraiso-auto">paraiso-auto</option><option value="pojoaque">pojoaque</option><option value="purebasic">purebasic</option><option value="qtcreator_dark">qtcreator_dark</option><option value="qtcreator_light">qtcreator_light</option><option value="qtcreator_auto">qtcreator_auto</option><option value="railscasts">railscasts</option><option value="rainbow">rainbow</option><option value="routeros">routeros</option><option value="school-book">school-book</option><option value="shades-of-purple">shades-of-purple</option><option value="solarized-dark">solarized-dark</option><option value="solarized-light">solarized-light</option><option value="solarized-auto">solarized-auto</option><option value="srcery">srcery</option><option value="sunburst">sunburst</option><option value="tomorrow">tomorrow</option><option value="tomorrow-night">tomorrow-night</option><option value="tomorrow-night-blue">tomorrow-night-blue</option><option value="tomorrow-night-bright">tomorrow-night-bright</option><option value="tomorrow-night-eighties">tomorrow-night-eighties</option><option value="vs">vs</option><option value="vs2015">vs2015</option><option value="xcode">xcode</option><option value="xt256">xt256</option><option value="zenburn">zenburn</option></select></p><p class="toggleable"><a id="__markdown-viewer__download" download="markdown.html" style="display: none;" href="blob:null/3de3f145-9772-4b93-a848-4db8bebd7604">Download as HTML</a></p></div><div class="markdownRoot"><h2 id="chapter-2-advanced-examples">Chapter 2: Advanced Examples</h2>
+<p>In the second chapter of this tutorial, we describe a more complete set of
+features of rustlr as well further details of it's capabilities introduced in
 <a href="https://chuckcscccl.github.io/rustlr_project/chapter1.html">Chapter 1</a>.</p>
-<p>The language defined by the grammar of this chapter supports expressions
+<p>The language defined by the first grammar of this chapter supports expressions
 of the form
 <strong><code>let x = 1 in (let x = 10 in x*x) + x</code></strong> (which should evaluate to 101).
 The lexical analyzer and parser must recognize alphanumeric symbols
@@ -1300,7 +1299,8 @@ such as <code>x</code> as variables.  This version of the calculator also recong
 a series of expressions separated by ; (semicolon), giving us the opportunity
 to demonstrate a simple error recovery mechanism.</p>
 <p>The grammar (with some additions) is as follows:</p>
-<pre><code>auto
+<pre><code># Advanced Calculator
+auto
 lifetime <span class="hljs-symbol">'lt</span>
 terminals + - * / = ;
 terminals <span class="hljs-keyword">let</span> <span class="hljs-keyword">in</span>
@@ -1346,11 +1346,11 @@ lexical scanner</p>
 <h3 id="1-creating-and-invoking-the-parser">1. Creating and Invoking the Parser</h3>
 <p>To build a working parser and evaluator, <code>cargo new</code> a crate with "rustlr = 0.4"
 in its dependencies. Copy the grammar into the crate directory as
-'calcauto.grammar'.  Then run</p>
+<strong>'calcauto.grammar'</strong>.  Then run</p>
 <blockquote>
 <p><strong><code>rustlr calcauto.grammar -o src/</code></strong>.</p>
 </blockquote>
-<h4 id="rustlr-command-line-options"><strong>rustlr</strong> command line options</h4>
+<h4 id="rustlr-command-line-options"><strong>Rustlr Command-Line Options</strong></h4>
 <p>The first and the only required argument to the executable is the path of the
 grammar file.  Optional arguments (after the grammar path) that can be
 given to the executable are:</p>
@@ -1381,14 +1381,14 @@ experimental (but usable) extention of LR(1) parsing and accepts a larger
 class of grammars.  See the <a href="https://chuckcscccl.github.io/rustlr_project/appendix.html">Appendix</a> for details.</li>
 </ul>
 <h4 id="sample-main">Sample main</h4>
-<p>Assuming that <code>calcautoparser.rs</code> and <code>calcauto_ast.rs</code> are in the crate's
-<code>src/</code> directory.  Copy the sample input file , <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/input.txt">input.txt</a>
+<p>From <code>calcauto.grammar</code> rustlr generates <code>calcautoparser.rs</code> and <code>calcauto_ast.rs</code> in the crate's
+<code>src/</code> directory.  Copy the sample input file, <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/input.txt">input.txt</a>
 into the crate directory.
 The input intentionally contains both syntactic and semantic errors to
 test error reporting and recovery.
 Copy <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/src/main.rs">main.rs</a> into <code>src/</code>.
 The <code>main</code> function in this <a href="http://main.rs">main.rs</a> invokes the parser and evaluates the
-cons-list of expressions returned.</p>
+list of expressions returned.</p>
 <pre><code><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() {
    <span class="hljs-keyword">let</span> src = rustlr::LexSource::new(<span class="hljs-string">"input.txt"</span>).expect(<span class="hljs-string">"input not found"</span>);
    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> scanner4 = calcautoparser::calcautolexer::from_source(&amp;src);
@@ -1403,12 +1403,13 @@ results are partial.."</span>); x});
 </code></pre>
 <p>The last two lines of main relies on additional structures and functions
 defined inside <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/src/main.rs">main.rs</a>.</p>
-<p>The crate is now ready for <strong><code>cargo run</code></strong>.</p>
+<p>The crate is now ready for <strong><code>cargo run</code></strong>. You will see that error recovery
+was effective and results were displayed for lines that parsed correctly.</p>
 <hr>
 <p>We now examine more closely the different components of the grammar.</p>
 <h3 id="2-input-lifetime">2. Input Lifetime</h3>
 <p>Rustlr's built-in lexical analyzer, <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html">StrTokenizer&lt;'t&gt;</a> returns
-alphanumeric <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/enum.RawToken.html">tokens</a> in the form <code>Alphanum(s)</code> where <code>s</code> is of type
+<a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/enum.RawToken.html">tokens</a> such as <code>Alphanum(s)</code> where <code>s</code> is of type
 <code>&amp;'t str</code>.  The <strong><code>lifetime 'lt</code></strong> declaration allows type
 specifications in the grammar (in <code>valueterminal</code> lines) to be
 consistent with the generated AST types.  The lifetime is that of the
@@ -1419,16 +1420,16 @@ because they're declared as terminal symbols.</p>
 <p>The built-in lexical scanner, <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html">StrTokenizer</a>, recognizes a number
 of common categories of lexical tokens, with the option to add custom
 categories.  Users should become familiar with the token type,
-<strong><a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/enum.RawToken.html">RawToken</a></strong>, which consists of the following principal
+<strong><a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/enum.RawToken.html">RawToken&lt;'t&gt;</a></strong>, which consists of the following principal
 variants:</p>
 <ul>
 <li>
-<p><strong>Alphanum(&amp;str)</strong>: where the string represents an (ascii) alphanumeric
+<p><strong>Alphanum(&amp;'t str)</strong>: where the string represents an (ascii) alphanumeric
 symbol that does not start with a digit.  The underscore character is
 also recognized as alphanumeric.</p>
 </li>
 <li>
-<p><strong>Symbol(&amp;str)</strong>: a string consisting of non alphanumeric characters such as "==". Longer sequences (up to 3) have priority over shorter prefixes.</p>
+<p><strong>Symbol(&amp;'t str)</strong>: a string consisting of non alphanumeric characters such as "==". Longer sequences (up to 3) have priority over shorter prefixes.</p>
 </li>
 <li>
 <p><strong>Num(i64)</strong>: Both decimal and hexidecimals (starting
@@ -1442,13 +1443,13 @@ reconized as a Num(3) followed by an Alphanum("u8").</p>
 <p><strong>Float(f64)</strong>: like the case of Num, this represents unsigned, decimal floats.</p>
 </li>
 <li>
-<p><strong>BigNumber(&amp;str)</strong>: Numbers that are too large for i64 or f64 are represented verbatim.</p>
+<p><strong>BigNumber(&amp;'t str)</strong>: Numbers that are too large for i64 or f64 are represented verbatim.</p>
 </li>
 <li>
 <p><strong>Char(char)</strong>: this represents a character literal in single quotes such as 'c'</p>
 </li>
 <li>
-<p><strong>Strlit(&amp;str)</strong>: A string literal delineated by double quotes.  These strings can span multiple lines and can contain nested, escaped quotes.  <strong>The
+<p><strong>Strlit(&amp;'t str)</strong>: A string literal delineated by double quotes.  These strings can span multiple lines and can contain nested, escaped quotes.  <strong>The
 surrounding double quotes are included in the literal</strong>.</p>
 </li>
 <li>
@@ -1467,7 +1468,7 @@ consecutive whitespaces.  This option is likewise enabled with</p>
 </blockquote>
 </li>
 <li>
-<p><strong>Verbatim(&amp;str)</strong>: another optional token carrying verbatim text, usually
+<p><strong>Verbatim(&amp;'t str)</strong>: another optional token carrying verbatim text, usually
 comments.  Enable with</p>
 <blockquote>
 <p>lexattribute keep_comment = true</p>
@@ -1479,7 +1480,7 @@ be customized with, for example,</p>
 </blockquote>
 </li>
 <li>
-<p><strong>Custom(&amp;'static str, &amp;str)</strong>: user-defined token type.  The static
+<p><strong>Custom(&amp;'static str, &amp;'t str)</strong>: user-defined token type.  The static
 string names the token type and the other string
 points to raw text.
 This token type is intended to be paired with declarations in the
@@ -1533,7 +1534,7 @@ different syntactic categories in the form of extra non-terminals
 <p>The operator precedence and associativity declarations are used to
 (statically) resolve <em>shift-reduce</em> conflicts in generating the LR
 state machine.  A terminal symbol that's to be used as an operator can
-be declared as left, right or non-associative and a positive integer
+be declared as left, right or non-associative (<code>nonassoc</code>) and a positive integer
 defines the precedence level.  Production rules can also be assigned
 precedence as illustrated in [Chapter 1].  If a production rule is not
 explicitly assigned a precedence, it is assigned to be the same as
@@ -1562,7 +1563,7 @@ conflicts are warned at trace level 5 or higher.</li>
 favoring the rule that appears first in the grammar, although a
 warning is always sent to stdout regardless of trace level.</p>
 <p>With these rules of resolution, rustlr will generate some
-deterministic parser for any grammar.  But grammars with unresolved
+deterministic parser for any grammar.  But grammars with unexplained
 conflicts usually indicate that the grammar contains serious problems
 that, if left unattended, will eventually lead to unexpected
 consequences.  Fixing the conflicts is often non-trivial, which is
@@ -1627,7 +1628,7 @@ the position of the symbol on the right-hand side.
 Unit-typed values can also become part of the enum if the symbol is given an
 explicit label.  For example: <strong><code>A:case1 --&gt; a B</code></strong> where terminal symbol <code>a</code>
 is of unit type, will result in a enum variant
-<code>case1(B)</code>. whereas <strong><code>A:acase --&gt; a:m B</code></strong> will result in a
+<code>case1(B)</code>. whereas <strong><code>A:case1 --&gt; a:m B</code></strong> will result in a
 variant <code>case1{m:(), _item1_:B}</code>.  It is recommended that either
 labels are given to all right-hand side symbols that are to be included in
 the variant, or to none at all.</p>
@@ -1826,14 +1827,16 @@ the following rule</p>
 <pre><code><span class="hljs-meta">#[derive(Default,Debug)]</span>
 <span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ExprList</span></span>&lt;<span class="hljs-symbol">'lt</span>&gt;(<span class="hljs-keyword">pub</span> <span class="hljs-built_in">Vec</span>&lt;LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;&gt;,);
 </code></pre>
-<p>The operator <strong><code>*</code></strong> means a sequence of zero or more.  This is done by generating several new non-terminal symbols internally.
+<p>Vectors created for these operators always contain values inside <a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html">LBoxes</a>
+to retain the lexical-position information.
+The operator <strong><code>*</code></strong> means a sequence of zero or more.  This is done by generating several new non-terminal symbols internally.
 Essentially, these correspond to</p>
 <pre><code>ES0 --&gt; Expr:e ; {e}
 ES1 --&gt; { Vec::<span class="hljs-built_in">new</span>() }
 ES1 --&gt; ES1:v ES0:[e] { v.<span class="hljs-built_in">push</span>(e); v }
 ExprList --&gt; ES1:v {v}
 </code></pre>
-<p>These rules replace the original in the grammar.  In the -auto mode,
+<p>These rules replace the original in the grammar.  In the <code>auto</code> mode,
 rustlr also infers that symbols such as ; has no meaning at the
 AST level (because it has the unit type and noprecedence/associativity
 declaration). It therefore infers that the type of the nonterminal ES0
@@ -1845,11 +1848,7 @@ ExprList <span class="hljs-comment">--&gt; ES0*</span>
 </code></pre>
 <p>The presence of the left-hand side label will cause the AST generator to
 create an AST representation for the semicolon (assuming that is what's
-desired).  Another situation where the user has to write the ES0 rule
-manually is if <code>-auto</code> (or <code>-genabsyn</code>) is not specified, which implies
-that a rule with an explicit semantic action is required.  Generally speaking,
-the *, + and ? symbols will still work without <code>-auto</code> if it follows a
-single grammar symbol.</p>
+desired).</p>
 <p>The type rustlr associates with the new non-terminal ES1
 will be <code>Vec&lt;LBox&lt;Expr&lt;'lt&gt;&gt;</code> and semantic actions are generated to
 create the vector for both ES1 rules.  A <strong><code>+</code></strong> means one or more
@@ -1863,7 +1862,7 @@ the right-hand side of its lone production rule.</p>
 ExprList --&gt; (LetExpr ;)*
 </code></pre>
 <p>This is because rustlr generates an internal non-terminal to represent the right-hand side <code>*</code> expression and assigns it type <code>Vec&lt;LBox&lt;Expr&lt;'lt&gt;&gt;&gt;</code>.
-It then recognizes that this is the only symbol on the
+It then recognizes that this is a pass-thru case: the only symbol on the
 right, which is of the same type as the left-hand side nonterminal <code>ExprList</code>
 as declared. This rule will be given an action equivalent to
 <code>ExprList --&gt; (Expr ;)*:v {v}</code></p>
@@ -1913,8 +1912,9 @@ parsing including <em>delayed reductions</em>, which can potentially allow
 non-ambiguous grammars to be more easily composed without running into
 new conflicts: see the <a href="https://chuckcscccl.github.io/rustlr_project/appendix.html">Appendix</a> of this tutorial for experimental
 features.</p>
+<hr>
 <h3 id="8-json-parser">8. JSON Parser</h3>
-<p>To give another, complete example of the features described here,
+<p>To give another, complete example of the features described in this chapter,
 we build a parser for JSON.  The grammar is as follows</p>
 <pre><code># Rustlr Grammar <span class="hljs-keyword">for</span> JSON
 auto
