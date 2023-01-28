@@ -51,14 +51,16 @@ Expr:Times --> Expr * Expr
 LetExpr --> Expr
 LetExpr:Let --> let var:let_var = Expr:init_value in LetExpr:let_body
 
-ExprList:nil -->
-ExprList:cons --> LetExpr:car ; ExprList:cdr
+ExprList --> LetExpr<;+> ;? 
 ```
 
 The grammar takes full advantage of the 'auto' mode: only the types of
 values carried by terminal symbols `var` and `int` need to be declared.
-All other types and semantic actions are automatically created, as is the
-lexical scanner
+All other types and semantic actions are automatically created.  In the
+last rule, `<;+>` means a semicolon-separated sequence and `;?` allows
+an optional, terminating semicolon.  The semantic value of the right-hand
+side of the rule is a `Vec<LBox<Expr>>`.  
+
 
 ### 1. Creating and Invoking the Parser
 
@@ -318,13 +320,8 @@ pub enum Expr<'lt> {
 }
 impl<'lt> Default for Expr<'lt> { fn default()->Self { Expr::Expr_Nothing } }
 
-#[derive(Debug)]
-pub enum ExprList<'lt> {
-  nil,
-  cons{car:Expr<'lt>,cdr:LBox<ExprList<'lt>>},
-  ExprList_Nothing,
-}
-impl<'lt> Default for ExprList<'lt> { fn default()->Self { ExprList::ExprList_Nothing } }
+#[derive(Default,Debug)]
+pub struct ExprList<'lt>(pub Vec<LBox<Expr<'lt>>>,);
 ```
 
 An enum is created for each non-terminal symbol of the grammar that
@@ -402,12 +399,10 @@ the sake of recording position information, always create an LBox
 regardless of reachability by giving the component a "boxed label".
 That is,
 ```
-  ExprList:cons --> Expr:[car] SEMICOLON ExprList:cdr
+  LetExpr:Let --> let var:[let_var] = Expr:init_value in LetExpr:let_body
 ```
-will generate a variant that also has its first component in an
-LBox. The 'cdr' is already an LBox as required for recursion (writing
-`[cdr]` will have no additional effect).  The reachability relation also
-determines if a type requires a lifetime parameter.
+will generate a variant that also has its first component in an LBox. The
+reachability relation also determines if a type requires a lifetime parameter.
 
 Although the generated parser code may not be very readable, rustlr also generated semantic actions that create instances of these AST types.  For example, the rule `Expr:Plus --> Expr + Expr` will have a semantic action equivalent
 the following, manually written one:
@@ -529,8 +524,36 @@ prevent the absorption of 'flatten' types.
 
 #### Overriding Types and Actions
 
-It is always possible to override the automatically generated types and actions.
-In case of ExprList, the labels 'nil' and 'cons' are sufficient for rustlr to create a linked-list data structure.  However, the right-recursive grammar rule is slightly non-optimal for LR parsing (the parse stack grows until the last element of the list before ExprList-reductions take place).  One might wish to use a left-recursive rule and a Rust vector to represent a sequence of expressions.  This can be done in several ways, one of which is by making the following changes to the grammar.  First, change the declaration of the non-terminal symbol `ExprList` as follows:
+It is always possible to override the automatically generated types
+and actions.  In the case of `ExprList`, rustlr translates `LetExpr<;+>`
+into a set of left-recursive production rules and actions that creates
+a vector.  One may wish, however, to create a functional programming style
+"cons" list instead.  This calls for a set of right-recursive rules instead.
+We can provide the following alternative rules for `ExprList`:
+```
+ExprList:nil -->
+ExprList:cons --> LetExpr:car ; ExprList:cdr
+```
+the labels 'nil' and 'cons' are
+sufficient for rustlr to create a linked-list data structure.  The AST type
+generated for `ExprList` would now be:
+```
+#[derive(Debug)]
+pub enum ExprList<'lt> {
+  nil,
+  cons{car:Expr<'lt>,cdr:LBox<ExprList<'lt>>},
+  ExprList_Nothing,
+}
+impl<'lt> Default for ExprList<'lt> { fn default()->Self { ExprList::ExprList_No
+thing } }
+```
+However, the right-recursive grammar rule is slightly non-optimal for
+LR parsing (the parse stack grows until the last element of the list
+before ExprList-reductions take place).  One might wish to use a
+left-recursive rule and a Rust vector to represent a sequence of
+expressions.  This can be done in several ways, one of which is by
+making the following changes to the grammar.  First, change the
+declaration of the non-terminal symbol `ExprList` as follows:
 
 ```
 nonterminal ExprList Vec<LBox<Expr<'lt>>>
@@ -555,7 +578,7 @@ ExprList --> ExprList:ev LetExpr:[e] ; { ev.push(e); ev }
 The presence of a non-empty semantic action will override automatic AST generation. It is also possible to **inject custom code into the
 automatically generated code**:
 ```
-Expr:Times -->  Expr * Expr {println!("parsing a times-expression"); ... }
+ExprList -->  {println!("starting a new ExprList sequence"); ... }
 ```
 The ellipsis are allowed only before the closing right-brace.  This indicates
 that the automatically generated portion of the semantic action should follow.
