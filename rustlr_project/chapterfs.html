@@ -1287,87 +1287,567 @@ input#__markdown-viewer__show-tools:checked ~ #__markdown-viewer__toc::before {
   text-decoration:none;
   margin: .5em auto;
 }
-</style><style id="__markdown-viewer__custom_css"></style><meta name="viewport" content="width=device-width, initial-scale=1"><title>RUSTLR: Bottom-Up Parser Generator for Rust, Version 0.4.x</title></head><body><div id="__markdown-viewer__tools" class="floating"><input type="checkbox" id="__markdown-viewer__show-tools"><label for="__markdown-viewer__show-tools"></label><div id="__markdown-viewer__toc" class="toggleable"><ul><li><a href="#rustlr-bottom-up-parser-generator-for-rust-version-04x">RUSTLR: Bottom-Up Parser Generator for Rust, Version 0.4.x</a><ul><li><a href="#tutorial-chapters">Tutorial Chapters</a><ul><li><a href="#additional-chapters-under-construction">Additional Chapters Under Construction</a></li></ul></li><li><a href="#references">References</a></li></ul></li></ul></div><p class="toggleable">Pick a markdown and code style:<br><select id="__markdown-viewer__mdselect"><option value="sss">default</option><option value="github">github</option></select><select id="__markdown-viewer__hlselect"><option value="a11y-dark">a11y-dark</option><option value="a11y-light">a11y-light</option><option value="a11y-auto">a11y-auto</option><option value="agate">agate</option><option value="androidstudio">androidstudio</option><option value="an-old-hope">an-old-hope</option><option value="arduino-light">arduino-light</option><option value="arta">arta</option><option value="ascetic">ascetic</option><option value="atelier-cave-dark">atelier-cave-dark</option><option value="atelier-cave-light">atelier-cave-light</option><option value="atelier-cave-auto">atelier-cave-auto</option><option value="atelier-dune-dark">atelier-dune-dark</option><option value="atelier-dune-light">atelier-dune-light</option><option value="atelier-dune-auto">atelier-dune-auto</option><option value="atelier-estuary-dark">atelier-estuary-dark</option><option value="atelier-estuary-light">atelier-estuary-light</option><option value="atelier-estuary-auto">atelier-estuary-auto</option><option value="atelier-forest-dark">atelier-forest-dark</option><option value="atelier-forest-light">atelier-forest-light</option><option value="atelier-forest-auto">atelier-forest-auto</option><option value="atelier-heath-dark">atelier-heath-dark</option><option value="atelier-heath-light">atelier-heath-light</option><option value="atelier-heath-auto">atelier-heath-auto</option><option value="atelier-lakeside-dark">atelier-lakeside-dark</option><option value="atelier-lakeside-light">atelier-lakeside-light</option><option value="atelier-lakeside-auto">atelier-lakeside-auto</option><option value="atelier-plateau-dark">atelier-plateau-dark</option><option value="atelier-plateau-light">atelier-plateau-light</option><option value="atelier-plateau-auto">atelier-plateau-auto</option><option value="atelier-savanna-dark">atelier-savanna-dark</option><option value="atelier-savanna-light">atelier-savanna-light</option><option value="atelier-savanna-auto">atelier-savanna-auto</option><option value="atelier-seaside-dark">atelier-seaside-dark</option><option value="atelier-seaside-light">atelier-seaside-light</option><option value="atelier-seaside-auto">atelier-seaside-auto</option><option value="atelier-sulphurpool-dark">atelier-sulphurpool-dark</option><option value="atelier-sulphurpool-light">atelier-sulphurpool-light</option><option value="atelier-sulphurpool-auto">atelier-sulphurpool-auto</option><option value="atom-one-dark">atom-one-dark</option><option value="atom-one-dark-reasonable">atom-one-dark-reasonable</option><option value="atom-one-light">atom-one-light</option><option value="brown-paper">brown-paper</option><option value="codepen-embed">codepen-embed</option><option value="color-brewer">color-brewer</option><option value="darcula">darcula</option><option value="dark">dark</option><option value="default">default</option><option value="docco">docco</option><option value="dracula">dracula</option><option value="far">far</option><option value="foundation">foundation</option><option value="github">github</option><option value="github-gist">github-gist</option><option value="gml">gml</option><option value="googlecode">googlecode</option><option value="gradient-dark">gradient-dark</option><option value="grayscale">grayscale</option><option value="gruvbox-dark">gruvbox-dark</option><option value="gruvbox-light">gruvbox-light</option><option value="gruvbox-auto">gruvbox-auto</option><option value="hopscotch">hopscotch</option><option value="hybrid">hybrid</option><option value="idea">idea</option><option value="ir-black">ir-black</option><option value="isbl-editor-dark">isbl-editor-dark</option><option value="isbl-editor-light">isbl-editor-light</option><option value="isbl-editor-auto">isbl-editor-auto</option><option value="kimbie">kimbie</option><option value="kimbie">kimbie</option><option value="lightfair">lightfair</option><option value="lioshi">lioshi</option><option value="magula">magula</option><option value="mono-blue">mono-blue</option><option value="monokai">monokai</option><option value="monokai-sublime">monokai-sublime</option><option value="night-owl">night-owl</option><option value="nnfx">nnfx</option><option value="nnfx-dark">nnfx-dark</option><option value="nord">nord</option><option value="obsidian">obsidian</option><option value="ocean">ocean</option><option value="paraiso-dark">paraiso-dark</option><option value="paraiso-light">paraiso-light</option><option value="paraiso-auto">paraiso-auto</option><option value="pojoaque">pojoaque</option><option value="purebasic">purebasic</option><option value="qtcreator_dark">qtcreator_dark</option><option value="qtcreator_light">qtcreator_light</option><option value="qtcreator_auto">qtcreator_auto</option><option value="railscasts">railscasts</option><option value="rainbow">rainbow</option><option value="routeros">routeros</option><option value="school-book">school-book</option><option value="shades-of-purple">shades-of-purple</option><option value="solarized-dark">solarized-dark</option><option value="solarized-light">solarized-light</option><option value="solarized-auto">solarized-auto</option><option value="srcery">srcery</option><option value="sunburst">sunburst</option><option value="tomorrow">tomorrow</option><option value="tomorrow-night">tomorrow-night</option><option value="tomorrow-night-blue">tomorrow-night-blue</option><option value="tomorrow-night-bright">tomorrow-night-bright</option><option value="tomorrow-night-eighties">tomorrow-night-eighties</option><option value="vs">vs</option><option value="vs2015">vs2015</option><option value="xcode">xcode</option><option value="xt256">xt256</option><option value="zenburn">zenburn</option></select></p><p class="toggleable"><a id="__markdown-viewer__download" download="markdown.html" style="display: none;" href="blob:null/94278b0d-07f5-4af6-a530-6881b368ce79">Download as HTML</a></p></div><div class="markdownRoot"><h2 id="rustlr-bottom-up-parser-generator-for-rust-version-04x">RUSTLR: Bottom-Up Parser Generator for Rust, Version 0.4.x</h2>
-<hr>
-<p><a href="https://crates.io/crates/rustlr">Rustlr</a> was originally created as a
-research platform to explore advanced ideas in
-formal grammars and parsing.  Unlike many academic
-projects, however, rustlr was always designed to be practcial and can compete
-with other parser generators in terms of features and usability.
-Among its abilities are</p>
+</style><style id="__markdown-viewer__custom_css"></style><meta name="viewport" content="width=device-width, initial-scale=1"><title>Special Chapter: Generating Parsers for F# using Rustlr and Fussless</title></head><body><div id="__markdown-viewer__tools" class="floating"><input type="checkbox" id="__markdown-viewer__show-tools"><label for="__markdown-viewer__show-tools"></label><div id="__markdown-viewer__toc" class="toggleable"><ul><li><a href="#special-chapter-generating-parsers-for-f-using-rustlr-and-fussless">Special Chapter: Generating Parsers for F# using Rustlr and Fussless</a><ul><li><a href="#invoking-the-parser-generator">Invoking the Parser Generator</a></li><li><a href="#grammar-format">GRAMMAR FORMAT</a><ul><li><a href="#valuetype">Valuetype</a></li><li><a href="#declaring-terminal-and-nonterminal-symbols">Declaring Terminal and Nonterminal symbols.</a></li><li><a href="#top-nonterminal">Top Nonterminal</a></li><li><a href="#grammar-production-rules">Grammar Production Rules</a></li><li><a href="#semantic-actions">SEMANTIC ACTIONS</a></li><li><a href="#error-reporting">Error Reporting</a></li><li><a href="#lbox">LBox</a></li><li><a href="#building-and-invoking-the-parser">BUILDING AND INVOKING THE PARSER</a></li><li><a href="#injection-of-top-level-code">Injection of Top Level Code</a></li><li><a href="#lexical-analyzer-directives">Lexical Analyzer Directives</a></li><li><a href="#other-lexattribute-directives">Other lexattribute directives</a></li><li><a href="#operator-precedence-and-associativity-declarations">Operator precedence and associativity declarations.</a></li><li><a href="#error-recovery">Error Recovery</a></li><li><a href="#using-regular-expression-like-operators-etc">Using Regular Expression-Like Operators +, *, ?, etc</a></li><li><a href="#a-more-advanced-example">A More Advanced Example</a></li><li><a href="#using-c">Using C#</a></li></ul></li><li><a href="#automatically-generating-the-abstract-syntax">Automatically Generating the Abstract Syntax</a></li></ul></li></ul></div><p class="toggleable">Pick a markdown and code style:<br><select id="__markdown-viewer__mdselect"><option value="sss">default</option><option value="github">github</option></select><select id="__markdown-viewer__hlselect"><option value="a11y-dark">a11y-dark</option><option value="a11y-light">a11y-light</option><option value="a11y-auto">a11y-auto</option><option value="agate">agate</option><option value="androidstudio">androidstudio</option><option value="an-old-hope">an-old-hope</option><option value="arduino-light">arduino-light</option><option value="arta">arta</option><option value="ascetic">ascetic</option><option value="atelier-cave-dark">atelier-cave-dark</option><option value="atelier-cave-light">atelier-cave-light</option><option value="atelier-cave-auto">atelier-cave-auto</option><option value="atelier-dune-dark">atelier-dune-dark</option><option value="atelier-dune-light">atelier-dune-light</option><option value="atelier-dune-auto">atelier-dune-auto</option><option value="atelier-estuary-dark">atelier-estuary-dark</option><option value="atelier-estuary-light">atelier-estuary-light</option><option value="atelier-estuary-auto">atelier-estuary-auto</option><option value="atelier-forest-dark">atelier-forest-dark</option><option value="atelier-forest-light">atelier-forest-light</option><option value="atelier-forest-auto">atelier-forest-auto</option><option value="atelier-heath-dark">atelier-heath-dark</option><option value="atelier-heath-light">atelier-heath-light</option><option value="atelier-heath-auto">atelier-heath-auto</option><option value="atelier-lakeside-dark">atelier-lakeside-dark</option><option value="atelier-lakeside-light">atelier-lakeside-light</option><option value="atelier-lakeside-auto">atelier-lakeside-auto</option><option value="atelier-plateau-dark">atelier-plateau-dark</option><option value="atelier-plateau-light">atelier-plateau-light</option><option value="atelier-plateau-auto">atelier-plateau-auto</option><option value="atelier-savanna-dark">atelier-savanna-dark</option><option value="atelier-savanna-light">atelier-savanna-light</option><option value="atelier-savanna-auto">atelier-savanna-auto</option><option value="atelier-seaside-dark">atelier-seaside-dark</option><option value="atelier-seaside-light">atelier-seaside-light</option><option value="atelier-seaside-auto">atelier-seaside-auto</option><option value="atelier-sulphurpool-dark">atelier-sulphurpool-dark</option><option value="atelier-sulphurpool-light">atelier-sulphurpool-light</option><option value="atelier-sulphurpool-auto">atelier-sulphurpool-auto</option><option value="atom-one-dark">atom-one-dark</option><option value="atom-one-dark-reasonable">atom-one-dark-reasonable</option><option value="atom-one-light">atom-one-light</option><option value="brown-paper">brown-paper</option><option value="codepen-embed">codepen-embed</option><option value="color-brewer">color-brewer</option><option value="darcula">darcula</option><option value="dark">dark</option><option value="default">default</option><option value="docco">docco</option><option value="dracula">dracula</option><option value="far">far</option><option value="foundation">foundation</option><option value="github">github</option><option value="github-gist">github-gist</option><option value="gml">gml</option><option value="googlecode">googlecode</option><option value="gradient-dark">gradient-dark</option><option value="grayscale">grayscale</option><option value="gruvbox-dark">gruvbox-dark</option><option value="gruvbox-light">gruvbox-light</option><option value="gruvbox-auto">gruvbox-auto</option><option value="hopscotch">hopscotch</option><option value="hybrid">hybrid</option><option value="idea">idea</option><option value="ir-black">ir-black</option><option value="isbl-editor-dark">isbl-editor-dark</option><option value="isbl-editor-light">isbl-editor-light</option><option value="isbl-editor-auto">isbl-editor-auto</option><option value="kimbie">kimbie</option><option value="kimbie">kimbie</option><option value="lightfair">lightfair</option><option value="lioshi">lioshi</option><option value="magula">magula</option><option value="mono-blue">mono-blue</option><option value="monokai">monokai</option><option value="monokai-sublime">monokai-sublime</option><option value="night-owl">night-owl</option><option value="nnfx">nnfx</option><option value="nnfx-dark">nnfx-dark</option><option value="nord">nord</option><option value="obsidian">obsidian</option><option value="ocean">ocean</option><option value="paraiso-dark">paraiso-dark</option><option value="paraiso-light">paraiso-light</option><option value="paraiso-auto">paraiso-auto</option><option value="pojoaque">pojoaque</option><option value="purebasic">purebasic</option><option value="qtcreator_dark">qtcreator_dark</option><option value="qtcreator_light">qtcreator_light</option><option value="qtcreator_auto">qtcreator_auto</option><option value="railscasts">railscasts</option><option value="rainbow">rainbow</option><option value="routeros">routeros</option><option value="school-book">school-book</option><option value="shades-of-purple">shades-of-purple</option><option value="solarized-dark">solarized-dark</option><option value="solarized-light">solarized-light</option><option value="solarized-auto">solarized-auto</option><option value="srcery">srcery</option><option value="sunburst">sunburst</option><option value="tomorrow">tomorrow</option><option value="tomorrow-night">tomorrow-night</option><option value="tomorrow-night-blue">tomorrow-night-blue</option><option value="tomorrow-night-bright">tomorrow-night-bright</option><option value="tomorrow-night-eighties">tomorrow-night-eighties</option><option value="vs">vs</option><option value="vs2015">vs2015</option><option value="xcode">xcode</option><option value="xt256">xt256</option><option value="zenburn">zenburn</option></select></p><p class="toggleable"><a id="__markdown-viewer__download" download="markdown.html" style="display: none;" href="blob:null/c22ad2fc-34eb-478f-9b6a-b642765fd3bc">Download as HTML</a></p></div><div class="markdownRoot"><h2 id="special-chapter-generating-parsers-for-f-using-rustlr-and-fussless">Special Chapter: Generating Parsers for F# using Rustlr and Fussless</h2>
+<p>Rustlr can generate parsers for F#.  With .Net interoperability,
+other languages (C#) can also use the generated parsers with a little
+adaptation, though some knowledge of F# is required.  The .Net side
+of this aspect of Rustlr is a system called <strong><a href="https://github.com/chuckcscccl/Fussless">Fussless</a></strong>.
+This repository contains the runtime parser written in F#.  The lexical
+analysis aspect of Fussless uses <a href="https://github.com/zbrad/CsLex">CsLex</a>, which is written in C#.
+Fussless can automatically generate a CsLex .lex file from the grammar.
+Download Fussless and follow instructions in the <a href="https://github.com/chuckcscccl/Fussless">Fussless README</a>
+to install the system.  If you're not using the latest Mono, you may have
+to re-compile absLexer.cs into a .dll, and then, using that
+.dll, compile RuntimeParser.fs to a .dll.</p>
+<p>At the time of this writing, there are still some features missing from
+Fussless compared to the native Rust parser generator. There is
+only one, simple error-recovery mechanism (<code>resynch</code>). The experimental -lrsd
+option and the wildcard symbol are not currently supported
+and the interactive training feature is also not available.
+These limitations will gradually be resolved with future releases.</p>
+<p>As of Rustlr release 4.0, the Fussless system can now automatically
+generate the abstract syntax types and semantic actions from a grammar with
+the <code>auto</code> option.  However, the first part of this chapter will show how
+to write grammars with manually defined types and actions.</p>
+<h3 id="invoking-the-parser-generator">Invoking the Parser Generator</h3>
+<p>To create a parser, you will first need a .grammar file.  Rustlr/Fussless
+has its own format for specifying grammars:</p>
+<pre><code class="language-ignore"># Unambiguous LR grammar <span class="hljs-keyword">for</span> simple calculator.
+
+valuetype <span class="hljs-type">int</span>
+nonterminals E T F
+terminals <span class="hljs-operator">+</span> <span class="hljs-operator">*</span>
+valueterminal number <span class="hljs-operator">~</span> <span class="hljs-type">int</span> <span class="hljs-operator">~</span> Num <span class="hljs-operator">~</span> <span class="hljs-type">int</span>
+lexterminal LPAREN (
+lexterminal RPAREN )
+topsym E
+
+E <span class="hljs-comment">--&gt; E:e + T:t { e + t }</span>
+E <span class="hljs-comment">--&gt; T:t { t }</span>
+T <span class="hljs-comment">--&gt; T:t * F:f { t*f }</span>
+T <span class="hljs-comment">--&gt; F:f { f }</span>
+F <span class="hljs-comment">--&gt; LPAREN E:e RPAREN  { e }</span>
+F <span class="hljs-comment">--&gt; number:n { n }</span>
+
+EOF
+</code></pre>
+<p>These are the contents of a Fussless grammar file, called <a href="https://cs.hofstra.edu/~cscccl/rustlr_project/fstarget/test1.grammar">test1.grammar</a>.
+This classic example of LR parsing is found in virtually all compiler
+textbooks.  After you <strong><code>cargo install rustlr</code></strong>
+you can produce a LALR(1) parser from this grammar file with:</p>
+<blockquote>
+<p>rustlr test1.grammar -fsharp</p>
+</blockquote>
+<p>The first and the only required argument to the executable is the path of the
+grammar file.  However, without the -fsharp option it will try to create a
+parser for Rust.  Other optional arguments (after the grammar path) that can be
+given to the executable are:</p>
+<ul>
+<li><strong>-lr1</strong> : this will create a full LR(1) parser if LALR does not suffice.
+The default is LALR(1), which works for most examples.  A sample grammar
+requiring full LR(1) can be found <strong><a href="https://cs.hofstra.edu/~cscccl/rustlr_project/nonlalr.grammar">here</a>.</strong>
+Rustlr will always try to resolve shift-reduce conflicts by precedence and associativity
+declarations (see later examples) and reduce-reduce conflicts by rule order.
+So it will generate some kind of parser in any case.  However, unless it's
+understood clearly what's causing the conflict, default resolutions should
+not be accepted: rewrite the grammar instead.</li>
+<li><strong>-o filepath</strong> : changes the default destination of the generated parser, which is
+a F# program file called test1parser.fs.  This program must be compiled
+with RuntimeParser.dll.</li>
+<li><strong>-genlex</strong> : automatically generates a lexical scanner in the form of
+a CsLex .lex file.  The genlex option is
+also automatically enabled by the presence of certain declarations in the
+grammar file, such as <strong><code>lexterminal</code></strong> or <strong><code>valueterminal</code></strong>.  A file
+called <a href="https://cs.hofstra.edu/~cscccl/rustlr_project/fstarget/test1.lex">test1.lex</a> will be created.  This file must be processed by <em>lex.exe</em>, which is the
+CsLex executable: this in turn generates test1_lex.cs, which must be compiled
+with absLexer.dll.</li>
+<li><strong>-trace n</strong>  : where n is a non-negative integer defining the trace level.
+Level 0 prints nothing; level 1, which is the default, prints a little more
+information.  Each greater level will print all information in lower levels.
+-trace 3 will print the states of the LR finite state machine, which could
+be useful for debugging and training the parser for error message output.</li>
+</ul>
+<p>The generated parser will be a program
+<a href="https://cs.hofstra.edu/~cscccl/rustlr_project/fstarget/test1parser.fs">test1parser.fs</a>
+that contains a <strong><code>parse_with</code></strong> function.  RustLr will derive the
+name of the grammar (test1) from the file path, unless there is a
+declaration of the form</p>
+<blockquote>
+<p>grammarname somename</p>
+</blockquote>
+<p>in the grammar spec, in which case the parser generated will be called
+"somenameparser.fs".</p>
+<h3 id="grammar-format">GRAMMAR FORMAT</h3>
+<h4 id="valuetype">Valuetype</h4>
+<p>A context free grammar is not very useful unless we associate <em>values</em>
+with grammar symbols.  Without these values all a parser can do is
+tell us if something parsed or not.  The first line in the grammar
+specification should define the default type of value carried by each
+grammar symbol.  Not all symbols need to have values of the same
+type.  However, the "start symbol" or "topsym" of the grammar must
+have this type, and this is the type of value that's ultimately
+returned by the parser.</p>
+<blockquote>
+<p>valuetype int</p>
+</blockquote>
+<p>(alternatively <code>absyntype int</code>).
+In most cases the type would be some type that defines an abstract syntax
+tree, but here we will just calculate an int.</p>
+<h4 id="declaring-terminal-and-nonterminal-symbols">Declaring Terminal and Nonterminal symbols.</h4>
+<p>Rustlr requires that all terminal and non-terminal symbols be declared
+before writing any grammar rules.  Terminal symbols can be divided
+into two categories: those that carry important values, and those that
+do not.  In this example, the only terminal symbol with imporant values
+is <em>number</em>, which carries values of type <em>int</em>.  Such terminals should be
+declared using a <strong>valueterminal</strong> line, which has the following format</p>
+<blockquote>
+<pre><code> valueterminal terminal_name ~ terminal_type ~ token_name ~ fun:string-&gt;terminal_type
+</code></pre>
+</blockquote>
+<p>The four elements of the declaration must be separated by <code>~</code>.  The
+terminal_name declares that this is a terminal symbol, with values of
+type terminal_type.  The next two fields allow for a lexical scanner
+to be generated that recognizes these terminals.  Fussless
+automatically creates a .lex file that returns lexical tokens of type
+<em>RawToken</em> (defined in absLexer.cs).  Each RawToken carries a string
+(token_name) that defines the type of the token and a string (token_text)
+that defines the text of the token.  The lexer pre-defines a category for
+(unsigned) integers as token_type "Num".  Thus the third argument to
+<em>valueterminal</em> is the lexer token
+type (not to be confused with the terminal_name, which is what the grammar
+will refer to).  The last component of a valueterminal declaration is a
+<em>function</em> of type <em>string -&gt; terminal_type</em>.  The <em>int</em> function in F#
+converts strings to integers: <em>int("32")</em> returns the integer 32.  You can
+also write <code>(fun x -&gt; int x)</code>.  This function will be applied to the token
+text to produce the value expected by the terminal symbol.</p>
+<p>The lexical scanner generated by Rustlr recognizes other token types
+including "Float", "Alphanum" and "StrLit", which will be discussed in
+a later section.</p>
+<p>In contrast, terminals such as +, * ( and ) do not carry significant values:
+they will always be assigned Unchecked.defaultof&lt;valuetype&gt; just as a filler.
+These terminals can be defined in one of two ways.</p>
+<ol>
+<li>if the name of the terminal is the same as the text of the terminal,
+they can be defined on a <em>terminals</em> line (multiple lines are allowed).</li>
+<li>if the name of the terminal is different from the textual form, use
+a <em>lexterminal</em> declaration.  These are required for certain symbols that
+are reserved for other uses in Rustlr, including { } | : and a few others.
+The parentheses are also best not used to name terminals by themselfs.
+Thus <code>lexterminal LPAREN (</code> means that we will refer to the terminal as
+LPAREN in the grammar and the lexical analyzer will recognize "(" as
+this type of token.</li>
+</ol>
+<p>Nonterminal symbols that are to have the same type as the declared valuetype
+of the grammar can be defined on one <code>nonterminals</code> line.  You should use only
+alphanumeric names for non-terminals (Rustlr is also not guaranteed to work
+with non-ascii characters).  In this example all nonterminals have type int, so
+one such line suffices.  Otherwise declare differently typed non-terminals
+using lines such as <code>nonterminal S string</code>.</p>
+<h4 id="top-nonterminal">Top Nonterminal</h4>
+<blockquote>
+<p>topsym E</p>
+</blockquote>
+<p>(alternatively startsymbol E). You should designate one particular
+nonterminal symbol as the top symbol.  This symbol must have the same
+type (for its value ) as the declared 'valuetype' so you should not
+try to assign it a different type.</p>
+<h4 id="grammar-production-rules">Grammar Production Rules</h4>
+<p>You will get an error message if the grammar symbols are not defined
+before the grammar rules.  Each rule is indicated by a non-terminal
+symbol followed by <code>--&gt;</code>  or <code>==&gt;</code>. The symbol <code>==&gt;</code> is for rules that
+span multiple lines: they must be terminated with <code>&lt;==</code>.  You can specify
+multiple production rules with the same left-hand side nonterminal
+using | but Rustlr discourages their use.</p>
+<p>The right-hand side of each rule must separate symbols with
+whitespaces.  For each grammar symbol such as E, you can optionally
+bind a "label" such as <code>E:a</code>,   The label 'a' refers to the
+value associated with this occurrence of E.</p>
+<p>The right-hand side of a rule may be empty, which will make the
+non-terminal on the left side of <code>--&gt;</code> "nullable".</p>
+<h4 id="semantic-actions">SEMANTIC ACTIONS</h4>
+<p>Values for non-terminal symbols are returned by functions commonly referred
+to as <em>semantic actions</em>.
+Each rule can optionally end with a semantic action inside { and },
+which can only follow all grammar symbols making up the right-hand
+side of the production rule.  This is a piece of F# code that will form
+the body of the semantic action function.  This code will have
+access to any labels associated with the symbols defined using ":".
+In a label such as <code>E:e</code>, e is a mutable variable intialized to the value
+associated with E.</p>
+<p>The semantic action of each rule must return a value of the type associated
+with the left-hand side symbol of that rule.  Generally speaking,
+the semantic action of a rule <code>A --&gt; B:b C:c D:d</code> is a function that
+<code>f</code> that takes as arguments value of the types for <code>B</code>, <code>C</code> and <code>D</code>
+and <code>f(b,c,d)</code> will be the value associated with <code>A</code>.</p>
+<p>It is recommended that if you use multiple lines that you start the
+semantic action on a new line after the openning <code>{</code>.  Be reminded
+that F# doesn't use braces to group code (they're used to form
+records).  The braces are just Rustlr syntax to separate the semantic
+action from the rest of the grammar rule.</p>
+<p>The semantic action code is injected verbatim into the generated parser,
+thus any errors in the code will not show up until you try to compile
+the parser.  For security reasons it's generally not a good idea to run
+programs like parser generators with systems privileges.</p>
+<p>If no semantic action is given, a default one is created that just returns
+a default value.</p>
+<h4 id="error-reporting">Error Reporting</h4>
+<p>Semantic actions always have access a parameter named 'parser'.  The
+functions that can be called on parser are <strong>report_error</strong> and
+<strong>abort</strong>.  For example, <code>parser.abort("failure")</code> or
+<code>parser.report_error("problem encountered",true)</code>.  The <code>report_error</code>
+function takes a boolean argument that determines if line/column
+numbers should be displayed.  The <code>abort</code> function terminates parsing.</p>
+<p>Another important function that can be called on <code>parser</code> is parser.position,
+which returns a pair (line,column) that's associated with one of the symbols
+on the right-hand side of a rule: the exact symbol is indicated as a 0-based
+integer that's passed to parser.position.  An example will make this clear:
+the rule for multiplication can be replaced with</p>
+<pre><code>T ==&gt; T:t * F:f {
+  <span class="hljs-built_in">let</span> tf = t*f
+  <span class="hljs-keyword">if</span> f&lt;&gt;0 &amp;&amp; (tf/f &lt;&gt; t) <span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">let</span> (ln,cl) = parser.position(1)
+    printfn <span class="hljs-string">"Warning: arithmetic overflow line %d, column %d"</span> ln cl
+  t*f
+  } &lt;==
+</code></pre>
+<p>The argument (1) passed to parser.position refers to the <code>*</code> symbol, that
+is the 2nd symbol on the right-hand side.  Index 0 will refer to the T and
+index 2 will refer to F.  (0,0) will be returned for an invalid index.</p>
+<p>Note also that this rule spans multiple lines and requires ==&gt; and &lt;==. Also,
+the injected multi-line F# code should start on a new line and be indented.</p>
+<p>The three member functions on parser described above are the only ones that
+should be called from semantic actions.  There are other functions that would
+corrupt the parser and should never be called.  In general, whatever code
+you write inside the braces are entirely your own responsibility.</p>
+<h4 id="lbox">LBox</h4>
+<p>Not all errors are parsing errors.  After the AST is successfully
+built, other phases usually follow that perform semantic analysis such as
+type checking.  Errors detected in later stages must also be reported
+with line/column numbers indicating their origin.  The AST therefore must
+carry this information. Fussless defines a structure <em>LBox</em> that encapsulates
+a value along with line and column information:</p>
+<pre><code><span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">LBox</span></span>&lt;<span class="hljs-symbol">'AT</span>&gt; =
+  {
+    value: <span class="hljs-symbol">'AT</span>;
+    line : int;
+    column: int;
+  }
+<span class="hljs-keyword">let</span> lbox&lt;<span class="hljs-symbol">'AT</span>&gt; (v:<span class="hljs-symbol">'AT</span>,ln:int,cn:int) = { LBox.value =v; line=ln; column=cn; }
+<span class="hljs-keyword">let</span> (|Lbox|) (b:LBox&lt;<span class="hljs-symbol">'AT</span>&gt;) = Lbox(b.value)
+</code></pre>
+<p>The structure comes with two other definitions: <em>lbox</em> is an ordinary
+constructor and <em>Lbox</em> is an <em>active pattern</em>.  The active pattern
+allows the lexical information to be hidden: exposing
+only the value within the box. ASTs can be defined using LBox as
+demonstrated below:</p>
+<pre><code>type expr = Val of LBox<span class="hljs-tag">&lt;<span class="hljs-name">int</span>&gt;</span> | Plus of LBox<span class="hljs-tag">&lt;<span class="hljs-name">expr</span>&gt;</span>*LBox<span class="hljs-tag">&lt;<span class="hljs-name">expr</span>&gt;</span> | Times of LBox<span class="hljs-tag">&lt;<span class="hljs-name">expr</span>&gt;</span>*LBox<span class="hljs-tag">&lt;<span class="hljs-name">expr</span>&gt;</span> | Divide of LBox<span class="hljs-tag">&lt;<span class="hljs-name">expr</span>&gt;</span>*LBox<span class="hljs-tag">&lt;<span class="hljs-name">expr</span>&gt;</span> 
+</code></pre>
+<p>The active pattern form <em>Lbox</em> allows pattern matching on these
+structures without the intrusive line/column information, <em>except</em>
+when we actually need them</p>
+<pre><code><span class="hljs-keyword">let</span> rec <span class="hljs-built_in">eval</span> = <span class="hljs-function"><span class="hljs-keyword">function</span>
+  | <span class="hljs-title">Val</span>(<span class="hljs-params">Lbox(x)</span>) -&gt; <span class="hljs-title">x</span>
+  | <span class="hljs-title">Plus</span>(<span class="hljs-params">Lbox(a),Lbox(b)</span>) -&gt; (<span class="hljs-params"><span class="hljs-built_in">eval</span> a</span>) + (<span class="hljs-params"><span class="hljs-built_in">eval</span> b</span>)
+  | <span class="hljs-title">Times</span>(<span class="hljs-params">Lbox(a),Lbox(b)</span>) -&gt; (<span class="hljs-params"><span class="hljs-built_in">eval</span> a</span>) * (<span class="hljs-params"><span class="hljs-built_in">eval</span> b</span>)
+  | <span class="hljs-title">Divide</span>(<span class="hljs-params">Lbox(a),(Lbox(b) <span class="hljs-keyword">as</span> n)</span>) -&gt;
+    <span class="hljs-title">let</span> <span class="hljs-title">bv</span> = (<span class="hljs-params"><span class="hljs-built_in">eval</span> b</span>)
+    <span class="hljs-title">if</span> <span class="hljs-title">bv</span>=0 <span class="hljs-title">then</span>
+       <span class="hljs-title">raise</span>(<span class="hljs-params">Exception(sprintf <span class="hljs-string">"division by zero column %d\n"</span> n.column)</span>)
+    (<span class="hljs-params"><span class="hljs-built_in">eval</span> a</span>) / <span class="hljs-title">bv</span>
+</span></code></pre>
+<p>Fussless has built-in support for creating LBoxes.  In a grammar production,
+symbols on the right-hand side can be given "boxed labels".  For example:</p>
+<pre><code><span class="hljs-attribute">E</span> --&gt; E:[e<span class="hljs-number">1</span>] + T:[e<span class="hljs-number">2</span>] { Plus(e<span class="hljs-number">1</span>,e<span class="hljs-number">2</span>) }
+</code></pre>
+<p>A boxed label such as <code>[e1]</code> instructs the parser to place the value
+associated with the grammar symbol inside an LBox and to bind the variable
+<code>e1</code> to it.</p>
+<p>The LBox is named for its counterpart in Rust parsers created by Rustlr,
+although it is not a "smart pointer".</p>
+<h4 id="building-and-invoking-the-parser"><strong>BUILDING AND INVOKING THE PARSER</strong></h4>
+<p>The steps for creating and calling a parser is best illustrated by the
+following example (<a href="https://cs.hofstra.edu/~cscccl/rustlr_project/fstarget.test1main.fs">test1main.fs</a>).</p>
+<pre><code><span class="hljs-keyword">module</span> Test1
+<span class="hljs-keyword">open</span> <span class="hljs-keyword">System</span>
+<span class="hljs-keyword">open</span> Fussless
+<span class="hljs-keyword">open</span> Test1
+
+let parser1 <span class="hljs-operator">=</span> make_parser(); <span class="hljs-operator">/</span><span class="hljs-operator">/</span> <span class="hljs-keyword">create</span> parser
+Console.Write("Enter Expression: ");  
+let lexer1 <span class="hljs-operator">=</span> test1lexer<span class="hljs-operator">&lt;</span>unit<span class="hljs-operator">&gt;</span>(Console.ReadLine());  <span class="hljs-operator">/</span><span class="hljs-operator">/</span> <span class="hljs-keyword">create</span> lexer
+
+let <span class="hljs-keyword">result</span> <span class="hljs-operator">=</span> parse_with(parser1,lexer1); <span class="hljs-operator">/</span><span class="hljs-operator">/</span> invokes parser printfn
+printfn "Result = %A" <span class="hljs-keyword">result</span>;;
+</code></pre>
+<p>The lexical analyzer 'test1.lex' that's
+generated automatically defines the C# class 'test1lexer&lt;E&gt;'.  The
+generic type argument E defines an "shared state' between the parser
+and lexer.  By default, this type is unit.  The class comes with two
+constructors: one taking a string, as used in the above program, and
+one taking a System.IO.FileStream.</p>
+<p>Assuming that <a href="https://github.com/chuckcscccl/Fussless">Fussless</a> has been downloaded and that 'absLexer.dll'
+and 'RuntimeParser.dll' are available, compile the test1parser.fs file with
+RuntimeParser.dll and the test1_lex.cs file (produced by lex.exe) with
+absLexer.dll.  Note that both the generated parser and lexer are defined within
+the 'Fussless' namespace and the parser is defined under the Test1 module, which
+is why 'open Test1' is used: you would have to call Test1.make_parser and
+Test1.parse_with otherwise.</p>
+<p>Now compile the above test1main.fs program with the .dlls of the parser and
+lexer.  Under mono this is done with</p>
+<blockquote>
+<pre><code>  fsharpc test1main.fs -r test1parser.dll -r test1_lex.dll
+</code></pre>
+</blockquote>
+<p>which produces an executable.  Alternatively, there is a <a href="https://github.com/chuckcscccl/Fussless/blob/main/Makefile">Makefile</a> included inside the Fussless
+repository.  Consult the <a href="https://github.com/chuckcscccl/Fussless/blob/main/README.md">Fussless Readme</a> for instructions.</p>
+<p>The <code>parse_with</code> function must be passed instances of a parser and a lexer.
+It returns an <strong>option type</strong> value of type <strong>valuetype option</strong>.</p>
+<h4 id="injection-of-top-level-code">Injection of Top Level Code</h4>
+<p>A line that begin with '!' will be injected verbatim into
+the generated parser.  Such lines will always be injected towards the beginning
+of the code regardless of where they appear in the grammar.  Typically, these
+lines will specify additional modules to open, such as</p>
+<pre><code>!<span class="hljs-built_in">open</span> System.Collections.<span class="hljs-type">Generic</span>;
+</code></pre>
+<h4 id="lexical-analyzer-directives">Lexical Analyzer Directives</h4>
+<p>In order for Rustlr-Fussless to generate a .lex file, there must be at least
+one 'lexterminal' or valueterminal' declaration in the grammar; otherwise
+rustlr must be invoked with the -genlex option.</p>
+<p>The generated .lex will recognize the following token types, including "Num"
+that appeared in the 'test1' example</p>
+<ul>
+<li>
+<p>Alphanum: alphanumeric sequences starting with an alphabetical letter or
+_ (underscore), and followed by zero or more alphabetical or numeric characters
+or _.</p>
+</li>
+<li>
+<p>Num: unsigned base-10 integers.  It is better to process negative
+integers at the grammar level, lest "3-2" be recognized as two tokens
+instead of three.</p>
+</li>
+<li>
+<p>Hexnum: hexadecimal sequences starting with 0x</p>
+</li>
+<li>
+<p>Float: unsigned floating point sequences</p>
+</li>
+<li>
+<p>StrLit:  string literals</p>
+</li>
+</ul>
+<p>Note that the lexer will not check the returned tokens for overflow: that must
+be done with the the function that you specify as the last argument to
+'valueterminal'.</p>
+<p>Besides the common types of tokens above, you can also define new token types
+and their associated regular expressions:</p>
+<blockquote>
+<pre><code> lexattribute custom ULong [0-9]+UL
+</code></pre>
+</blockquote>
+<p>This defines a new token type that will be returned along with the text that
+matched the given regex.  Such user-defined custom categories <strong>will override
+the other categories</strong>.  This means that "205UL" will now be returned as a
+single RawToken with token type "ULong" instead of two tokens, a "Num" and
+an "Alphanum".  Multiple custom token types will be prioritized in the order
+in which they appear inside the grammar.</p>
+<p>Once a custom token type is defined, <strong>a valueterminal declaration is still
+required</strong> to translate such tokens into terminal symbols of the grammar, such
+as</p>
+<pre><code>!<span class="hljs-function">let <span class="hljs-title">conv64</span> <span class="hljs-params">(x:string)</span> :uint64 =</span> System.UInt64.<span class="hljs-built_in">Parse</span>(x.<span class="hljs-built_in">Substring</span>(<span class="hljs-number">0</span>,x.Length<span class="hljs-number">-2</span>))
+valueterminal U64 ~ uint64 ~ ULong ~ conv64
+</code></pre>
+<h4 id="other-lexattribute-directives">Other lexattribute directives</h4>
+<p>As of this writing, the only other lexattribute directive available is
+<code>line_comment</code>.  By default, the generated lexer recognizes (and ignores)
+C-style comments.  The line_comment directive can be
+used to change the symbol for single-line comments, such as</p>
+<pre><code><span class="hljs-attribute">lexattribute</span> line_comment <span class="hljs-comment">#</span>
+</code></pre>
+<p>The symbol selected should be non-alphanumeric.  <code>lexattribute line_comment disable</code> will disable the recognition of single-line comments.</p>
+<h4 id="operator-precedence-and-associativity-declarations">Operator precedence and associativity declarations.</h4>
+<p>Rustlr allows <strong>left</strong>, <strong>right</strong> and <strong>nonassoc</strong> declarations for terminal
+symbols.  Each such declaration must specify a positive integer defining the
+precedence levels.  These declarations are used to break shift-reduce conflicts
+and allows the writing of some ambiguous grammars (<code>E --&gt; E+E</code>) instead of
+(<code>E --&gt; E+T</code>).   The default precedence is zero, which means no precedence has
+been defined.  However, these kinds of declarations should not be overused
+(see below).</p>
+<h4 id="error-recovery">Error Recovery</h4>
+<p>An LR parser is defined by a state action (transition) table and a stack of states.  The
+top of the stack is the current state. A parsing error occurs when
+the current state has no entry defined for the next input.
+Currently, only one method of error recovery has been implemented for F# parsers.
+A declaration such as</p>
+<pre><code><span class="hljs-attribute">resync</span> SEMICOLON COMMA
+</code></pre>
+<p>designates one or more terminal symbols as <em>resynchronization points</em>.  When
+an error occurs, the parser will skip input tokens until it finds one of
+these points.  It then looks down its stack of states to find one that
+has an entry for the <em>next</em> input symbol after the resynch
+point, and continues parsing.  If no resync point is declared, the parser
+will just skip input until it finds one that has an entry defined with
+respect to the current state.  A natural resync point is the semicolon
+that separates statements in many languages.  If an error occurs, the
+parser will skip past the semicolon and parse the next line.</p>
+<p>There are more sophisticated error recovery techniques that could be
+implemented so this is currently a minimal feature.</p>
+<p>Up on the detection of any error, the <strong>parser.err_occurred</strong> flag will
+be set and it's up to the user to examine this flag before deciding what
+to do with the result.</p>
+<h4 id="using-regular-expression-like-operators-etc">Using Regular Expression-Like Operators +, *, ?, etc</h4>
+<p>Rustlr allows grammar rules to be written in the following way:</p>
+<pre><code>E --&gt; <span class="hljs-selector-tag">A</span>* <span class="hljs-selector-tag">B</span>+ C? D&lt;,+&gt; E&lt;;*&gt;
+</code></pre>
+<p>These regular-expression like operators serve to translate the grammar into the
+following:</p>
+<pre><code>E <span class="hljs-comment">--&gt; As Bp Cq Dp Es</span>
+<span class="hljs-keyword">As</span> <span class="hljs-comment">--&gt;  | As A</span>
+Bp <span class="hljs-comment">--&gt; B | Bp B</span>
+Cq <span class="hljs-comment">--&gt;  | C</span>
+Dp <span class="hljs-comment">--&gt; D | Dp , D</span>
+Es <span class="hljs-comment">--&gt;  | Ep</span>
+Ep <span class="hljs-comment">--&gt; E | Ep ; E</span>
+</code></pre>
+<p>Furthermore, the semantic values associated with A*, B+ D&lt;,+&gt; and E&lt;;*&gt;
+are always of type Vec&lt;_&gt; (ResizeArray&lt;_&gt;) and type for C? is
+option&lt;_&gt;, where _ represents the types of the respective
+non-terminals.  The *, + and ? operators have the same meaning as in
+regular expressions.  In &lt;sym+&gt; and &lt;sym*&gt;, sym must be a terminal symbol.
+These operations represent sequences separated by the terminal, but not
+ending in the terminal.  For example:</p>
+<pre><code><span class="hljs-selector-tag">function_call</span> <span class="hljs-selector-tag">--</span>&gt; <span class="hljs-selector-tag">functional_name</span> ( expression&lt;,*&gt; )
+</code></pre>
+<p>defines function calls with zero or more comma-separated arguments.</p>
+<p>These operators are available as a convenience, but they come at a price.
+The introduction of new production rules to a grammar increases the chance
+of non-determinism even if the grammar remains unambiguous.  Rustlr does not
+allow the regex-like operators to be <em>nested</em>: such expressions easily become
+ambiguous.  Consider <code>(a?)+</code>:  a single <code>a</code> will have an infinite
+number of parse trees because any number of <code>a?</code> can be empty.</p>
+<h4 id="a-more-advanced-example">A More Advanced Example</h4>
+<p>We consolidate the features of Fussless with a more advanced version
+of an online calculator.  In addition to several new terminal token
+types, this grammar approaches the sophistication of a programming
+language with let-expression, as in <code>let x=1 in x+(let x=3 in x+x)+x</code>
+(which should evaluate to 8).  Checking for the proper scoping of
+variables, however, is typically not done at the parsing stage.
+The language also allows a sequence of expressions separated by semicolons.
+The semicolon (<code>;</code>) is also declared as the error-recovery resynch point.</p>
+<p>This time, the parser will build abstract syntax trees, and we've injected
+the AST discriminated union type directly into the parser, though usually
+this is done separately in another module.  Discriminated unions and
+pattern matching definitely give F# and similar languages an advantage over
+conventional languages when processing ASTs.  Even Rust cannot compete as
+recursive types require smart pointers (Box) that prevent deep pattern matching.</p>
+<pre><code>!type expr = Val of <span class="hljs-keyword">int</span> | <span class="hljs-keyword">Var</span> of <span class="hljs-keyword">string</span> | <span class="hljs-keyword">Float</span> of <span class="hljs-keyword">float</span> | Plus of expr*expr | Times of expr*expr | Minus of expr*expr | Divide of expr*expr | Negative of expr | Letexp of <span class="hljs-keyword">string</span>*expr*expr | Equals of (expr*expr) | Uint of uint64;;
+!
+!let conv64 (x:<span class="hljs-keyword">string</span>) :uint64 = System.UInt64.Parse(x.Substring(<span class="hljs-number">0</span>,x.Length-<span class="hljs-number">2</span>))
+
+valuetype Vec&lt;expr&gt;
+<span class="hljs-comment"># Vec is defined in the Fussless namespace as an alias for ResizeArray</span>
+
+nonterminal E expr
+nonterminal ES
+terminals + - * / ( ) == = ;
+terminals let in
+valueterminal Val ~ <span class="hljs-keyword">int</span> ~ Num ~ <span class="hljs-keyword">int</span>
+valueterminal <span class="hljs-keyword">Var</span> ~ <span class="hljs-keyword">string</span> ~ Alphanum ~ (fun x -&gt; x)
+valueterminal <span class="hljs-keyword">Float</span> ~ <span class="hljs-keyword">float</span> ~ <span class="hljs-keyword">Float</span> ~ <span class="hljs-keyword">float</span>
+lexattribute custom U64 [<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]+UL
+valueterminal Ulong ~ uint64 ~ U64 ~ conv64
+
+lexattribute line_comment <span class="hljs-comment">#</span>
+
+topsym ES
+resync ;
+
+left * <span class="hljs-number">500</span>
+left / <span class="hljs-number">500</span>
+left + <span class="hljs-number">400</span>
+left - <span class="hljs-number">400</span>
+nonassoc = <span class="hljs-number">200</span>
+right == <span class="hljs-number">300</span>
+
+E --&gt; Val:m { Val(m) }
+E --&gt; <span class="hljs-keyword">Var</span>:s { <span class="hljs-keyword">Var</span>(s) }
+E --&gt; <span class="hljs-keyword">Float</span>:f { <span class="hljs-keyword">Float</span>(f) }
+E --&gt; Ulong:u { Uint(u) }
+E --&gt; let <span class="hljs-keyword">Var</span>:x = E:e in E:b {Letexp(x,e,b)}
+E --&gt; E:e1 + E:e2 { Plus(e1,e2) }
+E --&gt; E:e1 - E:e2 { Minus(e1,e2) }
+E --&gt; E:e1 * E:e2 { Times(e1,e2) }
+E ==&gt; E:e1 / E:e2 {
+  <span class="hljs-keyword">if</span> e2=Val(<span class="hljs-number">0</span>) then
+     let (ln,cl) = parser.position(<span class="hljs-number">2</span>)
+     printfn <span class="hljs-string">"Warning:obvious division by 0, line %d column %d"</span> ln cl
+  Divide(e1,e2)
+  } &lt;==
+
+E --&gt; E:e1 == E:e2 { Equals(e1,e2) }
+E(<span class="hljs-number">600</span>) --&gt; - E:e { Negative(e) }
+E --&gt; ( E:e )  { e }
+ES --&gt; E&lt;;+&gt;:v ;? { v }
+
+EOF
+</code></pre>
+<p>Note that the - (minus) symbol serves as both a unary and a binary operator.
+As a unary operator, it should have precedence over *.
+This means that using operator precedence/associativity declarations for
+the symbol is not enough.  "-3*5" should be parsed as (-3)*5 and not as
+-(3*5): never mind that they both evaluate to -15: the point is that the
+parse trees are different.  Thus, a precedence level can also be assigned
+to a <em>rule</em>, which is done for the rule for unary minus.  Without a
+particular precedence assignment, a rule is assigned the precedence of the
+highest precedence symbol it finds on the right-hand side.  Precedence declarations are definitely a <em>hack</em>, almost as bad as some parser generators that
+claim to "work with any grammar".
+They should not be overly relied on.  One place where it
+is useful is in disambiguating the <em>dangling else</em> problem: assign "else"
+a higher precedence than "if".  This will force a <em>shift</em> when an "else" is
+encountered, which means that it will be associated with the nearest "if".</p>
+<h4 id="using-c">Using C#</h4>
+<p>Using C# is possible by virtue of .Net interoperability.  The abstract syntax
+structures can be defined in C# and the semantic actions to construct such
+structures should generally not be difficult to call from F#.  The
+integration of the .dlls from the different languages may face some challenges
+depending on your development platform. On Mono there where some problems
+importing a .dll compiled with F# into a C# project.  But these problems
+can be mostly avoided by writing some minimal components of the parser in
+F#.</p>
+<br>
+<h3 id="automatically-generating-the-abstract-syntax"><strong>Automatically Generating the Abstract Syntax</strong></h3>
+<p>With Rustlr 0.4 and the latest Fussless the grammar can now generate the
+abstract syntax types and semantic actions automatically.  Manual overrides
+are also possible.  Essentially, non-terminal symbols that are on the
+left-hand side of multiple productions generate discriminated unions while
+those with a single production generate records.  However, the AST types do
+not necessarily just mirror the grammar. For
+example, non-terminal symbols such as E, T and F (of the calculator grammar)
+can be specified to define a single union type as opposed to individual
+types.  Records can be absorbed or "flattened" into other types.
+Rustlr/Fussless grammars contain a sub-language that defines
+how ASTs are to be created that can also be stable across small changes to
+the grammar. The system has the same capabilities as described for
+Rust parsers in <strong><a href="https://cs.hofstra.edu/~cscccl/rustlr_project/chapter4.html">Chapter 4</a></strong>.  In fact it is simpler since there
+is no need for lifetimes and smart pointers.  Fussless <em>LBox</em> structures
+are created in the same way as their counterparts in Rust, without the
+pointer aspect.</p>
+<p>Two sample grammars are available that demonstrate these abilities:</p>
 <ol>
 <li>
-<p>The option of automatically generating the abstract syntax datatypes
-and required semantic actions from hints given in the grammar,
-in whole or in part.  The AST types do not necessarily mirror the format
-of the grammar: one can declare dependencies that allow multiple non-terminal
-symbols to share a common type (see Chapters 4 and 6 of the tutorial).</p>
+<p><a href="https://github.com/chuckcscccl/Fussless/blob/main/calcautofs.grammar">calcautofs.grammar</a>.  This grammar describes another version of the calculator
+grammar with <code>auto</code> types and actions and some overrides.  It also demonstrates the injection of code that precedes the automatically generated actions, and
+the 'flattening' feature for structs.</p>
 </li>
 <li>
-<p>The option of generating recursive AST types using the "bumpalo" crate,
-which enables deep pattern matching on recursive structures by replacing
-smart pointers with transparent references.</p>
-</li>
-<li>
-<p>The possibility of using regular-expression style operators such as
-*, + and ? directly inside the grammar.  This is not as easy to do as it
-sounds as the additional grammar rules required to
-support them may lead to new ambiguities.</p>
-</li>
-<li>
-<p>The option of using a larger class of unambiguous grammars
-compared to traditional LR and LALR, based on <a href="https://hal.archives-ouvertes.fr/hal-00769668/document"><em>Selective Marcus-Leermakers</em></a> delayed reductions. See the <a href="https://chuckcscccl.github.io/rustlr_project/appendix.html">Appendix</a>.
-Other experimental features include an "unexpected wildcard" symbol.</p>
-</li>
-<li>
-<p>The ability to interactively train the parser to give better error messages.</p>
-</li>
-<li>
-<p>Automatically generates a lexical scanner from the declaration of
-terminal symbols.</p>
+<p><a href="https://github.com/chuckcscccl/Fussless/blob/main/fs7c.grammar">fs7c.grammar</a>.  This grammar defines a simplified, typed functional
+programming language that was used in a compilers class taught at Hofstra
+University.</p>
 </li>
 </ol>
-<p>Rustlr also implements capabilities found in traditional parsing tools
-such as operator precedence and associativity declarations.
-Rustlr is designed for the parsing of programming language
-syntax.  It is not designed to parse natural languages, or binary
-data, although there's also nothing that prevents it from used for
-those purposes.  Rustlr generates parsers for Rust and for F#
-(Microsoft's version of OCaml) and will target other typed, functional
-programming languages as these languages often lack choices in parsing
-tools.</p>
-<p>Documentation on
-<a href="https://docs.rs/rustlr/latest/rustlr/">docs.rs</a>
-serves as technical reference but not as tutorial.</p>
-<p>The tutorial is organized around a set of examples, with each example
-explaining a set of more advanced features.</p>
-<h3 id="tutorial-chapters">Tutorial Chapters</h3>
-<p>The chapters in <b>bold</b> listed below are complete.  The others provide additional examples and generally contain enough comments to be readable.
-The first two chapters suffice to give a good working knowledge of the
-principal capabilities of rustlr.</p>
-<ol>
-<li> <b><a href="chapter1.html">Introduction: Basic Calculators</a></b> 
-</li><li> <b><a href="chapter2.html">Advanced Examples</a></b> 
-</li><li> <b> <a href="training.html">Interactive Training for Enhanced Error Reporting</a></b>
-</li><li> <b><a href="bumpast.html">Generating Bump-allocated ASTs</a></b>
-</li><li> <b><a href="errors.html">Error Recovery Options</a></b>
-</li><li> <b>Special Example: <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/noncf/ncf.grammar">Non-context free language</a>, using External State.</b> Link to <a href="https://github.com/chuckcscccl/rustlr/tree/main/examples/noncf/">full crate</a>
-</li><li> <b>Special Chapter: <a href="chapterfs.html">Generating a Parser for F#</a></b>
-</li><li> <b>Appendix: <a href="appendix.html">Experimental Features (Delayed Reductions and the Wildcard Token)</a></b>
-</li></ol>
-<h4 id="additional-chapters-under-construction">Additional Chapters Under Construction</h4>
-<ul>
-<li> Advanced Example: <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/cparser/c11.grammar">Building a Parser for C</a>. (under construction).  <a href="https://github.com/chuckcscccl/rustlr/tree/main/examples/cparser">link to crate</a>
-</li><li> Additional Full Example: <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/yacc/yacc.grammar">Yacc converter</a>.  Create with rustlr grammar that builds a parser for converting Yacc grammars to Rustlr format, stripping away all C declarations and actions.
-</li><li> Additional Full Example: <a href="https://crates.io/crates/lambdascript">Lambdascript</a>.  Program implementing and tracing beta-reduction
-steps for the untyped lambda calculus.  This crate was created using rustlr 
-and <a href="lambdascript/untyped.grammar">this grammar</a>.
-</li><li> (Deprecated versions of <a href="test1grammar0.html">chapter 1</a>
-and <a href="calculatorgrammar0.html">chapter 2</a>)
-</li></ul>
-<p>
-</p><h3 id="references">References</h3>
-<p>
- 
-
-</p></div></body></html>
+<p>To invoke the feature, replace the "valuetype" declaration with "auto"
+at the top of the grammar.  In addition to the parser file, an <code>_ast.fs</code>
+file will be created.  Code can be injected into the AST file with lines
+beginning with <code>$</code>.</p>
+<hr>
+</div></body></html>

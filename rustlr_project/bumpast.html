@@ -1287,87 +1287,272 @@ input#__markdown-viewer__show-tools:checked ~ #__markdown-viewer__toc::before {
   text-decoration:none;
   margin: .5em auto;
 }
-</style><style id="__markdown-viewer__custom_css"></style><meta name="viewport" content="width=device-width, initial-scale=1"><title>RUSTLR: Bottom-Up Parser Generator for Rust, Version 0.4.x</title></head><body><div id="__markdown-viewer__tools" class="floating"><input type="checkbox" id="__markdown-viewer__show-tools"><label for="__markdown-viewer__show-tools"></label><div id="__markdown-viewer__toc" class="toggleable"><ul><li><a href="#rustlr-bottom-up-parser-generator-for-rust-version-04x">RUSTLR: Bottom-Up Parser Generator for Rust, Version 0.4.x</a><ul><li><a href="#tutorial-chapters">Tutorial Chapters</a><ul><li><a href="#additional-chapters-under-construction">Additional Chapters Under Construction</a></li></ul></li><li><a href="#references">References</a></li></ul></li></ul></div><p class="toggleable">Pick a markdown and code style:<br><select id="__markdown-viewer__mdselect"><option value="sss">default</option><option value="github">github</option></select><select id="__markdown-viewer__hlselect"><option value="a11y-dark">a11y-dark</option><option value="a11y-light">a11y-light</option><option value="a11y-auto">a11y-auto</option><option value="agate">agate</option><option value="androidstudio">androidstudio</option><option value="an-old-hope">an-old-hope</option><option value="arduino-light">arduino-light</option><option value="arta">arta</option><option value="ascetic">ascetic</option><option value="atelier-cave-dark">atelier-cave-dark</option><option value="atelier-cave-light">atelier-cave-light</option><option value="atelier-cave-auto">atelier-cave-auto</option><option value="atelier-dune-dark">atelier-dune-dark</option><option value="atelier-dune-light">atelier-dune-light</option><option value="atelier-dune-auto">atelier-dune-auto</option><option value="atelier-estuary-dark">atelier-estuary-dark</option><option value="atelier-estuary-light">atelier-estuary-light</option><option value="atelier-estuary-auto">atelier-estuary-auto</option><option value="atelier-forest-dark">atelier-forest-dark</option><option value="atelier-forest-light">atelier-forest-light</option><option value="atelier-forest-auto">atelier-forest-auto</option><option value="atelier-heath-dark">atelier-heath-dark</option><option value="atelier-heath-light">atelier-heath-light</option><option value="atelier-heath-auto">atelier-heath-auto</option><option value="atelier-lakeside-dark">atelier-lakeside-dark</option><option value="atelier-lakeside-light">atelier-lakeside-light</option><option value="atelier-lakeside-auto">atelier-lakeside-auto</option><option value="atelier-plateau-dark">atelier-plateau-dark</option><option value="atelier-plateau-light">atelier-plateau-light</option><option value="atelier-plateau-auto">atelier-plateau-auto</option><option value="atelier-savanna-dark">atelier-savanna-dark</option><option value="atelier-savanna-light">atelier-savanna-light</option><option value="atelier-savanna-auto">atelier-savanna-auto</option><option value="atelier-seaside-dark">atelier-seaside-dark</option><option value="atelier-seaside-light">atelier-seaside-light</option><option value="atelier-seaside-auto">atelier-seaside-auto</option><option value="atelier-sulphurpool-dark">atelier-sulphurpool-dark</option><option value="atelier-sulphurpool-light">atelier-sulphurpool-light</option><option value="atelier-sulphurpool-auto">atelier-sulphurpool-auto</option><option value="atom-one-dark">atom-one-dark</option><option value="atom-one-dark-reasonable">atom-one-dark-reasonable</option><option value="atom-one-light">atom-one-light</option><option value="brown-paper">brown-paper</option><option value="codepen-embed">codepen-embed</option><option value="color-brewer">color-brewer</option><option value="darcula">darcula</option><option value="dark">dark</option><option value="default">default</option><option value="docco">docco</option><option value="dracula">dracula</option><option value="far">far</option><option value="foundation">foundation</option><option value="github">github</option><option value="github-gist">github-gist</option><option value="gml">gml</option><option value="googlecode">googlecode</option><option value="gradient-dark">gradient-dark</option><option value="grayscale">grayscale</option><option value="gruvbox-dark">gruvbox-dark</option><option value="gruvbox-light">gruvbox-light</option><option value="gruvbox-auto">gruvbox-auto</option><option value="hopscotch">hopscotch</option><option value="hybrid">hybrid</option><option value="idea">idea</option><option value="ir-black">ir-black</option><option value="isbl-editor-dark">isbl-editor-dark</option><option value="isbl-editor-light">isbl-editor-light</option><option value="isbl-editor-auto">isbl-editor-auto</option><option value="kimbie">kimbie</option><option value="kimbie">kimbie</option><option value="lightfair">lightfair</option><option value="lioshi">lioshi</option><option value="magula">magula</option><option value="mono-blue">mono-blue</option><option value="monokai">monokai</option><option value="monokai-sublime">monokai-sublime</option><option value="night-owl">night-owl</option><option value="nnfx">nnfx</option><option value="nnfx-dark">nnfx-dark</option><option value="nord">nord</option><option value="obsidian">obsidian</option><option value="ocean">ocean</option><option value="paraiso-dark">paraiso-dark</option><option value="paraiso-light">paraiso-light</option><option value="paraiso-auto">paraiso-auto</option><option value="pojoaque">pojoaque</option><option value="purebasic">purebasic</option><option value="qtcreator_dark">qtcreator_dark</option><option value="qtcreator_light">qtcreator_light</option><option value="qtcreator_auto">qtcreator_auto</option><option value="railscasts">railscasts</option><option value="rainbow">rainbow</option><option value="routeros">routeros</option><option value="school-book">school-book</option><option value="shades-of-purple">shades-of-purple</option><option value="solarized-dark">solarized-dark</option><option value="solarized-light">solarized-light</option><option value="solarized-auto">solarized-auto</option><option value="srcery">srcery</option><option value="sunburst">sunburst</option><option value="tomorrow">tomorrow</option><option value="tomorrow-night">tomorrow-night</option><option value="tomorrow-night-blue">tomorrow-night-blue</option><option value="tomorrow-night-bright">tomorrow-night-bright</option><option value="tomorrow-night-eighties">tomorrow-night-eighties</option><option value="vs">vs</option><option value="vs2015">vs2015</option><option value="xcode">xcode</option><option value="xt256">xt256</option><option value="zenburn">zenburn</option></select></p><p class="toggleable"><a id="__markdown-viewer__download" download="markdown.html" style="display: none;" href="blob:null/94278b0d-07f5-4af6-a530-6881b368ce79">Download as HTML</a></p></div><div class="markdownRoot"><h2 id="rustlr-bottom-up-parser-generator-for-rust-version-04x">RUSTLR: Bottom-Up Parser Generator for Rust, Version 0.4.x</h2>
-<hr>
-<p><a href="https://crates.io/crates/rustlr">Rustlr</a> was originally created as a
-research platform to explore advanced ideas in
-formal grammars and parsing.  Unlike many academic
-projects, however, rustlr was always designed to be practcial and can compete
-with other parser generators in terms of features and usability.
-Among its abilities are</p>
-<ol>
-<li>
-<p>The option of automatically generating the abstract syntax datatypes
-and required semantic actions from hints given in the grammar,
-in whole or in part.  The AST types do not necessarily mirror the format
-of the grammar: one can declare dependencies that allow multiple non-terminal
-symbols to share a common type (see Chapters 4 and 6 of the tutorial).</p>
-</li>
-<li>
-<p>The option of generating recursive AST types using the "bumpalo" crate,
-which enables deep pattern matching on recursive structures by replacing
-smart pointers with transparent references.</p>
-</li>
-<li>
-<p>The possibility of using regular-expression style operators such as
-*, + and ? directly inside the grammar.  This is not as easy to do as it
-sounds as the additional grammar rules required to
-support them may lead to new ambiguities.</p>
-</li>
-<li>
-<p>The option of using a larger class of unambiguous grammars
-compared to traditional LR and LALR, based on <a href="https://hal.archives-ouvertes.fr/hal-00769668/document"><em>Selective Marcus-Leermakers</em></a> delayed reductions. See the <a href="https://chuckcscccl.github.io/rustlr_project/appendix.html">Appendix</a>.
-Other experimental features include an "unexpected wildcard" symbol.</p>
-</li>
-<li>
-<p>The ability to interactively train the parser to give better error messages.</p>
-</li>
-<li>
-<p>Automatically generates a lexical scanner from the declaration of
-terminal symbols.</p>
-</li>
-</ol>
-<p>Rustlr also implements capabilities found in traditional parsing tools
-such as operator precedence and associativity declarations.
-Rustlr is designed for the parsing of programming language
-syntax.  It is not designed to parse natural languages, or binary
-data, although there's also nothing that prevents it from used for
-those purposes.  Rustlr generates parsers for Rust and for F#
-(Microsoft's version of OCaml) and will target other typed, functional
-programming languages as these languages often lack choices in parsing
-tools.</p>
-<p>Documentation on
-<a href="https://docs.rs/rustlr/latest/rustlr/">docs.rs</a>
-serves as technical reference but not as tutorial.</p>
-<p>The tutorial is organized around a set of examples, with each example
-explaining a set of more advanced features.</p>
-<h3 id="tutorial-chapters">Tutorial Chapters</h3>
-<p>The chapters in <b>bold</b> listed below are complete.  The others provide additional examples and generally contain enough comments to be readable.
-The first two chapters suffice to give a good working knowledge of the
-principal capabilities of rustlr.</p>
-<ol>
-<li> <b><a href="chapter1.html">Introduction: Basic Calculators</a></b> 
-</li><li> <b><a href="chapter2.html">Advanced Examples</a></b> 
-</li><li> <b> <a href="training.html">Interactive Training for Enhanced Error Reporting</a></b>
-</li><li> <b><a href="bumpast.html">Generating Bump-allocated ASTs</a></b>
-</li><li> <b><a href="errors.html">Error Recovery Options</a></b>
-</li><li> <b>Special Example: <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/noncf/ncf.grammar">Non-context free language</a>, using External State.</b> Link to <a href="https://github.com/chuckcscccl/rustlr/tree/main/examples/noncf/">full crate</a>
-</li><li> <b>Special Chapter: <a href="chapterfs.html">Generating a Parser for F#</a></b>
-</li><li> <b>Appendix: <a href="appendix.html">Experimental Features (Delayed Reductions and the Wildcard Token)</a></b>
-</li></ol>
-<h4 id="additional-chapters-under-construction">Additional Chapters Under Construction</h4>
-<ul>
-<li> Advanced Example: <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/cparser/c11.grammar">Building a Parser for C</a>. (under construction).  <a href="https://github.com/chuckcscccl/rustlr/tree/main/examples/cparser">link to crate</a>
-</li><li> Additional Full Example: <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/yacc/yacc.grammar">Yacc converter</a>.  Create with rustlr grammar that builds a parser for converting Yacc grammars to Rustlr format, stripping away all C declarations and actions.
-</li><li> Additional Full Example: <a href="https://crates.io/crates/lambdascript">Lambdascript</a>.  Program implementing and tracing beta-reduction
-steps for the untyped lambda calculus.  This crate was created using rustlr 
-and <a href="lambdascript/untyped.grammar">this grammar</a>.
-</li><li> (Deprecated versions of <a href="test1grammar0.html">chapter 1</a>
-and <a href="calculatorgrammar0.html">chapter 2</a>)
-</li></ul>
-<p>
-</p><h3 id="references">References</h3>
-<p>
- 
+</style><style id="__markdown-viewer__custom_css"></style><meta name="viewport" content="width=device-width, initial-scale=1"><title>Generating Bump-Allocated ASTs</title></head><body><div id="__markdown-viewer__tools" class="floating"><input type="checkbox" id="__markdown-viewer__show-tools"><label for="__markdown-viewer__show-tools"></label><div id="__markdown-viewer__toc" class="toggleable"><ul><li><a href="#generating-bump-allocated-asts">Generating Bump-Allocated ASTs</a><ul><li><a href="#replace-the-lbox">Replace the LBox</a></li><li><a href="#dealing-with-recursive-structs">Dealing with Recursive Structs</a></li><li><a href="#requisitioning-the-external-state">Requisitioning the 'External State'</a></li><li><a href="#a-complete-example">A Complete Example</a></li></ul></li></ul></div><p class="toggleable">Pick a markdown and code style:<br><select id="__markdown-viewer__mdselect"><option value="sss">default</option><option value="github">github</option></select><select id="__markdown-viewer__hlselect"><option value="a11y-dark">a11y-dark</option><option value="a11y-light">a11y-light</option><option value="a11y-auto">a11y-auto</option><option value="agate">agate</option><option value="androidstudio">androidstudio</option><option value="an-old-hope">an-old-hope</option><option value="arduino-light">arduino-light</option><option value="arta">arta</option><option value="ascetic">ascetic</option><option value="atelier-cave-dark">atelier-cave-dark</option><option value="atelier-cave-light">atelier-cave-light</option><option value="atelier-cave-auto">atelier-cave-auto</option><option value="atelier-dune-dark">atelier-dune-dark</option><option value="atelier-dune-light">atelier-dune-light</option><option value="atelier-dune-auto">atelier-dune-auto</option><option value="atelier-estuary-dark">atelier-estuary-dark</option><option value="atelier-estuary-light">atelier-estuary-light</option><option value="atelier-estuary-auto">atelier-estuary-auto</option><option value="atelier-forest-dark">atelier-forest-dark</option><option value="atelier-forest-light">atelier-forest-light</option><option value="atelier-forest-auto">atelier-forest-auto</option><option value="atelier-heath-dark">atelier-heath-dark</option><option value="atelier-heath-light">atelier-heath-light</option><option value="atelier-heath-auto">atelier-heath-auto</option><option value="atelier-lakeside-dark">atelier-lakeside-dark</option><option value="atelier-lakeside-light">atelier-lakeside-light</option><option value="atelier-lakeside-auto">atelier-lakeside-auto</option><option value="atelier-plateau-dark">atelier-plateau-dark</option><option value="atelier-plateau-light">atelier-plateau-light</option><option value="atelier-plateau-auto">atelier-plateau-auto</option><option value="atelier-savanna-dark">atelier-savanna-dark</option><option value="atelier-savanna-light">atelier-savanna-light</option><option value="atelier-savanna-auto">atelier-savanna-auto</option><option value="atelier-seaside-dark">atelier-seaside-dark</option><option value="atelier-seaside-light">atelier-seaside-light</option><option value="atelier-seaside-auto">atelier-seaside-auto</option><option value="atelier-sulphurpool-dark">atelier-sulphurpool-dark</option><option value="atelier-sulphurpool-light">atelier-sulphurpool-light</option><option value="atelier-sulphurpool-auto">atelier-sulphurpool-auto</option><option value="atom-one-dark">atom-one-dark</option><option value="atom-one-dark-reasonable">atom-one-dark-reasonable</option><option value="atom-one-light">atom-one-light</option><option value="brown-paper">brown-paper</option><option value="codepen-embed">codepen-embed</option><option value="color-brewer">color-brewer</option><option value="darcula">darcula</option><option value="dark">dark</option><option value="default">default</option><option value="docco">docco</option><option value="dracula">dracula</option><option value="far">far</option><option value="foundation">foundation</option><option value="github">github</option><option value="github-gist">github-gist</option><option value="gml">gml</option><option value="googlecode">googlecode</option><option value="gradient-dark">gradient-dark</option><option value="grayscale">grayscale</option><option value="gruvbox-dark">gruvbox-dark</option><option value="gruvbox-light">gruvbox-light</option><option value="gruvbox-auto">gruvbox-auto</option><option value="hopscotch">hopscotch</option><option value="hybrid">hybrid</option><option value="idea">idea</option><option value="ir-black">ir-black</option><option value="isbl-editor-dark">isbl-editor-dark</option><option value="isbl-editor-light">isbl-editor-light</option><option value="isbl-editor-auto">isbl-editor-auto</option><option value="kimbie">kimbie</option><option value="kimbie">kimbie</option><option value="lightfair">lightfair</option><option value="lioshi">lioshi</option><option value="magula">magula</option><option value="mono-blue">mono-blue</option><option value="monokai">monokai</option><option value="monokai-sublime">monokai-sublime</option><option value="night-owl">night-owl</option><option value="nnfx">nnfx</option><option value="nnfx-dark">nnfx-dark</option><option value="nord">nord</option><option value="obsidian">obsidian</option><option value="ocean">ocean</option><option value="paraiso-dark">paraiso-dark</option><option value="paraiso-light">paraiso-light</option><option value="paraiso-auto">paraiso-auto</option><option value="pojoaque">pojoaque</option><option value="purebasic">purebasic</option><option value="qtcreator_dark">qtcreator_dark</option><option value="qtcreator_light">qtcreator_light</option><option value="qtcreator_auto">qtcreator_auto</option><option value="railscasts">railscasts</option><option value="rainbow">rainbow</option><option value="routeros">routeros</option><option value="school-book">school-book</option><option value="shades-of-purple">shades-of-purple</option><option value="solarized-dark">solarized-dark</option><option value="solarized-light">solarized-light</option><option value="solarized-auto">solarized-auto</option><option value="srcery">srcery</option><option value="sunburst">sunburst</option><option value="tomorrow">tomorrow</option><option value="tomorrow-night">tomorrow-night</option><option value="tomorrow-night-blue">tomorrow-night-blue</option><option value="tomorrow-night-bright">tomorrow-night-bright</option><option value="tomorrow-night-eighties">tomorrow-night-eighties</option><option value="vs">vs</option><option value="vs2015">vs2015</option><option value="xcode">xcode</option><option value="xt256">xt256</option><option value="zenburn">zenburn</option></select></p><p class="toggleable"><a id="__markdown-viewer__download" download="markdown.html" style="display: none;" href="blob:null/199f913b-cfcd-47ce-a0de-170b6073d020">Download as HTML</a></p></div><div class="markdownRoot"><h2 id="generating-bump-allocated-asts">Generating <a href="https://docs.rs/bumpalo/latest/bumpalo/index.html">Bump</a>-Allocated ASTs</h2>
+<p>Abstract syntax trees are usually defined recursively.  This normally means
+some form of smart pointer is requried to implement them.  The problem with
+this aspect of Rust is that the smart pointers block <em>nested</em> patterns from
+matching against AST expressions.  It is possible to define recursive structures
+using references (borrows) but all references in an AST structure must have
+compatible lifetimes.  An "arena" structure is required to hold the values that
+they reference.  While it's possible to define such an arena manually, rustlr
+provides support for using the <a href="https://docs.rs/bumpalo/latest/bumpalo/index.html">bumpalo</a> crate.</p>
+<p>A grammar can begin with the declaration</p>
+<pre><code><span class="hljs-keyword">auto</span>-bump
+</code></pre>
+<p>in place of <code>auto</code>, which enables the generation of bump-allocated ASTs.
+<strong>It is also necessary to place <code>bumpalo = "3"</code> in your crate dependencies</strong>
+(in Cargo.toml). Although user code do not need to reference the crate
+directly, the generated parser code does.</p>
+<p>The disadvantage of bumpalo is that it bipasses some of the memory
+safety checks of Rust. Bump-allocation is not recommended if frequent
+changes are made to the allocated structures.  They are appropriate if
+the AST remains relatively stable once created, with few changes if
+any, until the entire structure can be dropped.</p>
+<p>The advantage of bump-allocation, besides an increase in speed, is
+that it enables the matching of nested patterns against recursive
+types.  Consider the following recursive type that tries to avoid
+smart pointers:</p>
+<pre><code><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">Expr</span></span>&lt;<span class="hljs-symbol">'t</span>&gt; {
+  Var(&amp;<span class="hljs-symbol">'t</span> <span class="hljs-built_in">str</span>),
+  Negative(&amp;<span class="hljs-symbol">'t</span> Expr&lt;<span class="hljs-symbol">'t</span>&gt;),
+  Plus(&amp;<span class="hljs-symbol">'t</span> Expr&lt;<span class="hljs-symbol">'t</span>&gt;, &amp;<span class="hljs-symbol">'t</span> Expr&lt;<span class="hljs-symbol">'t</span>&gt;),
+  Minus(&amp;<span class="hljs-symbol">'t</span> Expr&lt;<span class="hljs-symbol">'t</span>&gt;, &amp;<span class="hljs-symbol">'t</span> Expr&lt;<span class="hljs-symbol">'t</span>&gt;),
+}
+</code></pre>
+<p>and a function that "pretty-prints" such expressions. The function will print
+<code>x</code> instead of <code>--x</code>, <code>x-y</code> instead of <code>x+-y</code>, and <code>x+y</code> instead of <code>x--y</code>.
+It also pushes negation inside plus/minus, and only prints parentheses as
+required by the non-associative minus symbol.</p>
+<pre><code><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">pprint</span></span>&lt;<span class="hljs-symbol">'t</span>&gt;(expr:&amp;<span class="hljs-symbol">'t</span> Expr&lt;<span class="hljs-symbol">'t</span>&gt;,) {
+  <span class="hljs-keyword">use</span> crate::Expr::*;
+  <span class="hljs-keyword">match</span> expr {
+    Negative(Negative(n)) =&gt; pprint(n),
+    Negative(Plus(a,b)) =&gt; pprint(&amp;Minus(&amp;Negative(a),b)),
+    Negative(Minus(a,b)) =&gt; pprint(&amp;Plus(&amp;Negative(a),b)),
+    Negative(n) =&gt; {<span class="hljs-built_in">print!</span>(<span class="hljs-string">"-"</span>); pprint(n)},
+    Plus(a,Negative(b)) =&gt; pprint(&amp;Minus(a,b)),
+    Minus(a,Negative(b)) =&gt; pprint(&amp;Plus(a,b)),
+    Minus(a,p@Minus(_,_)) =&gt; { pprint(a); <span class="hljs-built_in">print!</span>(<span class="hljs-string">"-("</span>); pprint(p); <span class="hljs-built_in">print!</span>(<span class="hljs-string">")"</span>)},
+    Minus(a,p@Plus(_,_)) =&gt; { pprint(a); <span class="hljs-built_in">print!</span>(<span class="hljs-string">"+("</span>); pprint(p); <span class="hljs-built_in">print!</span>(<span class="hljs-string">")"</span>)},
+    Plus(a,b) =&gt; {pprint(a); <span class="hljs-built_in">print!</span>(<span class="hljs-string">"+"</span>); pprint(b);},
+    Minus(a,b) =&gt; {pprint(a); <span class="hljs-built_in">print!</span>(<span class="hljs-string">"-"</span>); pprint(b)},    
+    Var(x) =&gt; <span class="hljs-built_in">print!</span>(<span class="hljs-string">"{}"</span>,x),
+  }<span class="hljs-comment">//match expr</span>
+}<span class="hljs-comment">//pprint</span>
+</code></pre>
+<p>Then given</p>
+<pre><code>    let q = Plus(&amp;Negative(&amp;Negative(&amp;<span class="hljs-keyword">Var</span>(<span class="hljs-string">"x"</span>))),&amp;Negative(&amp;<span class="hljs-keyword">Var</span>(<span class="hljs-string">"y"</span>)));
+    pprint(&amp;q);
+</code></pre>
+<p>will print <code>x-y</code>. Such a "declarative" style of programming is not
+possible if the type is defined using Box (or <a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html">LBox</a>).</p>
+<p>Notice that the references to new structures created by the function are
+passed recursively "up-stack", and so are safe.
+However, allocating such structures temporarily on the stack is impractical.
+We would not be able to return references to them.
+You may also get the dreaded compiler error <em>"creates a temporary which is freed while still in use"</em> when writing expressions such as <code>Plus(&amp;q,&amp;Negative(&amp;q))</code>.</p>
+<p>The <a href="https://docs.rs/bumpalo/latest/bumpalo/index.html">bumpalo</a> crate offers an "arena", a kind of <em>simulated heap</em>,
+that allow us to access these structures within the lifetime of the arena:</p>
+<pre><code> <span class="hljs-keyword">let</span> bump = bumpalo::Bump::new(); <span class="hljs-comment">// creates new bump arena</span>
+ <span class="hljs-keyword">let</span> p = bump.alloc(Negative(bump.alloc(Negative(bump.alloc(Var(<span class="hljs-string">"z"</span>))))));
+</code></pre>
+<p>The <a href="https://docs.rs/bumpalo/latest/bumpalo/struct.Bump.html#method.alloc">Bump::alloc</a> function returns a reference to the allocated memory within
+the arena.  We can pass a reference to the "bump" to a function, which would
+then be able to construct and return bump-allocated structures using references
+of the same lifetime.</p>
+<p>Rustlr (since version 0.3.95) can generate such structures automatically.
+Most of bumpalo's usage is well-encapsulated, although
+<code>bumpalo = "3"</code> does need to be added to the crate's
+dependencies.  The easiest way to enable bumpalo is through enhancements to
+the <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.LexSource.html">Lexsource</a> structure.  The following code fragment
+demonstrates how to envoke a parser generated from an <code>auto-bump</code> grammar,
+<a href="https://cs.hofstra.edu/~cscccl/rustlr_project/bumpcalc/bautocalc.grammar">bautocalc.grammar</a>,</p>
+<pre><code>   <span class="hljs-keyword">let</span> srcfile = <span class="hljs-string">"test1.txt"</span>; <span class="hljs-comment">// srcfile names file to parse</span>
+   <span class="hljs-keyword">let</span> source=LexSource::with_bump(srcfile).unwrap();
+   <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> scanner = bautocalcparser::bautocalclexer::from_source(&amp;source);   
+   <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> parser = bautocalcparser::make_parser();
+   <span class="hljs-keyword">let</span> result = bautocalcparser::parse_with(&amp;<span class="hljs-keyword">mut</span> parser, &amp;<span class="hljs-keyword">mut</span> scanner);
+</code></pre>
+<p>A Rustlr <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.LexSource.html">Lexsource</a> object containing a <a href="https://docs.rs/bumpalo/latest/bumpalo/struct.Bump.html">Bump</a> is created with <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.LexSource.html#method.with_bump">Lexsource::with_bump</a>.
+The <code>parse_with</code> function, which is generated for individual parsers, will place
+a reference to the bump arena inside the parser.  The automatically
+generated semantic actions will call <a href="https://docs.rs/bumpalo/latest/bumpalo/struct.Bump.html#method.alloc">Bump::alloc</a> to create ASTS that will have <strong>the
+same lifetime as the Lexsource structure.</strong></p>
+<p>The link to the entire sample crate is <a href="https://cs.hofstra.edu/~cscccl/rustlr_project/bumpcalc/">here</a>.</p>
+<h4 id="replace-the-lbox"><strong>Replace the LBox</strong></h4>
+<p>Although the <a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html">LBox</a> is no longer needed, a device to capture the
+lexical position (line/column) information in the AST in a
+non-intrusive manner is still re required.  Along with the <code>auto-bump</code>
+option is the struct <a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LC.html">LC</a>.  This is just a tuple with open fields
+for the value, and an inner tuple with line and column numbers. We've
+implemented The Deref/DerefMut traits so the value can be exposed in
+the manner of a smart pointer, but there's in fact no pointer
+underneath.  Inside a grammar, right-hand side labels such as <code>[a]</code>
+will automatically bind <code>a</code> to an LC struct and generate AST types
+using LC.  For example,</p>
+<pre><code><span class="hljs-attribute">Expr</span>:Div --&gt; Expr:[e<span class="hljs-number">1</span>] / Expr:[e<span class="hljs-number">2</span>]
+</code></pre>
+<p>will generate an <code>Expr&lt;'lt&gt;</code> enum with a variant</p>
+<pre><code><span class="hljs-selector-tag">Div</span>{e1:&amp;<span class="hljs-string">'lt LC&lt;Expr&lt;'</span>lt&gt;&gt;,e2:&amp;<span class="hljs-string">'lt LC&lt;Expr&lt;'</span>lt&gt;&gt;},
+</code></pre>
+<p>as well as semantic actions that inserts line/column information into the
+AST as LC enclosures.</p>
+<p>Note that a lifetime argument is required for all recursive types.</p>
+<h4 id="dealing-with-recursive-structs"><strong>Dealing with Recursive Structs</strong></h4>
+<p>There is currently one minor limitation with the <code>auto-bump</code> option.  When
+a struct is recursive, it may not be possible to generate code that
+<code>#[derive(Default)]</code>, which is required for all types in Rustlr, without some
+help from the user.  A reference type <code>&amp;A</code> does not have a default and so
+a type <code>A</code> that contains a reference to itself also does not have a default. In
+such cases, help from the user is required to implement the trait for
+these reference types.  For example,</p>
+<pre><code><span class="hljs-attribute">A1</span> --&gt; B<span class="hljs-number">1</span> int
+<span class="hljs-attribute">B1</span> --&gt; var var A<span class="hljs-number">1</span>
+<span class="hljs-attribute">flatten</span> B<span class="hljs-number">1</span>
+</code></pre>
+<p>would generate the types</p>
+<pre><code><span class="hljs-meta">#[derive(Default,Debug)]</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">A1</span></span>&lt;<span class="hljs-symbol">'lt</span>&gt;(<span class="hljs-keyword">pub</span> &amp;<span class="hljs-symbol">'lt</span> <span class="hljs-built_in">str</span>,<span class="hljs-keyword">pub</span> &amp;<span class="hljs-symbol">'lt</span> <span class="hljs-built_in">str</span>,<span class="hljs-keyword">pub</span> &amp;<span class="hljs-symbol">'lt</span> A1&lt;<span class="hljs-symbol">'lt</span>&gt;,<span class="hljs-keyword">pub</span> <span class="hljs-built_in">i64</span>,);
 
-</p></div></body></html>
+<span class="hljs-meta">#[derive(Default,Debug)]</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">B1</span></span>&lt;<span class="hljs-symbol">'lt</span>&gt;(<span class="hljs-keyword">pub</span> &amp;<span class="hljs-symbol">'lt</span> <span class="hljs-built_in">str</span>,<span class="hljs-keyword">pub</span> &amp;<span class="hljs-symbol">'lt</span> <span class="hljs-built_in">str</span>,<span class="hljs-keyword">pub</span> &amp;<span class="hljs-symbol">'lt</span> A1&lt;<span class="hljs-symbol">'lt</span>&gt;,);
+</code></pre>
+<p>but will fail to compile. The following warning will be given by rustlr:</p>
+<pre><code>WARNING: Recursive structs may require the manual implementation of the <span class="hljs-built_in">Default</span> <span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">for</span></span> reference types, <span class="hljs-keyword">as</span> <span class="hljs-keyword">in</span>
+  <span class="hljs-keyword">impl</span>&lt;<span class="hljs-symbol">'lt</span>&gt; <span class="hljs-built_in">Default</span> <span class="hljs-keyword">for</span> &amp;<span class="hljs-symbol">'lt</span> A1&lt;<span class="hljs-symbol">'lt</span>&gt; ...
+</code></pre>
+<p>The warning should be heeded by including the following in the grammar:</p>
+<pre><code>$<span class="hljs-keyword">static</span> A1DEFAULT:A1&lt;<span class="hljs-symbol">'static</span>&gt; = A1(<span class="hljs-string">""</span>,<span class="hljs-string">""</span>,&amp;A1DEFAULT,<span class="hljs-number">0</span>);
+$<span class="hljs-keyword">impl</span>&lt;<span class="hljs-symbol">'t</span>&gt; <span class="hljs-built_in">Default</span> <span class="hljs-keyword">for</span> &amp;<span class="hljs-symbol">'t</span> A1&lt;<span class="hljs-symbol">'t</span>&gt; { <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">default</span></span>() -&gt; <span class="hljs-keyword">Self</span> { &amp;A1DEFAULT } }
+</code></pre>
+<p>Lines that begin with <code>$</code> are injected into the <code>_ast.rs</code> file created from the
+grammar.  These definitions will allow the <code>#[derive(Default)]</code> tags for the
+<code>A1</code> and <code>B1</code> types to be effective.  Currently, such lines are not generated
+automatically because of Rust's restrictions to what static definitions can
+reference.</p>
+<p>This problem can also be avoided by just using enums instead of
+structs in such cases: just assign a left-side label to the sole
+production rules for <code>A1</code> and <code>B1</code>.  Enums always include a <code>_Nothing</code> variant
+so that a default can always be defined.</p>
+<h4 id="requisitioning-the-external-state"><strong>Requisitioning the 'External State'</strong></h4>
+<p>There is another implemention-related detail that may be of occassional
+concern.</p>
+<p>To integrate the bumpalo option into Rustlr with minimal disturbance to its
+other components, the <a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.Bumper.html">Bumper</a> struct was introduced.  A grammar with the <code>auto-bump</code>
+option will generate a parser with a Bumper struct as its <code>exstate</code> field.
+This struct contains procedures to access the encapsulated bump arena.  One
+can still declare and use an arbitrary <code>externtype</code>
+for a <em>Bumper</em> will also include
+a field of this type, which is accessible as a ref mut via the
+<a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.Bumper.html#method.state">Bumper::state</a> procedure.</p>
+<p>In most cases, this detail is only required to be understood if the
+<code>exstate</code> is to be used for another purpose, in which case all references
+to <code>parser.exstate</code> should be replaced by <code>parser.exstate.state()</code>.
+In addition to <code>exstate</code> each parser also contains a separate,
+reference-counted <code>shared_state</code> field of the same type.<br>
+The only other situation that requires understanding of this implementation
+detail is when writing semantic actions manually that creates
+bump-allocated structures.  They should be created by calling
+<code>parser.exstate.make(...)</code>.</p>
+<h4 id="a-complete-example"><strong>A Complete Example</strong></h4>
+<p>We conclude this Chapter with a full example.  The following grammar
+defines the syntax of propositional (sentential) logic.  To be self-contained,
+a <code>main</code> function is injected directly into the parser with <code>!</code>.  This time,
+instead of using <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.LexSource.html#method.with_bump">Lexsource::with_bump</a> we have created a
+"Bump arena" manually and inserted it into the parser. All structures created
+will have the same lifetime as the bump allocator.</p>
+<p>A function can also be injected into the generated AST file (<code>logic_ast.rs</code>)
+using lines starting with <code>$</code>.
+The <code>NNF</code> function stands for <em>Negation Normal Form</em>: it pushes negations
+inward by applying the De Morgan laws and by eliminating double negations
+until negations only appear before propositional variables.</p>
+<pre><code># using + <span class="hljs-keyword">for</span> OR and * <span class="hljs-keyword">for</span> AND:
+auto-bump
+lifetime <span class="hljs-symbol">'lt</span>
+
+lexterminal NOT ~
+lexterminal IMPLIES -&gt;
+lexterminal SEMICOLON ;
+terminals ( ) + *
+valueterminal ID ~ &amp;<span class="hljs-symbol">'lt</span> <span class="hljs-built_in">str</span> ~ Alphanum(n) ~ n
+
+nonterminal FormulaSeq
+nonterminal Formula
+nonterminal PrimaryFormula : Formula
+
+# error recovery point
+resynch SEMICOLON
+
+topsym FormulaSeq
+
+left * <span class="hljs-number">80</span>
+left + <span class="hljs-number">50</span>
+right IMPLIES <span class="hljs-number">30</span>
+
+PrimaryFormula --&gt; ( Formula )
+PrimaryFormula:Prop --&gt; ID
+PrimaryFormula:Neg --&gt; NOT PrimaryFormula
+
+Formula --&gt; PrimaryFormula
+Formula:And --&gt; Formula * Formula
+Formula:Or --&gt; Formula + Formula
+Formula:Implies --&gt; Formula IMPLIES Formula
+
+FormulaSeq --&gt; Formula&lt;SEMICOLON+&gt;
+
+# function to <span class="hljs-keyword">return</span> negation normal form, injected into logic_ast.rs:
+$
+$<span class="hljs-keyword">pub</span> <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">NNF</span></span>&lt;<span class="hljs-symbol">'t</span>&gt;(form:&amp;<span class="hljs-symbol">'t</span> Formula&lt;<span class="hljs-symbol">'t</span>&gt;, bump:&amp;<span class="hljs-symbol">'t</span> bumpalo::Bump) -&gt; &amp;<span class="hljs-symbol">'t</span> Formula&lt;<span class="hljs-symbol">'t</span>&gt; {
+$ <span class="hljs-keyword">use</span> Formula::*;
+$ <span class="hljs-keyword">let</span> REF = |x|{bump.alloc(x)}; <span class="hljs-comment">// for simplified syntax</span>
+$ <span class="hljs-keyword">let</span> nnf = |x|{NNF(x,bump)};
+$ <span class="hljs-keyword">match</span> form {
+$   Neg(Neg(A)) =&gt; nnf(A), <span class="hljs-comment">// the nnf of ~~A is the nnf of A</span>
+$   Neg(And(A,B)) =&gt; REF(Or(nnf(REF(Neg(A))),nnf(REF(Neg(B))))),
+$   Neg(Or(A,B)) =&gt; REF(And(nnf(REF(Neg(A))),nnf(REF(Neg(B))))),
+$   Neg(Implies(A,B)) =&gt; REF(And(nnf(A),nnf(REF(Neg(B))))),
+$   And(A,B) =&gt; REF(And(nnf(A),nnf(B))),
+$   Or(A,B) =&gt; REF(Or(nnf(A),nnf(B))),
+$   Implies(A,B) =&gt; nnf(REF(Or(REF(Neg(A)),B))), <span class="hljs-comment">// ~A+B</span>
+$   _ =&gt; form, <span class="hljs-comment">//default no change to literals</span>
+$ }<span class="hljs-comment">//match</span>
+$}
+
+# function injected into logicparser.rs:
+!<span class="hljs-keyword">mod</span> logic_ast;
+!<span class="hljs-keyword">use</span> std::io::{Write};
+!<span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() {
+! <span class="hljs-keyword">let</span> bump = bumpalo::Bump::new();
+! <span class="hljs-built_in">print!</span>(<span class="hljs-string">"Enter proposition: "</span>);  <span class="hljs-keyword">let</span> r=std::io::stdout().flush();
+! <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> input = <span class="hljs-built_in">String</span>::new();
+! <span class="hljs-keyword">let</span> res = std::io::stdin().read_line(&amp;<span class="hljs-keyword">mut</span> input);
+! <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> lexer1 = logiclexer::from_str(&amp;input);
+! <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> parser1 = make_parser();
+! parser1.exstate.set(&amp;bump);  <span class="hljs-comment">//the exstate is a "Bumper"</span>
+! <span class="hljs-keyword">let</span> fseq = parse_with(&amp;<span class="hljs-keyword">mut</span> parser1, &amp;<span class="hljs-keyword">mut</span> lexer1)
+!     .unwrap_or_else(|x|{<span class="hljs-built_in">println!</span>(<span class="hljs-string">"Parsing Errors Encountered"</span>); x});
+! <span class="hljs-keyword">if</span> <span class="hljs-keyword">let</span> FormulaSeq(formulas) = fseq {
+!   <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> &amp;formulas {
+!     <span class="hljs-keyword">let</span> nnf = NNF(f,parser1.exstate.get());
+!     <span class="hljs-built_in">println!</span>(<span class="hljs-string">"NNF for line {}: {:?}"</span>,f.line(),nnf);
+!   }
+! }
+!}<span class="hljs-comment">//main</span>
+</code></pre>
+<p>Where the AST structures generated for this grammar are</p>
+<pre><code><span class="hljs-meta">#[derive(Debug)]</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">Formula</span></span>&lt;<span class="hljs-symbol">'lt</span>&gt; {
+  And(&amp;<span class="hljs-symbol">'lt</span> Formula&lt;<span class="hljs-symbol">'lt</span>&gt;,&amp;<span class="hljs-symbol">'lt</span> Formula&lt;<span class="hljs-symbol">'lt</span>&gt;),
+  Or(&amp;<span class="hljs-symbol">'lt</span> Formula&lt;<span class="hljs-symbol">'lt</span>&gt;,&amp;<span class="hljs-symbol">'lt</span> Formula&lt;<span class="hljs-symbol">'lt</span>&gt;),
+  Implies(&amp;<span class="hljs-symbol">'lt</span> Formula&lt;<span class="hljs-symbol">'lt</span>&gt;,&amp;<span class="hljs-symbol">'lt</span> Formula&lt;<span class="hljs-symbol">'lt</span>&gt;),
+  Neg(&amp;<span class="hljs-symbol">'lt</span> Formula&lt;<span class="hljs-symbol">'lt</span>&gt;),
+  Prop(&amp;<span class="hljs-symbol">'lt</span> <span class="hljs-built_in">str</span>),
+  Formula_Nothing,
+}
+<span class="hljs-keyword">impl</span>&lt;<span class="hljs-symbol">'lt</span>&gt; <span class="hljs-built_in">Default</span> <span class="hljs-keyword">for</span> Formula&lt;<span class="hljs-symbol">'lt</span>&gt; { <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">default</span></span>()-&gt;<span class="hljs-keyword">Self</span> { Formula::Formula_Nothing } }
+
+<span class="hljs-meta">#[derive(Default,Debug)]</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">FormulaSeq</span></span>&lt;<span class="hljs-symbol">'lt</span>&gt;(<span class="hljs-keyword">pub</span> <span class="hljs-built_in">Vec</span>&lt;&amp;<span class="hljs-symbol">'lt</span> LC&lt;Formula&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;&gt;,);
+</code></pre>
+<hr>
+</div></body></html>

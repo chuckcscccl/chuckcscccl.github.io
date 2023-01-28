@@ -1,11 +1,10 @@
-## Chapter 2: Advanced Calculator
+## Chapter 2: Advanced Examples
 
-In the second chapter of this tutorial, we write a more advanced
-version of the calculator example and describe a more complete set of
-features as well further details of capabilities introduced in
+In the second chapter of this tutorial, we describe a more complete set of
+features of rustlr as well further details of it's capabilities introduced in
 [Chapter 1][chap1].
 
-The language defined by the grammar of this chapter supports expressions
+The language defined by the first grammar of this chapter supports expressions
 of the form
 **`let x = 1 in (let x = 10 in x*x) + x`** (which should evaluate to 101).
 The lexical analyzer and parser must recognize alphanumeric symbols
@@ -15,6 +14,7 @@ to demonstrate a simple error recovery mechanism.
 
 The grammar (with some additions) is as follows:
 ```
+# Advanced Calculator
 auto
 lifetime 'lt
 terminals + - * / = ;
@@ -64,11 +64,11 @@ lexical scanner
 
 To build a working parser and evaluator, `cargo new` a crate with "rustlr = 0.4"
 in its dependencies. Copy the grammar into the crate directory as
-'calcauto.grammar'.  Then run
+**'calcauto.grammar'**.  Then run
 
 >  **`rustlr calcauto.grammar -o src/`**.
 
-#### **rustlr** command line options
+#### **Rustlr Command-Line Options**
 
 The first and the only required argument to the executable is the path of the
 grammar file.  Optional arguments (after the grammar path) that can be
@@ -102,14 +102,14 @@ built-in [StrTokenizer][1].  This option is not recommended.
 
 #### Sample main
 
-Assuming that `calcautoparser.rs` and `calcauto_ast.rs` are in the crate's
-`src/` directory.  Copy the sample input file , [input.txt](https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/input.txt)
+From `calcauto.grammar` rustlr generates `calcautoparser.rs` and `calcauto_ast.rs` in the crate's
+`src/` directory.  Copy the sample input file, [input.txt](https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/input.txt)
 into the crate directory.
 The input intentionally contains both syntactic and semantic errors to
 test error reporting and recovery.
 Copy [main.rs](https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/src/main.rs) into `src/`.
 The `main` function in this main.rs invokes the parser and evaluates the
-cons-list of expressions returned.
+list of expressions returned.
 ```
 fn main() {
    let src = rustlr::LexSource::new("input.txt").expect("input not found");
@@ -126,7 +126,8 @@ results are partial.."); x});
 The last two lines of main relies on additional structures and functions
 defined inside [main.rs](https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/src/main.rs).  
 
-The crate is now ready for **`cargo run`**.
+The crate is now ready for **`cargo run`**. You will see that error recovery
+was effective and results were displayed for lines that parsed correctly.
 
 --------------
 
@@ -136,7 +137,7 @@ We now examine more closely the different components of the grammar.
 ### 2. Input Lifetime
 
 Rustlr's built-in lexical analyzer, [StrTokenizer<'t>][1] returns
-alphanumeric [tokens][rtk] in the form `Alphanum(s)` where `s` is of type
+[tokens][rtk] such as `Alphanum(s)` where `s` is of type
 `&'t str`.  The **`lifetime 'lt`** declaration allows type
 specifications in the grammar (in `valueterminal` lines) to be
 consistent with the generated AST types.  The lifetime is that of the
@@ -150,13 +151,13 @@ because they're declared as terminal symbols.
 The built-in lexical scanner, [StrTokenizer][1], recognizes a number
 of common categories of lexical tokens, with the option to add custom
 categories.  Users should become familiar with the token type,
-**[RawToken][rtk]**, which consists of the following principal
+**[RawToken<'t>][rtk]**, which consists of the following principal
 variants:
 
- - **Alphanum(&str)**: where the string represents an (ascii) alphanumeric
+ - **Alphanum(&'t str)**: where the string represents an (ascii) alphanumeric
    symbol that does not start with a digit.  The underscore character is
    also recognized as alphanumeric.
- - **Symbol(&str)**: a string consisting of non alphanumeric characters such as "==". Longer sequences (up to 3) have priority over shorter prefixes.
+ - **Symbol(&'t str)**: a string consisting of non alphanumeric characters such as "==". Longer sequences (up to 3) have priority over shorter prefixes.
  - **Num(i64)**: Both decimal and hexidecimals (starting
  with "0x") are recognized as Nums.  However, although the returned value is signed,
  a negative integer such as "-12" is recognized as a Symbol("-") followed by a Num(12),
@@ -164,9 +165,9 @@ variants:
  to return the more generic signed form.  Also, "3u8" would be
  reconized as a Num(3) followed by an Alphanum("u8").
  - **Float(f64)**: like the case of Num, this represents unsigned, decimal floats.
- - **BigNumber(&str)**: Numbers that are too large for i64 or f64 are represented verbatim.
+ - **BigNumber(&'t str)**: Numbers that are too large for i64 or f64 are represented verbatim.
  - **Char(char)**: this represents a character literal in single quotes such as 'c'
- - **Strlit(&str)**: A string literal delineated by double quotes.  These strings can span multiple lines and can contain nested, escaped quotes.  **The
+ - **Strlit(&'t str)**: A string literal delineated by double quotes.  These strings can span multiple lines and can contain nested, escaped quotes.  **The
  surrounding double quotes are included in the literal**.
  - **Newline**: optional token indicating a newline character. These tokens
  are **not** returned by the tokenizer by default, but can be returned with
@@ -175,7 +176,7 @@ variants:
  - **Whitespace(usize)**: another optional token that carries the number of
    consecutive whitespaces.  This option is likewise enabled with
    > lexattribute keep_whitespace = true   
- - **Verbatim(&str)**: another optional token carrying verbatim text, usually
+ - **Verbatim(&'t str)**: another optional token carrying verbatim text, usually
    comments.  Enable with
    > lexattribute keep_comment = true
    
@@ -183,7 +184,7 @@ variants:
    be customized with, for example,
    > lexattribute set_line_comment("#")
 
- - **Custom(&'static str, &str)**: user-defined token type.  The static
+ - **Custom(&'static str, &'t str)**: user-defined token type.  The static
    string names the token type and the other string 
    points to raw text.
    This token type is intended to be paired with declarations in the
@@ -243,7 +244,7 @@ different syntactic categories in the form of extra non-terminals
 The operator precedence and associativity declarations are used to
 (statically) resolve *shift-reduce* conflicts in generating the LR
 state machine.  A terminal symbol that's to be used as an operator can
-be declared as left, right or non-associative and a positive integer
+be declared as left, right or non-associative (`nonassoc`) and a positive integer
 defines the precedence level.  Production rules can also be assigned
 precedence as illustrated in [Chapter 1].  If a production rule is not
 explicitly assigned a precedence, it is assigned to be the same as
@@ -274,7 +275,7 @@ favoring the rule that appears first in the grammar, although a
 warning is always sent to stdout regardless of trace level.
 
 With these rules of resolution, rustlr will generate some
-deterministic parser for any grammar.  But grammars with unresolved
+deterministic parser for any grammar.  But grammars with unexplained
 conflicts usually indicate that the grammar contains serious problems
 that, if left unattended, will eventually lead to unexpected
 consequences.  Fixing the conflicts is often non-trivial, which is
@@ -345,7 +346,7 @@ the position of the symbol on the right-hand side.
 Unit-typed values can also become part of the enum if the symbol is given an
 explicit label.  For example: **` A:case1 --> a B `** where terminal symbol `a`
 is of unit type, will result in a enum variant
-`case1(B)`. whereas **` A:acase --> a:m B `** will result in a
+`case1(B)`. whereas **` A:case1 --> a:m B `** will result in a
 variant `case1{m:(), _item1_:B}`.  It is recommended that either
 labels are given to all right-hand side symbols that are to be included in
 the variant, or to none at all.
@@ -583,6 +584,8 @@ This would lead to the generation of a tuple struct for type ExprList:
 #[derive(Default,Debug)]
 pub struct ExprList<'lt>(pub Vec<LBox<Expr<'lt>>>,);
 ```
+Vectors created for these operators always contain values inside [LBoxes][2]
+to retain the lexical-position information.
 The operator **`*`** means a sequence of zero or more.  This is done by generating several new non-terminal symbols internally.
 Essentially, these correspond to
 ```
@@ -591,7 +594,7 @@ ES1 --> { Vec::new() }
 ES1 --> ES1:v ES0:[e] { v.push(e); v }
 ExprList --> ES1:v {v}
 ```
-These rules replace the original in the grammar.  In the -auto mode,
+These rules replace the original in the grammar.  In the `auto` mode,
 rustlr also infers that symbols such as ; has no meaning at the
 AST level (because it has the unit type and noprecedence/associativity
 declaration). It therefore infers that the type of the nonterminal ES0
@@ -604,11 +607,7 @@ ExprList --> ES0*
 ```
 The presence of the left-hand side label will cause the AST generator to 
 create an AST representation for the semicolon (assuming that is what's
-desired).  Another situation where the user has to write the ES0 rule
-manually is if `-auto` (or `-genabsyn`) is not specified, which implies
-that a rule with an explicit semantic action is required.  Generally speaking,
-the *, + and ? symbols will still work without `-auto` if it follows a
-single grammar symbol.
+desired).
 
 The type rustlr associates with the new non-terminal ES1
 will be `Vec<LBox<Expr<'lt>>` and semantic actions are generated to
@@ -625,7 +624,7 @@ nonterminal ExprList Vec<LBox<Expr<'lt>>>
 ExprList --> (LetExpr ;)*
 ```
 This is because rustlr generates an internal non-terminal to represent the right-hand side `*` expression and assigns it type `Vec<LBox<Expr<'lt>>>`.
-It then recognizes that this is the only symbol on the
+It then recognizes that this is a pass-thru case: the only symbol on the
 right, which is of the same type as the left-hand side nonterminal `ExprList`
 as declared. This rule will be given an action equivalent to
 `ExprList --> (Expr ;)*:v {v}`
@@ -686,11 +685,11 @@ features.
 
 
 
-
+----------------
 
 ### 8. JSON Parser
 
-To give another, complete example of the features described here,
+To give another, complete example of the features described in this chapter,
 we build a parser for JSON.  The grammar is as follows
 ```
 # Rustlr Grammar for JSON

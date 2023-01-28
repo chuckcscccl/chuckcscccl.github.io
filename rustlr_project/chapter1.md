@@ -1,6 +1,6 @@
 ## Chapter 1: Simple Calculator.
 
-Please note that this tutorial is for **[Rustlr version 0.4][drs]**.
+Please note that this tutorial is for **[Rustlr version 0.4.x][drs]**.
 The [older tutorial](https://cs.hofstra.edu/~cscccl/rustlr_project/)
 is still available.  Rustlr remains compatible with older grammars,
 but some may need to be recompiled.
@@ -9,7 +9,7 @@ This tutorial is not an introduction to LR parsing, though only minimal
 knowledge of the concept is required to understand the examples.
 The first chapter of the tutorial will present three versions of a
 simple grammar illustrating the core features of Rustlr, while
-additional features and options will be presented in subsequent chapters.
+additional features and details will be presented in subsequent chapters.
 
 The first grammar parses integer arithmetic expressions and computes their
 values.
@@ -42,8 +42,8 @@ grammar file, which must end with `.grammar`, with:
 
 >  **`rustlr calc1.grammar`**
 
-This runs rustlr in its default LALR(1) mode.  This generates two
-files: **`calc1parser.rs`** and **`calc1_ast.rs`** in the working
+This runs rustlr in its default LALR(1) mode.  Two files are generated:
+**`calc1parser.rs`** and **`calc1_ast.rs`** in the working
 directory, although the second file won't contain much for this
 example.  It will derive the name of the grammar (test1) from the file
 path, unless there is a declaration of the form
@@ -51,7 +51,7 @@ path, unless there is a declaration of the form
 >  `grammarname somename`
 
 in the grammar spec. The parser must import some elements of rustlr so it
-should be used in a crate.  We will come back to how to use the
+should be used in a crate.  We will come back to how to run the
 generated parser later.
 
 ####  **GRAMMAR FORMAT**
@@ -63,24 +63,24 @@ is recommended in most situations.
 Specifically it means to generate the abstract syntax types and semantic actions
 automatically while allowing for overrides.  We provided overrides for the
 types of the three non-terminal symbols E, T and F to be i32 and manually
-written semantic actions to create values of that type.  However, the
+wrote semantic actions to create values of that type.  However, the
 `auto` mode was still useful in that other actions were created automatically.
 For example, we did not have to write `F --> ( E:a ) { a }`.
 
 Leaving out `auto` enables some deprecated features of Rustlr and is
 generally not recommeneded. The auto mode allows any degree of manual
 override, rendering the non-auto mode redundant.  One possible
-exception for the non-auto mode is to use a lexical scanner separate
+exception for the non-auto mode is for using a lexical scanner separate
 from the built-in one.
 
-RustLr requires that all grammar symbols be declared as terminal or
+Rustlr requires that all grammar symbols be declared as terminal or
 non-terminal before any production rules.
 
 
 ####  **Top Nonterminal**
 >  `topsym E`
 
-Alternatively, `startsymbol E`.  One particular non-terminal symbol
+Alternatively one can write `startsymbol E`.  One non-terminal symbol
 should be designated the top/start symbol: The parser generator will
 always create an extra production rule of the form `START --> topsym EOF`
 
@@ -91,7 +91,7 @@ the grammar rules.  Each rule is indicated by a non-terminal symbol followed
 by `-->`, or  `==>`.  The symbol `==>` is for rules that span multiple
 lines that you will find used
 in other grammars (later chapters).  You can specify multiple production
-rules with the same left-hand side nonterminal using |  which you will
+rules with the same left-hand side nonterminal using `|`  which you will
 also find in other grammars.
 
 The right hand side of each rule must separate each grammar symbol with
@@ -120,7 +120,7 @@ a piece of Rust code that will be injected *verbatim* into the
 generated parser, and is expect to return a value associated with the
 left-hand side non-terminal of the rule.  The semantic action code
 will have access to any labels associated with the symbols defined
-using ":".
+using ":" as mutable variables.
 
 
 #### **Creating a Lexical Scanner for the Terminal Symbols**
@@ -129,7 +129,7 @@ A lexical scanner is automatically created from the declarations of
 the terminal symbols of the grammar.  These terminals can be
 categorized into ones that do not carry meaningful semantic values,
 and ones that do.  Those that do not carry values are assigned type
-`()`, as in unit, in the `auto` mode, and can be declared in one of
+`()`, as in *unit*, in the `auto` mode, and can be declared in one of
 two ways:
 
   1.  If the name of the terminal symbol is the same as its textual form
@@ -149,7 +149,7 @@ identifiers, numerical constants and string literals, should be define
 with a **`valueterminal`** line as in the defininition of `num` in this grammar.
 The format of this line is as follows:
 
->  valueterminal terminal_name ~ terminal_type ~ expected_token ~ token_value
+>  *valueterminal terminal_name ~ terminal_type ~ expected_token ~ token_value*
 
 Each component is separated by a `~`, which is not a Rust operator.
 The *token_value* must be of type *terminal_type.*  The last
@@ -163,7 +163,21 @@ The token category **`Num`** is a variant of [RawToken][rtk], the type of token
 produced by the built-in generic tokenizer, [StrTokenizer][1].
 Other common categories include **Alphanum** for alphanumeric sequences,
 **Symbol** for non-alphanumeric symbols, and **Strlit** for string literals.
-Consult the [next chapter][chap2] for their usage.
+Each of these categories carries `str` slices with the same lifetime as the
+input source, and will require a `lifetime` declaration in the grammar.
+Essentially, it requires
+```
+  lifetime 'input_lt
+  ...
+  valueterminal Identifier ~ &'input_lt ~ Alphanum(n) ~ n
+```
+Of course it's also possible to return owned strings:
+```
+  valueterminal Identifier ~ String ~ Alphanum(n) ~ n.to_string()
+```
+Consult the [next chapter][chap2] for fuller details on how to configure
+the lexical scanner.
+
 
 The generated lexer is a struct called calc1lexer alongside the make_parser()
 function inside the generated parser file.  One creates a mutable instance
@@ -225,7 +239,7 @@ E --> ( E )  |  num
 Operators can be declared to be `left` or `right` associative or
 `nonassoc`, with a number indicating the precedence level.  Rustlr
 does not report shift-reduce conflicts if they are clearly resolved by
-such declarations (except at trace level 5 or above).  Although
+such declarations (except when given the `-trace 5` option).  Although
 attractive as they enable ambiguous grammars to be written,
 over-reliance on these declarations should be avoided.  For larger
 grammars, overusing these declarations can cause problems *(if you find

@@ -1284,322 +1284,92 @@ input#__markdown-viewer__show-tools:checked ~ #__markdown-viewer__toc::before {
   text-decoration:none;
   margin: .5em auto;
 }
-</style><style id="__markdown-viewer__custom_css"></style><meta name="viewport" content="width=device-width, initial-scale=1"><title>Chapter 1: Simple Calculator.</title></head><body><div id="__markdown-viewer__tools" class="floating"><input type="checkbox" id="__markdown-viewer__show-tools"><label for="__markdown-viewer__show-tools"></label><div id="__markdown-viewer__toc" class="toggleable"><ul><li><a href="#chapter-1-simple-calculator">Chapter 1: Simple Calculator.</a><ul><li><a href="#generating-abstract-syntax-trees">Generating Abstract Syntax Trees</a><ul><li><a href="#what-is-an-lbox">What is an LBox?</a></li></ul></li><li><a href="#grammar-format">GRAMMAR FORMAT</a></li><li><a href="#top-nonterminal">Top Nonterminal</a></li><li><a href="#grammar-production-rules">Grammar Production Rules</a></li><li><a href="#semantic-actions">Semantic Actions</a></li><li><a href="#creating-a-lexical-scanner-for-the-terminal-symbols">Creating a Lexical Scanner for the Terminal Symbols</a></li><li><a href="#invoking-the-parser">Invoking the Parser</a></li><li><a href="#operator-precedence-and-associativity-declarations">Operator Precedence and Associativity Declarations</a></li></ul></li></ul></div><p class="toggleable">Pick a markdown and code style:<br><select id="__markdown-viewer__mdselect"><option value="sss">default</option><option value="github">github</option></select><select id="__markdown-viewer__hlselect"><option value="a11y-dark">a11y-dark</option><option value="a11y-light">a11y-light</option><option value="a11y-auto">a11y-auto</option><option value="agate">agate</option><option value="androidstudio">androidstudio</option><option value="an-old-hope">an-old-hope</option><option value="arduino-light">arduino-light</option><option value="arta">arta</option><option value="ascetic">ascetic</option><option value="atelier-cave-dark">atelier-cave-dark</option><option value="atelier-cave-light">atelier-cave-light</option><option value="atelier-cave-auto">atelier-cave-auto</option><option value="atelier-dune-dark">atelier-dune-dark</option><option value="atelier-dune-light">atelier-dune-light</option><option value="atelier-dune-auto">atelier-dune-auto</option><option value="atelier-estuary-dark">atelier-estuary-dark</option><option value="atelier-estuary-light">atelier-estuary-light</option><option value="atelier-estuary-auto">atelier-estuary-auto</option><option value="atelier-forest-dark">atelier-forest-dark</option><option value="atelier-forest-light">atelier-forest-light</option><option value="atelier-forest-auto">atelier-forest-auto</option><option value="atelier-heath-dark">atelier-heath-dark</option><option value="atelier-heath-light">atelier-heath-light</option><option value="atelier-heath-auto">atelier-heath-auto</option><option value="atelier-lakeside-dark">atelier-lakeside-dark</option><option value="atelier-lakeside-light">atelier-lakeside-light</option><option value="atelier-lakeside-auto">atelier-lakeside-auto</option><option value="atelier-plateau-dark">atelier-plateau-dark</option><option value="atelier-plateau-light">atelier-plateau-light</option><option value="atelier-plateau-auto">atelier-plateau-auto</option><option value="atelier-savanna-dark">atelier-savanna-dark</option><option value="atelier-savanna-light">atelier-savanna-light</option><option value="atelier-savanna-auto">atelier-savanna-auto</option><option value="atelier-seaside-dark">atelier-seaside-dark</option><option value="atelier-seaside-light">atelier-seaside-light</option><option value="atelier-seaside-auto">atelier-seaside-auto</option><option value="atelier-sulphurpool-dark">atelier-sulphurpool-dark</option><option value="atelier-sulphurpool-light">atelier-sulphurpool-light</option><option value="atelier-sulphurpool-auto">atelier-sulphurpool-auto</option><option value="atom-one-dark">atom-one-dark</option><option value="atom-one-dark-reasonable">atom-one-dark-reasonable</option><option value="atom-one-light">atom-one-light</option><option value="brown-paper">brown-paper</option><option value="codepen-embed">codepen-embed</option><option value="color-brewer">color-brewer</option><option value="darcula">darcula</option><option value="dark">dark</option><option value="default">default</option><option value="docco">docco</option><option value="dracula">dracula</option><option value="far">far</option><option value="foundation">foundation</option><option value="github">github</option><option value="github-gist">github-gist</option><option value="gml">gml</option><option value="googlecode">googlecode</option><option value="gradient-dark">gradient-dark</option><option value="grayscale">grayscale</option><option value="gruvbox-dark">gruvbox-dark</option><option value="gruvbox-light">gruvbox-light</option><option value="gruvbox-auto">gruvbox-auto</option><option value="hopscotch">hopscotch</option><option value="hybrid">hybrid</option><option value="idea">idea</option><option value="ir-black">ir-black</option><option value="isbl-editor-dark">isbl-editor-dark</option><option value="isbl-editor-light">isbl-editor-light</option><option value="isbl-editor-auto">isbl-editor-auto</option><option value="kimbie">kimbie</option><option value="kimbie">kimbie</option><option value="lightfair">lightfair</option><option value="lioshi">lioshi</option><option value="magula">magula</option><option value="mono-blue">mono-blue</option><option value="monokai">monokai</option><option value="monokai-sublime">monokai-sublime</option><option value="night-owl">night-owl</option><option value="nnfx">nnfx</option><option value="nnfx-dark">nnfx-dark</option><option value="nord">nord</option><option value="obsidian">obsidian</option><option value="ocean">ocean</option><option value="paraiso-dark">paraiso-dark</option><option value="paraiso-light">paraiso-light</option><option value="paraiso-auto">paraiso-auto</option><option value="pojoaque">pojoaque</option><option value="purebasic">purebasic</option><option value="qtcreator_dark">qtcreator_dark</option><option value="qtcreator_light">qtcreator_light</option><option value="qtcreator_auto">qtcreator_auto</option><option value="railscasts">railscasts</option><option value="rainbow">rainbow</option><option value="routeros">routeros</option><option value="school-book">school-book</option><option value="shades-of-purple">shades-of-purple</option><option value="solarized-dark">solarized-dark</option><option value="solarized-light">solarized-light</option><option value="solarized-auto">solarized-auto</option><option value="srcery">srcery</option><option value="sunburst">sunburst</option><option value="tomorrow">tomorrow</option><option value="tomorrow-night">tomorrow-night</option><option value="tomorrow-night-blue">tomorrow-night-blue</option><option value="tomorrow-night-bright">tomorrow-night-bright</option><option value="tomorrow-night-eighties">tomorrow-night-eighties</option><option value="vs">vs</option><option value="vs2015">vs2015</option><option value="xcode">xcode</option><option value="xt256">xt256</option><option value="zenburn">zenburn</option></select></p><p class="toggleable"><a id="__markdown-viewer__download" download="markdown.html" style="display: none;" href="blob:null/12c2841f-c797-4f5e-960a-6c98a3a3777b">Download as HTML</a></p></div><div class="markdownRoot"><h2 id="chapter-1-simple-calculator">Chapter 1: Simple Calculator.</h2>
-<p>Please note that this tutorial is for <strong><a href="https://docs.rs/rustlr/latest/rustlr/index.html">Rustlr version 0.4</a></strong>.
-The <a href="https://cs.hofstra.edu/~cscccl/rustlr_project/">older tutorial</a>
-is still available.  Rustlr remains compatible with older grammars,
-but some may need to be recompiled.</p>
-<p>This tutorial is not an introduction to LR parsing, though only minimal
-knowledge of the concept is required to understand the examples.
-The first chapter of the tutorial will present three versions of a
-simple grammar illustrating the core features of Rustlr, while
-additional features and options will be presented in subsequent chapters.</p>
-<p>The first grammar parses integer arithmetic expressions and computes their
-values.</p>
-<pre><code class="language-ignore">auto
-nonterminal E i32
-nonterminal T i32
-nonterminal F i32
-terminals + * - / ( )
-valueterminal num ~ i32 ~ Num(n) ~ n as i32
-topsym E
+</style><style id="__markdown-viewer__custom_css"></style><meta name="viewport" content="width=device-width, initial-scale=1"><title>7.Training The Parser For Better Error Reporting</title></head><body><div id="__markdown-viewer__tools" class="floating"><input type="checkbox" id="__markdown-viewer__show-tools"><label for="__markdown-viewer__show-tools"></label><div id="__markdown-viewer__toc" class="toggleable"><ul><li><a href="#7training-the-parser-for-better-error-reporting">7.Training The Parser For Better Error Reporting</a></li></ul></div><p class="toggleable">Pick a markdown and code style:<br><select id="__markdown-viewer__mdselect"><option value="sss">default</option><option value="github">github</option></select><select id="__markdown-viewer__hlselect"><option value="a11y-dark">a11y-dark</option><option value="a11y-light">a11y-light</option><option value="a11y-auto">a11y-auto</option><option value="agate">agate</option><option value="androidstudio">androidstudio</option><option value="an-old-hope">an-old-hope</option><option value="arduino-light">arduino-light</option><option value="arta">arta</option><option value="ascetic">ascetic</option><option value="atelier-cave-dark">atelier-cave-dark</option><option value="atelier-cave-light">atelier-cave-light</option><option value="atelier-cave-auto">atelier-cave-auto</option><option value="atelier-dune-dark">atelier-dune-dark</option><option value="atelier-dune-light">atelier-dune-light</option><option value="atelier-dune-auto">atelier-dune-auto</option><option value="atelier-estuary-dark">atelier-estuary-dark</option><option value="atelier-estuary-light">atelier-estuary-light</option><option value="atelier-estuary-auto">atelier-estuary-auto</option><option value="atelier-forest-dark">atelier-forest-dark</option><option value="atelier-forest-light">atelier-forest-light</option><option value="atelier-forest-auto">atelier-forest-auto</option><option value="atelier-heath-dark">atelier-heath-dark</option><option value="atelier-heath-light">atelier-heath-light</option><option value="atelier-heath-auto">atelier-heath-auto</option><option value="atelier-lakeside-dark">atelier-lakeside-dark</option><option value="atelier-lakeside-light">atelier-lakeside-light</option><option value="atelier-lakeside-auto">atelier-lakeside-auto</option><option value="atelier-plateau-dark">atelier-plateau-dark</option><option value="atelier-plateau-light">atelier-plateau-light</option><option value="atelier-plateau-auto">atelier-plateau-auto</option><option value="atelier-savanna-dark">atelier-savanna-dark</option><option value="atelier-savanna-light">atelier-savanna-light</option><option value="atelier-savanna-auto">atelier-savanna-auto</option><option value="atelier-seaside-dark">atelier-seaside-dark</option><option value="atelier-seaside-light">atelier-seaside-light</option><option value="atelier-seaside-auto">atelier-seaside-auto</option><option value="atelier-sulphurpool-dark">atelier-sulphurpool-dark</option><option value="atelier-sulphurpool-light">atelier-sulphurpool-light</option><option value="atelier-sulphurpool-auto">atelier-sulphurpool-auto</option><option value="atom-one-dark">atom-one-dark</option><option value="atom-one-dark-reasonable">atom-one-dark-reasonable</option><option value="atom-one-light">atom-one-light</option><option value="brown-paper">brown-paper</option><option value="codepen-embed">codepen-embed</option><option value="color-brewer">color-brewer</option><option value="darcula">darcula</option><option value="dark">dark</option><option value="default">default</option><option value="docco">docco</option><option value="dracula">dracula</option><option value="far">far</option><option value="foundation">foundation</option><option value="github">github</option><option value="github-gist">github-gist</option><option value="gml">gml</option><option value="googlecode">googlecode</option><option value="gradient-dark">gradient-dark</option><option value="grayscale">grayscale</option><option value="gruvbox-dark">gruvbox-dark</option><option value="gruvbox-light">gruvbox-light</option><option value="gruvbox-auto">gruvbox-auto</option><option value="hopscotch">hopscotch</option><option value="hybrid">hybrid</option><option value="idea">idea</option><option value="ir-black">ir-black</option><option value="isbl-editor-dark">isbl-editor-dark</option><option value="isbl-editor-light">isbl-editor-light</option><option value="isbl-editor-auto">isbl-editor-auto</option><option value="kimbie">kimbie</option><option value="kimbie">kimbie</option><option value="lightfair">lightfair</option><option value="lioshi">lioshi</option><option value="magula">magula</option><option value="mono-blue">mono-blue</option><option value="monokai">monokai</option><option value="monokai-sublime">monokai-sublime</option><option value="night-owl">night-owl</option><option value="nnfx">nnfx</option><option value="nnfx-dark">nnfx-dark</option><option value="nord">nord</option><option value="obsidian">obsidian</option><option value="ocean">ocean</option><option value="paraiso-dark">paraiso-dark</option><option value="paraiso-light">paraiso-light</option><option value="paraiso-auto">paraiso-auto</option><option value="pojoaque">pojoaque</option><option value="purebasic">purebasic</option><option value="qtcreator_dark">qtcreator_dark</option><option value="qtcreator_light">qtcreator_light</option><option value="qtcreator_auto">qtcreator_auto</option><option value="railscasts">railscasts</option><option value="rainbow">rainbow</option><option value="routeros">routeros</option><option value="school-book">school-book</option><option value="shades-of-purple">shades-of-purple</option><option value="solarized-dark">solarized-dark</option><option value="solarized-light">solarized-light</option><option value="solarized-auto">solarized-auto</option><option value="srcery">srcery</option><option value="sunburst">sunburst</option><option value="tomorrow">tomorrow</option><option value="tomorrow-night">tomorrow-night</option><option value="tomorrow-night-blue">tomorrow-night-blue</option><option value="tomorrow-night-bright">tomorrow-night-bright</option><option value="tomorrow-night-eighties">tomorrow-night-eighties</option><option value="vs">vs</option><option value="vs2015">vs2015</option><option value="xcode">xcode</option><option value="xt256">xt256</option><option value="zenburn">zenburn</option></select></p><p class="toggleable"><a id="__markdown-viewer__download" download="markdown.html" style="display: none;" href="blob:null/6a22fc1d-d41c-422b-9bdb-7973e53b065b">Download as HTML</a></p></div><div class="markdownRoot"><h3 id="7training-the-parser-for-better-error-reporting">7.Training The Parser For Better Error Reporting</h3>
+<p>It is recommended that, when a parser is generated, the -trace 3 option is
+given, which will print all the LR states that are created. This may be helpful
+when training the parser.  Each time the parser is regenerated the states may
+have different numbers identifying them, even if the grammar is unchanged.</p>
+<p>With a newly generated parser, when a parser error is encountered, the
+line and column numbers are printed and an "unexpected symbol" error
+message is given. To print more helpful error messages, the parser can
+be trained interactively.  Interactive training also produces a script
+for future, automatic retraining when a new parser is generated.</p>
+<p>As example, one can use the crate created from <code>calcauto.grammar</code> in <a href="https://chuckcscccl.github.io/rustlr_project/chapter2.html">Chapter 2</a>.
+Modify <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/src/main.rs">main.rs</a> by changing the call to <code>parse_with</code> to</p>
+<pre><code>  <span class="hljs-keyword">let</span> tree4= calcautoparser::parse_train_with(&amp;<span class="hljs-keyword">mut</span> parser4, &amp;<span class="hljs-keyword">mut</span> scanner4,<span class="hljs-string">"src/calcautoparser.rs"</span>);
+</code></pre>
+<p>For input with no errors, this call works the same way as <code>parse_with</code>  The
+<code>parse_train_with</code> function takes a path to a copy of the parser being trained
+(it's not recommended to change the copy that you're using this way).
+Cargo run will lead to the following (possible) training session, depending on
+user input:</p>
+<pre><code>PARSER ERROR: unexpected symbol ( on line <span class="hljs-number">2</span>, column <span class="hljs-number">2</span> ..
 
-E <span class="hljs-comment">--&gt; E:e + T:t { e + t }</span>
-E <span class="hljs-comment">--&gt; E:e - T:t { e - t }</span>
-E <span class="hljs-comment">--&gt; T</span>
-T <span class="hljs-comment">--&gt; T:a * F:b { a*b }</span>
-T <span class="hljs-comment">--&gt; T:a / F:b { a/b }</span>
-T <span class="hljs-comment">--&gt; F</span>
-F <span class="hljs-comment">--&gt; - F:a { -a }</span>
-F <span class="hljs-comment">--&gt; ( E )</span>
-F <span class="hljs-comment">--&gt; num</span>
-</code></pre>
-<p>These are the contents of a Rustlr grammar file, <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/test1/calc1.grammar">calc1.grammar</a>.
-This classic example of an unambiguous grammar is found in most
-compiler textbooks.  Rustlr recognizes operator precedence and associativity
-declarations (see below), but we start with a proper grammar.
-After you <strong><code>cargo install rustlr</code></strong> you can produce a LALR parser from this
-grammar file, which must end with <code>.grammar</code>, with:</p>
-<blockquote>
-<p><strong><code>rustlr calc1.grammar</code></strong></p>
-</blockquote>
-<p>This runs rustlr in its default LALR(1) mode.  This generates two
-files: <strong><code>calc1parser.rs</code></strong> and <strong><code>calc1_ast.rs</code></strong> in the working
-directory, although the second file won't contain much for this
-example.  It will derive the name of the grammar (test1) from the file
-path, unless there is a declaration of the form</p>
-<blockquote>
-<p><code>grammarname somename</code></p>
-</blockquote>
-<p>in the grammar spec. The parser must import some elements of rustlr so it
-should be used in a crate.  We will come back to how to use the
-generated parser later.</p>
-<h4 id="grammar-format"><strong>GRAMMAR FORMAT</strong></h4>
-<p>The first line in the grammar specification:</p>
-<blockquote>
-<p><code>auto</code></p>
-</blockquote>
-<p>is recommended in most situations.
-Specifically it means to generate the abstract syntax types and semantic actions
-automatically while allowing for overrides.  We provided overrides for the
-types of the three non-terminal symbols E, T and F to be i32 and manually
-written semantic actions to create values of that type.  However, the
-<code>auto</code> mode was still useful in that other actions were created automatically.
-For example, we did not have to write <code>F --&gt; ( E:a ) { a }</code>.</p>
-<p>Leaving out <code>auto</code> enables some deprecated features of Rustlr and is
-generally not recommeneded. The auto mode allows any degree of manual
-override, rendering the non-auto mode redundant.  One possible
-exception for the non-auto mode is to use a lexical scanner separate
-from the built-in one.</p>
-<p>RustLr requires that all grammar symbols be declared as terminal or
-non-terminal before any production rules.</p>
-<h4 id="top-nonterminal"><strong>Top Nonterminal</strong></h4>
-<blockquote>
-<p><code>topsym E</code></p>
-</blockquote>
-<p>Alternatively, <code>startsymbol E</code>.  One particular non-terminal symbol
-should be designated the top/start symbol: The parser generator will
-always create an extra production rule of the form <code>START --&gt; topsym EOF</code></p>
-<h4 id="grammar-production-rules"><strong>Grammar Production Rules</strong></h4>
-<p>You will get an error message if the grammar symbols are not defined before
-the grammar rules.  Each rule is indicated by a non-terminal symbol followed
-by <code>--&gt;</code>, or  <code>==&gt;</code>.  The symbol <code>==&gt;</code> is for rules that span multiple
-lines that you will find used
-in other grammars (later chapters).  You can specify multiple production
-rules with the same left-hand side nonterminal using |  which you will
-also find in other grammars.</p>
-<p>The right hand side of each rule must separate each grammar symbol with
-whitespaces.  For each grammar symbol such as E, you can optionally
-bind a "label" in the form <code>T:a</code> or <code>T:[a]</code>. The first grammar will only use
-the first type of label and we shall explain the other with the next grammar.</p>
-<p>The right-hand side of a rule may be empty, which will make the
-non-terminal on the left side of <code>--&gt;</code> "nullable".</p>
-<h4 id="semantic-actions"><strong>Semantic Actions</strong></h4>
-<p>Every terminal and non-terminal symbol is associated with the type of
-a semantic value.  In the <code>auto</code> mode types and semantic actions are
-always automatically created unless overrides are provided.</p>
-<blockquote>
-<p><strong>All such types are expected to impl <code>Default</code> and <code>Debug</code></strong>.</p>
-</blockquote>
-<p>Rustlr parsers will attempt to construct partial semantic values even
-in case of parsing errors, hence the requirement for the <code>Default</code> trait.</p>
-<p>Every production rule can optionally end with a manually written
-semantic action inside { and }, which can only follow all grammar
-symbols making up the right-hand side of the production rule.  This is
-a piece of Rust code that will be injected <em>verbatim</em> into the
-generated parser, and is expect to return a value associated with the
-left-hand side non-terminal of the rule.  The semantic action code
-will have access to any labels associated with the symbols defined
-using ":".</p>
-<h4 id="creating-a-lexical-scanner-for-the-terminal-symbols"><strong>Creating a Lexical Scanner for the Terminal Symbols</strong></h4>
-<p>A lexical scanner is automatically created from the declarations of
-the terminal symbols of the grammar.  These terminals can be
-categorized into ones that do not carry meaningful semantic values,
-and ones that do.  Those that do not carry values are assigned type
-<code>()</code>, as in unit, in the <code>auto</code> mode, and can be declared in one of
-two ways:</p>
-<ol>
-<li>If the name of the terminal symbol is the same as its textual form
-(how it appears in concrete syntax), then it can be declared on a <code>terminals</code>
-line as in this grammar.  Multiple <code>terminals</code> lines are allowed.</li>
-<li>If the name of the grammar symbol is different from its textual form,
-it should be declared on a line such as</li>
-</ol>
-<pre><code>  <span class="hljs-attribute">lexterminal</span> COLON :
-</code></pre>
-<p>In the grammar's production rules, the terminal should be referred to as
-<code>COLON</code>.  Certain reserved symbols such as <code>:</code>, <code>|</code> and <code>{</code>, <code>}</code>
-must be declared this way.</p>
-<p>Terminal symbols that carry meaningful values, such as alphanumeric
-identifiers, numerical constants and string literals, should be define
-with a <strong><code>valueterminal</code></strong> line as in the defininition of <code>num</code> in this grammar.
-The format of this line is as follows:</p>
-<blockquote>
-<p>valueterminal terminal_name ~ terminal_type ~ expected_token ~ token_value</p>
-</blockquote>
-<p>Each component is separated by a <code>~</code>, which is not a Rust operator.
-The <em>token_value</em> must be of type <em>terminal_type.</em>  The last
-two components will be used form a 'match' clause, so we can write,
-for example,</p>
-<pre><code>  <span class="hljs-attribute">valueterminal</span> Positive <span class="hljs-regexp">~ u64</span> <span class="hljs-regexp">~ Num(n)</span> if n&gt;<span class="hljs-number">0</span> <span class="hljs-regexp">~ n</span> as u64
-</code></pre>
-<p>The token category <strong><code>Num</code></strong> is a variant of <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/enum.RawToken.html">RawToken</a>, the type of token
-produced by the built-in generic tokenizer, <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html">StrTokenizer</a>.
-Other common categories include <strong>Alphanum</strong> for alphanumeric sequences,
-<strong>Symbol</strong> for non-alphanumeric symbols, and <strong>Strlit</strong> for string literals.
-Consult the <a href="https://chuckcscccl.github.io/rustlr_project/chapter2.html">next chapter</a> for their usage.</p>
-<p>The generated lexer is a struct called calc1lexer alongside the make_parser()
-function inside the generated parser file.  One creates a mutable instance
-of the lexer using the generated <strong><code>calc1lexer::from_str</code></strong> and <strong><code>test1lexer::from_source</code></strong> functions.</p>
-<h4 id="invoking-the-parser"><strong>Invoking the Parser</strong></h4>
-<p>Here is a "main" that creates and invokes the parser.</p>
-<pre><code><span class="hljs-keyword">mod</span> calc1parser;
-<span class="hljs-keyword">use</span> calc1parser::*;
-<span class="hljs-keyword">mod</span> calc1_ast;
-<span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() {
-  <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> input = <span class="hljs-string">"5+2*3"</span>;
-  <span class="hljs-keyword">let</span> args:<span class="hljs-built_in">Vec</span>&lt;<span class="hljs-built_in">String</span>&gt; = std::env::args().collect(); <span class="hljs-comment">// command-line args</span>
-  <span class="hljs-keyword">if</span> args.len()&gt;<span class="hljs-number">1</span> {input = &amp;args[<span class="hljs-number">1</span>]; }
-  <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> parser1 = make_parser();
-  <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> tokenizer1 = calc1lexer::from_str(input);
-  <span class="hljs-keyword">let</span> result = parse_with(&amp;<span class="hljs-keyword">mut</span> parser1, &amp;<span class="hljs-keyword">mut</span> tokenizer1)
-               .unwrap_or_else(|x|x);
-  <span class="hljs-built_in">println!</span>(<span class="hljs-string">"result after parsing {}: {}"</span>,input,result);
-</code></pre>
-<p>The <a href="http://main.rs">main.rs</a> should be placed in a cargo crate with <strong>"rustlr = "0.4"</strong> in its
-dependencies. The files produced by rustlr for the grammar should also be
-inside the <code>src/</code> folder of the crate.
-The function <code>parse_with</code> is created <em>for each grammar</em>,
-and returns a <code>Result&lt;T,T&gt;</code> where <code>T</code> is the semantic value type of the
-"topsym" (startsymbol) of the grammar.</p>
-<p>This main expects a command-line argument.  Alternatively,
-we can create a lexer from a file source with:</p>
-<pre><code>  <span class="hljs-keyword">let</span> source = rustlr::LexSource::new(<span class="hljs-string">"file path"</span>).unwrap();
-  <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> tokenizer1 = calc1lexer::from_source(&amp;source);
-</code></pre>
-<h4 id="operator-precedence-and-associativity-declarations"><strong>Operator Precedence and Associativity Declarations</strong></h4>
-<p>An alternative way to write the above grammar is the following</p>
-<pre><code>auto
-nonterminal E i32
-terminals <span class="hljs-operator">+</span> <span class="hljs-operator">*</span> <span class="hljs-operator">-</span> <span class="hljs-operator">/</span> ( )
-valueterminal num <span class="hljs-operator">~</span> i32 <span class="hljs-operator">~</span> Num(n) <span class="hljs-operator">~</span> n <span class="hljs-keyword">as</span> i32
-topsym E
-<span class="hljs-keyword">left</span> <span class="hljs-operator">+</span> <span class="hljs-number">100</span>
-<span class="hljs-keyword">left</span> <span class="hljs-operator">-</span> <span class="hljs-number">100</span>
-<span class="hljs-keyword">left</span> <span class="hljs-operator">*</span> <span class="hljs-number">200</span>
-<span class="hljs-keyword">left</span> <span class="hljs-operator">/</span> <span class="hljs-number">200</span>
+&gt;&gt;&gt;TRAINER: if this message is not adequate (for state <span class="hljs-number">1</span>), enter a replacement (default n
+o change): missing an operator symbol such as *
+&gt;&gt;&gt;TRAINER: should this message be given for all unexpected symbols in the current state?
+ (default yes) no
+PARSER ERROR: unexpected symbol % on line <span class="hljs-number">3</span>, column <span class="hljs-number">2</span> ..
 
-E <span class="hljs-comment">--&gt; E:e + E:t { e + t }</span>
-E <span class="hljs-comment">--&gt; E:e - E:t { e - t }</span>
-E <span class="hljs-comment">--&gt; E:a * E:b { a*b }</span>
-E <span class="hljs-comment">--&gt; E:a / E:b { a/b }</span>
-E(<span class="hljs-number">300</span>) <span class="hljs-comment">--&gt; - E:a { -a }</span>
-E <span class="hljs-comment">--&gt; ( E )  |  num</span>
-</code></pre>
-<p>Operators can be declared to be <code>left</code> or <code>right</code> associative or
-<code>nonassoc</code>, with a number indicating the precedence level.  Rustlr
-does not report shift-reduce conflicts if they are clearly resolved by
-such declarations (except at trace level 5 or above).  Although
-attractive as they enable ambiguous grammars to be written,
-over-reliance on these declarations should be avoided.  For larger
-grammars, overusing these declarations can cause problems <em>(if you find
-yourself declaring the precendence of a bracket such as '[', you're in
-trouble).</em>  Even in this small grammar, care must be taken. Unary
-operators usually bind tighter than binary ones: the <strong>unary -</strong>
-should have precedence over <code>*</code> and <code>/</code> (the outcome may be the same but
-the manner of evaluation is not).  Thus the <em>rule</em> for unary
-minus overrides the declared precedence of <code>-</code>.  Each grammar symbol
-is given a precedence level, which is by default zero.  Each <em>rule</em> is
-assigned a precedence equal to the symbol on the right-hand side with
-the highest precedence, unless overridden as in the unary minus rule.</p>
-<p>One place where precedence declarations are arguably justified is the infamous
-"dangling else" problem:</p>
-<pre><code>Statment --&gt; <span class="hljs-keyword">if</span> ( Expression ) Statment
-Statment --&gt; <span class="hljs-keyword">if</span> ( Expression ) Statment <span class="hljs-keyword">else</span> Statment
-</code></pre>
-<p>Rewriting this grammar unambiguously would require extra rules for all other
-cases of <code>Statment</code>.  Rustlr allows this problem to be solved by assigning
-'else' a higher precedence than 'if', which would force a shift and associate
-each 'else' with the nearest 'if'.</p>
-<h3 id="generating-abstract-syntax-trees">Generating Abstract Syntax Trees</h3>
-<p>The first versions of the grammar computed numerical values directly, but
-more generally parsers create AST structures.</p>
-<pre><code># calc2.grammar
-auto
-nonterminal E
-nonterminal T : E
-nonterminal F : E
-terminals + * - / ( )
-valueterminal num ~ <span class="hljs-built_in">i32</span> ~ Num(n) ~ n <span class="hljs-keyword">as</span> <span class="hljs-built_in">i32</span>
-startsymbol E
+&gt;&gt;&gt;TRAINER: if this message is not adequate (for state <span class="hljs-number">1</span>), enter a replacement (default n
+o change): this symbol is not recognized as a valid operator in this language
+Expression tree from parse: <span class="hljs-built_in">Seq</span>([<span class="hljs-built_in">Minus</span>(<span class="hljs-built_in">Negative</span>(<span class="hljs-built_in">Val</span>(<span class="hljs-number">5</span>)), <span class="hljs-built_in">Times</span>(<span class="hljs-built_in">Minus</span>(<span class="hljs-built_in">Val</span>(<span class="hljs-number">4</span>), <span class="hljs-built_in">Val</span>(<span class="hljs-number">2</span>)), Val
+(<span class="hljs-number">5</span>))), <span class="hljs-built_in">Minus</span>(<span class="hljs-built_in">Minus</span>(<span class="hljs-built_in">Val</span>(<span class="hljs-number">5</span>), <span class="hljs-built_in">Val</span>(<span class="hljs-number">7</span>)), <span class="hljs-built_in">Negative</span>(<span class="hljs-built_in">Val</span>(<span class="hljs-number">9</span>))), <span class="hljs-built_in">Minus</span>(<span class="hljs-built_in">Times</span>(<span class="hljs-built_in">Val</span>(<span class="hljs-number">4</span>), <span class="hljs-built_in">Val</span>(<span class="hljs-number">3</span>)), <span class="hljs-built_in">Val</span>(<span class="hljs-number">9</span>
+)), <span class="hljs-built_in">Plus</span>(<span class="hljs-built_in">Val</span>(<span class="hljs-number">2</span>), <span class="hljs-built_in">Divide</span>(<span class="hljs-built_in">Val</span>(<span class="hljs-number">1</span>), <span class="hljs-built_in">Minus</span>(<span class="hljs-built_in">Minus</span>(<span class="hljs-built_in">Val</span>(<span class="hljs-number">2</span>), <span class="hljs-built_in">Val</span>(<span class="hljs-number">1</span>)), <span class="hljs-built_in">Val</span>(<span class="hljs-number">1</span>)))), <span class="hljs-built_in">Letexp</span>(<span class="hljs-string">"x"</span>, <span class="hljs-built_in">Val</span>(<span class="hljs-number">1</span>
+<span class="hljs-number">0</span>), <span class="hljs-built_in">Plus</span>(<span class="hljs-built_in">Val</span>(<span class="hljs-number">2</span>), <span class="hljs-built_in">Var</span>(<span class="hljs-string">"x"</span>))), <span class="hljs-built_in">Letexp</span>(<span class="hljs-string">"x"</span>, <span class="hljs-built_in">Val</span>(<span class="hljs-number">1</span>), <span class="hljs-built_in">Plus</span>(<span class="hljs-built_in">Plus</span>(<span class="hljs-built_in">Var</span>(<span class="hljs-string">"x"</span>), <span class="hljs-built_in">Letexp</span>(<span class="hljs-string">"x"</span>, <span class="hljs-built_in">Val</span>(<span class="hljs-number">10</span>),
+ <span class="hljs-built_in">Plus</span>(<span class="hljs-built_in">Var</span>(<span class="hljs-string">"x"</span>), <span class="hljs-built_in">Var</span>(<span class="hljs-string">"x"</span>)))), <span class="hljs-built_in">Var</span>(<span class="hljs-string">"x"</span>))), <span class="hljs-built_in">Plus</span>(<span class="hljs-built_in">Letexp</span>(<span class="hljs-string">"x"</span>, <span class="hljs-built_in">Val</span>(<span class="hljs-number">2</span>), <span class="hljs-built_in">Plus</span>(<span class="hljs-built_in">Var</span>(<span class="hljs-string">"x"</span>), <span class="hljs-built_in">Var</span>(<span class="hljs-string">"x"</span>)
+)), <span class="hljs-built_in">Var</span>(<span class="hljs-string">"x"</span>)), <span class="hljs-built_in">Plus</span>(<span class="hljs-built_in">Letexp</span>(<span class="hljs-string">"x"</span>, <span class="hljs-built_in">Val</span>(<span class="hljs-number">4</span>), <span class="hljs-built_in">Divide</span>(<span class="hljs-built_in">Var</span>(<span class="hljs-string">"x"</span>), <span class="hljs-built_in">Val</span>(<span class="hljs-number">2</span>))), <span class="hljs-built_in">Letexp</span>(<span class="hljs-string">"x"</span>, <span class="hljs-built_in">Val</span>(<span class="hljs-number">10</span>), T
+<span class="hljs-built_in">imes</span>(<span class="hljs-built_in">Var</span>(<span class="hljs-string">"x"</span>), <span class="hljs-built_in">Letexp</span>(<span class="hljs-string">"y"</span>, <span class="hljs-built_in">Val</span>(<span class="hljs-number">100</span>), <span class="hljs-built_in">Divide</span>(<span class="hljs-built_in">Var</span>(<span class="hljs-string">"y"</span>), <span class="hljs-built_in">Var</span>(<span class="hljs-string">"x"</span>))))))])
+---------------------------------------
 
-E:Plus --&gt; E + T
-E:Minus --&gt; E - T
-E --&gt; T
-T:Times --&gt; T * F
-T:Divide --&gt;  T / F
-T --&gt; F
-F:Neg --&gt; - F
-F:Val --&gt; num
-F --&gt; ( E )
+result for line <span class="hljs-number">1</span>: -<span class="hljs-number">15</span> ;
+result for line <span class="hljs-number">4</span>: <span class="hljs-number">7</span> ;
+result for line <span class="hljs-number">5</span>: <span class="hljs-number">3</span> ;
+Division by zero (expression starting at column <span class="hljs-number">5</span>) on line <span class="hljs-number">6</span> of Val(<span class="hljs-number">1</span>) at column <span class="hljs-number">3</span> ... Er
+ror evaluating line <span class="hljs-number">6</span>;
+result for line <span class="hljs-number">7</span>: <span class="hljs-number">12</span> ;
+result for line <span class="hljs-number">8</span>: <span class="hljs-number">22</span> ;
+UNBOUND VARIABLE x ... Error evaluating line <span class="hljs-number">9</span>;
+result for line <span class="hljs-number">10</span>: <span class="hljs-number">102</span> ;
+Parser error, best effort after recovery: <span class="hljs-built_in">Some</span>(<span class="hljs-number">102</span>)
 </code></pre>
-<p>Lines in the grammar that begin with <code>#</code> are used for comments. (but
-the <code>#</code> must be at the very start of the line).</p>
-<p>Unlike the first grammar, there are no overrides for the types of non-terminals
-nor are there manually written semantic actions.  However, the grammar was
-carefully written to distinguish <em>parse trees</em> from <em>abstract syntax trees</em>.
-Normally, Rustlr creates enums for nonterminals that have multiple productions
-and structs for nonterminals that have a single production.  However,
-the non-terminals <code>T</code> and <code>F</code> are only meaningful at the parsing stage and
-should not be included in the AST.  This is accomplished with declarations
-such as <code>nonterminal T : E</code>, which means that the variants for T should be
-absorbed into those for E.  Furthermore, the left-hand side of each rule
-can also be given a label: this label will become the name of the enum variant
-for that case.  The rules without labels, such as <code>F --&gt; ( E )</code> are called
-"pass-thru" cases and do not generate separate variants: the semantic value
-of the left-hand side non-terminal is directly inherited from the sole
-right-hand side symbol that is not of unit type.</p>
-<p>The structure generated for E, in <code>calc2_ast.rs</code>, is</p>
-<pre><code>#[derive(<span class="hljs-type">Debug</span>)]
-pub <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">E</span> </span>{
-  <span class="hljs-type">Plus</span>(<span class="hljs-type">LBox</span>&lt;<span class="hljs-type">E</span>&gt;,<span class="hljs-type">LBox</span>&lt;<span class="hljs-type">E</span>&gt;),
-  <span class="hljs-type">Minus</span>(<span class="hljs-type">LBox</span>&lt;<span class="hljs-type">E</span>&gt;,<span class="hljs-type">LBox</span>&lt;<span class="hljs-type">E</span>&gt;),
-  <span class="hljs-type">Divide</span>(<span class="hljs-type">LBox</span>&lt;<span class="hljs-type">E</span>&gt;,<span class="hljs-type">LBox</span>&lt;<span class="hljs-type">E</span>&gt;),
-  <span class="hljs-type">Times</span>(<span class="hljs-type">LBox</span>&lt;<span class="hljs-type">E</span>&gt;,<span class="hljs-type">LBox</span>&lt;<span class="hljs-type">E</span>&gt;),
-  <span class="hljs-type">Val</span>(i32),
-  <span class="hljs-type">Neg</span>(<span class="hljs-type">LBox</span>&lt;<span class="hljs-type">E</span>&gt;),
-  <span class="hljs-type">E_Nothing</span>,
-}
-impl <span class="hljs-type">Default</span> <span class="hljs-keyword">for</span> <span class="hljs-type">E</span> { fn <span class="hljs-keyword">default</span>()-&gt;<span class="hljs-keyword">Self</span> { <span class="hljs-type">E</span>::<span class="hljs-type">E_Nothing</span> } }
+<p>Notice that error recovery was effective and the parser still produced a usable
+parse tree: however, the parser's error_occurred flag will be set.  It is
+under consideration as to whether future editions of Rustlr will also allow the
+error-recovery strategy to be trainable in the same way.  For now, only a fixed
+number of strategies are available.  In the opinion of the author, the resync
+technique is the simplest and most effective.</p>
+<p>If the augmented parser is used on the same input, it will display the trained
+message in addition to "unexpected symbol..."</p>
+<p>You can see how training augments the LR state transition table by
+examining the <code>load_extras</code> function at the end of the generated parser:</p>
+<pre><code><span class="hljs-selector-tag">fn</span> <span class="hljs-selector-tag">load_extras</span>(<span class="hljs-attribute">parser</span>:&amp;mut RuntimeParser&lt;Expr,Expr&gt;)
+{
+  <span class="hljs-selector-tag">parser</span><span class="hljs-selector-class">.RSM</span><span class="hljs-selector-attr">[1]</span><span class="hljs-selector-class">.insert</span>(<span class="hljs-string">"("</span>,<span class="hljs-attribute">Stateaction</span>::Error(<span class="hljs-string">"missing an operator symbol such as *"</span>));
+  <span class="hljs-selector-tag">parser</span><span class="hljs-selector-class">.RSM</span><span class="hljs-selector-attr">[1]</span><span class="hljs-selector-class">.insert</span>(<span class="hljs-string">"ANY_ERROR"</span>,<span class="hljs-attribute">Stateaction</span>::Error("this symbol is <span class="hljs-keyword">not</span> recognized as a
+ valid operator in this language"));
+}<span class="hljs-comment">//end of load_extras: don't change this line as it affects augmentation</span>
 </code></pre>
-<p>The variant <code>E_Nothing</code> is created to implement the <code>Default</code> trait, which is
-required of all semantic value types.</p>
-<h4 id="what-is-an-lbox">What is an <strong>LBox?</strong></h4>
-<p>In a typical compiler/interpreter, the most meaningful error messages,
-such as using a variable out of scope, or calling a function with the
-wrong number or type of arguments, are not parsing errors but are only
-recognized in later stages, such during type checking. However, all
-error messages must indicate the location in the orignal text (line
-and column numbers) where the errors originate.  This implies that the
-parser must insert this location information into the ASTs that are
-created.  All data structures designed for the abstract syntax must
-accommodate this information, which can become rather intrusive.
-Rustlr tries to
-make this process transparent by defining a <em>custom smart pointer</em>
-called <strong><a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html">LBox</a></strong>.  It takes advantage of the fact that ASTs are
-almost always recursive, which would require smart pointers in the
-type definitions. Rustlr computes a reachability closure to determine
-where these pointers are required.  However, instead of using a
-regular Box, an LBox includes a Box along with the line and column
-numbers of where the construct starts.  This information is automatically
-inserted into each LBox by the Rustlr runtime parser (<a href="https://docs.rs/rustlr/latest/rustlr/zc_parser/struct.ZCParser.html">ZCParser</a>).
-<a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html">Lbox</a> implements <code>Deref</code> and
-<code>DerefMut</code> so they can be used just like a regular Box, <em>except</em> when we
-actually need the line/column information:</p>
-<pre><code class="language-rust"><span class="hljs-keyword">pub</span> <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">eval</span></span>(expr:&amp;E) -&gt; <span class="hljs-built_in">Option</span>&lt;<span class="hljs-built_in">i32</span>&gt; {
-  <span class="hljs-keyword">use</span> E::*;
-  <span class="hljs-keyword">match</span> expr {
-    Val(n) =&gt; <span class="hljs-literal">Some</span>(*n),
-    Neg(n) =&gt; eval(n).map(|x|-x),
-    Plus(a,b) =&gt; eval(a).map(|x|eval(b).map(|y|x+y)).flatten(), <span class="hljs-comment">//monadic join</span>
-    Minus(a,b) =&gt; eval(a).map(|x|eval(b).map(|y|x-y)).flatten(),
-    Times(a,b) =&gt; eval(a).map(|x|eval(b).map(|y|x*y)).flatten(),
-    Divide(a,b) =&gt; eval(b).map(|y|{ 
-      <span class="hljs-keyword">if</span> y==<span class="hljs-number">0</span> {
-        eprintln!(<span class="hljs-string">"Division by zero line {}, column {}"</span>,b.line(),b.column());
-        <span class="hljs-literal">None</span>
-      } <span class="hljs-keyword">else</span> { eval(a).map(|x|x/y) } }).flatten(),
-    _ =&gt; <span class="hljs-literal">None</span>,
-  }<span class="hljs-comment">//match</span>
-}<span class="hljs-comment">//eval</span>
+<p>When the "unexpected symbol" is recognized as a declared symbol of the grammar, the trainer will be given the option of entering the error message for either
+just that symbol, or all unexpected symbols in the same state.  If the latter is
+chosen then an entry is created for the reserved <code>ANY_ERROR</code> symbol.  If the
+unexpected symbol is not recognized as a terminal symbol of the grammar, an
+<code>ANY_ERROR</code> entry is always created.  You can see the contents of "state 1"
+if you created it with the -trace 3 option. You will of course have to understand the LR parsing algorithm to make use of the information.</p>
+<p>When the modified parser runs and encounters another unexpected symbol in the
+same state, it will first see if there is an entry for that symbol; if none
+exists, it will look for an <code>ANY_ERROR</code> entry for a message to display.
+Thus the two entries do not conflict with eachother.</p>
+<p>The interactive session also generated a script file, which would be called
+<em>"calc4parser.rs_script.txt"</em>, with the following contents:</p>
+<pre><code># Rustlr training script <span class="hljs-keyword">for</span> calc4parser.rs
+
+<span class="hljs-number">2</span>       <span class="hljs-number">2</span>       ( ::: missing an <span class="hljs-keyword">operator</span> symbol such <span class="hljs-keyword">as</span> *
+<span class="hljs-number">3</span>       <span class="hljs-number">2</span>       ANY_ERROR ::: <span class="hljs-keyword">this</span> symbol <span class="hljs-keyword">is</span> not recognized <span class="hljs-keyword">as</span> an <span class="hljs-keyword">operator</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span> language
 </code></pre>
-<p>We can inject verbatim Rust code into the parser directly by prefixing each
-line with <code>!</code>.  Similarly, we can inject code into an <code>ast.rs</code> file by prefixing
-each line with <code>$</code>.  However, typically these will be <code>use</code> clauses, as in</p>
-<pre><code>!use std::collections::HashMap;
-</code></pre>
-<br>
-<p>This chapter serves as an introduction.  There are other details and features
-that will be explained fully in subsequent chapters.</p>
+<p>This script can be used to retrain a newly genenerated parser (with different state numbers) with the <a href="https://docs.rs/rustlr/latest/rustlr/runtime_parser/struct.RuntimeParser.html#method.train_from_script">train_from_script</a> function
+provided the same input from the original training.  The line and column numbers
+of where the errors are expected are recorded in the script.  Please note that
+training from script has not yet been tested on a large scale.</p>
 <hr>
 </div></body></html>

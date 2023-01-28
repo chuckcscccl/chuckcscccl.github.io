@@ -12,13 +12,14 @@ message is given. To print more helpful error messages, the parser can
 be trained interactively.  Interactive training also produces a script
 for future, automatic retraining when a new parser is generated.
 
-Modify [main.rs](https://cs.hofstra.edu/~cscccl/rustlr_project/calc4/src/main.rs) by uncommenting lines 2 and 3 in the input:
+As example, one can use the crate created from `calcauto.grammar` in [Chapter 2][chap2].
+Modify [main.rs](https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/src/main.rs) by changing the call to `parse_with` to
 ```
-3(1+2)   # syntax (parsing) error
-5%2;   # syntax error
+  let tree4= calcautoparser::parse_train_with(&mut parser4, &mut scanner4,"src/calcautoparser.rs");
 ```
-Note that the supplied main already calls `parse_train(&mut scanner2,"calc4parser.rs");`  For input with no errors, this call works the same way as `parse(&mut scanner2);`  The [parse_train](https://docs.rs/rustlr/latest/rustlr/runtime_parser/struct.RuntimeParser.html#method.parse_stdio_train) function takes a path to a copy of the parser being trained (it's not recommended to change the copy that
-you're using this way).
+For input with no errors, this call works the same way as `parse_with`  The
+`parse_train_with` function takes a path to a copy of the parser being trained
+(it's not recommended to change the copy that you're using this way).
 Cargo run will lead to the following (possible) training session, depending on
 user input:
 ```
@@ -106,6 +107,7 @@ training from script has not yet been tested on a large scale.
 [5]:https://docs.rs/rustlr/latest/rustlr/zc_parser/struct.StackedItem.html#method.lbox
 [sitem]:https://docs.rs/rustlr/latest/rustlr/zc_parser/struct.StackedItem.html
 [chap1]:https://chuckcscccl.github.io/rustlr_project/chapter1.html
+[chap2]:https://chuckcscccl.github.io/rustlr_project/chapter2.html
 [chap3]:https://cs.hofstra.edu/~cscccl/rustlr_project/chapter3.html
 [chap4]:https://cs.hofstra.edu/~cscccl/rustlr_project/chapter4.html
 [chap5]:https://chuckcscccl.github.io/rustlr_project/chapter5.html
