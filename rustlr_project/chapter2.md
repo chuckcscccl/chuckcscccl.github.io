@@ -53,6 +53,8 @@ LetExpr:Let --> let var:let_var = Expr:init_value in LetExpr:let_body
 
 ExprList:nil -->
 ExprList:cons --> LetExpr:car ; ExprList:cdr
+# alternative, will create a vector:
+# ExprList --> (LetExpr ;)*
 ```
 
 The grammar takes full advantage of the 'auto' mode: only the types of
@@ -227,7 +229,8 @@ define a simple error-recovery point: **`resync ;`** indicates that
 when a parser error is encountered, the parser will skip past the next
 semicolon, then look down its parse stack for a state with which it
 can continue parsing.  In otherwords, failure to parse one expression
-does not mean it will not try to parse the next ones.  Rustlr does
+does not mean it will not try to parse the next ones.  More than one
+symbol can be identified as resynch points.  Rustlr also
 implement the more traditional LR recovery technique of a designed
 *error recovery symbol*, which is demonstrated in a [later
 chapter](https://chuckcscccl.github.io/rustlr_project/errors.html).
@@ -406,8 +409,14 @@ That is,
 ```
 will generate a variant that also has its first component in an
 LBox. The 'cdr' is already an LBox as required for recursion (writing
-`[cdr]` will have no additional effect).  The reachability relation also
-determines if a type requires a lifetime parameter.
+`[cdr]` will have no additional effect).
+
+It is also possible to give a symbol an empty box label, which may be
+desired if one still wishes to create a tuple struct/variant:
+```
+ ExprList:cons --> Expr:[] SEMICOLON ExprList
+```
+will generate the tuple variant `cons(LBox<Expr>,LBox<ExprList>)`
 
 Although the generated parser code may not be very readable, rustlr also generated semantic actions that create instances of these AST types.  For example, the rule `Expr:Plus --> Expr + Expr` will have a semantic action equivalent
 the following, manually written one:
@@ -589,7 +598,7 @@ to retain the lexical-position information.
 The operator **`*`** means a sequence of zero or more.  This is done by generating several new non-terminal symbols internally.
 Essentially, these correspond to
 ```
-ES0 --> Expr:e ; {e}
+ES0 --> LetExpr:e ; {e}
 ES1 --> { Vec::new() }
 ES1 --> ES1:v ES0:[e] { v.push(e); v }
 ExprList --> ES1:v {v}
@@ -633,7 +642,7 @@ Another restriction is that the symbols `(`, `)`, `?`, `*` and `+` may not
 be separated by white spaces since that would confuse their interpretation
 as independent terminal symbols.  For example, `( Expr ; ) *` is not valid.
 
-#### Special Operators
+#### **Special Operators**
 
 In addition to the `*`, `+` and `?` suffixes, rustlr also recognizes (non-nested)
 suffixes such as **`<Comma*>`** or **`<;+>`**.  Assuming that
@@ -644,6 +653,12 @@ but not ending in Comma, e.g *a,b,c* but not *a,b,c,*.  In contrast,
 allows the sequence to be empty. The AST generator will also create vectors
 as the semantic values of such expressions.  Please avoid whitespaces in
 these expressions: `<Comma *>` is not recognized.
+For example,
+```
+  ExprList --> LetExpr<;+> ;?
+```
+would accept a semicolong-separated sequence of one or more `LetExpr` with an
+optional semicolon at the end.
 
 #### Nesting Restriction
 

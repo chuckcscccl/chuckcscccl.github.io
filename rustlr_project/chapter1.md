@@ -356,7 +356,7 @@ pub fn eval(expr:&E) -> Option<i32> {
     Neg(n) => eval(n).map(|x|-x),
     Plus(a,b) => eval(a).map(|x|eval(b).map(|y|x+y)).flatten(), //monadic join
     Minus(a,b) => eval(a).map(|x|eval(b).map(|y|x-y)).flatten(),
-    Times(a,b) => eval(a).map(|x|eval(b).map(|y|x*y)).flatten(),
+    Times(a,b) => eval(a).zip(eval(b)).map(|(x,y)|x*y), //alternative
     Divide(a,b) => eval(b).map(|y|{ 
       if y==0 {
         eprintln!("Division by zero line {}, column {}",b.line(),b.column());

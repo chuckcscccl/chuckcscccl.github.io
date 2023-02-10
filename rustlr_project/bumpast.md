@@ -168,8 +168,8 @@ grammar.  These definitions will allow the `#[derive(Default)]` tags for the
 automatically because of Rust's restrictions to what static definitions can
 reference.
 
-This problem can also be avoided by just using enums instead of
-structs in such cases: just assign a left-side label to the sole
+This problem can also be avoided by just **using enums instead of
+structs** in such cases: just assign a left-side label to the sole
 production rules for `A1` and `B1`.  Enums always include a `_Nothing` variant
 so that a default can always be defined.
 
@@ -197,6 +197,8 @@ The only other situation that requires understanding of this implementation
 detail is when writing semantic actions manually that creates
 bump-allocated structures.  They should be created by calling
 `parser.exstate.make(...)`.
+
+The same applies to `parser.shared_state` under `auto-bump`.
 
 #### **A Complete Example**
 
