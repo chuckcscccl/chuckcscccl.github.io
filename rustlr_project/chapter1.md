@@ -354,14 +354,17 @@ pub fn eval(expr:&E) -> Option<i32> {
   match expr {
     Val(n) => Some(*n),
     Neg(n) => eval(n).map(|x|-x),
-    Plus(a,b) => eval(a).map(|x|eval(b).map(|y|x+y)).flatten(), //monadic join
-    Minus(a,b) => eval(a).map(|x|eval(b).map(|y|x-y)).flatten(),
-    Times(a,b) => eval(a).zip(eval(b)).map(|(x,y)|x*y), //alternative
-    Divide(a,b) => eval(b).map(|y|{ 
-      if y==0 {
-        eprintln!("Division by zero line {}, column {}",b.line(),b.column());
-        None
-      } else { eval(a).map(|x|x/y) } }).flatten(),
+    Plus(a,b) => eval(a).zip(eval(b)).map(|(x,y)|x+y),
+    Minus(a,b) => eval(a).zip(eval(b)).map(|(x,y)|x-y),
+    Times(a,b) => eval(a).zip(eval(b)).map(|(x,y)|x*y),
+    Divide(a,b) => eval(b)
+       .map(|y| {
+         if y == 0 {
+           eprintln!("Division by zero line {}, column {}",b.line(),b.column());
+           None
+         } else { eval(a).map(|x| x/y) }
+       })
+       .flatten(),
     _ => None,
   }//match
 }//eval

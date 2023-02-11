@@ -459,7 +459,6 @@ We can also force the minus sign to be
 included in the AST by giving it an explicit lable such as `-:minus UnaryExpr`.
 This would create an enum variant that includes a unit type value.
 
-
 #### Flattening Structs
 
 Rustlr provides another way to control the generation of ASTs so that
@@ -516,6 +515,59 @@ there are cases where it would be safe to flatten A into B and then flatten
 B into C. This ability is not currently supported (as of Rustlr 0.3.5).
 
 
+#### Variant Groups
+
+Another choice in AST generation is the designation of "variant groups".
+This feature makes it possible to write production rules without
+any labels while still allowing meaningful AST types to be created.
+Instead of a separate enum variant for each rule, one can choose to unite
+several rules under a single variant, discriminated by the name of some
+grammar symbol that's designated in the grammar as belonging to a group.
+Usually, the grammar symbols are operators.  For example, the grammar
+```
+auto
+valueterminal int ~ i64 ~ Num(n) ~ n
+terminals + - / * ( )
+nonterminal E
+nonterminal T : E
+topsym E
+
+variant-group BinaryOp + -
+
+E --> E + T | E - T | T
+T:Neg --> - T
+T:Val --> int
+T --> ( E )
+```
+will generate the following enum type for `E`:
+```
+#[derive(Debug)]
+pub enum E {
+  BinaryOp(&'static str,LBox<E>,LBox<E>),
+  Val(i64),
+  Neg(LBox<E>),
+  E_Nothing,
+}
+```
+An expression such as `3+4` will be parsed as `E::BinaryOp("+",a,b)`
+where `a`, `b` are LBoxes containing `E::Val(3)` and `E::Val(4)`.
+
+The **`variant-group`** grammar directive associates grammar symbols
+(terminal or non-terminal) with a the name of a "group", in this case
+`BinaryOp`.  All production rules with right-hand sides that contain
+these symbols can then be united under a single variant, discriminated
+by a static string that corresponds to the name of the symbol.
+Typically, these symbols will be terminals representing operators. If
+the right-hand side of a rule contains multiple symbols that can be
+grouped, only the first one (from left to right) will have effect.
+Furthermore, *only rules that contain no explicit left- or right-
+labels* are subject to such grouping.  In particular, the rule
+`T:Neg --> - T` still generates the separate variant for `Neg` because of the
+presence of left-hand side label.  The presence of any right-hand side label,
+including `[]`, will likewise cancel grouping.
+Thus, **a single tuple variant is created for each declared group.**
+
+
 #### Emphasizing the Importance of Labels
 
 The usage of labels greatly affect how the AST datatype is
@@ -533,7 +585,8 @@ single production rule, the lack of any labels left or right leads
 to the creation of a simpler tuple struct.  The use of boxed
 labels such as `[e]` forces the semantic value to be wrapped inside an LBox
 whether or not it is required to define recursive types.  Boxed labels also
-prevent the absorption of 'flatten' types.
+prevent the absorption of 'flatten' types.  The absence of labels is
+required to enable the `variant-group` feature.
 
 
 #### Overriding Types and Actions
