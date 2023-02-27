@@ -369,9 +369,9 @@ pub fn eval(expr:&E) -> Option<i32> {
   }//match
 }//eval
 ```
-Besides [LBox][2], there is also a tuple-struct [LC][lc] that implements the
-same traits as LBox but contains the lexical graphical information in the form of
-an exposed tuple.  
+Besides [LBox][2], there is also a structure [LC][lc] that implements the
+same traits as LBox but contains the lexical location information as well as
+the encapsulated expression in the form of an exposed tuple.
 
 <br>
 
