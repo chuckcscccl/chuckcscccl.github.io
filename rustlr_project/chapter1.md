@@ -342,7 +342,7 @@ called **[LBox][2]**.  It takes advantage of the fact that ASTs are
 almost always recursive, which would require smart pointers in the
 type definitions. Rustlr computes a reachability closure to determine
 where these pointers are required.  However, instead of using a
-regular Box, an LBox includes a Box along with the line and column
+regular [Box][box], an LBox includes a Box along with the line and column
 numbers of where the construct starts.  This information is automatically
 inserted into each LBox by the Rustlr runtime parser ([ZCParser][zcp]). 
 [Lbox][2] implements `Deref` and
@@ -369,6 +369,11 @@ pub fn eval(expr:&E) -> Option<i32> {
   }//match
 }//eval
 ```
+Besides [LBox][2], there is also a tuple-struct [LC][lc] that implements the
+same traits as LBox but contains the lexical graphical information in the form of
+an exposed tuple.  
+
+<br>
 
 We can inject verbatim Rust code into the parser directly by prefixing each
 line with `!`.  Similarly, we can inject code into an `ast.rs` file by prefixing
@@ -405,3 +410,5 @@ that will be explained fully in subsequent chapters.
 [regex]:https://docs.rs/regex/latest/regex/
 [chap1]:https://chuckcscccl.github.io/rustlr_project/chapter1.html
 [chap2]:https://chuckcscccl.github.io/rustlr_project/chapter2.html
+[lc]:https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LC.html
+[box]: https://doc.rust-lang.org/std/boxed/struct.Box.html

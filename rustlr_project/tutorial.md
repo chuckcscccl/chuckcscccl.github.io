@@ -1,8 +1,8 @@
 ## RUSTLR: Bottom-Up Parser Generator for Rust, Version 0.4.x
 
 [Rustlr](https://crates.io/crates/rustlr) was originally created as a
-research platform to explore advanced ideas in grammars and
-parsing.  However, rustlr was also designed to be
+platform to explore advanced ideas in grammars and
+parsing.  It was also designed to be
 practcial and can compete with other parser generators
 in terms of features and usability.  Among its abilities are
 

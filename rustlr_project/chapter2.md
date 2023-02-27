@@ -527,7 +527,7 @@ Usually, the grammar symbols are operators.  For example, the grammar
 ```
 auto
 valueterminal int ~ i64 ~ Num(n) ~ n
-terminals + - / * ( )
+terminals + - ( )
 nonterminal E
 nonterminal T : E
 topsym E
@@ -555,7 +555,7 @@ where `a`, `b` are LBoxes containing `E::Val(3)` and `E::Val(4)`.
 The **`variant-group`** grammar directive associates grammar symbols
 (terminal or non-terminal) with a the name of a "group", in this case
 `BinaryOp`.  All production rules with right-hand sides that contain
-these symbols can then be united under a single variant, discriminated
+these symbols can then be united under a single enum variant, discriminated
 by a static string that corresponds to the name of the symbol.
 Typically, these symbols will be terminals representing operators. If
 the right-hand side of a rule contains multiple symbols that can be
@@ -644,9 +644,14 @@ ExprList --> (LetExpr ;)*
 This would lead to the generation of a tuple struct for type ExprList:
 ```
 #[derive(Default,Debug)]
-pub struct ExprList<'lt>(pub Vec<LBox<Expr<'lt>>>,);
+pub struct ExprList<'lt>(pub Vec<LC<Expr<'lt>>>,);
 ```
-Vectors created for these operators always contain values inside [LBoxes][2]
+Vectors created for these operators always contain values inside **[LC][lc]**
+structures.  LC contains an AST expression along with its lexical
+line/column information in an open tuple as opposed to 
+[LBox][2], which encapsulates a [Box][box]. The Box is not necessary here as Vectors
+are already heap-allocated.
+
 to retain the lexical-position information.
 The operator **`*`** means a sequence of zero or more.  This is done by generating several new non-terminal symbols internally.
 Essentially, these correspond to
@@ -672,7 +677,7 @@ create an AST representation for the semicolon (assuming that is what's
 desired).
 
 The type rustlr associates with the new non-terminal ES1
-will be `Vec<LBox<Expr<'lt>>` and semantic actions are generated to
+will be `Vec<LC<Expr<'lt>>` and semantic actions are generated to
 create the vector for both ES1 rules.  A **`+`** means one or more
 `ES1` derivations, producing the same vector type, and a **`?`** will
 mean one or zero derivations with type `Option<LBox<Expr<'lt>>>`.
@@ -682,10 +687,10 @@ of `ExprList`, from which Rustlr will infer that it is a `pass-thru` case.
 No type will be created for `ExprList` as it would inherit the type of
 the right-hand side of its lone production rule.
 ```
-nonterminal ExprList Vec<LBox<Expr<'lt>>>
+nonterminal ExprList Vec<LC<Expr<'lt>>>
 ExprList --> (LetExpr ;)*
 ```
-This is because rustlr generates an internal non-terminal to represent the right-hand side `*` expression and assigns it type `Vec<LBox<Expr<'lt>>>`.
+This is because rustlr generates an internal non-terminal to represent the right-hand side `*` expression and assigns it type `Vec<LC<Expr<'lt>>>`.
 It then recognizes that this is a pass-thru case: the only symbol on the
 right, which is of the same type as the left-hand side nonterminal `ExprList`
 as declared. This rule will be given an action equivalent to
@@ -909,3 +914,5 @@ from the above.
 [take]:https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html#method.take
 [c11]:https://cs.hofstra.edu/~cscccl/rustlr_project/cparser/cauto.grammar
 [appendix]:  https://cs.hofstra.edu/~cscccl/rustlr_project/appendix.html
+[box]: https://doc.rust-lang.org/std/boxed/struct.Box.html
+[lc]:https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LC.html
