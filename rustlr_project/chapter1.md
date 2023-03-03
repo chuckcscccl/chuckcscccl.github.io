@@ -141,8 +141,8 @@ two ways:
     lexterminal COLON :
   ```
   In the grammar's production rules, the terminal should be referred to as
-  `COLON`.  Certain reserved symbols such as `:`, `|` and `{`, `}`
-  must be declared this way.
+  `COLON`.  **Certain reserved symbols including `:`, `|`, `%` and `{`, `}`
+  must be declared using `lexterminal`.**
 
 Terminal symbols that carry meaningful values, such as alphanumeric
 identifiers, numerical constants and string literals, should be define

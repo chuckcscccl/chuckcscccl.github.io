@@ -150,6 +150,29 @@ because they're declared as terminal symbols.
 
 ### 3. Configuring the Lexical Scanner
 
+A lexical scanner is automatically created from the declarations of terminal
+symbols in the grammar.  Terminal symbols that do not carry values (unit-typed)
+may be declared verbatim, such as
+```
+  terminal , ; + - * /
+```
+or by associating a name with the textual form:
+```
+  lexterminal COLON :
+```
+Reserved symbols including `:`, `|`, `%` and `{`, `}`
+must be declared this way.
+
+Terminal symbols that carry values should be declared using the form
+>  *valueterminal terminal_name ~ terminal_type ~ expected_token ~ token_value*
+
+such as
+```
+  valueterminal int ~ i64 ~ Num(n) ~ n
+```
+The last two components specify the form of lexical token that's to be associated
+with the terminal (`int`) and the expression that would extract the semantic value
+from the token.  The value must be of the specified type (`i64`).
 The built-in lexical scanner, [StrTokenizer][1], recognizes a number
 of common categories of lexical tokens, with the option to add custom
 categories.  Users should become familiar with the token type,
