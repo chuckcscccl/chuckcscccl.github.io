@@ -62,6 +62,7 @@ principal capabilities of rustlr.
 <li> <b> <a href="training.html">Interactive Training for Enhanced Error Reporting</a></b>
 <li> <b><a href="bumpast.html">Generating Bump-allocated ASTs</a></b>
 <li> <b><a href="errors.html">Error Recovery Options</a></b>
+<li> <b><a href="challenges.html">Challenging Scenarios</a></b>
 <li> <b>Special Example: <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/noncf/ncf.grammar">Non-context free language</a>, using External State.</b> Link to <a href="https://github.com/chuckcscccl/rustlr/tree/main/examples/noncf/">full crate</a>
 <li> <b>Special Chapter: <a href="chapterfs.html">Generating a Parser for F#</a></b>
 
