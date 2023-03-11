@@ -160,7 +160,7 @@ or by associating a name with the textual form:
 ```
   lexterminal COLON :
 ```
-Reserved symbols including `:`, `|`, `%` and `{`, `}`
+Reserved symbols including `:`, `|`, `%`, `!%`, `{`, `}`, `-->`, `==>`, and `<==`
 must be declared this way.
 
 Terminal symbols that carry values should be declared using the form

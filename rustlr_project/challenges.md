@@ -137,42 +137,55 @@ The built-in, customizable lexer, [StrTokenzier][1], contains a *multiset* of sy
 A multiset is a set in which there could be multiple occurrences of each element.
 The multiset is initially empty.
 
-Normally, [StrTokenzier][1] will prefer longer matches over shorter ones
-**unless** a symbol is found in the priority multiset.  The priority multiset
-is checked first to see if there are any anticipated tokens.  Each match with
-some entry in the multiset decreases the number of occurrences of that entry
-in the multiset.
+Normally, [StrTokenzier][1] will prefer longer matches over shorter
+ones **unless** a symbol is found in the priority multiset.  The
+priority multiset is checked first to see if there are any anticipated
+tokens that should be prioritized over the norm.  Each match with some
+entry in the multiset decreases the number of occurrences of that
+entry in the multiset.
 
-The `>>` problem is solved with the following declarations in the grammar:
+The `>>` problem is solved with the following relevant declarations in the grammar:
 ```
-externtype bool
-lexconditional *(self.shared_state.borrow()) ~ add_priority_symbol(">")
+$#[derive(Debug,Default)]
+$pub struct testswitch(bool);  
+$impl testswitch {
+$  pub fn set(&mut self) { self.0 = true; }
+$  pub fn test(&mut self) -> bool {
+$    if self.0 { self.0 = false; return true; } // auto-switch to false
+$    else {return false;}
+$  }//test
+$}//impl testswitch
 
-# productions
-type_arguments --> LT type_argument<COMMA+> flag_state GT { *parser.shared_state.borrow_mut() = false; ... }
+externtype testswitch
 
-flag_state -->  { *parser.shared_state.borrow_mut()=true; ... }
+lexconditional self.shared_state.borrow_mut().test() ~ add_priority_symbol(">")
+
+# Relevant productions:
+
+type_arguments --> LT type_argument<COMMA+> flag_state GT
+flag_state -->  { parser.shared_state.borrow_mut().set(); ... }
 ```
 
 The terminal symbols `LT` and `GT` represent `<` and `>` respectively.
 
-In this scenario, the `shared_state` between the parser and lexer is just a
-boolean flag.  The `lexconditional` specifies a boolean condition followed
-by an action on the lexer.  Before each attempt to scan the next token,
-the lexer will check each lexconditional statement.  The [add_priority_symbol](https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html#method.add_priority_symbol)
+In this scenario, the `shared_state` between the parser and lexer is a `testswitch` struct that contains a boolean flag, which is false by *Default*.
+The `test()` function returns the value
+of the flag and will reset the flag to false, so each true value is only usable
+once.  The `lexconditional` directive specifies a boolean condition followed
+by an action on the lexer (`self` refers to the lexer).
+Before each attempt to scan the next token,
+the lexer will check each lexconditional statement.  The [StrTokenizer::add_priority_symbol](https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html#method.add_priority_symbol)
 function inserts a new symbol into the multiset.
 
 The `flag_state` non-terminal is only introduced to inject an additional
 semantic action into the `type_arguments` rule.  As `flag_state` is an
 empty production, this has the same effect as an intermediate action in
-Yacc/Bison. It will only be executed when the prefix to the right,
+Yacc/Bison. It will only be executed when the prefix to the left,
 `LT type_argument<COMMA+>`, is unambiguously confirmed.  The action sets
-the shared boolean, which will cause an instance of GT (`>`) to be added to
+the testswitch, which will cause an instance of GT (`>`) to be added to
 the lexer's priority multiset.  This instance is automatically removed once
-matched.  The semantic action of the `type_arguments` production resets the
-shared boolean so that no more priority symbols will be added.  It is
-important that only a single terminal symbol separates `flag_state` and
-the final semantic action in the `type_arguments` rule.
+matched.  
+
 Rustlr is structured so that the lexer is not directly controlled by the parser:
 the only way for them to communicate is via the `shared_state`.   
 
