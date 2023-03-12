@@ -147,42 +147,43 @@ entry in the multiset.
 The `>>` problem is solved with the following relevant declarations in the grammar:
 ```
 $#[derive(Debug,Default)]
-$pub struct testswitch(bool);  
-$impl testswitch {
-$  pub fn set(&mut self) { self.0 = true; }
-$  pub fn test(&mut self) -> bool {
-$    if self.0 { self.0 = false; return true; } // auto-switch to false
-$    else {return false;}
+$pub struct multiswitch(usize); 
+$impl multiswitch {
+$  pub fn set(&mut self) { self.0 += 1; }
+$  pub fn get(&mut self) -> usize {
+$    if self.0>0 { self.0 -= 1;  self.0+1 } // auto-decrement
+$    else {self.0}
 $  }//test
 $}//impl testswitch
 
-externtype testswitch
+externtype multiswitch
 
-lexconditional self.shared_state.borrow_mut().test() ~ add_priority_symbol(">")
+lexconditional self.shared_state.borrow_mut().get()>0 ~ add_priority_symbol(">")
 
 # Relevant productions:
+type_arguments --> LT flag_state type_arg<COMMA+> GT
 
-type_arguments --> LT type_argument<COMMA+> flag_state GT
 flag_state -->  { parser.shared_state.borrow_mut().set(); ... }
 ```
 
 The terminal symbols `LT` and `GT` represent `<` and `>` respectively.
 
-In this scenario, the `shared_state` between the parser and lexer is a `testswitch` struct that contains a boolean flag, which is false by *Default*.
-The `test()` function returns the value
-of the flag and will reset the flag to false, so each true value is only usable
+In this scenario, the `shared_state` between the parser and lexer is a
+`multiswitch` struct that contains counter, initially zero by *Default*.
+The `get()` function returns the value of the counter and decreases the
+counter, so each call to increment the value via `set()` is only usable
 once.  The `lexconditional` directive specifies a boolean condition followed
 by an action on the lexer (`self` refers to the lexer).
 Before each attempt to scan the next token,
 the lexer will check each lexconditional statement.  The [StrTokenizer::add_priority_symbol](https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html#method.add_priority_symbol)
 function inserts a new symbol into the multiset.
 
-The `flag_state` non-terminal is only introduced to inject an additional
+The `flag_state` non-terminal's sole purpose is to inject an additional
 semantic action into the `type_arguments` rule.  As `flag_state` is an
 empty production, this has the same effect as an intermediate action in
 Yacc/Bison. It will only be executed when the prefix to the left,
 `LT type_argument<COMMA+>`, is unambiguously confirmed.  The action sets
-the testswitch, which will cause an instance of GT (`>`) to be added to
+the multiswitch, which will cause an instance of GT (`>`) to be added to
 the lexer's priority multiset.  This instance is automatically removed once
 matched.  
 
