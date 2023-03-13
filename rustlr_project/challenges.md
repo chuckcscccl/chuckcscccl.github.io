@@ -153,8 +153,8 @@ $  pub fn set(&mut self) { self.0 += 1; }
 $  pub fn get(&mut self) -> usize {
 $    if self.0>0 { self.0 -= 1;  self.0+1 } // auto-decrement
 $    else {self.0}
-$  }//test
-$}//impl testswitch
+$  }//get
+$}//impl multiswitch
 
 externtype multiswitch
 
