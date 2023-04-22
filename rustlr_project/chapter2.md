@@ -163,16 +163,15 @@ or by associating a name with the textual form:
 Reserved symbols including `:`, `|`, `%`, `!%`, `{`, `}`, `-->`, `==>`, and `<==`
 must be declared this way.
 
-Terminal symbols that carry values should be declared using the form
+Terminal symbols that carry common types of values can be declared using
+**`valterminal`** as explained in the [previous chapter][chap1].
+More generally, they can be declared using **`valueterminal`**:
+
 >  *valueterminal terminal_name ~ terminal_type ~ expected_token ~ token_value*
 
-such as
-```
-  valueterminal int ~ i64 ~ Num(n) ~ n
-```
-The last two components specify the form of lexical token that's to be associated
-with the terminal (`int`) and the expression that would extract the semantic value
-from the token.  The value must be of the specified type (`i64`).
+The last two components specify the lexical token that's to be associated
+with the terminal and the expression that would extract the semantic value
+from the token.  The value must be of the specified type.
 The built-in lexical scanner, [StrTokenizer][1], recognizes a number
 of common categories of lexical tokens, with the option to add custom
 categories.  Users should become familiar with the token type,

@@ -20,7 +20,7 @@ nonterminal E i32
 nonterminal T i32
 nonterminal F i32
 terminals + * - / ( )
-valueterminal num ~ i32 ~ Num(n) ~ n as i32
+valterminal num i32
 topsym E
 
 E --> E:e + T:t { e + t }
@@ -144,9 +144,28 @@ two ways:
   `COLON`.  **Certain reserved symbols including `:`, `|`, `%` and `{`, `}`
   must be declared using `lexterminal`.**
 
-Terminal symbols that carry meaningful values, such as alphanumeric
-identifiers, numerical constants and string literals, should be define
-with a **`valueterminal`** line as in the defininition of `num` in this grammar.
+Terminal symbols that carry the most common types of values, including
+alphanumeric identifiers, numerical constants (without type suffixes)
+and string literals, can be defined with a `valterminal` declaration.
+Valid `valterminal` declarations include
+```
+valterminal INT i64
+valterminal FLOAT f32
+valterminal IDENTIFIER alphanumeric
+valterminal STRING string literal
+```
+Beside the special descriptions "alphanumeric" and "string literal",
+`valterminal` can also name one of the following numerical types:
+i8-i64, u8-u64, f32, f64, isize and usize.
+
+The **`valterminal`** directive is designed to simplify the specification
+of a lexer for the most common type of tokens using rustlr's built-in
+tokenizer.  A `valterminal` declaration is actually the simplified form of
+a longer, `valueterminal` declaration.
+**`valterminal num i32`** is equivalent to
+```
+valueterminal num ~ i32 ~ Num(n) ~ n as i32
+```
 The format of this line is as follows:
 
 >  *valueterminal terminal_name ~ terminal_type ~ expected_token ~ token_value*
@@ -157,27 +176,42 @@ two components will be used form a 'match' clause, so we can write,
 for example,
 ```
   valueterminal Positive ~ u64 ~ Num(n) if n>0 ~ n as u64
+  valueterminal Integer ~ i64 ~ Num(n) ~ n
 ```
-
+to distinguish special cases. 
 The token category **`Num`** is a variant of [RawToken][rtk], the type of token
 produced by the built-in generic tokenizer, [StrTokenizer][1].
 Other common categories include **Alphanum** for alphanumeric sequences,
 **Symbol** for non-alphanumeric symbols, and **Strlit** for string literals.
 Each of these categories carries `str` slices with the same lifetime as the
-input source, and will require a `lifetime` declaration in the grammar.
+input source, which can be defined with a `lifetime` declaration in the grammar.
 Essentially, it requires
 ```
-  lifetime 'input_lt
+  lifetime 'lt
   ...
-  valueterminal Identifier ~ &'input_lt ~ Alphanum(n) ~ n
+  valueterminal Identifier ~ &'lt str ~ Alphanum(n) ~ n
 ```
-Of course it's also possible to return owned strings:
-```
-  valueterminal Identifier ~ String ~ Alphanum(n) ~ n.to_string()
-```
-Consult the [next chapter][chap2] for fuller details on how to configure
-the lexical scanner.
+The above line is equivalent to **`valterminal Identifier alphanumeric`**.  
+If the lifetime is not explicitly declared, it is set to `'input_lt`.
+However, naming the lifetime is recommended to avoid potential clashes
+with other lifetimes in your program.
 
+For terminals with types that are not recognized by `valterminal`, the
+longer `valueterminal` form is required:
+```
+  valueterminal BOOL ~ bool ~ Alphanum("true") ~ true
+  valueterminal BOOL ~ bool ~ Alphanum("false") ~ false
+```
+These declarations should be placed **before** a generic `alphanumeric`
+valterminal declaration.  Alphanumeric terminal symbols declared by `terminals`
+automatically take precedence over generic alphanumeric tokens.  For
+example: `terminals if else while` means that "else" would be recognized
+as the **else** terminal symbol, carrying no value, as opposed to an
+`Indentfier` that carries an alphanumeric string slice.
+
+It is also possible to specify custom token categories using regular
+expressions.  Consult the [next chapter][chap2] for fuller details on
+how to configure the lexical scanner.
 
 The generated lexer is a struct called calc1lexer alongside the make_parser()
 function inside the generated parser file.  One creates a mutable instance
@@ -223,7 +257,7 @@ An alternative way to write the above grammar is the following
 auto
 nonterminal E i32
 terminals + * - / ( )
-valueterminal num ~ i32 ~ Num(n) ~ n as i32
+valterminal num i32
 topsym E
 left + 100
 left - 100
@@ -277,7 +311,7 @@ nonterminal E
 nonterminal T : E
 nonterminal F : E
 terminals + * - / ( )
-valueterminal num ~ i32 ~ Num(n) ~ n as i32
+valterminal num i32
 startsymbol E
 
 E:Plus --> E + T
