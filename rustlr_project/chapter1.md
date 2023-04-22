@@ -156,7 +156,9 @@ valterminal STRING string literal
 ```
 Beside the special descriptions "alphanumeric" and "string literal",
 `valterminal` can also name one of the following numerical types:
-i8-i64, u8-u64, f32, f64, isize and usize.
+i8-i64, u8-u64, f32, f64, isize and usize.  Please note that only one
+integer type type can be assigned to a terminal
+symbol using `valterminal` (but see below).
 
 The **`valterminal`** directive is designed to simplify the specification
 of a lexer for the most common type of tokens using rustlr's built-in
