@@ -16,7 +16,7 @@ style grammar in a file with a `.y` suffix, rustlr will convert it
 into its own syntax while stripping away semantic actions and other
 language-specific content.  The new grammar will be saved at the same
 location with a `.grammar` suffix, which can then be further enhanced
-with rustlr-specific features.  All examples use the rustlr custom
+with rustlr-specific features.  All examples are in the rustlr custom
 syntax for grammars, which is richer than that allowed by Yacc/Bison.
 
 The first grammar parses integer arithmetic expressions and computes
