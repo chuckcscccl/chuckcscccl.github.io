@@ -11,8 +11,16 @@ The first chapter of the tutorial will present three versions of a
 simple grammar illustrating the core features of Rustlr, while
 additional features and details will be presented in subsequent chapters.
 
-The first grammar parses integer arithmetic expressions and computes their
-values.
+Rustlr uses its own syntax for grammars.  However, given Yacc/Bison
+style grammar in a file with a `.y` suffix, rustlr will convert it
+into its own syntax while stripping away semantic actions and other
+language-specific content.  The new grammar will be saved at the same
+location with a `.grammar` suffix, which can then be further enhanced
+with rustlr-specific features.  All examples use the rustlr custom
+syntax for grammars, which is richer than that allowed by Yacc/Bison.
+
+The first grammar parses integer arithmetic expressions and computes
+their values.
 
 ```ignore
 auto
