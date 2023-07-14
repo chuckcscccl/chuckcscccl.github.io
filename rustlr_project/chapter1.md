@@ -62,6 +62,9 @@ in the grammar spec. The parser must import some elements of rustlr so it
 should be used in a crate.  We will come back to how to run the
 generated parser later.
 
+Rustlr can also be invoked from within Rust by calling the [rustlr::rustle](https://docs.rs/rustlr/latest/rustlr/fn.rustle.html) function, which takes as a
+vector of strings the same command-line arguments.
+
 ####  **GRAMMAR FORMAT**
 
 The first line in the grammar specification:
@@ -229,6 +232,9 @@ of the lexer using the generated **`calc1lexer::from_str`** and **`test1lexer::f
 
 #### **Invoking the Parser**
 
+Invoking the parser requires instances of the parser and lexer to be created
+separately, so that the same parser can parse from multiple sources after
+calling `reset`.  
 Here is a "main" that creates and invokes the parser.
 ```
 mod calc1parser;
@@ -239,12 +245,25 @@ fn main() {
   let args:Vec<String> = std::env::args().collect(); // command-line args
   if args.len()>1 {input = &args[1]; }
   let mut parser1 = make_parser();
+  // parser1.set_err_report(true); // option to log errors instead of printing to stderr
   let mut tokenizer1 = calc1lexer::from_str(input);
   let result = parse_with(&mut parser1, &mut tokenizer1)
                .unwrap_or_else(|x|x);
+  // println!("Error Report: {}", parser1.get_err_report()); // option
   println!("result after parsing {}: {}",input,result);
+  // paser1.reset(); // option to reset parser before parsing from different src
 }//main
 ```
+
+Parser errors are by default printed to stderr.  This behavior can be
+changed by calling `set_err_report` on the parser instance, as the
+commented-out line indicates.  When given `true` as argument, this
+function will log all errors into an internal string, which can then
+be retrieved with `get_err_report`.  If `set_err_report` is given
+false as argument, it will turn off logging and print to stderr.
+Every call to `set_err_report` will **always erase existing error
+logs**.
+
 The main.rs should be placed in a cargo crate with **"rustlr = "0.4"** in its
 dependencies. The files produced by rustlr for the grammar should also be
 inside the `src/` folder of the crate.
