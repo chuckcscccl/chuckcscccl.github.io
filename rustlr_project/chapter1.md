@@ -50,7 +50,20 @@ grammar file, which must end with `.grammar`, with:
 
 >  **`rustlr calc1.grammar`**
 
-This runs rustlr in its default LALR(1) mode.  Two files are generated:
+Alternatively, rustlr can be invoked from another rust program by
+calling the [rustlr::generate](https://docs.rs/rustlr/latest/rustlr/fn.generate.html) function, which takes the same arguments as the rustlr executable.
+Using rustlr this way gives the option of supressing all output to stdout and
+stderr with the `-trace 0` option:
+```
+  let report = rustlr::generate("calc1.grammar -trace 0");
+```
+The `generate` function returns an a `Result<String,String>` containing either
+a log of events on success, or error messages on failure.  Note, however,
+that some messages will always be printed to stdio by the rustlr command-line
+application even with the `-trace 0` option.
+
+
+By default, rustlr tries to generate a LALR(1) parser. Two files are generated:
 **`calc1parser.rs`** and **`calc1_ast.rs`** in the working
 directory, although the second file won't contain much for this
 example.  It will derive the name of the grammar (test1) from the file
@@ -62,8 +75,6 @@ in the grammar spec. The parser must import some elements of rustlr so it
 should be used in a crate.  We will come back to how to run the
 generated parser later.
 
-Rustlr can also be invoked from within Rust by calling the [rustlr::rustle](https://docs.rs/rustlr/latest/rustlr/fn.rustle.html) function, which takes as a
-vector of strings the same command-line arguments.
 
 ####  **GRAMMAR FORMAT**
 
