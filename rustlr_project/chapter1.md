@@ -66,7 +66,7 @@ application even with the `-trace 0` option.
 By default, rustlr tries to generate a LALR(1) parser. Two files are generated:
 **`calc1parser.rs`** and **`calc1_ast.rs`** in the working
 directory, although the second file won't contain much for this
-example.  It will derive the name of the grammar (test1) from the file
+example.  It will derive the name of the grammar (calc1) from the file
 path, unless there is a declaration of the form
 
 >  `grammarname somename`
@@ -103,8 +103,7 @@ non-terminal before any production rules.
 >  `topsym E`
 
 Alternatively one can write `startsymbol E`.  One non-terminal symbol
-should be designated the top/start symbol: The parser generator will
-always create an extra production rule of the form `START --> topsym EOF`
+should be designated the top/start symbol.
 
 ####  **Grammar Production Rules**
 
@@ -179,8 +178,8 @@ valterminal STRING string literal
 Beside the special descriptions "alphanumeric" and "string literal",
 `valterminal` can also name one of the following numerical types:
 i8-i64, u8-u64, f32, f64, isize and usize.  Please note that only one
-integer type type can be assigned to a terminal
-symbol using `valterminal` (but see below).
+integer type can be assigned to a terminal
+symbol using `valterminal` and likewise for floating point types (but see below).
 
 The **`valterminal`** directive is designed to simplify the specification
 of a lexer for the most common type of tokens using rustlr's built-in
@@ -364,9 +363,7 @@ F:Neg --> - F
 F:Val --> num
 F --> ( E )
 ```
-Lines in the grammar that begin with `#` are used for comments. (but
-the `#` must be at the very start of the line).
-
+Lines in the grammar that begin with `#` are used for comments.
 Unlike the first grammar, there are no overrides for the types of non-terminals
 nor are there manually written semantic actions.  However, the grammar was
 carefully written to distinguish *parse trees* from *abstract syntax trees*.
@@ -417,7 +414,9 @@ almost always recursive, which would require smart pointers in the
 type definitions. Rustlr computes a reachability closure to determine
 where these pointers are required.  However, instead of using a
 regular [Box][box], an LBox includes a Box along with the line and column
-numbers of where the construct starts.  This information is automatically
+numbers of where the construct starts.  An additional, *unique identifier* **uid** is
+also associated with every LBox so that each AST component can always be
+uniquely identified.  All this information is automatically
 inserted into each LBox by the Rustlr runtime parser ([ZCParser][zcp]). 
 [Lbox][2] implements `Deref` and
 `DerefMut` so they can be used just like a regular Box, *except* when we 
@@ -460,6 +459,8 @@ each line with `$`.  However, typically these will be `use` clauses, as in
 
 This chapter serves as an introduction.  There are other details and features
 that will be explained fully in subsequent chapters.
+
+**[Chapter 2][chap2]**
 
 
 -----------

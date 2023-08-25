@@ -12,7 +12,7 @@ such as `x` as variables.  This version of the calculator also recongizes
 a series of expressions separated by ; (semicolon), giving us the opportunity
 to demonstrate a simple error recovery mechanism.
 
-The grammar (with some additions) is as follows:
+The grammar is as follows:
 ```
 # Advanced Calculator
 auto
@@ -271,7 +271,7 @@ The operator precedence and associativity declarations are used to
 state machine.  A terminal symbol that's to be used as an operator can
 be declared as left, right or non-associative (`nonassoc`) and a positive integer
 defines the precedence level.  Production rules can also be assigned
-precedence as illustrated in [Chapter 1].  If a production rule is not
+precedence as illustrated in [Chapter 1][chap1].  If a production rule is not
 explicitly assigned a precedence, it is assigned to be the same as
 that of the right-hand side symbol with the highest precedence.  The
 default precedence of all grammar symbols is zero.  *(Internally, the
@@ -414,7 +414,7 @@ The presence of [LBox][2] assumes that `Ifelse` is mutually recursive with
 `Expr`, which it likely is in such grammars.
 If none of the symbols on the right have labels, rustlr creates a tuple
 struct.  For Example a singleton rule such as **`whileloop --> while ( expr ) expr`**
-will produce an a `struct whileloop(expr,expr);`  Be careful to avoid
+will produce a `struct whileloop(expr,expr);`  Be careful to avoid
 using Rust keywords as the names of non-terminals.
 
 Rustlr calculates a reachability closure so it is aware of which
