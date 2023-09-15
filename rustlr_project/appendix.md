@@ -253,17 +253,16 @@ can still be useful, and thus it was include it in Rustlr.
 ####  The Semantic Value of Wildcards
 
 When a symbol is matched to wildcard, a unique token is created that
-carries a semantic value.  In case there is only a single type, the
-declared absyntype/valuetype, then the wildcard token will have the
-default value of the absyntype as its semantic value.  However, when there
-are multiple types (forcing the generation of an internal enum -see Chapter 3),
-or when the -auto/-genabsyn option is given (which automatically generates
-the AST types - see Chapter 4), then the **the semantic value of the wildcard
-is `(usize,usize)`, which indicates the starting and ending positions of the
-token in the original text.**  The actual text can be accessed from the lexical
-analyzer instance with
-the [Tokenizer::get_slice][getslice] function.  For example, if we modified the
-grammar into:
+carries a semantic value.  The type of this value depends on whether
+there is a declared lifetime (such as via a `lifetime 'lt` grammar
+directive).  If it is declared, the value will be the verbatim string
+slice that was tokenized (`&'lt str`).
+
+In the rare cases when there is no lifetime, the value is a pair
+`(start,end)` that represents the positions of the input string slice.
+The actual text can be accessed from the lexical analyzer instance
+with the [Tokenizer::get_slice][getslice] function.  For example, with
+the following grammar:
 ```
 terminals c a b
 nonterminal T usize
@@ -313,6 +312,10 @@ ABSYN: E { positions: [1, 3, 5, 7, 11] }
 
 text of slice:  c d e f b
 ```
+
+In the even rarer case that all semantic values are of the same type
+(in older rustlr grammars) the value carried by the wildcard will be
+the default value of that type.
 
 
 [1]:https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html
