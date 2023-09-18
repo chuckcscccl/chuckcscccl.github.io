@@ -1,48 +1,5 @@
-<html><head><meta charset="utf-8">
-<style>/* from loading.io */
-#spinner {
-	display: block;
-	width: 80px;
-	height: 80px;
-	margin: 40vh auto 0;
-}
-
-#spinner:after {
-	content: ' ';
-	display: block;
-	width: 64px;
-	height: 64px;
-	margin: 8px;
-	border-width: 6px;
-	border-style: solid;
-	border-radius: 50%;
-	animation: lds-dual-ring 1.2s linear infinite;
-}
-
-@keyframes lds-dual-ring {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
-}
-
-@media (prefers-color-scheme: dark) {
-	#spinner:after {
-		border-color: #fff transparent #fff transparent;
-	}
-}
-
-@media (prefers-color-scheme: light) {
-	#spinner:after {
-		border-color: #000 transparent #000 transparent;
-	}
-}
-
-</style>
-<style media="screen">/*
- * Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+<html><head><link rel="stylesheet" href="resource://content-accessible/plaintext.css"><style media="screen" id="__markdown-viewer__md_css">/*
+ * Copyright (c) 2016 Thibaut Rousseau
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -63,1002 +20,119 @@
  * SOFTWARE.
  */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-prettylights-syntax-comment: #8b949e;
-    --color-prettylights-syntax-constant: #79c0ff;
-    --color-prettylights-syntax-entity: #d2a8ff;
-    --color-prettylights-syntax-storage-modifier-import: #c9d1d9;
-    --color-prettylights-syntax-entity-tag: #7ee787;
-    --color-prettylights-syntax-keyword: #ff7b72;
-    --color-prettylights-syntax-string: #a5d6ff;
-    --color-prettylights-syntax-variable: #ffa657;
-    --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
-    --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
-    --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
-    --color-prettylights-syntax-carriage-return-text: #f0f6fc;
-    --color-prettylights-syntax-carriage-return-bg: #b62324;
-    --color-prettylights-syntax-string-regexp: #7ee787;
-    --color-prettylights-syntax-markup-list: #f2cc60;
-    --color-prettylights-syntax-markup-heading: #1f6feb;
-    --color-prettylights-syntax-markup-italic: #c9d1d9;
-    --color-prettylights-syntax-markup-bold: #c9d1d9;
-    --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
-    --color-prettylights-syntax-markup-deleted-bg: #67060c;
-    --color-prettylights-syntax-markup-inserted-text: #aff5b4;
-    --color-prettylights-syntax-markup-inserted-bg: #033a16;
-    --color-prettylights-syntax-markup-changed-text: #ffdfb6;
-    --color-prettylights-syntax-markup-changed-bg: #5a1e02;
-    --color-prettylights-syntax-markup-ignored-text: #c9d1d9;
-    --color-prettylights-syntax-markup-ignored-bg: #1158c7;
-    --color-prettylights-syntax-meta-diff-range: #d2a8ff;
-    --color-prettylights-syntax-brackethighlighter-angle: #8b949e;
-    --color-prettylights-syntax-sublimelinter-gutter-mark: #484f58;
-    --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
-    --color-fg-default: #c9d1d9;
-    --color-fg-muted: #8b949e;
-    --color-fg-subtle: #484f58;
-    --color-canvas-default: #0d1117;
-    --color-canvas-subtle: #161b22;
-    --color-border-default: #30363d;
-    --color-border-muted: #21262d;
-    --color-neutral-muted: rgba(110,118,129,0.4);
-    --color-accent-fg: #58a6ff;
-    --color-accent-emphasis: #1f6feb;
-    --color-danger-fg: #f85149;
-  }
+@media (prefers-color-scheme: light) {
+	:root {
+		--back: white;
+		--text: #333333;
+		--link: #0088CC;
+		--alt-link: #005588;
+		--alt-back: #EEEEEE;
+	}
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --color-prettylights-syntax-comment: #6e7781;
-    --color-prettylights-syntax-constant: #0550ae;
-    --color-prettylights-syntax-entity: #8250df;
-    --color-prettylights-syntax-storage-modifier-import: #24292f;
-    --color-prettylights-syntax-entity-tag: #116329;
-    --color-prettylights-syntax-keyword: #cf222e;
-    --color-prettylights-syntax-string: #0a3069;
-    --color-prettylights-syntax-variable: #953800;
-    --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
-    --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
-    --color-prettylights-syntax-invalid-illegal-bg: #82071e;
-    --color-prettylights-syntax-carriage-return-text: #f6f8fa;
-    --color-prettylights-syntax-carriage-return-bg: #cf222e;
-    --color-prettylights-syntax-string-regexp: #116329;
-    --color-prettylights-syntax-markup-list: #3b2300;
-    --color-prettylights-syntax-markup-heading: #0550ae;
-    --color-prettylights-syntax-markup-italic: #24292f;
-    --color-prettylights-syntax-markup-bold: #24292f;
-    --color-prettylights-syntax-markup-deleted-text: #82071e;
-    --color-prettylights-syntax-markup-deleted-bg: #FFEBE9;
-    --color-prettylights-syntax-markup-inserted-text: #116329;
-    --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
-    --color-prettylights-syntax-markup-changed-text: #953800;
-    --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
-    --color-prettylights-syntax-markup-ignored-text: #eaeef2;
-    --color-prettylights-syntax-markup-ignored-bg: #0550ae;
-    --color-prettylights-syntax-meta-diff-range: #8250df;
-    --color-prettylights-syntax-brackethighlighter-angle: #57606a;
-    --color-prettylights-syntax-sublimelinter-gutter-mark: #8c959f;
-    --color-prettylights-syntax-constant-other-reference-link: #0a3069;
-    --color-fg-default: #24292f;
-    --color-fg-muted: #57606a;
-    --color-fg-subtle: #6e7781;
-    --color-canvas-default: #ffffff;
-    --color-canvas-subtle: #f6f8fa;
-    --color-border-default: #d0d7de;
-    --color-border-muted: hsla(210,18%,87%,1);
-    --color-neutral-muted: rgba(175,184,193,0.2);
-    --color-accent-fg: #0969da;
-    --color-accent-emphasis: #0969da;
-    --color-danger-fg: #cf222e;
-  }
+@media (prefers-color-scheme: dark) {
+	:root {
+		--back: #1C1B22;
+		--text: #FBFBFE;
+		--link: #55CCFF;
+		--alt-link: #0088CC;
+		--alt-back: #444444;
+	}
 }
 
 :root {
-  color: var(--color-fg-default);
-  background-color: var(--color-canvas-default);
+	background: var(--back);
+	color: var(--text);
 }
 
-.markdownroot {
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
-  font-size: 16px;
-  line-height: 1.5;
-  word-wrap: break-word;
+body {
+	font-family: 'Segoe UI', 'Lucida Grande', Helvetica, sans-serif;
+	line-height: 1.5;
+	margin: 2em;
 }
 
-.markdownroot .octicon {
-  display: inline-block;
-  fill: currentColor;
-  vertical-align: text-bottom;
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+	line-height: 1em;
+	margin: 20px 0;
 }
-
-.markdownroot h1:hover .anchor .octicon-link:before,
-.markdownroot h2:hover .anchor .octicon-link:before,
-.markdownroot h3:hover .anchor .octicon-link:before,
-.markdownroot h4:hover .anchor .octicon-link:before,
-.markdownroot h5:hover .anchor .octicon-link:before,
-.markdownroot h6:hover .anchor .octicon-link:before {
-  width: 16px;
-  height: 16px;
-  content: ' ';
-  display: inline-block;
-  background-color: currentColor;
-  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
-  mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
-}
-
-.markdownroot details,
-.markdownroot figcaption,
-.markdownroot figure {
-  display: block;
-}
-
-.markdownroot summary {
-  display: list-item;
-}
-
-.markdownroot a {
-  background-color: transparent;
-  color: var(--color-accent-fg);
-  text-decoration: none;
-}
-
-.markdownroot a:active,
-.markdownroot a:hover {
-  outline-width: 0;
-}
-
-.markdownroot abbr[title] {
-  border-bottom: none;
-  -webkit-text-decoration: underline dotted;
-  text-decoration: underline dotted;
-}
-
-.markdownroot b,
-.markdownroot strong {
-  font-weight: 600;
-}
-
-.markdownroot dfn {
-  font-style: italic;
-}
-
-.markdownroot h1 {
-  margin: .67em 0;
-  font-weight: 600;
-  padding-bottom: .3em;
-  font-size: 2em;
-  border-bottom: 1px solid var(--color-border-muted);
-}
-
-.markdownroot mark {
-  background-color: #ff0;
-  color: var(--color-text-primary);
-}
-
-.markdownroot small {
-  font-size: 90%;
-}
-
-.markdownroot sub,
-.markdownroot sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-
-.markdownroot sub {
-  bottom: -0.25em;
-}
-
-.markdownroot sup {
-  top: -0.5em;
-}
-
-.markdownroot img {
-  border-style: none;
-  max-width: 100%;
-  box-sizing: content-box;
-  background-color: var(--color-canvas-default);
-}
-
-.markdownroot code,
-.markdownroot kbd,
-.markdownroot pre,
-.markdownroot samp {
-  font-family: monospace,monospace;
-  font-size: 1em;
-}
-
-.markdownroot figure {
-  margin: 1em 40px;
-}
-
-.markdownroot hr {
-  box-sizing: content-box;
-  overflow: hidden;
-  background: transparent;
-  border-bottom: 1px solid var(--color-border-muted);
-  height: .25em;
-  padding: 0;
-  margin: 24px 0;
-  background-color: var(--color-border-default);
-  border: 0;
-}
-
-.markdownroot html [type=button],
-.markdownroot [type=reset],
-.markdownroot [type=submit] {
-  -webkit-appearance: button;
-}
-
-.markdownroot [type=button]::-moz-focus-inner,
-.markdownroot [type=reset]::-moz-focus-inner,
-.markdownroot [type=submit]::-moz-focus-inner {
-  border-style: none;
-  padding: 0;
-}
-
-.markdownroot [type=button]:-moz-focusring,
-.markdownroot [type=reset]:-moz-focusring,
-.markdownroot [type=submit]:-moz-focusring {
-  outline: 1px dotted ButtonText;
-}
-
-.markdownroot [type=checkbox],
-.markdownroot [type=radio] {
-  box-sizing: border-box;
-  padding: 0;
-}
-
-.markdownroot [type=number]::-webkit-inner-spin-button,
-.markdownroot [type=number]::-webkit-outer-spin-button {
-  height: auto;
-}
-
-.markdownroot [type=search] {
-  -webkit-appearance: textfield;
-  outline-offset: -2px;
-}
-
-.markdownroot [type=search]::-webkit-search-cancel-button,
-.markdownroot [type=search]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
-.markdownroot ::-webkit-input-placeholder {
-  color: inherit;
-  opacity: .54;
-}
-
-.markdownroot ::-webkit-file-upload-button {
-  -webkit-appearance: button;
-  font: inherit;
-}
-
-.markdownroot a:hover {
-  text-decoration: underline;
-}
-
-.markdownroot hr::before {
-  display: table;
-  content: "";
-}
-
-.markdownroot hr::after {
-  display: table;
-  clear: both;
-  content: "";
-}
-
-.markdownroot table {
-  border-spacing: 0;
-  border-collapse: collapse;
-  display: block;
-  width: max-content;
-  max-width: 100%;
-  overflow: auto;
-}
-
-.markdownroot td,
-.markdownroot th {
-  padding: 0;
-}
-
-.markdownroot details summary {
-  cursor: pointer;
-}
-
-.markdownroot details:not([open])>*:not(summary) {
-  display: none !important;
-}
-
-.markdownroot kbd {
-  display: inline-block;
-  padding: 3px 5px;
-  font: 11px ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
-  line-height: 10px;
-  color: var(--color-fg-default);
-  vertical-align: middle;
-  background-color: var(--color-canvas-subtle);
-  border: solid 1px var(--color-neutral-muted);
-  border-bottom-color: var(--color-neutral-muted);
-  border-radius: 6px;
-  box-shadow: inset 0 -1px 0 var(--color-neutral-muted);
-}
-
-.markdownroot h1,
-.markdownroot h2,
-.markdownroot h3,
-.markdownroot h4,
-.markdownroot h5,
-.markdownroot h6 {
-  margin-top: 24px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  line-height: 1.25;
-}
-
-.markdownroot h2 {
-  font-weight: 600;
-  padding-bottom: .3em;
-  font-size: 1.5em;
-  border-bottom: 1px solid var(--color-border-muted);
-}
-
-.markdownroot h3 {
-  font-weight: 600;
-  font-size: 1.25em;
-}
-
-.markdownroot h4 {
-  font-weight: 600;
-  font-size: 1em;
-}
-
-.markdownroot h5 {
-  font-weight: 600;
-  font-size: .875em;
-}
-
-.markdownroot h6 {
-  font-weight: 600;
-  font-size: .85em;
-  color: var(--color-fg-muted);
-}
-
-.markdownroot p {
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-.markdownroot blockquote {
-  margin: 0;
-  padding: 0 1em;
-  color: var(--color-fg-muted);
-  border-left: .25em solid var(--color-border-default);
-}
-
-.markdownroot ul,
-.markdownroot ol {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-left: 2em;
-}
-
-.markdownroot ol ol,
-.markdownroot ul ol {
-  list-style-type: lower-roman;
-}
-
-.markdownroot ul ul ol,
-.markdownroot ul ol ol,
-.markdownroot ol ul ol,
-.markdownroot ol ol ol {
-  list-style-type: lower-alpha;
-}
-
-.markdownroot dd {
-  margin-left: 0;
-}
-
-.markdownroot tt,
-.markdownroot code {
-  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
-  font-size: 12px;
-}
-
-.markdownroot pre {
-  margin-top: 0;
-  margin-bottom: 0;
-  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
-  font-size: 12px;
-  word-wrap: normal;
-}
-
-.markdownroot :-ms-input-placeholder {
-  color: var(--color-fg-subtle);
-  opacity: 1;
-}
-
-.markdownroot ::-ms-input-placeholder {
-  color: var(--color-fg-subtle);
-  opacity: 1;
-}
-
-.markdownroot ::placeholder {
-  color: var(--color-fg-subtle);
-  opacity: 1;
-}
-
-.markdownroot .pl-c {
-  color: var(--color-prettylights-syntax-comment);
-}
-
-.markdownroot .pl-c1,
-.markdownroot .pl-s .pl-v {
-  color: var(--color-prettylights-syntax-constant);
-}
-
-.markdownroot .pl-e,
-.markdownroot .pl-en {
-  color: var(--color-prettylights-syntax-entity);
-}
-
-.markdownroot .pl-smi,
-.markdownroot .pl-s .pl-s1 {
-  color: var(--color-prettylights-syntax-storage-modifier-import);
-}
-
-.markdownroot .pl-ent {
-  color: var(--color-prettylights-syntax-entity-tag);
-}
-
-.markdownroot .pl-k {
-  color: var(--color-prettylights-syntax-keyword);
-}
-
-.markdownroot .pl-s,
-.markdownroot .pl-pds,
-.markdownroot .pl-s .pl-pse .pl-s1,
-.markdownroot .pl-sr,
-.markdownroot .pl-sr .pl-cce,
-.markdownroot .pl-sr .pl-sre,
-.markdownroot .pl-sr .pl-sra {
-  color: var(--color-prettylights-syntax-string);
-}
-
-.markdownroot .pl-v,
-.markdownroot .pl-smw {
-  color: var(--color-prettylights-syntax-variable);
-}
-
-.markdownroot .pl-bu {
-  color: var(--color-prettylights-syntax-brackethighlighter-unmatched);
-}
-
-.markdownroot .pl-ii {
-  color: var(--color-prettylights-syntax-invalid-illegal-text);
-  background-color: var(--color-prettylights-syntax-invalid-illegal-bg);
-}
-
-.markdownroot .pl-c2 {
-  color: var(--color-prettylights-syntax-carriage-return-text);
-  background-color: var(--color-prettylights-syntax-carriage-return-bg);
-}
-
-.markdownroot .pl-sr .pl-cce {
-  font-weight: bold;
-  color: var(--color-prettylights-syntax-string-regexp);
-}
-
-.markdownroot .pl-ml {
-  color: var(--color-prettylights-syntax-markup-list);
-}
-
-.markdownroot .pl-mh,
-.markdownroot .pl-mh .pl-en,
-.markdownroot .pl-ms {
-  font-weight: bold;
-  color: var(--color-prettylights-syntax-markup-heading);
-}
-
-.markdownroot .pl-mi {
-  font-style: italic;
-  color: var(--color-prettylights-syntax-markup-italic);
-}
-
-.markdownroot .pl-mb {
-  font-weight: bold;
-  color: var(--color-prettylights-syntax-markup-bold);
-}
-
-.markdownroot .pl-md {
-  color: var(--color-prettylights-syntax-markup-deleted-text);
-  background-color: var(--color-prettylights-syntax-markup-deleted-bg);
+h1 {
+	font-size: 2.25em;
 }
-
-.markdownroot .pl-mi1 {
-  color: var(--color-prettylights-syntax-markup-inserted-text);
-  background-color: var(--color-prettylights-syntax-markup-inserted-bg);
-}
-
-.markdownroot .pl-mc {
-  color: var(--color-prettylights-syntax-markup-changed-text);
-  background-color: var(--color-prettylights-syntax-markup-changed-bg);
-}
-
-.markdownroot .pl-mi2 {
-  color: var(--color-prettylights-syntax-markup-ignored-text);
-  background-color: var(--color-prettylights-syntax-markup-ignored-bg);
-}
-
-.markdownroot .pl-mdr {
-  font-weight: bold;
-  color: var(--color-prettylights-syntax-meta-diff-range);
-}
-
-.markdownroot .pl-ba {
-  color: var(--color-prettylights-syntax-brackethighlighter-angle);
-}
-
-.markdownroot .pl-sg {
-  color: var(--color-prettylights-syntax-sublimelinter-gutter-mark);
-}
-
-.markdownroot .pl-corl {
-  text-decoration: underline;
-  color: var(--color-prettylights-syntax-constant-other-reference-link);
-}
-
-.markdownroot [data-catalyst] {
-  display: block;
-}
-
-.markdownroot g-emoji {
-  font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-  font-size: 1em;
-  font-style: normal !important;
-  font-weight: 400;
-  line-height: 1;
-  vertical-align: -0.075em;
-}
-
-.markdownroot g-emoji img {
-  width: 1em;
-  height: 1em;
-}
-
-.markdownroot::before {
-  display: table;
-  content: "";
-}
-
-.markdownroot::after {
-  display: table;
-  clear: both;
-  content: "";
-}
-
-.markdownroot>*:first-child {
-  margin-top: 0 !important;
-}
-
-.markdownroot>*:last-child {
-  margin-bottom: 0 !important;
-}
-
-.markdownroot a:not([href]) {
-  color: inherit;
-  text-decoration: none;
-}
-
-.markdownroot .absent {
-  color: var(--color-danger-fg);
-}
-
-.markdownroot .anchor {
-  float: left;
-  padding-right: 4px;
-  margin-left: -20px;
-  line-height: 1;
-}
-
-.markdownroot .anchor:focus {
-  outline: none;
-}
-
-.markdownroot p,
-.markdownroot blockquote,
-.markdownroot ul,
-.markdownroot ol,
-.markdownroot dl,
-.markdownroot table,
-.markdownroot pre,
-.markdownroot details {
-  margin-top: 0;
-  margin-bottom: 16px;
-}
-
-.markdownroot blockquote>:first-child {
-  margin-top: 0;
-}
-
-.markdownroot blockquote>:last-child {
-  margin-bottom: 0;
-}
-
-.markdownroot sup>a::before {
-  content: "[";
-}
-
-.markdownroot sup>a::after {
-  content: "]";
-}
-
-.markdownroot h1 .octicon-link,
-.markdownroot h2 .octicon-link,
-.markdownroot h3 .octicon-link,
-.markdownroot h4 .octicon-link,
-.markdownroot h5 .octicon-link,
-.markdownroot h6 .octicon-link {
-  color: var(--color-fg-default);
-  vertical-align: middle;
-  visibility: hidden;
-}
-
-.markdownroot h1:hover .anchor,
-.markdownroot h2:hover .anchor,
-.markdownroot h3:hover .anchor,
-.markdownroot h4:hover .anchor,
-.markdownroot h5:hover .anchor,
-.markdownroot h6:hover .anchor {
-  text-decoration: none;
-}
-
-.markdownroot h1:hover .anchor .octicon-link,
-.markdownroot h2:hover .anchor .octicon-link,
-.markdownroot h3:hover .anchor .octicon-link,
-.markdownroot h4:hover .anchor .octicon-link,
-.markdownroot h5:hover .anchor .octicon-link,
-.markdownroot h6:hover .anchor .octicon-link {
-  visibility: visible;
-}
-
-.markdownroot h1 tt,
-.markdownroot h1 code,
-.markdownroot h2 tt,
-.markdownroot h2 code,
-.markdownroot h3 tt,
-.markdownroot h3 code,
-.markdownroot h4 tt,
-.markdownroot h4 code,
-.markdownroot h5 tt,
-.markdownroot h5 code,
-.markdownroot h6 tt,
-.markdownroot h6 code {
-  padding: 0 .2em;
-  font-size: inherit;
-}
-
-.markdownroot ul.no-list,
-.markdownroot ol.no-list {
-  padding: 0;
-  list-style-type: none;
-}
-
-.markdownroot ol[type="1"] {
-  list-style-type: decimal;
-}
-
-.markdownroot ol[type=a] {
-  list-style-type: lower-alpha;
-}
-
-.markdownroot ol[type=i] {
-  list-style-type: lower-roman;
-}
-
-.markdownroot div>ol:not([type]) {
-  list-style-type: decimal;
-}
-
-.markdownroot ul ul,
-.markdownroot ul ol,
-.markdownroot ol ol,
-.markdownroot ol ul {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.markdownroot li>p {
-  margin-top: 16px;
-}
-
-.markdownroot li+li {
-  margin-top: .25em;
-}
-
-.markdownroot dl {
-  padding: 0;
-}
-
-.markdownroot dl dt {
-  padding: 0;
-  margin-top: 16px;
-  font-size: 1em;
-  font-style: italic;
-  font-weight: 600;
-}
-
-.markdownroot dl dd {
-  padding: 0 16px;
-  margin-bottom: 16px;
-}
-
-.markdownroot table th {
-  font-weight: 600;
-}
-
-.markdownroot table th,
-.markdownroot table td {
-  padding: 6px 13px;
-  border: 1px solid var(--color-border-default);
-}
-
-.markdownroot table tr {
-  background-color: var(--color-canvas-default);
-  border-top: 1px solid var(--color-border-muted);
-}
-
-.markdownroot table tr:nth-child(2n) {
-  background-color: var(--color-canvas-subtle);
-}
-
-.markdownroot table img {
-  background-color: transparent;
-}
-
-.markdownroot img[align=right] {
-  padding-left: 20px;
-}
-
-.markdownroot img[align=left] {
-  padding-right: 20px;
-}
-
-.markdownroot .emoji {
-  max-width: none;
-  vertical-align: text-top;
-  background-color: transparent;
-}
-
-.markdownroot span.frame {
-  display: block;
-  overflow: hidden;
-}
-
-.markdownroot span.frame>span {
-  display: block;
-  float: left;
-  width: auto;
-  padding: 7px;
-  margin: 13px 0 0;
-  overflow: hidden;
-  border: 1px solid var(--color-border-default);
-}
-
-.markdownroot span.frame span img {
-  display: block;
-  float: left;
-}
-
-.markdownroot span.frame span span {
-  display: block;
-  padding: 5px 0 0;
-  clear: both;
-  color: var(--color-fg-default);
-}
-
-.markdownroot span.align-center {
-  display: block;
-  overflow: hidden;
-  clear: both;
-}
-
-.markdownroot span.align-center>span {
-  display: block;
-  margin: 13px auto 0;
-  overflow: hidden;
-  text-align: center;
-}
-
-.markdownroot span.align-center span img {
-  margin: 0 auto;
-  text-align: center;
-}
-
-.markdownroot span.align-right {
-  display: block;
-  overflow: hidden;
-  clear: both;
-}
-
-.markdownroot span.align-right>span {
-  display: block;
-  margin: 13px 0 0;
-  overflow: hidden;
-  text-align: right;
-}
-
-.markdownroot span.align-right span img {
-  margin: 0;
-  text-align: right;
-}
-
-.markdownroot span.float-left {
-  display: block;
-  float: left;
-  margin-right: 13px;
-  overflow: hidden;
-}
-
-.markdownroot span.float-left span {
-  margin: 13px 0 0;
-}
-
-.markdownroot span.float-right {
-  display: block;
-  float: right;
-  margin-left: 13px;
-  overflow: hidden;
-}
-
-.markdownroot span.float-right>span {
-  display: block;
-  margin: 13px auto 0;
-  overflow: hidden;
-  text-align: right;
+h2 {
+	font-size: 1.75em;
 }
-
-.markdownroot code,
-.markdownroot tt {
-  padding: .2em .4em;
-  margin: 0;
-  font-size: 85%;
-  background-color: var(--color-neutral-muted);
-  border-radius: 6px;
-}
-
-.markdownroot code br,
-.markdownroot tt br {
-  display: none;
-}
-
-.markdownroot del code {
-  text-decoration: inherit;
-}
-
-.markdownroot pre code {
-  font-size: 100%;
-}
-
-.markdownroot pre>code {
-  padding: 0;
-  margin: 0;
-  word-break: normal;
-  white-space: pre;
-  background: transparent;
-  border: 0;
+h3 {
+	font-size: 1.5em;
 }
-
-.markdownroot .highlight {
-  margin-bottom: 16px;
+h4, h5, h6 {
+	font-size: 1.25em;
 }
 
-.markdownroot .highlight pre {
-  margin-bottom: 0;
-  word-break: normal;
+a {
+	color: var(--link);
+	text-decoration: none;
 }
-
-.markdownroot .highlight pre,
-.markdownroot pre {
-  padding: 16px;
-  overflow: auto;
-  font-size: 85%;
-  line-height: 1.45;
-  background-color: var(--color-canvas-subtle);
-  border-radius: 6px;
+a:hover, a:focus {
+	text-decoration: underline;
 }
-
-.markdownroot pre code,
-.markdownroot pre tt {
-  display: inline;
-  max-width: auto;
-  padding: 0;
-  margin: 0;
-  overflow: visible;
-  line-height: inherit;
-  word-wrap: normal;
-  background-color: transparent;
-  border: 0;
+a:visited {
+	color: var(--alt-link);
 }
 
-.markdownroot .csv-data td,
-.markdownroot .csv-data th {
-  padding: 5px;
-  overflow: hidden;
-  font-size: 12px;
-  line-height: 1;
-  text-align: left;
-  white-space: nowrap;
+img {
+	max-width: 100%;
 }
 
-.markdownroot .csv-data .blob-num {
-  padding: 10px 8px 9px;
-  text-align: right;
-  background: var(--color-canvas-default);
-  border: 0;
+li + li {
+	margin-top: 3px;
 }
-
-.markdownroot .csv-data tr {
-  border-top: 0;
+dt {
+	font-weight: bold;
 }
 
-.markdownroot .csv-data th {
-  font-weight: 600;
-  background: var(--color-canvas-subtle);
-  border-top: 0;
+code {
+	background: var(--alt-back);
+	font-family: "Consolas", "Lucida Console", monospace;
+	padding: 1px 5px;
 }
-
-.markdownroot .footnotes {
-  font-size: 12px;
-  color: var(--color-fg-muted);
-  border-top: 1px solid var(--color-border-default);
+pre {
+	background: var(--alt-back);
+	padding: 5px 10px;
+	white-space: pre-wrap;
 }
-
-.markdownroot .footnotes ol {
-  padding-left: 16px;
+pre code {
+	padding: 0;
 }
 
-.markdownroot .footnotes li {
-  position: relative;
+blockquote {
+	border-left: 5px solid var(--alt-back);
+	margin: 0;
+	padding: 0 10px;
 }
 
-.markdownroot .footnotes li:target::before {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  bottom: -8px;
-  left: -24px;
-  pointer-events: none;
-  content: "";
-  border: 2px solid var(--color-accent-emphasis);
-  border-radius: 6px;
+table {
+	border-collapse: collapse;
+	width: 100%;
 }
-
-.markdownroot .footnotes li:target {
-  color: var(--color-fg-default);
+table + table {
+	margin-top: 1em;
 }
-
-.markdownroot .footnotes .data-footnote-backref g-emoji {
-  font-family: monospace;
+thead {
+	background: var(--alt-back);
+	text-align: left;
 }
-
-.markdownroot [hidden] {
-  display: none !important;
+th, td {
+	border: 1px solid var(--alt-back);
+	padding: 5px 10px;
 }
 
-.markdownroot ::-webkit-calendar-picker-indicator {
-  filter: invert(50%);
+hr {
+	background: var(--alt-back);
+	border: 0;
+	height: 1px;
 }
-</style>
-<style media="print">:root {
+</style><style media="print" id="__markdown-viewer__md_print_css">:root {
     background: white;
     color: black;
     font: 8pt serif;
@@ -1120,10 +194,11 @@ h1:after, h2:after, h3:after, h4:after, h5:after, h6:after, dt:after {
 blockquote, pre, li, dt, dd {
     break-inside: avoid;
 }
-</style>
-<style>@font-face{font-family:KaTeX_AMS;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Caligraphic;font-style:normal;font-weight:700}@font-face{font-family:KaTeX_Caligraphic;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Fraktur;font-style:normal;font-weight:700}@font-face{font-family:KaTeX_Fraktur;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Main;font-style:normal;font-weight:700}@font-face{font-family:KaTeX_Main;font-style:italic;font-weight:700}@font-face{font-family:KaTeX_Main;font-style:italic;font-weight:400}@font-face{font-family:KaTeX_Main;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Math;font-style:italic;font-weight:700}@font-face{font-family:KaTeX_Math;font-style:italic;font-weight:400}@font-face{font-family:"KaTeX_SansSerif";font-style:normal;font-weight:700}@font-face{font-family:"KaTeX_SansSerif";font-style:italic;font-weight:400}@font-face{font-family:"KaTeX_SansSerif";font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Script;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Size1;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Size2;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Size3;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Size4;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Typewriter;font-style:normal;font-weight:400}.katex{text-rendering:auto;font:normal 1.21em KaTeX_Main,Times New Roman,serif;line-height:1.2;text-indent:0}.katex *{-ms-high-contrast-adjust:none!important;border-color:currentColor}.katex .katex-version:after{content:"0.16.7"}.katex .katex-mathml{clip:rect(1px,1px,1px,1px);border:0;height:1px;overflow:hidden;padding:0;position:absolute;width:1px}.katex .katex-html>.newline{display:block}.katex .base{position:relative;white-space:nowrap;width:-webkit-min-content;width:-moz-min-content;width:min-content}.katex .base,.katex .strut{display:inline-block}.katex .textbf{font-weight:700}.katex .textit{font-style:italic}.katex .textrm{font-family:KaTeX_Main}.katex .textsf{font-family:KaTeX_SansSerif}.katex .texttt{font-family:KaTeX_Typewriter}.katex .mathnormal{font-family:KaTeX_Math;font-style:italic}.katex .mathit{font-family:KaTeX_Main;font-style:italic}.katex .mathrm{font-style:normal}.katex .mathbf{font-family:KaTeX_Main;font-weight:700}.katex .boldsymbol{font-family:KaTeX_Math;font-style:italic;font-weight:700}.katex .amsrm,.katex .mathbb,.katex .textbb{font-family:KaTeX_AMS}.katex .mathcal{font-family:KaTeX_Caligraphic}.katex .mathfrak,.katex .textfrak{font-family:KaTeX_Fraktur}.katex .mathtt{font-family:KaTeX_Typewriter}.katex .mathscr,.katex .textscr{font-family:KaTeX_Script}.katex .mathsf,.katex .textsf{font-family:KaTeX_SansSerif}.katex .mathboldsf,.katex .textboldsf{font-family:KaTeX_SansSerif;font-weight:700}.katex .mathitsf,.katex .textitsf{font-family:KaTeX_SansSerif;font-style:italic}.katex .mainrm{font-family:KaTeX_Main;font-style:normal}.katex .vlist-t{border-collapse:collapse;display:inline-table;table-layout:fixed}.katex .vlist-r{display:table-row}.katex .vlist{display:table-cell;position:relative;vertical-align:bottom}.katex .vlist>span{display:block;height:0;position:relative}.katex .vlist>span>span{display:inline-block}.katex .vlist>span>.pstrut{overflow:hidden;width:0}.katex .vlist-t2{margin-right:-2px}.katex .vlist-s{display:table-cell;font-size:1px;min-width:2px;vertical-align:bottom;width:2px}.katex .vbox{align-items:baseline;display:inline-flex;flex-direction:column}.katex .hbox{width:100%}.katex .hbox,.katex .thinbox{display:inline-flex;flex-direction:row}.katex .thinbox{max-width:0;width:0}.katex .msupsub{text-align:left}.katex .mfrac>span>span{text-align:center}.katex .mfrac .frac-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline,.katex .hline,.katex .mfrac .frac-line,.katex .overline .overline-line,.katex .rule,.katex .underline .underline-line{min-height:1px}.katex .mspace{display:inline-block}.katex .clap,.katex .llap,.katex .rlap{position:relative;width:0}.katex .clap>.inner,.katex .llap>.inner,.katex .rlap>.inner{position:absolute}.katex .clap>.fix,.katex .llap>.fix,.katex .rlap>.fix{display:inline-block}.katex .llap>.inner{right:0}.katex .clap>.inner,.katex .rlap>.inner{left:0}.katex .clap>.inner>span{margin-left:-50%;margin-right:50%}.katex .rule{border:0 solid;display:inline-block;position:relative}.katex .hline,.katex .overline .overline-line,.katex .underline .underline-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline{border-bottom-style:dashed;display:inline-block;width:100%}.katex .sqrt>.root{margin-left:.27777778em;margin-right:-.55555556em}.katex .fontsize-ensurer.reset-size1.size1,.katex .sizing.reset-size1.size1{font-size:1em}.katex .fontsize-ensurer.reset-size1.size2,.katex .sizing.reset-size1.size2{font-size:1.2em}.katex .fontsize-ensurer.reset-size1.size3,.katex .sizing.reset-size1.size3{font-size:1.4em}.katex .fontsize-ensurer.reset-size1.size4,.katex .sizing.reset-size1.size4{font-size:1.6em}.katex .fontsize-ensurer.reset-size1.size5,.katex .sizing.reset-size1.size5{font-size:1.8em}.katex .fontsize-ensurer.reset-size1.size6,.katex .sizing.reset-size1.size6{font-size:2em}.katex .fontsize-ensurer.reset-size1.size7,.katex .sizing.reset-size1.size7{font-size:2.4em}.katex .fontsize-ensurer.reset-size1.size8,.katex .sizing.reset-size1.size8{font-size:2.88em}.katex .fontsize-ensurer.reset-size1.size9,.katex .sizing.reset-size1.size9{font-size:3.456em}.katex .fontsize-ensurer.reset-size1.size10,.katex .sizing.reset-size1.size10{font-size:4.148em}.katex .fontsize-ensurer.reset-size1.size11,.katex .sizing.reset-size1.size11{font-size:4.976em}.katex .fontsize-ensurer.reset-size2.size1,.katex .sizing.reset-size2.size1{font-size:.83333333em}.katex .fontsize-ensurer.reset-size2.size2,.katex .sizing.reset-size2.size2{font-size:1em}.katex .fontsize-ensurer.reset-size2.size3,.katex .sizing.reset-size2.size3{font-size:1.16666667em}.katex .fontsize-ensurer.reset-size2.size4,.katex .sizing.reset-size2.size4{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size2.size5,.katex .sizing.reset-size2.size5{font-size:1.5em}.katex .fontsize-ensurer.reset-size2.size6,.katex .sizing.reset-size2.size6{font-size:1.66666667em}.katex .fontsize-ensurer.reset-size2.size7,.katex .sizing.reset-size2.size7{font-size:2em}.katex .fontsize-ensurer.reset-size2.size8,.katex .sizing.reset-size2.size8{font-size:2.4em}.katex .fontsize-ensurer.reset-size2.size9,.katex .sizing.reset-size2.size9{font-size:2.88em}.katex .fontsize-ensurer.reset-size2.size10,.katex .sizing.reset-size2.size10{font-size:3.45666667em}.katex .fontsize-ensurer.reset-size2.size11,.katex .sizing.reset-size2.size11{font-size:4.14666667em}.katex .fontsize-ensurer.reset-size3.size1,.katex .sizing.reset-size3.size1{font-size:.71428571em}.katex .fontsize-ensurer.reset-size3.size2,.katex .sizing.reset-size3.size2{font-size:.85714286em}.katex .fontsize-ensurer.reset-size3.size3,.katex .sizing.reset-size3.size3{font-size:1em}.katex .fontsize-ensurer.reset-size3.size4,.katex .sizing.reset-size3.size4{font-size:1.14285714em}.katex .fontsize-ensurer.reset-size3.size5,.katex .sizing.reset-size3.size5{font-size:1.28571429em}.katex .fontsize-ensurer.reset-size3.size6,.katex .sizing.reset-size3.size6{font-size:1.42857143em}.katex .fontsize-ensurer.reset-size3.size7,.katex .sizing.reset-size3.size7{font-size:1.71428571em}.katex .fontsize-ensurer.reset-size3.size8,.katex .sizing.reset-size3.size8{font-size:2.05714286em}.katex .fontsize-ensurer.reset-size3.size9,.katex .sizing.reset-size3.size9{font-size:2.46857143em}.katex .fontsize-ensurer.reset-size3.size10,.katex .sizing.reset-size3.size10{font-size:2.96285714em}.katex .fontsize-ensurer.reset-size3.size11,.katex .sizing.reset-size3.size11{font-size:3.55428571em}.katex .fontsize-ensurer.reset-size4.size1,.katex .sizing.reset-size4.size1{font-size:.625em}.katex .fontsize-ensurer.reset-size4.size2,.katex .sizing.reset-size4.size2{font-size:.75em}.katex .fontsize-ensurer.reset-size4.size3,.katex .sizing.reset-size4.size3{font-size:.875em}.katex .fontsize-ensurer.reset-size4.size4,.katex .sizing.reset-size4.size4{font-size:1em}.katex .fontsize-ensurer.reset-size4.size5,.katex .sizing.reset-size4.size5{font-size:1.125em}.katex .fontsize-ensurer.reset-size4.size6,.katex .sizing.reset-size4.size6{font-size:1.25em}.katex .fontsize-ensurer.reset-size4.size7,.katex .sizing.reset-size4.size7{font-size:1.5em}.katex .fontsize-ensurer.reset-size4.size8,.katex .sizing.reset-size4.size8{font-size:1.8em}.katex .fontsize-ensurer.reset-size4.size9,.katex .sizing.reset-size4.size9{font-size:2.16em}.katex .fontsize-ensurer.reset-size4.size10,.katex .sizing.reset-size4.size10{font-size:2.5925em}.katex .fontsize-ensurer.reset-size4.size11,.katex .sizing.reset-size4.size11{font-size:3.11em}.katex .fontsize-ensurer.reset-size5.size1,.katex .sizing.reset-size5.size1{font-size:.55555556em}.katex .fontsize-ensurer.reset-size5.size2,.katex .sizing.reset-size5.size2{font-size:.66666667em}.katex .fontsize-ensurer.reset-size5.size3,.katex .sizing.reset-size5.size3{font-size:.77777778em}.katex .fontsize-ensurer.reset-size5.size4,.katex .sizing.reset-size5.size4{font-size:.88888889em}.katex .fontsize-ensurer.reset-size5.size5,.katex .sizing.reset-size5.size5{font-size:1em}.katex .fontsize-ensurer.reset-size5.size6,.katex .sizing.reset-size5.size6{font-size:1.11111111em}.katex .fontsize-ensurer.reset-size5.size7,.katex .sizing.reset-size5.size7{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size5.size8,.katex .sizing.reset-size5.size8{font-size:1.6em}.katex .fontsize-ensurer.reset-size5.size9,.katex .sizing.reset-size5.size9{font-size:1.92em}.katex .fontsize-ensurer.reset-size5.size10,.katex .sizing.reset-size5.size10{font-size:2.30444444em}.katex .fontsize-ensurer.reset-size5.size11,.katex .sizing.reset-size5.size11{font-size:2.76444444em}.katex .fontsize-ensurer.reset-size6.size1,.katex .sizing.reset-size6.size1{font-size:.5em}.katex .fontsize-ensurer.reset-size6.size2,.katex .sizing.reset-size6.size2{font-size:.6em}.katex .fontsize-ensurer.reset-size6.size3,.katex .sizing.reset-size6.size3{font-size:.7em}.katex .fontsize-ensurer.reset-size6.size4,.katex .sizing.reset-size6.size4{font-size:.8em}.katex .fontsize-ensurer.reset-size6.size5,.katex .sizing.reset-size6.size5{font-size:.9em}.katex .fontsize-ensurer.reset-size6.size6,.katex .sizing.reset-size6.size6{font-size:1em}.katex .fontsize-ensurer.reset-size6.size7,.katex .sizing.reset-size6.size7{font-size:1.2em}.katex .fontsize-ensurer.reset-size6.size8,.katex .sizing.reset-size6.size8{font-size:1.44em}.katex .fontsize-ensurer.reset-size6.size9,.katex .sizing.reset-size6.size9{font-size:1.728em}.katex .fontsize-ensurer.reset-size6.size10,.katex .sizing.reset-size6.size10{font-size:2.074em}.katex .fontsize-ensurer.reset-size6.size11,.katex .sizing.reset-size6.size11{font-size:2.488em}.katex .fontsize-ensurer.reset-size7.size1,.katex .sizing.reset-size7.size1{font-size:.41666667em}.katex .fontsize-ensurer.reset-size7.size2,.katex .sizing.reset-size7.size2{font-size:.5em}.katex .fontsize-ensurer.reset-size7.size3,.katex .sizing.reset-size7.size3{font-size:.58333333em}.katex .fontsize-ensurer.reset-size7.size4,.katex .sizing.reset-size7.size4{font-size:.66666667em}.katex .fontsize-ensurer.reset-size7.size5,.katex .sizing.reset-size7.size5{font-size:.75em}.katex .fontsize-ensurer.reset-size7.size6,.katex .sizing.reset-size7.size6{font-size:.83333333em}.katex .fontsize-ensurer.reset-size7.size7,.katex .sizing.reset-size7.size7{font-size:1em}.katex .fontsize-ensurer.reset-size7.size8,.katex .sizing.reset-size7.size8{font-size:1.2em}.katex .fontsize-ensurer.reset-size7.size9,.katex .sizing.reset-size7.size9{font-size:1.44em}.katex .fontsize-ensurer.reset-size7.size10,.katex .sizing.reset-size7.size10{font-size:1.72833333em}.katex .fontsize-ensurer.reset-size7.size11,.katex .sizing.reset-size7.size11{font-size:2.07333333em}.katex .fontsize-ensurer.reset-size8.size1,.katex .sizing.reset-size8.size1{font-size:.34722222em}.katex .fontsize-ensurer.reset-size8.size2,.katex .sizing.reset-size8.size2{font-size:.41666667em}.katex .fontsize-ensurer.reset-size8.size3,.katex .sizing.reset-size8.size3{font-size:.48611111em}.katex .fontsize-ensurer.reset-size8.size4,.katex .sizing.reset-size8.size4{font-size:.55555556em}.katex .fontsize-ensurer.reset-size8.size5,.katex .sizing.reset-size8.size5{font-size:.625em}.katex .fontsize-ensurer.reset-size8.size6,.katex .sizing.reset-size8.size6{font-size:.69444444em}.katex .fontsize-ensurer.reset-size8.size7,.katex .sizing.reset-size8.size7{font-size:.83333333em}.katex .fontsize-ensurer.reset-size8.size8,.katex .sizing.reset-size8.size8{font-size:1em}.katex .fontsize-ensurer.reset-size8.size9,.katex .sizing.reset-size8.size9{font-size:1.2em}.katex .fontsize-ensurer.reset-size8.size10,.katex .sizing.reset-size8.size10{font-size:1.44027778em}.katex .fontsize-ensurer.reset-size8.size11,.katex .sizing.reset-size8.size11{font-size:1.72777778em}.katex .fontsize-ensurer.reset-size9.size1,.katex .sizing.reset-size9.size1{font-size:.28935185em}.katex .fontsize-ensurer.reset-size9.size2,.katex .sizing.reset-size9.size2{font-size:.34722222em}.katex .fontsize-ensurer.reset-size9.size3,.katex .sizing.reset-size9.size3{font-size:.40509259em}.katex .fontsize-ensurer.reset-size9.size4,.katex .sizing.reset-size9.size4{font-size:.46296296em}.katex .fontsize-ensurer.reset-size9.size5,.katex .sizing.reset-size9.size5{font-size:.52083333em}.katex .fontsize-ensurer.reset-size9.size6,.katex .sizing.reset-size9.size6{font-size:.5787037em}.katex .fontsize-ensurer.reset-size9.size7,.katex .sizing.reset-size9.size7{font-size:.69444444em}.katex .fontsize-ensurer.reset-size9.size8,.katex .sizing.reset-size9.size8{font-size:.83333333em}.katex .fontsize-ensurer.reset-size9.size9,.katex .sizing.reset-size9.size9{font-size:1em}.katex .fontsize-ensurer.reset-size9.size10,.katex .sizing.reset-size9.size10{font-size:1.20023148em}.katex .fontsize-ensurer.reset-size9.size11,.katex .sizing.reset-size9.size11{font-size:1.43981481em}.katex .fontsize-ensurer.reset-size10.size1,.katex .sizing.reset-size10.size1{font-size:.24108004em}.katex .fontsize-ensurer.reset-size10.size2,.katex .sizing.reset-size10.size2{font-size:.28929605em}.katex .fontsize-ensurer.reset-size10.size3,.katex .sizing.reset-size10.size3{font-size:.33751205em}.katex .fontsize-ensurer.reset-size10.size4,.katex .sizing.reset-size10.size4{font-size:.38572806em}.katex .fontsize-ensurer.reset-size10.size5,.katex .sizing.reset-size10.size5{font-size:.43394407em}.katex .fontsize-ensurer.reset-size10.size6,.katex .sizing.reset-size10.size6{font-size:.48216008em}.katex .fontsize-ensurer.reset-size10.size7,.katex .sizing.reset-size10.size7{font-size:.57859209em}.katex .fontsize-ensurer.reset-size10.size8,.katex .sizing.reset-size10.size8{font-size:.69431051em}.katex .fontsize-ensurer.reset-size10.size9,.katex .sizing.reset-size10.size9{font-size:.83317261em}.katex .fontsize-ensurer.reset-size10.size10,.katex .sizing.reset-size10.size10{font-size:1em}.katex .fontsize-ensurer.reset-size10.size11,.katex .sizing.reset-size10.size11{font-size:1.19961427em}.katex .fontsize-ensurer.reset-size11.size1,.katex .sizing.reset-size11.size1{font-size:.20096463em}.katex .fontsize-ensurer.reset-size11.size2,.katex .sizing.reset-size11.size2{font-size:.24115756em}.katex .fontsize-ensurer.reset-size11.size3,.katex .sizing.reset-size11.size3{font-size:.28135048em}.katex .fontsize-ensurer.reset-size11.size4,.katex .sizing.reset-size11.size4{font-size:.32154341em}.katex .fontsize-ensurer.reset-size11.size5,.katex .sizing.reset-size11.size5{font-size:.36173633em}.katex .fontsize-ensurer.reset-size11.size6,.katex .sizing.reset-size11.size6{font-size:.40192926em}.katex .fontsize-ensurer.reset-size11.size7,.katex .sizing.reset-size11.size7{font-size:.48231511em}.katex .fontsize-ensurer.reset-size11.size8,.katex .sizing.reset-size11.size8{font-size:.57877814em}.katex .fontsize-ensurer.reset-size11.size9,.katex .sizing.reset-size11.size9{font-size:.69453376em}.katex .fontsize-ensurer.reset-size11.size10,.katex .sizing.reset-size11.size10{font-size:.83360129em}.katex .fontsize-ensurer.reset-size11.size11,.katex .sizing.reset-size11.size11{font-size:1em}.katex .delimsizing.size1{font-family:KaTeX_Size1}.katex .delimsizing.size2{font-family:KaTeX_Size2}.katex .delimsizing.size3{font-family:KaTeX_Size3}.katex .delimsizing.size4{font-family:KaTeX_Size4}.katex .delimsizing.mult .delim-size1>span{font-family:KaTeX_Size1}.katex .delimsizing.mult .delim-size4>span{font-family:KaTeX_Size4}.katex .nulldelimiter{display:inline-block;width:.12em}.katex .delimcenter,.katex .op-symbol{position:relative}.katex .op-symbol.small-op{font-family:KaTeX_Size1}.katex .op-symbol.large-op{font-family:KaTeX_Size2}.katex .accent>.vlist-t,.katex .op-limits>.vlist-t{text-align:center}.katex .accent .accent-body{position:relative}.katex .accent .accent-body:not(.accent-full){width:0}.katex .overlay{display:block}.katex .mtable .vertical-separator{display:inline-block;min-width:1px}.katex .mtable .arraycolsep{display:inline-block}.katex .mtable .col-align-c>.vlist-t{text-align:center}.katex .mtable .col-align-l>.vlist-t{text-align:left}.katex .mtable .col-align-r>.vlist-t{text-align:right}.katex .svg-align{text-align:left}.katex svg{fill:currentColor;stroke:currentColor;fill-rule:nonzero;fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;display:block;height:inherit;position:absolute;width:100%}.katex svg path{stroke:none}.katex img{border-style:none;max-height:none;max-width:none;min-height:0;min-width:0}.katex .stretchy{display:block;overflow:hidden;position:relative;width:100%}.katex .stretchy:after,.katex .stretchy:before{content:""}.katex .hide-tail{overflow:hidden;position:relative;width:100%}.katex .halfarrow-left{left:0;overflow:hidden;position:absolute;width:50.2%}.katex .halfarrow-right{overflow:hidden;position:absolute;right:0;width:50.2%}.katex .brace-left{left:0;overflow:hidden;position:absolute;width:25.1%}.katex .brace-center{left:25%;overflow:hidden;position:absolute;width:50%}.katex .brace-right{overflow:hidden;position:absolute;right:0;width:25.1%}.katex .x-arrow-pad{padding:0 .5em}.katex .cd-arrow-pad{padding:0 .55556em 0 .27778em}.katex .mover,.katex .munder,.katex .x-arrow{text-align:center}.katex .boxpad{padding:0 .3em}.katex .fbox,.katex .fcolorbox{border:.04em solid;box-sizing:border-box}.katex .cancel-pad{padding:0 .2em}.katex .cancel-lap{margin-left:-.2em;margin-right:-.2em}.katex .sout{border-bottom-style:solid;border-bottom-width:.08em}.katex .angl{border-right:.049em solid;border-top:.049em solid;box-sizing:border-box;margin-right:.03889em}.katex .anglpad{padding:0 .03889em}.katex .eqn-num:before{content:"(" counter(katexEqnNo) ")";counter-increment:katexEqnNo}.katex .mml-eqn-num:before{content:"(" counter(mmlEqnNo) ")";counter-increment:mmlEqnNo}.katex .mtr-glue{width:50%}.katex .cd-vert-arrow{display:inline-block;position:relative}.katex .cd-label-left{display:inline-block;position:absolute;right:calc(50% + .3em);text-align:left}.katex .cd-label-right{display:inline-block;left:calc(50% + .3em);position:absolute;text-align:right}.katex-display{display:block;margin:1em 0;text-align:center}.katex-display>.katex{display:block;text-align:center;white-space:nowrap}.katex-display>.katex>.katex-html{display:block;position:relative}.katex-display>.katex>.katex-html>.tag{position:absolute;right:0}.katex-display.leqno>.katex>.katex-html>.tag{left:0;right:auto}.katex-display.fleqn>.katex{padding-left:2em;text-align:left}body{counter-reset:katexEqnNo mmlEqnNo}
-</style>
-<style>/* style for html inside of browsers */
+</style><style id="__markdown-viewer__hljs_css">
+@media (prefers-color-scheme: light) { .hljs-comment,.hljs-quote{color:#696969}.hljs-deletion,.hljs-name,.hljs-regexp,.hljs-selector-class,.hljs-selector-id,.hljs-tag,.hljs-template-variable,.hljs-variable{color:#d91e18}.hljs-built_in,.hljs-builtin-name,.hljs-link,.hljs-literal,.hljs-meta,.hljs-number,.hljs-params,.hljs-type{color:#aa5d00}.hljs-attribute{color:#aa5d00}.hljs-addition,.hljs-bullet,.hljs-string,.hljs-symbol{color:green}.hljs-section,.hljs-title{color:#007faa}.hljs-keyword,.hljs-selector-tag{color:#7928a1}.hljs{display:block;overflow-x:auto;background:#fefefe;color:#545454;padding:.5em}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}@media screen and (-ms-high-contrast:active){.hljs-addition,.hljs-attribute,.hljs-built_in,.hljs-builtin-name,.hljs-bullet,.hljs-comment,.hljs-link,.hljs-literal,.hljs-meta,.hljs-number,.hljs-params,.hljs-quote,.hljs-string,.hljs-symbol,.hljs-type{color:highlight}.hljs-keyword,.hljs-selector-tag{font-weight:700}} }
+
+@media (prefers-color-scheme: dark) { .hljs-comment,.hljs-quote{color:#d4d0ab}.hljs-deletion,.hljs-name,.hljs-regexp,.hljs-selector-class,.hljs-selector-id,.hljs-tag,.hljs-template-variable,.hljs-variable{color:#ffa07a}.hljs-built_in,.hljs-builtin-name,.hljs-link,.hljs-literal,.hljs-meta,.hljs-number,.hljs-params,.hljs-type{color:#f5ab35}.hljs-attribute{color:gold}.hljs-addition,.hljs-bullet,.hljs-string,.hljs-symbol{color:#abe338}.hljs-section,.hljs-title{color:#00e0e0}.hljs-keyword,.hljs-selector-tag{color:#dcc6e0}.hljs{display:block;overflow-x:auto;background:#2b2b2b;color:#f8f8f2;padding:.5em}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}@media screen and (-ms-high-contrast:active){.hljs-addition,.hljs-attribute,.hljs-built_in,.hljs-builtin-name,.hljs-bullet,.hljs-comment,.hljs-link,.hljs-literal,.hljs-meta,.hljs-number,.hljs-params,.hljs-quote,.hljs-string,.hljs-symbol,.hljs-type{color:highlight}.hljs-keyword,.hljs-selector-tag{font-weight:700}} }</style><style id="__markdown-viewer__katex_css">@font-face{font-family:KaTeX_AMS;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Caligraphic;font-style:normal;font-weight:700}@font-face{font-family:KaTeX_Caligraphic;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Fraktur;font-style:normal;font-weight:700}@font-face{font-family:KaTeX_Fraktur;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Main;font-style:normal;font-weight:700}@font-face{font-family:KaTeX_Main;font-style:italic;font-weight:700}@font-face{font-family:KaTeX_Main;font-style:italic;font-weight:400}@font-face{font-family:KaTeX_Main;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Math;font-style:italic;font-weight:700}@font-face{font-family:KaTeX_Math;font-style:italic;font-weight:400}@font-face{font-family:"KaTeX_SansSerif";font-style:normal;font-weight:700}@font-face{font-family:"KaTeX_SansSerif";font-style:italic;font-weight:400}@font-face{font-family:"KaTeX_SansSerif";font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Script;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Size1;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Size2;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Size3;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Size4;font-style:normal;font-weight:400}@font-face{font-family:KaTeX_Typewriter;font-style:normal;font-weight:400}.katex{text-rendering:auto;font:normal 1.21em KaTeX_Main,Times New Roman,serif;line-height:1.2;text-indent:0}.katex *{-ms-high-contrast-adjust:none!important;border-color:currentColor}.katex .katex-version:after{content:"0.13.13"}.katex .katex-mathml{clip:rect(1px,1px,1px,1px);border:0;height:1px;overflow:hidden;padding:0;position:absolute;width:1px}.katex .katex-html>.newline{display:block}.katex .base{position:relative;white-space:nowrap;width:-webkit-min-content;width:-moz-min-content;width:min-content}.katex .base,.katex .strut{display:inline-block}.katex .textbf{font-weight:700}.katex .textit{font-style:italic}.katex .textrm{font-family:KaTeX_Main}.katex .textsf{font-family:KaTeX_SansSerif}.katex .texttt{font-family:KaTeX_Typewriter}.katex .mathnormal{font-family:KaTeX_Math;font-style:italic}.katex .mathit{font-family:KaTeX_Main;font-style:italic}.katex .mathrm{font-style:normal}.katex .mathbf{font-family:KaTeX_Main;font-weight:700}.katex .boldsymbol{font-family:KaTeX_Math;font-style:italic;font-weight:700}.katex .amsrm,.katex .mathbb,.katex .textbb{font-family:KaTeX_AMS}.katex .mathcal{font-family:KaTeX_Caligraphic}.katex .mathfrak,.katex .textfrak{font-family:KaTeX_Fraktur}.katex .mathtt{font-family:KaTeX_Typewriter}.katex .mathscr,.katex .textscr{font-family:KaTeX_Script}.katex .mathsf,.katex .textsf{font-family:KaTeX_SansSerif}.katex .mathboldsf,.katex .textboldsf{font-family:KaTeX_SansSerif;font-weight:700}.katex .mathitsf,.katex .textitsf{font-family:KaTeX_SansSerif;font-style:italic}.katex .mainrm{font-family:KaTeX_Main;font-style:normal}.katex .vlist-t{border-collapse:collapse;display:inline-table;table-layout:fixed}.katex .vlist-r{display:table-row}.katex .vlist{display:table-cell;position:relative;vertical-align:bottom}.katex .vlist>span{display:block;height:0;position:relative}.katex .vlist>span>span{display:inline-block}.katex .vlist>span>.pstrut{overflow:hidden;width:0}.katex .vlist-t2{margin-right:-2px}.katex .vlist-s{display:table-cell;font-size:1px;min-width:2px;vertical-align:bottom;width:2px}.katex .vbox{align-items:baseline;display:inline-flex;flex-direction:column}.katex .hbox{width:100%}.katex .hbox,.katex .thinbox{display:inline-flex;flex-direction:row}.katex .thinbox{max-width:0;width:0}.katex .msupsub{text-align:left}.katex .mfrac>span>span{text-align:center}.katex .mfrac .frac-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline,.katex .hline,.katex .mfrac .frac-line,.katex .overline .overline-line,.katex .rule,.katex .underline .underline-line{min-height:1px}.katex .mspace{display:inline-block}.katex .clap,.katex .llap,.katex .rlap{position:relative;width:0}.katex .clap>.inner,.katex .llap>.inner,.katex .rlap>.inner{position:absolute}.katex .clap>.fix,.katex .llap>.fix,.katex .rlap>.fix{display:inline-block}.katex .llap>.inner{right:0}.katex .clap>.inner,.katex .rlap>.inner{left:0}.katex .clap>.inner>span{margin-left:-50%;margin-right:50%}.katex .rule{border:0 solid;display:inline-block;position:relative}.katex .hline,.katex .overline .overline-line,.katex .underline .underline-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline{border-bottom-style:dashed;display:inline-block;width:100%}.katex .sqrt>.root{margin-left:.27777778em;margin-right:-.55555556em}.katex .fontsize-ensurer.reset-size1.size1,.katex .sizing.reset-size1.size1{font-size:1em}.katex .fontsize-ensurer.reset-size1.size2,.katex .sizing.reset-size1.size2{font-size:1.2em}.katex .fontsize-ensurer.reset-size1.size3,.katex .sizing.reset-size1.size3{font-size:1.4em}.katex .fontsize-ensurer.reset-size1.size4,.katex .sizing.reset-size1.size4{font-size:1.6em}.katex .fontsize-ensurer.reset-size1.size5,.katex .sizing.reset-size1.size5{font-size:1.8em}.katex .fontsize-ensurer.reset-size1.size6,.katex .sizing.reset-size1.size6{font-size:2em}.katex .fontsize-ensurer.reset-size1.size7,.katex .sizing.reset-size1.size7{font-size:2.4em}.katex .fontsize-ensurer.reset-size1.size8,.katex .sizing.reset-size1.size8{font-size:2.88em}.katex .fontsize-ensurer.reset-size1.size9,.katex .sizing.reset-size1.size9{font-size:3.456em}.katex .fontsize-ensurer.reset-size1.size10,.katex .sizing.reset-size1.size10{font-size:4.148em}.katex .fontsize-ensurer.reset-size1.size11,.katex .sizing.reset-size1.size11{font-size:4.976em}.katex .fontsize-ensurer.reset-size2.size1,.katex .sizing.reset-size2.size1{font-size:.83333333em}.katex .fontsize-ensurer.reset-size2.size2,.katex .sizing.reset-size2.size2{font-size:1em}.katex .fontsize-ensurer.reset-size2.size3,.katex .sizing.reset-size2.size3{font-size:1.16666667em}.katex .fontsize-ensurer.reset-size2.size4,.katex .sizing.reset-size2.size4{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size2.size5,.katex .sizing.reset-size2.size5{font-size:1.5em}.katex .fontsize-ensurer.reset-size2.size6,.katex .sizing.reset-size2.size6{font-size:1.66666667em}.katex .fontsize-ensurer.reset-size2.size7,.katex .sizing.reset-size2.size7{font-size:2em}.katex .fontsize-ensurer.reset-size2.size8,.katex .sizing.reset-size2.size8{font-size:2.4em}.katex .fontsize-ensurer.reset-size2.size9,.katex .sizing.reset-size2.size9{font-size:2.88em}.katex .fontsize-ensurer.reset-size2.size10,.katex .sizing.reset-size2.size10{font-size:3.45666667em}.katex .fontsize-ensurer.reset-size2.size11,.katex .sizing.reset-size2.size11{font-size:4.14666667em}.katex .fontsize-ensurer.reset-size3.size1,.katex .sizing.reset-size3.size1{font-size:.71428571em}.katex .fontsize-ensurer.reset-size3.size2,.katex .sizing.reset-size3.size2{font-size:.85714286em}.katex .fontsize-ensurer.reset-size3.size3,.katex .sizing.reset-size3.size3{font-size:1em}.katex .fontsize-ensurer.reset-size3.size4,.katex .sizing.reset-size3.size4{font-size:1.14285714em}.katex .fontsize-ensurer.reset-size3.size5,.katex .sizing.reset-size3.size5{font-size:1.28571429em}.katex .fontsize-ensurer.reset-size3.size6,.katex .sizing.reset-size3.size6{font-size:1.42857143em}.katex .fontsize-ensurer.reset-size3.size7,.katex .sizing.reset-size3.size7{font-size:1.71428571em}.katex .fontsize-ensurer.reset-size3.size8,.katex .sizing.reset-size3.size8{font-size:2.05714286em}.katex .fontsize-ensurer.reset-size3.size9,.katex .sizing.reset-size3.size9{font-size:2.46857143em}.katex .fontsize-ensurer.reset-size3.size10,.katex .sizing.reset-size3.size10{font-size:2.96285714em}.katex .fontsize-ensurer.reset-size3.size11,.katex .sizing.reset-size3.size11{font-size:3.55428571em}.katex .fontsize-ensurer.reset-size4.size1,.katex .sizing.reset-size4.size1{font-size:.625em}.katex .fontsize-ensurer.reset-size4.size2,.katex .sizing.reset-size4.size2{font-size:.75em}.katex .fontsize-ensurer.reset-size4.size3,.katex .sizing.reset-size4.size3{font-size:.875em}.katex .fontsize-ensurer.reset-size4.size4,.katex .sizing.reset-size4.size4{font-size:1em}.katex .fontsize-ensurer.reset-size4.size5,.katex .sizing.reset-size4.size5{font-size:1.125em}.katex .fontsize-ensurer.reset-size4.size6,.katex .sizing.reset-size4.size6{font-size:1.25em}.katex .fontsize-ensurer.reset-size4.size7,.katex .sizing.reset-size4.size7{font-size:1.5em}.katex .fontsize-ensurer.reset-size4.size8,.katex .sizing.reset-size4.size8{font-size:1.8em}.katex .fontsize-ensurer.reset-size4.size9,.katex .sizing.reset-size4.size9{font-size:2.16em}.katex .fontsize-ensurer.reset-size4.size10,.katex .sizing.reset-size4.size10{font-size:2.5925em}.katex .fontsize-ensurer.reset-size4.size11,.katex .sizing.reset-size4.size11{font-size:3.11em}.katex .fontsize-ensurer.reset-size5.size1,.katex .sizing.reset-size5.size1{font-size:.55555556em}.katex .fontsize-ensurer.reset-size5.size2,.katex .sizing.reset-size5.size2{font-size:.66666667em}.katex .fontsize-ensurer.reset-size5.size3,.katex .sizing.reset-size5.size3{font-size:.77777778em}.katex .fontsize-ensurer.reset-size5.size4,.katex .sizing.reset-size5.size4{font-size:.88888889em}.katex .fontsize-ensurer.reset-size5.size5,.katex .sizing.reset-size5.size5{font-size:1em}.katex .fontsize-ensurer.reset-size5.size6,.katex .sizing.reset-size5.size6{font-size:1.11111111em}.katex .fontsize-ensurer.reset-size5.size7,.katex .sizing.reset-size5.size7{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size5.size8,.katex .sizing.reset-size5.size8{font-size:1.6em}.katex .fontsize-ensurer.reset-size5.size9,.katex .sizing.reset-size5.size9{font-size:1.92em}.katex .fontsize-ensurer.reset-size5.size10,.katex .sizing.reset-size5.size10{font-size:2.30444444em}.katex .fontsize-ensurer.reset-size5.size11,.katex .sizing.reset-size5.size11{font-size:2.76444444em}.katex .fontsize-ensurer.reset-size6.size1,.katex .sizing.reset-size6.size1{font-size:.5em}.katex .fontsize-ensurer.reset-size6.size2,.katex .sizing.reset-size6.size2{font-size:.6em}.katex .fontsize-ensurer.reset-size6.size3,.katex .sizing.reset-size6.size3{font-size:.7em}.katex .fontsize-ensurer.reset-size6.size4,.katex .sizing.reset-size6.size4{font-size:.8em}.katex .fontsize-ensurer.reset-size6.size5,.katex .sizing.reset-size6.size5{font-size:.9em}.katex .fontsize-ensurer.reset-size6.size6,.katex .sizing.reset-size6.size6{font-size:1em}.katex .fontsize-ensurer.reset-size6.size7,.katex .sizing.reset-size6.size7{font-size:1.2em}.katex .fontsize-ensurer.reset-size6.size8,.katex .sizing.reset-size6.size8{font-size:1.44em}.katex .fontsize-ensurer.reset-size6.size9,.katex .sizing.reset-size6.size9{font-size:1.728em}.katex .fontsize-ensurer.reset-size6.size10,.katex .sizing.reset-size6.size10{font-size:2.074em}.katex .fontsize-ensurer.reset-size6.size11,.katex .sizing.reset-size6.size11{font-size:2.488em}.katex .fontsize-ensurer.reset-size7.size1,.katex .sizing.reset-size7.size1{font-size:.41666667em}.katex .fontsize-ensurer.reset-size7.size2,.katex .sizing.reset-size7.size2{font-size:.5em}.katex .fontsize-ensurer.reset-size7.size3,.katex .sizing.reset-size7.size3{font-size:.58333333em}.katex .fontsize-ensurer.reset-size7.size4,.katex .sizing.reset-size7.size4{font-size:.66666667em}.katex .fontsize-ensurer.reset-size7.size5,.katex .sizing.reset-size7.size5{font-size:.75em}.katex .fontsize-ensurer.reset-size7.size6,.katex .sizing.reset-size7.size6{font-size:.83333333em}.katex .fontsize-ensurer.reset-size7.size7,.katex .sizing.reset-size7.size7{font-size:1em}.katex .fontsize-ensurer.reset-size7.size8,.katex .sizing.reset-size7.size8{font-size:1.2em}.katex .fontsize-ensurer.reset-size7.size9,.katex .sizing.reset-size7.size9{font-size:1.44em}.katex .fontsize-ensurer.reset-size7.size10,.katex .sizing.reset-size7.size10{font-size:1.72833333em}.katex .fontsize-ensurer.reset-size7.size11,.katex .sizing.reset-size7.size11{font-size:2.07333333em}.katex .fontsize-ensurer.reset-size8.size1,.katex .sizing.reset-size8.size1{font-size:.34722222em}.katex .fontsize-ensurer.reset-size8.size2,.katex .sizing.reset-size8.size2{font-size:.41666667em}.katex .fontsize-ensurer.reset-size8.size3,.katex .sizing.reset-size8.size3{font-size:.48611111em}.katex .fontsize-ensurer.reset-size8.size4,.katex .sizing.reset-size8.size4{font-size:.55555556em}.katex .fontsize-ensurer.reset-size8.size5,.katex .sizing.reset-size8.size5{font-size:.625em}.katex .fontsize-ensurer.reset-size8.size6,.katex .sizing.reset-size8.size6{font-size:.69444444em}.katex .fontsize-ensurer.reset-size8.size7,.katex .sizing.reset-size8.size7{font-size:.83333333em}.katex .fontsize-ensurer.reset-size8.size8,.katex .sizing.reset-size8.size8{font-size:1em}.katex .fontsize-ensurer.reset-size8.size9,.katex .sizing.reset-size8.size9{font-size:1.2em}.katex .fontsize-ensurer.reset-size8.size10,.katex .sizing.reset-size8.size10{font-size:1.44027778em}.katex .fontsize-ensurer.reset-size8.size11,.katex .sizing.reset-size8.size11{font-size:1.72777778em}.katex .fontsize-ensurer.reset-size9.size1,.katex .sizing.reset-size9.size1{font-size:.28935185em}.katex .fontsize-ensurer.reset-size9.size2,.katex .sizing.reset-size9.size2{font-size:.34722222em}.katex .fontsize-ensurer.reset-size9.size3,.katex .sizing.reset-size9.size3{font-size:.40509259em}.katex .fontsize-ensurer.reset-size9.size4,.katex .sizing.reset-size9.size4{font-size:.46296296em}.katex .fontsize-ensurer.reset-size9.size5,.katex .sizing.reset-size9.size5{font-size:.52083333em}.katex .fontsize-ensurer.reset-size9.size6,.katex .sizing.reset-size9.size6{font-size:.5787037em}.katex .fontsize-ensurer.reset-size9.size7,.katex .sizing.reset-size9.size7{font-size:.69444444em}.katex .fontsize-ensurer.reset-size9.size8,.katex .sizing.reset-size9.size8{font-size:.83333333em}.katex .fontsize-ensurer.reset-size9.size9,.katex .sizing.reset-size9.size9{font-size:1em}.katex .fontsize-ensurer.reset-size9.size10,.katex .sizing.reset-size9.size10{font-size:1.20023148em}.katex .fontsize-ensurer.reset-size9.size11,.katex .sizing.reset-size9.size11{font-size:1.43981481em}.katex .fontsize-ensurer.reset-size10.size1,.katex .sizing.reset-size10.size1{font-size:.24108004em}.katex .fontsize-ensurer.reset-size10.size2,.katex .sizing.reset-size10.size2{font-size:.28929605em}.katex .fontsize-ensurer.reset-size10.size3,.katex .sizing.reset-size10.size3{font-size:.33751205em}.katex .fontsize-ensurer.reset-size10.size4,.katex .sizing.reset-size10.size4{font-size:.38572806em}.katex .fontsize-ensurer.reset-size10.size5,.katex .sizing.reset-size10.size5{font-size:.43394407em}.katex .fontsize-ensurer.reset-size10.size6,.katex .sizing.reset-size10.size6{font-size:.48216008em}.katex .fontsize-ensurer.reset-size10.size7,.katex .sizing.reset-size10.size7{font-size:.57859209em}.katex .fontsize-ensurer.reset-size10.size8,.katex .sizing.reset-size10.size8{font-size:.69431051em}.katex .fontsize-ensurer.reset-size10.size9,.katex .sizing.reset-size10.size9{font-size:.83317261em}.katex .fontsize-ensurer.reset-size10.size10,.katex .sizing.reset-size10.size10{font-size:1em}.katex .fontsize-ensurer.reset-size10.size11,.katex .sizing.reset-size10.size11{font-size:1.19961427em}.katex .fontsize-ensurer.reset-size11.size1,.katex .sizing.reset-size11.size1{font-size:.20096463em}.katex .fontsize-ensurer.reset-size11.size2,.katex .sizing.reset-size11.size2{font-size:.24115756em}.katex .fontsize-ensurer.reset-size11.size3,.katex .sizing.reset-size11.size3{font-size:.28135048em}.katex .fontsize-ensurer.reset-size11.size4,.katex .sizing.reset-size11.size4{font-size:.32154341em}.katex .fontsize-ensurer.reset-size11.size5,.katex .sizing.reset-size11.size5{font-size:.36173633em}.katex .fontsize-ensurer.reset-size11.size6,.katex .sizing.reset-size11.size6{font-size:.40192926em}.katex .fontsize-ensurer.reset-size11.size7,.katex .sizing.reset-size11.size7{font-size:.48231511em}.katex .fontsize-ensurer.reset-size11.size8,.katex .sizing.reset-size11.size8{font-size:.57877814em}.katex .fontsize-ensurer.reset-size11.size9,.katex .sizing.reset-size11.size9{font-size:.69453376em}.katex .fontsize-ensurer.reset-size11.size10,.katex .sizing.reset-size11.size10{font-size:.83360129em}.katex .fontsize-ensurer.reset-size11.size11,.katex .sizing.reset-size11.size11{font-size:1em}.katex .delimsizing.size1{font-family:KaTeX_Size1}.katex .delimsizing.size2{font-family:KaTeX_Size2}.katex .delimsizing.size3{font-family:KaTeX_Size3}.katex .delimsizing.size4{font-family:KaTeX_Size4}.katex .delimsizing.mult .delim-size1>span{font-family:KaTeX_Size1}.katex .delimsizing.mult .delim-size4>span{font-family:KaTeX_Size4}.katex .nulldelimiter{display:inline-block;width:.12em}.katex .delimcenter,.katex .op-symbol{position:relative}.katex .op-symbol.small-op{font-family:KaTeX_Size1}.katex .op-symbol.large-op{font-family:KaTeX_Size2}.katex .accent>.vlist-t,.katex .op-limits>.vlist-t{text-align:center}.katex .accent .accent-body{position:relative}.katex .accent .accent-body:not(.accent-full){width:0}.katex .overlay{display:block}.katex .mtable .vertical-separator{display:inline-block;min-width:1px}.katex .mtable .arraycolsep{display:inline-block}.katex .mtable .col-align-c>.vlist-t{text-align:center}.katex .mtable .col-align-l>.vlist-t{text-align:left}.katex .mtable .col-align-r>.vlist-t{text-align:right}.katex .svg-align{text-align:left}.katex svg{fill:currentColor;stroke:currentColor;fill-rule:nonzero;fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;display:block;height:inherit;position:absolute;width:100%}.katex svg path{stroke:none}.katex img{border-style:none;max-height:none;max-width:none;min-height:0;min-width:0}.katex .stretchy{display:block;overflow:hidden;position:relative;width:100%}.katex .stretchy:after,.katex .stretchy:before{content:""}.katex .hide-tail{overflow:hidden;position:relative;width:100%}.katex .halfarrow-left{left:0;overflow:hidden;position:absolute;width:50.2%}.katex .halfarrow-right{overflow:hidden;position:absolute;right:0;width:50.2%}.katex .brace-left{left:0;overflow:hidden;position:absolute;width:25.1%}.katex .brace-center{left:25%;overflow:hidden;position:absolute;width:50%}.katex .brace-right{overflow:hidden;position:absolute;right:0;width:25.1%}.katex .x-arrow-pad{padding:0 .5em}.katex .cd-arrow-pad{padding:0 .55556em 0 .27778em}.katex .mover,.katex .munder,.katex .x-arrow{text-align:center}.katex .boxpad{padding:0 .3em}.katex .fbox,.katex .fcolorbox{border:.04em solid;box-sizing:border-box}.katex .cancel-pad{padding:0 .2em}.katex .cancel-lap{margin-left:-.2em;margin-right:-.2em}.katex .sout{border-bottom-style:solid;border-bottom-width:.08em}.katex .angl{border-right:.049em solid;border-top:.049em solid;box-sizing:border-box;margin-right:.03889em}.katex .anglpad{padding:0 .03889em}.katex .eqn-num:before{content:"(" counter(katexEqnNo) ")";counter-increment:katexEqnNo}.katex .mml-eqn-num:before{content:"(" counter(mmlEqnNo) ")";counter-increment:mmlEqnNo}.katex .mtr-glue{width:50%}.katex .cd-vert-arrow{display:inline-block;position:relative}.katex .cd-label-left{display:inline-block;position:absolute;right:calc(50% + .3em);text-align:left}.katex .cd-label-right{display:inline-block;left:calc(50% + .3em);position:absolute;text-align:right}.katex-display{display:block;margin:1em 0;text-align:center}.katex-display>.katex{display:block;text-align:center;white-space:nowrap}.katex-display>.katex>.katex-html{display:block;position:relative}.katex-display>.katex>.katex-html>.tag{position:absolute;right:0}.katex-display.leqno>.katex>.katex-html>.tag{left:0;right:auto}.katex-display.fleqn>.katex{padding-left:2em;text-align:left}body{counter-reset:katexEqnNo mmlEqnNo}
+</style><style id="__markdown-viewer__texmath_css">/* style for html inside of browsers */
 .katex { font-size: 1em !important; } /* align KaTeX font-size to surrounding text */
 
 eq { display: inline-block; }
@@ -1142,8 +217,7 @@ section.eqno > span {
     width:3em;
     text-align:right;
 }
-</style>
-<style>/* Style for the menu, possible positions/visibility */
+</style><style id="__markdown-viewer__menu_css">/* Style for the menu, possible positions/visibility */
 #__markdown-viewer__tools {
   margin:0;
   padding:0;
@@ -1247,7 +321,6 @@ input#__markdown-viewer__show-tools:checked ~ .toggleable {
   max-height: 2000px;
   overflow-y: auto;
   transition-timing-function:ease-in;
-  min-width: 15em;
 }
 
 input#__markdown-viewer__show-tools:not(:checked) ~ .toggleable {
@@ -1332,13 +405,10 @@ input#__markdown-viewer__show-tools:checked ~ #__markdown-viewer__toc::before {
   text-decoration:none;
   margin: .5em auto;
 }
-</style>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Chapter 2: Advanced Examples</title>
-<style></style></head><body><div id="__markdown-viewer__tools" class="floating"><input type="checkbox" id="__markdown-viewer__show-tools"><label for="__markdown-viewer__show-tools"></label><div id="__markdown-viewer__toc" class="toggleable"><ul><li><a target="_top" href="#chapter-2-advanced-examples">Chapter 2: Advanced Examples</a><ul><li><a target="_top" href="#1-creating-and-invoking-the-parser">1. Creating and Invoking the Parser</a><ul><li><a target="_top" href="#rustlr-command-line-options">Rustlr Command-Line Options</a></li><li><a target="_top" href="#sample-main">Sample main</a></li></ul></li><li><a target="_top" href="#2-input-lifetime">2. Input Lifetime</a></li><li><a target="_top" href="#3-configuring-the-lexical-scanner">3. Configuring the Lexical Scanner</a></li><li><a target="_top" href="#4-error-recovery">4. Error Recovery</a></li><li><a target="_top" href="#5-rules-of-conflict-resolution">5. Rules of Conflict Resolution</a></li><li><a target="_top" href="#6-rules-of-ast-generation">6. Rules of AST Generation</a><ul><li><a target="_top" href="#passthru">'Passthru'</a></li><li><a target="_top" href="#flattening-structs">Flattening Structs</a></li><li><a target="_top" href="#variant-groups">Variant Groups</a></li><li><a target="_top" href="#emphasizing-the-importance-of-labels">Emphasizing the Importance of Labels</a></li><li><a target="_top" href="#overriding-types-and-actions">Overriding Types and Actions</a></li></ul></li><li><a target="_top" href="#7-using-regular-expression-style-operators-in-grammars">7. Using Regular-Expression Style Operators in Grammars</a><ul><li><a target="_top" href="#special-operators">Special Operators</a></li><li><a target="_top" href="#nesting-restriction">Nesting Restriction</a></li></ul></li><li><a target="_top" href="#8-json-parser">8. JSON Parser</a></li></ul></li></ul></div><p class="toggleable" id="__markdown-viewer__styleselect" style="display: none;">Pick a markdown and code style:<br><select id="__markdown-viewer__mdselect"><option value="sss">default</option><option value="github">github</option></select><select id="__markdown-viewer__hlselect"><option value="a11y-dark">a11y-dark</option><option value="a11y-light">a11y-light</option><option value="a11y-auto">a11y-auto</option><option value="agate">agate</option><option value="androidstudio">androidstudio</option><option value="an-old-hope">an-old-hope</option><option value="arduino-light">arduino-light</option><option value="arta">arta</option><option value="ascetic">ascetic</option><option value="atom-one-dark">atom-one-dark</option><option value="atom-one-dark-reasonable">atom-one-dark-reasonable</option><option value="atom-one-light">atom-one-light</option><option value="base16/3024">3024</option><option value="base16/apathy">apathy</option><option value="base16/apprentice">apprentice</option><option value="base16/ashes">ashes</option><option value="base16/atelier-cave-light">atelier-cave-light</option><option value="base16/atelier-cave">atelier-cave</option><option value="base16/atelier-cave-auto">atelier-cave-auto</option><option value="base16/atelier-dune-light">atelier-dune-light</option><option value="base16/atelier-dune">atelier-dune</option><option value="base16/atelier-dune-auto">atelier-dune-auto</option><option value="base16/atelier-estuary-light">atelier-estuary-light</option><option value="base16/atelier-estuary">atelier-estuary</option><option value="base16/atelier-estuary-auto">atelier-estuary-auto</option><option value="base16/atelier-forest-light">atelier-forest-light</option><option value="base16/atelier-forest">atelier-forest</option><option value="base16/atelier-forest-auto">atelier-forest-auto</option><option value="base16/atelier-heath-light">atelier-heath-light</option><option value="base16/atelier-heath">atelier-heath</option><option value="base16/atelier-heath-auto">atelier-heath-auto</option><option value="base16/atelier-lakeside-light">atelier-lakeside-light</option><option value="base16/atelier-lakeside">atelier-lakeside</option><option value="base16/atelier-lakeside-auto">atelier-lakeside-auto</option><option value="base16/atelier-plateau-light">atelier-plateau-light</option><option value="base16/atelier-plateau">atelier-plateau</option><option value="base16/atelier-plateau-auto">atelier-plateau-auto</option><option value="base16/atelier-savanna-light">atelier-savanna-light</option><option value="base16/atelier-savanna">atelier-savanna</option><option value="base16/atelier-savanna-auto">atelier-savanna-auto</option><option value="base16/atelier-seaside-light">atelier-seaside-light</option><option value="base16/atelier-seaside">atelier-seaside</option><option value="base16/atelier-seaside-auto">atelier-seaside-auto</option><option value="base16/atelier-sulphurpool-light">atelier-sulphurpool-light</option><option value="base16/atelier-sulphurpool">atelier-sulphurpool</option><option value="base16/atelier-sulphurpool-auto">atelier-sulphurpool-auto</option><option value="base16/atlas">atlas</option><option value="base16/bespin">bespin</option><option value="base16/black-metal-bathory">black-metal-bathory</option><option value="base16/black-metal-burzum">black-metal-burzum</option><option value="base16/black-metal-dark-funeral">black-metal-dark-funeral</option><option value="base16/black-metal-gorgoroth">black-metal-gorgoroth</option><option value="base16/black-metal-immortal">black-metal-immortal</option><option value="base16/black-metal-khold">black-metal-khold</option><option value="base16/black-metal-marduk">black-metal-marduk</option><option value="base16/black-metal-mayhem">black-metal-mayhem</option><option value="base16/black-metal-nile">black-metal-nile</option><option value="base16/black-metal-venom">black-metal-venom</option><option value="base16/black-metal">black-metal</option><option value="base16/brewer">brewer</option><option value="base16/bright">bright</option><option value="base16/brogrammer">brogrammer</option><option value="base16/brush-trees-dark">brush-trees-dark</option><option value="base16/brush-trees">brush-trees</option><option value="base16/chalk">chalk</option><option value="base16/circus">circus</option><option value="base16/classic-dark">classic-dark</option><option value="base16/classic-light">classic-light</option><option value="base16/classic-auto">classic-auto</option><option value="base16/codeschool">codeschool</option><option value="base16/colors">colors</option><option value="base16/cupcake">cupcake</option><option value="base16/cupertino">cupertino</option><option value="base16/danqing">danqing</option><option value="base16/darcula">darcula</option><option value="base16/dark-violet">dark-violet</option><option value="base16/darkmoss">darkmoss</option><option value="base16/darktooth">darktooth</option><option value="base16/decaf">decaf</option><option value="base16/default-dark">default-dark</option><option value="base16/default-light">default-light</option><option value="base16/default-auto">default-auto</option><option value="base16/dirtysea">dirtysea</option><option value="base16/dracula">dracula</option><option value="base16/edge-dark">edge-dark</option><option value="base16/edge-light">edge-light</option><option value="base16/edge-auto">edge-auto</option><option value="base16/eighties">eighties</option><option value="base16/embers">embers</option><option value="base16/equilibrium-dark">equilibrium-dark</option><option value="base16/equilibrium-gray-dark">equilibrium-gray-dark</option><option value="base16/equilibrium-gray-light">equilibrium-gray-light</option><option value="base16/equilibrium-gray-auto">equilibrium-gray-auto</option><option value="base16/equilibrium-light">equilibrium-light</option><option value="base16/espresso">espresso</option><option value="base16/eva-dim">eva-dim</option><option value="base16/eva">eva</option><option value="base16/flat">flat</option><option value="base16/framer">framer</option><option value="base16/fruit-soda">fruit-soda</option><option value="base16/gigavolt">gigavolt</option><option value="base16/github">github</option><option value="base16/google-dark">google-dark</option><option value="base16/google-light">google-light</option><option value="base16/google-auto">google-auto</option><option value="base16/grayscale-dark">grayscale-dark</option><option value="base16/grayscale-light">grayscale-light</option><option value="base16/grayscale-auto">grayscale-auto</option><option value="base16/green-screen">green-screen</option><option value="base16/gruvbox-dark-hard">gruvbox-dark-hard</option><option value="base16/gruvbox-dark-medium">gruvbox-dark-medium</option><option value="base16/gruvbox-dark-pale">gruvbox-dark-pale</option><option value="base16/gruvbox-dark-soft">gruvbox-dark-soft</option><option value="base16/gruvbox-light-hard">gruvbox-light-hard</option><option value="base16/gruvbox-light-medium">gruvbox-light-medium</option><option value="base16/gruvbox-light-soft">gruvbox-light-soft</option><option value="base16/hardcore">hardcore</option><option value="base16/harmonic16-dark">harmonic16-dark</option><option value="base16/harmonic16-light">harmonic16-light</option><option value="base16/harmonic16-auto">harmonic16-auto</option><option value="base16/heetch-dark">heetch-dark</option><option value="base16/heetch-light">heetch-light</option><option value="base16/heetch-auto">heetch-auto</option><option value="base16/helios">helios</option><option value="base16/hopscotch">hopscotch</option><option value="base16/horizon-dark">horizon-dark</option><option value="base16/horizon-light">horizon-light</option><option value="base16/horizon-auto">horizon-auto</option><option value="base16/humanoid-dark">humanoid-dark</option><option value="base16/humanoid-light">humanoid-light</option><option value="base16/humanoid-auto">humanoid-auto</option><option value="base16/ia-dark">ia-dark</option><option value="base16/ia-light">ia-light</option><option value="base16/ia-auto">ia-auto</option><option value="base16/icy-dark">icy-dark</option><option value="base16/ir-black">ir-black</option><option value="base16/isotope">isotope</option><option value="base16/kimber">kimber</option><option value="base16/london-tube">london-tube</option><option value="base16/macintosh">macintosh</option><option value="base16/marrakesh">marrakesh</option><option value="base16/materia">materia</option><option value="base16/material-darker">material-darker</option><option value="base16/material-lighter">material-lighter</option><option value="base16/material-palenight">material-palenight</option><option value="base16/material-vivid">material-vivid</option><option value="base16/material">material</option><option value="base16/mellow-purple">mellow-purple</option><option value="base16/mexico-light">mexico-light</option><option value="base16/mocha">mocha</option><option value="base16/monokai">monokai</option><option value="base16/nebula">nebula</option><option value="base16/nord">nord</option><option value="base16/nova">nova</option><option value="base16/ocean">ocean</option><option value="base16/oceanicnext">oceanicnext</option><option value="base16/one-light">one-light</option><option value="base16/onedark">onedark</option><option value="base16/outrun-dark">outrun-dark</option><option value="base16/papercolor-dark">papercolor-dark</option><option value="base16/papercolor-light">papercolor-light</option><option value="base16/papercolor-auto">papercolor-auto</option><option value="base16/paraiso">paraiso</option><option value="base16/pasque">pasque</option><option value="base16/phd">phd</option><option value="base16/pico">pico</option><option value="base16/pop">pop</option><option value="base16/porple">porple</option><option value="base16/qualia">qualia</option><option value="base16/railscasts">railscasts</option><option value="base16/rebecca">rebecca</option><option value="base16/ros-pine-dawn">ros-pine-dawn</option><option value="base16/ros-pine-moon">ros-pine-moon</option><option value="base16/ros-pine">ros-pine</option><option value="base16/sagelight">sagelight</option><option value="base16/sandcastle">sandcastle</option><option value="base16/seti-ui">seti-ui</option><option value="base16/shapeshifter">shapeshifter</option><option value="base16/silk-dark">silk-dark</option><option value="base16/silk-light">silk-light</option><option value="base16/silk-auto">silk-auto</option><option value="base16/snazzy">snazzy</option><option value="base16/solar-flare-light">solar-flare-light</option><option value="base16/solar-flare">solar-flare</option><option value="base16/solar-flare-auto">solar-flare-auto</option><option value="base16/solarized-dark">solarized-dark</option><option value="base16/solarized-light">solarized-light</option><option value="base16/solarized-auto">solarized-auto</option><option value="base16/spacemacs">spacemacs</option><option value="base16/summercamp">summercamp</option><option value="base16/summerfruit-dark">summerfruit-dark</option><option value="base16/summerfruit-light">summerfruit-light</option><option value="base16/summerfruit-auto">summerfruit-auto</option><option value="base16/synth-midnight-terminal-dark">synth-midnight-terminal-dark</option><option value="base16/synth-midnight-terminal-light">synth-midnight-terminal-light</option><option value="base16/synth-midnight-terminal-auto">synth-midnight-terminal-auto</option><option value="base16/tango">tango</option><option value="base16/tender">tender</option><option value="base16/tomorrow-night">tomorrow-night</option><option value="base16/tomorrow">tomorrow</option><option value="base16/twilight">twilight</option><option value="base16/unikitty-dark">unikitty-dark</option><option value="base16/unikitty-light">unikitty-light</option><option value="base16/unikitty-auto">unikitty-auto</option><option value="base16/vulcan">vulcan</option><option value="base16/windows-10-light">windows-10-light</option><option value="base16/windows-10">windows-10</option><option value="base16/windows-10-auto">windows-10-auto</option><option value="base16/windows-95-light">windows-95-light</option><option value="base16/windows-95">windows-95</option><option value="base16/windows-95-auto">windows-95-auto</option><option value="base16/windows-high-contrast-light">windows-high-contrast-light</option><option value="base16/windows-high-contrast">windows-high-contrast</option><option value="base16/windows-high-contrast-auto">windows-high-contrast-auto</option><option value="base16/windows-nt-light">windows-nt-light</option><option value="base16/windows-nt">windows-nt</option><option value="base16/windows-nt-auto">windows-nt-auto</option><option value="base16/woodland">woodland</option><option value="base16/xcode-dusk">xcode-dusk</option><option value="base16/zenburn">zenburn</option><option value="brown-paper">brown-paper</option><option value="codepen-embed">codepen-embed</option><option value="color-brewer">color-brewer</option><option value="dark">dark</option><option value="default">default</option><option value="devibeans">devibeans</option><option value="docco">docco</option><option value="far">far</option><option value="felipec">felipec</option><option value="foundation">foundation</option><option value="github-dark-dimmed">github-dark-dimmed</option><option value="github-dark">github-dark</option><option value="github">github</option><option value="gml">gml</option><option value="googlecode">googlecode</option><option value="gradient-dark">gradient-dark</option><option value="gradient-light">gradient-light</option><option value="gradient-auto">gradient-auto</option><option value="grayscale">grayscale</option><option value="hybrid">hybrid</option><option value="idea">idea</option><option value="intellij-light">intellij-light</option><option value="ir-black">ir-black</option><option value="isbl-editor-dark">isbl-editor-dark</option><option value="isbl-editor-light">isbl-editor-light</option><option value="isbl-editor-auto">isbl-editor-auto</option><option value="kimbie-dark">kimbie-dark</option><option value="kimbie-light">kimbie-light</option><option value="kimbie-auto">kimbie-auto</option><option value="lightfair">lightfair</option><option value="lioshi">lioshi</option><option value="magula">magula</option><option value="mono-blue">mono-blue</option><option value="monokai">monokai</option><option value="monokai-sublime">monokai-sublime</option><option value="night-owl">night-owl</option><option value="nnfx-dark">nnfx-dark</option><option value="nnfx-light">nnfx-light</option><option value="nnfx-auto">nnfx-auto</option><option value="nord">nord</option><option value="obsidian">obsidian</option><option value="panda-syntax-dark">panda-syntax-dark</option><option value="panda-syntax-light">panda-syntax-light</option><option value="panda-syntax-auto">panda-syntax-auto</option><option value="paraiso-dark">paraiso-dark</option><option value="paraiso-light">paraiso-light</option><option value="paraiso-auto">paraiso-auto</option><option value="pojoaque">pojoaque</option><option value="purebasic">purebasic</option><option value="qtcreator-dark">qtcreator-dark</option><option value="qtcreator-light">qtcreator-light</option><option value="qtcreator-auto">qtcreator-auto</option><option value="rainbow">rainbow</option><option value="routeros">routeros</option><option value="school-book">school-book</option><option value="shades-of-purple">shades-of-purple</option><option value="srcery">srcery</option><option value="stackoverflow-dark">stackoverflow-dark</option><option value="stackoverflow-light">stackoverflow-light</option><option value="stackoverflow-auto">stackoverflow-auto</option><option value="sunburst">sunburst</option><option value="tokyo-night-dark">tokyo-night-dark</option><option value="xt256">xt256</option><option value="tokyo-night-light">tokyo-night-light</option><option value="tokyo-night-auto">tokyo-night-auto</option><option value="tomorrow-night-blue">tomorrow-night-blue</option><option value="tomorrow-night-bright">tomorrow-night-bright</option><option value="vs2015">vs2015</option><option value="vs">vs</option><option value="xcode">xcode</option></select></p><p class="toggleable"><a id="__markdown-viewer__download" download="markdown.html" style="display: none;" href="blob:moz-extension://00acc243-b369-45e4-a740-659cfa439cd6/b255649d-c7b0-4984-9126-1a5b03a6c7b3">Download as HTML</a></p><p class="toggleable"><a target="_top" href="view-source:file:///C:/cygwin/home/Chuck/classes/csc291q/chuckcscccl.github.io/rustlr_project/chapter2.md" id="__markdown-viewer__source">View Source</a></p></div><div class="markdownRoot"><h2 id="chapter-2-advanced-examples">Chapter 2: Advanced Examples</h2>
+</style><style id="__markdown-viewer__custom_css"></style><meta name="viewport" content="width=device-width, initial-scale=1"><title>Chapter 2: Advanced Examples</title></head><body><div id="__markdown-viewer__tools" class="floating"><input type="checkbox" id="__markdown-viewer__show-tools"><label for="__markdown-viewer__show-tools"></label><div id="__markdown-viewer__toc" class="toggleable"><ul><li><a href="#chapter-2-advanced-examples">Chapter 2: Advanced Examples</a><ul><li><a href="#1-creating-and-invoking-the-parser">1. Creating and Invoking the Parser</a><ul><li><a href="#rustlr-command-line-options">Rustlr Command-Line Options</a></li><li><a href="#sample-main">Sample main</a></li></ul></li><li><a href="#2-input-lifetime">2. Input Lifetime</a></li><li><a href="#3-configuring-the-lexical-scanner">3. Configuring the Lexical Scanner</a></li><li><a href="#4-error-recovery">4. Error Recovery</a></li><li><a href="#5-rules-of-conflict-resolution">5. Rules of Conflict Resolution</a></li><li><a href="#6-rules-of-ast-generation">6. Rules of AST Generation</a><ul><li><a href="#passthru">'Passthru'</a></li><li><a href="#flattening-structs">Flattening Structs</a></li><li><a href="#variant-groups">Variant Groups</a></li><li><a href="#emphasizing-the-importance-of-labels">Emphasizing the Importance of Labels</a></li><li><a href="#overriding-types-and-actions">Overriding Types and Actions</a></li></ul></li><li><a href="#7-using-regular-expression-style-operators-in-grammars">7. Using Regular-Expression Style Operators in Grammars</a><ul><li><a href="#special-operators">Special Operators</a></li><li><a href="#nesting-restriction">Nesting Restriction</a></li></ul></li><li><a href="#8-json-parser">8. JSON Parser</a></li></ul></li></ul></div><p class="toggleable">Pick a markdown and code style:<br><select id="__markdown-viewer__mdselect"><option value="sss">default</option><option value="github">github</option></select><select id="__markdown-viewer__hlselect"><option value="a11y-dark">a11y-dark</option><option value="a11y-light">a11y-light</option><option value="a11y-auto">a11y-auto</option><option value="agate">agate</option><option value="androidstudio">androidstudio</option><option value="an-old-hope">an-old-hope</option><option value="arduino-light">arduino-light</option><option value="arta">arta</option><option value="ascetic">ascetic</option><option value="atelier-cave-dark">atelier-cave-dark</option><option value="atelier-cave-light">atelier-cave-light</option><option value="atelier-cave-auto">atelier-cave-auto</option><option value="atelier-dune-dark">atelier-dune-dark</option><option value="atelier-dune-light">atelier-dune-light</option><option value="atelier-dune-auto">atelier-dune-auto</option><option value="atelier-estuary-dark">atelier-estuary-dark</option><option value="atelier-estuary-light">atelier-estuary-light</option><option value="atelier-estuary-auto">atelier-estuary-auto</option><option value="atelier-forest-dark">atelier-forest-dark</option><option value="atelier-forest-light">atelier-forest-light</option><option value="atelier-forest-auto">atelier-forest-auto</option><option value="atelier-heath-dark">atelier-heath-dark</option><option value="atelier-heath-light">atelier-heath-light</option><option value="atelier-heath-auto">atelier-heath-auto</option><option value="atelier-lakeside-dark">atelier-lakeside-dark</option><option value="atelier-lakeside-light">atelier-lakeside-light</option><option value="atelier-lakeside-auto">atelier-lakeside-auto</option><option value="atelier-plateau-dark">atelier-plateau-dark</option><option value="atelier-plateau-light">atelier-plateau-light</option><option value="atelier-plateau-auto">atelier-plateau-auto</option><option value="atelier-savanna-dark">atelier-savanna-dark</option><option value="atelier-savanna-light">atelier-savanna-light</option><option value="atelier-savanna-auto">atelier-savanna-auto</option><option value="atelier-seaside-dark">atelier-seaside-dark</option><option value="atelier-seaside-light">atelier-seaside-light</option><option value="atelier-seaside-auto">atelier-seaside-auto</option><option value="atelier-sulphurpool-dark">atelier-sulphurpool-dark</option><option value="atelier-sulphurpool-light">atelier-sulphurpool-light</option><option value="atelier-sulphurpool-auto">atelier-sulphurpool-auto</option><option value="atom-one-dark">atom-one-dark</option><option value="atom-one-dark-reasonable">atom-one-dark-reasonable</option><option value="atom-one-light">atom-one-light</option><option value="brown-paper">brown-paper</option><option value="codepen-embed">codepen-embed</option><option value="color-brewer">color-brewer</option><option value="darcula">darcula</option><option value="dark">dark</option><option value="default">default</option><option value="docco">docco</option><option value="dracula">dracula</option><option value="far">far</option><option value="foundation">foundation</option><option value="github">github</option><option value="github-gist">github-gist</option><option value="gml">gml</option><option value="googlecode">googlecode</option><option value="gradient-dark">gradient-dark</option><option value="grayscale">grayscale</option><option value="gruvbox-dark">gruvbox-dark</option><option value="gruvbox-light">gruvbox-light</option><option value="gruvbox-auto">gruvbox-auto</option><option value="hopscotch">hopscotch</option><option value="hybrid">hybrid</option><option value="idea">idea</option><option value="ir-black">ir-black</option><option value="isbl-editor-dark">isbl-editor-dark</option><option value="isbl-editor-light">isbl-editor-light</option><option value="isbl-editor-auto">isbl-editor-auto</option><option value="kimbie">kimbie</option><option value="kimbie">kimbie</option><option value="lightfair">lightfair</option><option value="lioshi">lioshi</option><option value="magula">magula</option><option value="mono-blue">mono-blue</option><option value="monokai">monokai</option><option value="monokai-sublime">monokai-sublime</option><option value="night-owl">night-owl</option><option value="nnfx">nnfx</option><option value="nnfx-dark">nnfx-dark</option><option value="nord">nord</option><option value="obsidian">obsidian</option><option value="ocean">ocean</option><option value="paraiso-dark">paraiso-dark</option><option value="paraiso-light">paraiso-light</option><option value="paraiso-auto">paraiso-auto</option><option value="pojoaque">pojoaque</option><option value="purebasic">purebasic</option><option value="qtcreator_dark">qtcreator_dark</option><option value="qtcreator_light">qtcreator_light</option><option value="qtcreator_auto">qtcreator_auto</option><option value="railscasts">railscasts</option><option value="rainbow">rainbow</option><option value="routeros">routeros</option><option value="school-book">school-book</option><option value="shades-of-purple">shades-of-purple</option><option value="solarized-dark">solarized-dark</option><option value="solarized-light">solarized-light</option><option value="solarized-auto">solarized-auto</option><option value="srcery">srcery</option><option value="sunburst">sunburst</option><option value="tomorrow">tomorrow</option><option value="tomorrow-night">tomorrow-night</option><option value="tomorrow-night-blue">tomorrow-night-blue</option><option value="tomorrow-night-bright">tomorrow-night-bright</option><option value="tomorrow-night-eighties">tomorrow-night-eighties</option><option value="vs">vs</option><option value="vs2015">vs2015</option><option value="xcode">xcode</option><option value="xt256">xt256</option><option value="zenburn">zenburn</option></select></p><p class="toggleable"><a id="__markdown-viewer__download" download="markdown.html" style="display: none;" href="blob:null/949da673-fe5b-4c54-9a86-52ebb44846fb">Download as HTML</a></p></div><div class="markdownRoot"><h2 id="chapter-2-advanced-examples">Chapter 2: Advanced Examples</h2>
 <p>In the second chapter of this tutorial, we describe a more complete set of
 features of rustlr as well further details of it's capabilities introduced in
-<a href="https://chuckcscccl.github.io/rustlr_project/chapter1.html" target="_top">Chapter 1</a>.</p>
+<a href="https://chuckcscccl.github.io/rustlr_project/chapter1.html">Chapter 1</a>.</p>
 <p>The language defined by the first grammar of this chapter supports expressions
 of the form
 <strong><code>let x = 1 in (let x = 10 in x*x) + x</code></strong> (which should evaluate to 101).
@@ -1346,17 +416,17 @@ The lexical analyzer and parser must recognize alphanumeric symbols
 such as <code>x</code> as variables.  This version of the calculator also recongizes
 a series of expressions separated by ; (semicolon), giving us the opportunity
 to demonstrate a simple error recovery mechanism.</p>
-<p>The grammar (with some additions) is as follows:</p>
+<p>The grammar is as follows:</p>
 <pre><code># Advanced Calculator
 auto
 lifetime <span class="hljs-symbol">'lt</span>
 terminals + - * / = ;
-terminals <span class="hljs-keyword">let</span> <span class="hljs-variable">in</span>
-lexterminal <span class="hljs-title function_ invoke__">LPAREN</span> (
+terminals <span class="hljs-keyword">let</span> <span class="hljs-keyword">in</span>
+lexterminal LPAREN (
 lexterminal RPAREN )
-valueterminal int ~ <span class="hljs-type">i64</span> ~ <span class="hljs-title function_ invoke__">Num</span>(n) ~ n
-valueterminal var ~ &amp;<span class="hljs-symbol">'lt</span> <span class="hljs-type">str</span> ~ <span class="hljs-title function_ invoke__">Alphanum</span>(n) ~ n
-lexattribute <span class="hljs-title function_ invoke__">set_line_comment</span>(<span class="hljs-string">"#"</span>)
+valueterminal int ~ <span class="hljs-built_in">i64</span> ~ Num(n) ~ n
+valueterminal var ~ &amp;<span class="hljs-symbol">'lt</span> <span class="hljs-built_in">str</span> ~ Alphanum(n) ~ n
+lexattribute set_line_comment(<span class="hljs-string">"#"</span>)
 
 nonterminals Expr ExprList
 nonterminal UnaryExpr : Expr
@@ -1370,24 +440,24 @@ left / <span class="hljs-number">500</span>
 left + <span class="hljs-number">400</span>
 left - <span class="hljs-number">400</span>
 
-UnaryExpr:Val -<span class="hljs-punctuation">-&gt;</span> int
-UnaryExpr:Var -<span class="hljs-punctuation">-&gt;</span> var
-UnaryExpr:Neg -<span class="hljs-punctuation">-&gt;</span> - UnaryExpr
-UnaryExpr -<span class="hljs-punctuation">-&gt;</span> LPAREN LetExpr RPAREN
+UnaryExpr:Val --&gt; int
+UnaryExpr:Var --&gt; var
+UnaryExpr:Neg --&gt; - UnaryExpr
+UnaryExpr --&gt; LPAREN LetExpr RPAREN
 
-Expr -<span class="hljs-punctuation">-&gt;</span> UnaryExpr
-Expr:Plus -<span class="hljs-punctuation">-&gt;</span> Expr + Expr
-Expr:Minus -<span class="hljs-punctuation">-&gt;</span> Expr - Expr
-Expr:Div -<span class="hljs-punctuation">-&gt;</span> Expr / Expr
-Expr:Times -<span class="hljs-punctuation">-&gt;</span> Expr * Expr
+Expr --&gt; UnaryExpr
+Expr:Plus --&gt; Expr + Expr
+Expr:Minus --&gt; Expr - Expr
+Expr:Div --&gt; Expr / Expr
+Expr:Times --&gt; Expr * Expr
 
-LetExpr -<span class="hljs-punctuation">-&gt;</span> Expr
-LetExpr:Let -<span class="hljs-punctuation">-&gt;</span> <span class="hljs-keyword">let</span> <span class="hljs-variable">var</span>:let_var = Expr:init_value <span class="hljs-keyword">in</span> LetExpr:let_body
+LetExpr --&gt; Expr
+LetExpr:Let --&gt; <span class="hljs-keyword">let</span> var:let_var = Expr:init_value <span class="hljs-keyword">in</span> LetExpr:let_body
 
-ExprList:nil -<span class="hljs-punctuation">-&gt;</span>
-ExprList:cons -<span class="hljs-punctuation">-&gt;</span> LetExpr:car ; ExprList:cdr
+ExprList:nil --&gt;
+ExprList:cons --&gt; LetExpr:car ; ExprList:cdr
 # alternative, will create a vector:
-# ExprList -<span class="hljs-punctuation">-&gt;</span> (LetExpr ;)*
+# ExprList --&gt; (LetExpr ;)*
 </code></pre>
 <p>The grammar takes full advantage of the 'auto' mode: only the types of
 values carried by terminal symbols <code>var</code> and <code>int</code> need to be declared.
@@ -1407,13 +477,13 @@ given to the executable are:</p>
 <ul>
 <li><strong>-lr1</strong> : this will create a full LR(1) parser if LALR does not suffice.
 The default is LALR, which works for most examples.  A sample grammar
-requiring full LR(1) can be found <strong><a href="https://cs.hofstra.edu/~cscccl/rustlr_project/nonlalr.grammar" target="_top">here</a>.</strong></li>
+requiring full LR(1) can be found <strong><a href="https://cs.hofstra.edu/~cscccl/rustlr_project/nonlalr.grammar">here</a>.</strong></li>
 <li><strong>-o filepath</strong> : changes the default destination of the generated parser
 and AST files.  The filepath can be a directory ending in <code>\</code> or <code>/</code>, or a
 file path for the parser: it will also save the AST file in the same
 directory.</li>
 <li><strong>-nolex</strong> : skips the automatic generation of a lexical scanner using the
-built-in <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html" target="_top">StrTokenizer</a>.  This option is not recommended.</li>
+built-in <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html">StrTokenizer</a>.  This option is not recommended.</li>
 <li><strong>-auto</strong> : automatically generates abstract syntax.  This is also enabled
 if the grammar begins with the <code>auto</code> directive.</li>
 <li><strong>-trace n</strong>  : where n is a non-negative integer defining the trace level.
@@ -1428,38 +498,38 @@ to rustlr version 0.2.0.  This option is not capable of generating a lexical
 scanner.</li>
 <li><strong>-lrsd</strong> : enables "LR parsing with selective delays".  This is an
 experimental (but usable) extention of LR(1) parsing and accepts a larger
-class of grammars.  See the <a href="https://chuckcscccl.github.io/rustlr_project/appendix.html" target="_top">Appendix</a> for details.</li>
+class of grammars.  See the <a href="https://chuckcscccl.github.io/rustlr_project/appendix.html">Appendix</a> for details.</li>
 </ul>
 <h4 id="sample-main">Sample main</h4>
 <p>From <code>calcauto.grammar</code> rustlr generates <code>calcautoparser.rs</code> and <code>calcauto_ast.rs</code> in the crate's
-<code>src/</code> directory.  Copy the sample input file, <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/input.txt" target="_top">input.txt</a>
+<code>src/</code> directory.  Copy the sample input file, <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/input.txt">input.txt</a>
 into the crate directory.
 The input intentionally contains both syntactic and semantic errors to
 test error reporting and recovery.
-Copy <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/src/main.rs" target="_top">main.rs</a> into <code>src/</code>.
-The <code>main</code> function in this <a href="http://main.rs/" target="_top">main.rs</a> invokes the parser and evaluates the
+Copy <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/src/main.rs">main.rs</a> into <code>src/</code>.
+The <code>main</code> function in this <a href="http://main.rs">main.rs</a> invokes the parser and evaluates the
 list of expressions returned.</p>
-<pre><code><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() {
-   <span class="hljs-keyword">let</span> <span class="hljs-variable">src</span> = rustlr::LexSource::<span class="hljs-title function_ invoke__">new</span>(<span class="hljs-string">"input.txt"</span>).<span class="hljs-title function_ invoke__">expect</span>(<span class="hljs-string">"input not found"</span>);
-   <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">scanner4</span> = calcautoparser::calcautolexer::<span class="hljs-title function_ invoke__">from_source</span>(&amp;src);
-   <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">parser4</span> = calcautoparser::<span class="hljs-title function_ invoke__">make_parser</span>();
-   <span class="hljs-keyword">let</span> <span class="hljs-variable">tree4</span>= calcautoparser::<span class="hljs-title function_ invoke__">parse_with</span>(&amp;<span class="hljs-keyword">mut</span> parser4, &amp;<span class="hljs-keyword">mut</span> scanner4);
-   <span class="hljs-keyword">let</span> <span class="hljs-variable">result4</span> = tree4.<span class="hljs-title function_ invoke__">unwrap_or_else</span>(|x|{<span class="hljs-built_in">println!</span>(<span class="hljs-string">"Parsing errors encountered; 
+<pre><code><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() {
+   <span class="hljs-keyword">let</span> src = rustlr::LexSource::new(<span class="hljs-string">"input.txt"</span>).expect(<span class="hljs-string">"input not found"</span>);
+   <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> scanner4 = calcautoparser::calcautolexer::from_source(&amp;src);
+   <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> parser4 = calcautoparser::make_parser();
+   <span class="hljs-keyword">let</span> tree4= calcautoparser::parse_with(&amp;<span class="hljs-keyword">mut</span> parser4, &amp;<span class="hljs-keyword">mut</span> scanner4);
+   <span class="hljs-keyword">let</span> result4 = tree4.unwrap_or_else(|x|{<span class="hljs-built_in">println!</span>(<span class="hljs-string">"Parsing errors encountered; 
 results are partial.."</span>); x});
    <span class="hljs-built_in">println!</span>(<span class="hljs-string">"\nABSYN: {:?}\n"</span>,&amp;result4);
-   <span class="hljs-keyword">let</span> <span class="hljs-variable">bindings</span> = <span class="hljs-title function_ invoke__">newenv</span>();
-   <span class="hljs-built_in">println!</span>(<span class="hljs-string">"\nresult after eval: {:?}"</span>, <span class="hljs-title function_ invoke__">eval_seq</span>(&amp;bindings,&amp;result4,<span class="hljs-number">1</span>));
+   <span class="hljs-keyword">let</span> bindings = newenv();
+   <span class="hljs-built_in">println!</span>(<span class="hljs-string">"\nresult after eval: {:?}"</span>, eval_seq(&amp;bindings,&amp;result4,<span class="hljs-number">1</span>));
 }<span class="hljs-comment">//main   </span>
 </code></pre>
 <p>The last two lines of main relies on additional structures and functions
-defined inside <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/src/main.rs" target="_top">main.rs</a>.</p>
+defined inside <a href="https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/src/main.rs">main.rs</a>.</p>
 <p>The crate is now ready for <strong><code>cargo run</code></strong>. You will see that error recovery
 was effective and results were displayed for lines that parsed correctly.</p>
 <hr>
 <p>We now examine more closely the different components of the grammar.</p>
 <h3 id="2-input-lifetime">2. Input Lifetime</h3>
-<p>Rustlr's built-in lexical analyzer, <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html" target="_top">StrTokenizer&lt;'t&gt;</a> returns
-<a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/enum.RawToken.html" target="_top">tokens</a> such as <code>Alphanum(s)</code> where <code>s</code> is of type
+<p>Rustlr's built-in lexical analyzer, <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html">StrTokenizer&lt;'t&gt;</a> returns
+<a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/enum.RawToken.html">tokens</a> such as <code>Alphanum(s)</code> where <code>s</code> is of type
 <code>&amp;'t str</code>.  The <strong><code>lifetime 'lt</code></strong> declaration allows type
 specifications in the grammar (in <code>valueterminal</code> lines) to be
 consistent with the generated AST types.  The lifetime is that of the
@@ -1473,12 +543,12 @@ may be declared verbatim, such as</p>
 <pre><code>  terminal , ; + - * /
 </code></pre>
 <p>or by associating a name with the textual form:</p>
-<pre><code>  <span class="hljs-attr">lexterminal COLON :</span>
+<pre><code>  <span class="hljs-attribute">lexterminal</span> COLON :
 </code></pre>
 <p>Reserved symbols including <code>:</code>, <code>|</code>, <code>%</code>, <code>!%</code>, <code>{</code>, <code>}</code>, <code>--&gt;</code>, <code>==&gt;</code>, and <code>&lt;==</code>
 must be declared this way.</p>
 <p>Terminal symbols that carry common types of values can be declared using
-<strong><code>valterminal</code></strong> as explained in the <a href="https://chuckcscccl.github.io/rustlr_project/chapter1.html" target="_top">previous chapter</a>.
+<strong><code>valterminal</code></strong> as explained in the <a href="https://chuckcscccl.github.io/rustlr_project/chapter1.html">previous chapter</a>.
 More generally, they can be declared using <strong><code>valueterminal</code></strong>:</p>
 <blockquote>
 <p><em>valueterminal terminal_name ~ terminal_type ~ expected_token ~ token_value</em></p>
@@ -1486,10 +556,10 @@ More generally, they can be declared using <strong><code>valueterminal</code></s
 <p>The last two components specify the lexical token that's to be associated
 with the terminal and the expression that would extract the semantic value
 from the token.  The value must be of the specified type.
-The built-in lexical scanner, <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html" target="_top">StrTokenizer</a>, recognizes a number
+The built-in lexical scanner, <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html">StrTokenizer</a>, recognizes a number
 of common categories of lexical tokens, with the option to add custom
 categories.  Users should become familiar with the token type,
-<strong><a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/enum.RawToken.html" target="_top">RawToken&lt;'t&gt;</a></strong>, which consists of the following principal
+<strong><a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/enum.RawToken.html">RawToken&lt;'t&gt;</a></strong>, which consists of the following principal
 variants:</p>
 <ul>
 <li>
@@ -1542,7 +612,7 @@ comments.  Enable with</p>
 <blockquote>
 <p>lexattribute keep_comment = true</p>
 </blockquote>
-<p><strong>By default, <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html" target="_top">StrTokenizer</a> recognizes C-style comments</strong>, but this can
+<p><strong>By default, <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html">StrTokenizer</a> recognizes C-style comments</strong>, but this can
 be customized with, for example,</p>
 <blockquote>
 <p>lexattribute set_line_comment("#")</p>
@@ -1557,7 +627,7 @@ grammar such as</p>
 <blockquote>
 <p>lexattribute add_custom("uint32",r"^[0-9]+u32")</p>
 </blockquote>
-<p>Text matching the given <a href="https://docs.rs/regex/latest/regex/" target="_top">regular expression</a> will be returned as a
+<p>Text matching the given <a href="https://docs.rs/regex/latest/regex/">regular expression</a> will be returned as a
 <strong><code>RawToken::Custom("uint32",_)</code></strong> token.  Custom regular expressions
 should not start with whitespaces and will override all other token types.
 Multiple custom types are matched by the order in which they appear in
@@ -1566,7 +636,7 @@ be added to the start of the regex if none is given.</p>
 </li>
 </ul>
 <p>The <strong>lexattribute</strong> directive can also set other properties of the tokenizer.
-Consult the docs for <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html" target="_top">StrTokenizer</a> for these properties.  Valid
+Consult the docs for <a href="https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html">StrTokenizer</a> for these properties.  Valid
 <code>lexattribute</code> directives also include</p>
 <blockquote>
 <pre><code> lexattribute tab_spaces = 8
@@ -1592,7 +662,7 @@ can continue parsing.  In otherwords, failure to parse one expression
 does not mean it will not try to parse the next ones.  More than one
 symbol can be identified as resynch points.  Rustlr also
 implement the more traditional LR recovery technique of a designed
-<em>error recovery symbol</em>, which is demonstrated in a <a href="https://chuckcscccl.github.io/rustlr_project/errors.html" target="_top">later
+<em>error recovery symbol</em>, which is demonstrated in a <a href="https://chuckcscccl.github.io/rustlr_project/errors.html">later
 chapter</a>.</p>
 <h3 id="5-rules-of-conflict-resolution">5. Rules of Conflict Resolution</h3>
 <p>This grammar tempers the use of operator precedence and associativity
@@ -1606,7 +676,7 @@ different syntactic categories in the form of extra non-terminals
 state machine.  A terminal symbol that's to be used as an operator can
 be declared as left, right or non-associative (<code>nonassoc</code>) and a positive integer
 defines the precedence level.  Production rules can also be assigned
-precedence as illustrated in [Chapter 1].  If a production rule is not
+precedence as illustrated in <a href="https://chuckcscccl.github.io/rustlr_project/chapter1.html">Chapter 1</a>.  If a production rule is not
 explicitly assigned a precedence, it is assigned to be the same as
 that of the right-hand side symbol with the highest precedence.  The
 default precedence of all grammar symbols is zero.  <em>(Internally, the
@@ -1658,26 +728,26 @@ variants of 'Expr':</p>
 for Expr must be an enum for this to work (it would not work if it was
 a struct).  The ASTs generated for the grammar of this chapter are</p>
 <pre><code><span class="hljs-meta">#[derive(Debug)]</span>
-<span class="hljs-keyword">pub</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">Expr</span>&lt;<span class="hljs-symbol">'lt</span>&gt; {
-  <span class="hljs-title function_ invoke__">Plus</span>(LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;,LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;),
-  <span class="hljs-title function_ invoke__">Times</span>(LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;,LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;),
-  <span class="hljs-title function_ invoke__">Div</span>(LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;,LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;),
-  <span class="hljs-title function_ invoke__">Minus</span>(LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;,LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;),
-  <span class="hljs-title function_ invoke__">Neg</span>(LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;),
-  <span class="hljs-title function_ invoke__">Val</span>(<span class="hljs-type">i64</span>),
-  <span class="hljs-title function_ invoke__">Var</span>(&amp;<span class="hljs-symbol">'lt</span> <span class="hljs-type">str</span>),
-  Let{let_var:&amp;<span class="hljs-symbol">'lt</span> <span class="hljs-type">str</span>,init_value:LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;,let_body:LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;},
+<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">Expr</span></span>&lt;<span class="hljs-symbol">'lt</span>&gt; {
+  Plus(LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;,LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;),
+  Times(LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;,LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;),
+  Div(LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;,LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;),
+  Minus(LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;,LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;),
+  Neg(LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;),
+  Val(<span class="hljs-built_in">i64</span>),
+  Var(&amp;<span class="hljs-symbol">'lt</span> <span class="hljs-built_in">str</span>),
+  Let{let_var:&amp;<span class="hljs-symbol">'lt</span> <span class="hljs-built_in">str</span>,init_value:LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;,let_body:LBox&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;},
   Expr_Nothing,
 }
-<span class="hljs-keyword">impl</span>&lt;<span class="hljs-symbol">'lt</span>&gt; <span class="hljs-built_in">Default</span> <span class="hljs-keyword">for</span> <span class="hljs-title class_">Expr</span>&lt;<span class="hljs-symbol">'lt</span>&gt; { <span class="hljs-keyword">fn</span> <span class="hljs-title function_">default</span>()<span class="hljs-punctuation">-&gt;</span><span class="hljs-keyword">Self</span> { Expr::Expr_Nothing } }
+<span class="hljs-keyword">impl</span>&lt;<span class="hljs-symbol">'lt</span>&gt; <span class="hljs-built_in">Default</span> <span class="hljs-keyword">for</span> Expr&lt;<span class="hljs-symbol">'lt</span>&gt; { <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">default</span></span>()-&gt;<span class="hljs-keyword">Self</span> { Expr::Expr_Nothing } }
 
 <span class="hljs-meta">#[derive(Debug)]</span>
-<span class="hljs-keyword">pub</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">ExprList</span>&lt;<span class="hljs-symbol">'lt</span>&gt; {
+<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">ExprList</span></span>&lt;<span class="hljs-symbol">'lt</span>&gt; {
   nil,
   cons{car:Expr&lt;<span class="hljs-symbol">'lt</span>&gt;,cdr:LBox&lt;ExprList&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;},
   ExprList_Nothing,
 }
-<span class="hljs-keyword">impl</span>&lt;<span class="hljs-symbol">'lt</span>&gt; <span class="hljs-built_in">Default</span> <span class="hljs-keyword">for</span> <span class="hljs-title class_">ExprList</span>&lt;<span class="hljs-symbol">'lt</span>&gt; { <span class="hljs-keyword">fn</span> <span class="hljs-title function_">default</span>()<span class="hljs-punctuation">-&gt;</span><span class="hljs-keyword">Self</span> { ExprList::ExprList_Nothing } }
+<span class="hljs-keyword">impl</span>&lt;<span class="hljs-symbol">'lt</span>&gt; <span class="hljs-built_in">Default</span> <span class="hljs-keyword">for</span> ExprList&lt;<span class="hljs-symbol">'lt</span>&gt; { <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">default</span></span>()-&gt;<span class="hljs-keyword">Self</span> { ExprList::ExprList_Nothing } }
 </code></pre>
 <p>An enum is created for each non-terminal symbol of the grammar that
 appears on the left-hand side of multiple production rules, unless the
@@ -1721,48 +791,48 @@ on the right-hand side of the rule is given a label, it would create a struct
 with the fields of each struct named by these labels, or
 with <code>_item{i}_</code> if
 no labels are given.  For example, a nonterminal <code>Ifelse</code> with a singleton rule</p>
-<pre><code><span class="hljs-title class_">Ifelse</span> --&gt; <span class="hljs-keyword">if</span> <span class="hljs-title class_">Expr</span><span class="hljs-symbol">:condition</span> <span class="hljs-title class_">Expr</span><span class="hljs-symbol">:truecase</span> <span class="hljs-keyword">else</span> <span class="hljs-title class_">Expr</span><span class="hljs-symbol">:falsecase</span>
+<pre><code>Ifelse --&gt; <span class="hljs-keyword">if</span> Expr:condition Expr:truecase <span class="hljs-keyword">else</span> Expr:falsecase
 </code></pre>
 <p>will result in the generation of:</p>
 <pre><code><span class="hljs-meta">#[derive(Default,Debug)]</span>
-<span class="hljs-keyword">pub</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Ifelse</span> {
+<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Ifelse</span></span> {
   <span class="hljs-keyword">pub</span> condition: LBox&lt;Expr&gt;,
   <span class="hljs-keyword">pub</span> truecase: LBox&lt;Expr&gt;,
   <span class="hljs-keyword">pub</span> falsecase: LBox&lt;Expr&gt;,
 }
 </code></pre>
-<p>The presence of <a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html" target="_top">LBox</a> assumes that <code>Ifelse</code> is mutually recursive with
+<p>The presence of <a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html">LBox</a> assumes that <code>Ifelse</code> is mutually recursive with
 <code>Expr</code>, which it likely is in such grammars.
 If none of the symbols on the right have labels, rustlr creates a tuple
 struct.  For Example a singleton rule such as <strong><code>whileloop --&gt; while ( expr ) expr</code></strong>
-will produce an a <code>struct whileloop(expr,expr);</code>  Be careful to avoid
+will produce a <code>struct whileloop(expr,expr);</code>  Be careful to avoid
 using Rust keywords as the names of non-terminals.</p>
 <p>Rustlr calculates a reachability closure so it is aware of which
 non-terminals are mutually recursive.  It uses this information to
 determine where smart pointers are required when defining these
-recursive types.  Rustlr always uses its <a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html" target="_top">LBox</a> custom smartpointer
+recursive types.  Rustlr always uses its <a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html">LBox</a> custom smartpointer
 to also include line/column information.  Notice that the variant
 <code>enum::cons</code> has only the second component in an LBox.  One can, for
 the sake of recording position information, always create an LBox
 regardless of reachability by giving the component a "boxed label".
 That is,</p>
-<pre><code>  <span class="hljs-title class_">ExprList</span><span class="hljs-symbol">:cons</span> --&gt; <span class="hljs-title class_">Expr</span><span class="hljs-symbol">:</span>[car] <span class="hljs-variable constant_">SEMICOLON</span> <span class="hljs-title class_">ExprList</span><span class="hljs-symbol">:cdr</span>
+<pre><code>  ExprList:cons <span class="hljs-comment">--&gt; Expr:[car] SEMICOLON ExprList:cdr</span>
 </code></pre>
 <p>will generate a variant that also has its first component in an
 LBox. The 'cdr' is already an LBox as required for recursion (writing
 <code>[cdr]</code> will have no additional effect).</p>
 <p>It is also possible to give a symbol an empty box label, which may be
 desired if one still wishes to create a tuple struct/variant:</p>
-<pre><code> <span class="hljs-title class_">ExprList</span><span class="hljs-symbol">:cons</span> --&gt; <span class="hljs-title class_">Expr</span><span class="hljs-symbol">:[]</span> <span class="hljs-variable constant_">SEMICOLON</span> <span class="hljs-title class_">ExprList</span>
+<pre><code> ExprList:cons <span class="hljs-comment">--&gt; Expr:[] SEMICOLON ExprList</span>
 </code></pre>
 <p>will generate the tuple variant <code>cons(LBox&lt;Expr&gt;,LBox&lt;ExprList&gt;)</code></p>
 <p>Although the generated parser code may not be very readable, rustlr also generated semantic actions that create instances of these AST types.  For example, the rule <code>Expr:Plus --&gt; Expr + Expr</code> will have a semantic action equivalent
 the following, manually written one:</p>
-<pre><code>Expr --&gt; Expr:[a] + Expr:[b] {Plus(<span class="hljs-selector-tag">a</span>,<span class="hljs-selector-tag">b</span>)}
+<pre><code><span class="hljs-selector-tag">Expr</span> <span class="hljs-selector-tag">--</span>&gt; <span class="hljs-selector-tag">Expr</span>:<span class="hljs-selector-attr">[a]</span> + <span class="hljs-selector-tag">Expr</span>:<span class="hljs-selector-attr">[b]</span> {<span class="hljs-selector-tag">Plus</span>(a,b)}
 </code></pre>
 <p>When manually writing semantic actions, a label of the form <code>[a]</code> indicates
 to the parser to place the semantic value associated with the symbol in
-an <a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html" target="_top">LBox</a>.</p>
+an <a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html">LBox</a>.</p>
 <h4 id="passthru"><strong>'Passthru'</strong></h4>
 <p>There are three production rules in the grammar that do not
 correspond to enum variants: <code>Expr --&gt; UnaryExpr</code>, <code>LetExpr --&gt; Expr</code>
@@ -1779,7 +849,7 @@ The other symbols, if any, are of unit type</li>
 the parentheses on the right hand side carry no meaning at the AST level, and
 thus generates a semantic action for this rule
 that would be equivalent to:</p>
-<pre><code>  UnaryExpr --&gt; LPAREN LetExpr:e RPAREN { e }
+<pre><code>  <span class="hljs-attribute">UnaryExpr</span> --&gt; LPAREN LetExpr:e RPAREN { <span class="hljs-attribute">e</span> }
 </code></pre>
 <p>We refer to such cases as "pass-thru" cases.  If the automatically
 inferred "meaning" of this rule is not what's desired, it can be
@@ -1806,7 +876,7 @@ are not of unit type, there will be a <code>struct A(a,Threebs,c)</code> and a
 <code>struct Threebs(b,b,b)</code>.  However, it is possible to declare in the grammar,
 once the non-terminals <code>A</code> and <code>Threebs</code> have been declared, that the
 type <code>Threebs</code> can be <strong>flattened</strong> into other structures:</p>
-<pre><code>flatten Threebs
+<pre><code><span class="hljs-attribute">flatten</span> Threebs
 </code></pre>
 <p>This means that the AST for Threebs should be absorbed into other types if
 possible (multiple nonterminals can be so declared on the same line).
@@ -1833,7 +903,7 @@ basis.</li>
 </ol>
 <p>Point 5 is rather subtle.  Consider productions rules <code>A --&gt; B</code> and
 <code>B --&gt; A</code>.  It is perfectly valid to declare <code>flatten B</code>: This will
-result in a <code>struct A(LBox&lt;A&gt;)</code>: the <a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html" target="_top">LBox</a> is created for the AST of B using reachability calculations.  What we cannot have is <code>flatten A</code> and
+result in a <code>struct A(LBox&lt;A&gt;)</code>: the <a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html">LBox</a> is created for the AST of B using reachability calculations.  What we cannot have is <code>flatten A</code> and
 <code>flatten B</code>: the flattening is only allowed in one direction.  Otherwise we
 would be replacing B with A and A with ... what?  One consequence of
 this restriction is that a type cannot flatten into itself: <code>B --&gt; B</code>
@@ -1846,40 +916,43 @@ B into C. This ability is not currently supported (as of Rustlr 0.3.5).</p>
 <p>Another choice in AST generation is the designation of "variant groups".
 This feature makes it possible to write production rules without
 any labels while still allowing meaningful AST types to be created.
-Instead of a separate enum variant for each rule, one can choose to unite
+Instead of a separate enum variant for each production rule, one can unite
 several rules under a single variant, discriminated by the name of some
 grammar symbol that's designated in the grammar as belonging to a group.
 Usually, the grammar symbols are operators.  For example, the grammar</p>
 <pre><code>auto
-valueterminal int <span class="hljs-operator">~</span> i64 <span class="hljs-operator">~</span> Num<span class="hljs-punctuation">(</span>n<span class="hljs-punctuation">)</span> <span class="hljs-operator">~</span> n
-terminals <span class="hljs-operator">+</span> <span class="hljs-operator">-</span> <span class="hljs-punctuation">(</span> <span class="hljs-punctuation">)</span>
+valueterminal <span class="hljs-type">int</span> <span class="hljs-operator">~</span> i64 <span class="hljs-operator">~</span> Num(n) <span class="hljs-operator">~</span> n
+terminals <span class="hljs-operator">+</span> <span class="hljs-operator">-</span> ( )
 nonterminal E
-nonterminal <span class="hljs-built_in">T</span> <span class="hljs-operator">:</span> E
+nonterminal T : E
 topsym E
 
-variant<span class="hljs-operator">-</span>group BinaryOp <span class="hljs-operator">+</span> <span class="hljs-operator">-</span>
+variant<span class="hljs-operator">-</span><span class="hljs-keyword">group</span><span class="hljs-operator">-</span><span class="hljs-keyword">for</span> E BinaryOp <span class="hljs-operator">+</span> <span class="hljs-operator">-</span>
 
-E <span class="hljs-operator">-</span><span class="hljs-operator">-&gt;</span> E <span class="hljs-operator">+</span> <span class="hljs-built_in">T</span> <span class="hljs-operator">|</span> E <span class="hljs-operator">-</span> <span class="hljs-built_in">T</span> <span class="hljs-operator">|</span> <span class="hljs-built_in">T</span>
-<span class="hljs-built_in">T</span><span class="hljs-operator">:</span>Neg <span class="hljs-operator">-</span><span class="hljs-operator">-&gt;</span> <span class="hljs-operator">-</span> <span class="hljs-built_in">T</span>
-<span class="hljs-built_in">T</span><span class="hljs-operator">:</span>Val <span class="hljs-operator">-</span><span class="hljs-operator">-&gt;</span> int
-<span class="hljs-built_in">T</span> <span class="hljs-operator">-</span><span class="hljs-operator">-&gt;</span> <span class="hljs-punctuation">(</span> E <span class="hljs-punctuation">)</span>
+E <span class="hljs-comment">--&gt; E + T | E - T | T</span>
+T:Neg <span class="hljs-comment">--&gt; - T</span>
+T:Val <span class="hljs-comment">--&gt; int</span>
+T <span class="hljs-comment">--&gt; ( E )</span>
 </code></pre>
 <p>will generate the following enum type for <code>E</code>:</p>
-<pre><code>#<span class="hljs-selector-attr">[derive(Debug)]</span>
-pub enum E {
-  <span class="hljs-built_in">BinaryOp</span>(&amp;'static str,LBox&lt;E&gt;,LBox&lt;E&gt;),
-  <span class="hljs-built_in">Val</span>(i64),
-  <span class="hljs-built_in">Neg</span>(LBox&lt;E&gt;),
+<pre><code><span class="hljs-meta">#[derive(Debug)]</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">E</span></span> {
+  BinaryOp(&amp;<span class="hljs-symbol">'static</span> <span class="hljs-built_in">str</span>,LBox&lt;E&gt;,LBox&lt;E&gt;),
+  Val(<span class="hljs-built_in">i64</span>),
+  Neg(LBox&lt;E&gt;),
   E_Nothing,
 }
 </code></pre>
 <p>An expression such as <code>3+4</code> will be parsed as <code>E::BinaryOp("+",a,b)</code>
 where <code>a</code>, <code>b</code> are LBoxes containing <code>E::Val(3)</code> and <code>E::Val(4)</code>.</p>
-<p>The <strong><code>variant-group</code></strong> grammar directive associates grammar symbols
+<p>The <strong><code>variant-group-for</code></strong> grammar directive associates the name of a
+nonterminal symbol (<code>E</code> in this case), and a group of grammar symbols
 (terminal or non-terminal) with a the name of a "group", in this case
-<code>BinaryOp</code>.  All production rules with right-hand sides that contain
-these symbols can then be united under a single enum variant, discriminated
-by a static string that corresponds to the name of the symbol.
+<code>BinaryOp</code>.  All production rules for the designated nonterminal on
+the left, with right-hand sides that contain these symbols can then be
+united under a single enum variant, discriminated by a static string
+that corresponds to the name of the grammar symbol.  Note: the symbol
+is referred to by its name in the grammar, not its lexical form.
 Typically, these symbols will be terminals representing operators. If
 the right-hand side of a rule contains multiple symbols that can be
 grouped, only the first one (from left to right) will have effect.
@@ -1887,8 +960,13 @@ Furthermore, <em>only rules that contain no explicit left- or right-
 labels</em> are subject to such grouping.  In particular, the rule
 <code>T:Neg --&gt; - T</code> still generates the separate variant for <code>Neg</code> because of the
 presence of left-hand side label.  The presence of any right-hand side label,
-including <code>[]</code>, will likewise cancel grouping.
+including <code>[]</code>, will likewise cancel grouping for that production.
 Thus, <strong>a single tuple variant is created for each declared group.</strong></p>
+<p>There is also a deprecated <code>variant-group</code> directive that does not
+name a specific nonterminal to associate the grouping with.  This form
+is not recommended except for small grammars.  But in languages where,
+for example, <code>*</code> can mean more than multiplication, the
+<code>variant-group-for</code> directive is more appropriate.</p>
 <h4 id="emphasizing-the-importance-of-labels">Emphasizing the Importance of Labels</h4>
 <p>The usage of labels greatly affect how the AST datatype is
 generated.  Labels on the left-hand side of a production rule give
@@ -1922,12 +1000,12 @@ parameter is required for <code>Expr</code>.  It is also possible to write the a
 <p>The symbol <code>@</code> indicates that the type of LBox will be determined by whatever
 is the type associated with the nonterminal <code>Expr</code>.</p>
 <p>Now replace the two production rules for <code>ExprList</code> with the following:</p>
-<pre><code class="language-rust">ExprList -<span class="hljs-punctuation">-&gt;</span> { <span class="hljs-built_in">vec!</span>[] }
-ExprList -<span class="hljs-punctuation">-&gt;</span> ExprList:ev LetExpr:[e] ; { ev.<span class="hljs-title function_ invoke__">push</span>(e); ev }
+<pre><code class="language-rust">ExprList --&gt; { <span class="hljs-built_in">vec!</span>[] }
+ExprList --&gt; ExprList:ev LetExpr:[e] ; { ev.push(e); ev }
 </code></pre>
 <p>The presence of a non-empty semantic action will override automatic AST generation. It is also possible to <strong>inject custom code into the
 automatically generated code</strong>:</p>
-<pre><code>Expr:Times -<span class="hljs-punctuation">-&gt;</span>  Expr * Expr {<span class="hljs-built_in">println!</span>(<span class="hljs-string">"parsing a times-expression"</span>); ... }
+<pre><code>Expr:Times --&gt;  Expr * Expr {<span class="hljs-built_in">println!</span>(<span class="hljs-string">"parsing a times-expression"</span>); ... }
 </code></pre>
 <p>The ellipsis are allowed only before the closing right-brace.  This indicates
 that the automatically generated portion of the semantic action should follow.
@@ -1943,24 +1021,24 @@ regular expressions. They cannot be nested (see reason below).</p>
 another way to define the nonterminal <code>ExprList</code> as a semicolon-separated
 sequence of <code>LetExpr</code> is to replace the two productions for <code>ExprList</code> with
 the following rule</p>
-<pre><code>ExprList <span class="hljs-comment">--&gt; (LetExpr ;)*</span>
+<pre><code><span class="hljs-selector-tag">ExprList</span> <span class="hljs-selector-tag">--</span>&gt; (LetExpr ;)*
 </code></pre>
 <p>This would lead to the generation of a tuple struct for type ExprList:</p>
 <pre><code><span class="hljs-meta">#[derive(Default,Debug)]</span>
-<span class="hljs-keyword">pub</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">ExprList</span>&lt;<span class="hljs-symbol">'lt</span>&gt;(<span class="hljs-keyword">pub</span> <span class="hljs-type">Vec</span>&lt;LC&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;&gt;,);
+<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ExprList</span></span>&lt;<span class="hljs-symbol">'lt</span>&gt;(<span class="hljs-keyword">pub</span> <span class="hljs-built_in">Vec</span>&lt;LC&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;&gt;,);
 </code></pre>
-<p>Vectors created for these operators always contain values inside <strong><a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LC.html" target="_top">LC</a></strong>
+<p>Vectors created for these operators always contain values inside <strong><a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LC.html">LC</a></strong>
 structures.  LC contains an AST expression along with its lexical
 line/column information in an open tuple as opposed to
-<a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html" target="_top">LBox</a>, which encapsulates a <a href="https://doc.rust-lang.org/std/boxed/struct.Box.html" target="_top">Box</a>. The Box is not necessary here as Vectors
+<a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html">LBox</a>, which encapsulates a <a href="https://doc.rust-lang.org/std/boxed/struct.Box.html">Box</a>. The Box is not necessary here as Vectors
 are already heap-allocated.</p>
 <p>to retain the lexical-position information.
 The operator <strong><code>*</code></strong> means a sequence of zero or more.  This is done by generating several new non-terminal symbols internally.
 Essentially, these correspond to</p>
-<pre><code>ES0 -<span class="hljs-punctuation">-&gt;</span> LetExpr:e ; {e}
-ES1 -<span class="hljs-punctuation">-&gt;</span> { <span class="hljs-type">Vec</span>::<span class="hljs-title function_ invoke__">new</span>() }
-ES1 -<span class="hljs-punctuation">-&gt;</span> ES1:v ES0:[e] { v.<span class="hljs-title function_ invoke__">push</span>(e); v }
-ExprList -<span class="hljs-punctuation">-&gt;</span> ES1:v {v}
+<pre><code>ES0 --&gt; LetExpr:e ; {e}
+ES1 --&gt; { Vec::<span class="hljs-built_in">new</span>() }
+ES1 --&gt; ES1:v ES0:[e] { v.<span class="hljs-built_in">push</span>(e); v }
+ExprList --&gt; ES1:v {v}
 </code></pre>
 <p>These rules replace the original in the grammar.  In the <code>auto</code> mode,
 rustlr also infers that symbols such as ; has no meaning at the
@@ -1984,8 +1062,8 @@ mean one or zero derivations with type <code>Option&lt;LBox&lt;Expr&lt;'lt&gt;&g
 of <code>ExprList</code>, from which Rustlr will infer that it is a <code>pass-thru</code> case.
 No type will be created for <code>ExprList</code> as it would inherit the type of
 the right-hand side of its lone production rule.</p>
-<pre><code>nonterminal ExprList <span class="hljs-type">Vec</span>&lt;LC&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;&gt;
-ExprList -<span class="hljs-punctuation">-&gt;</span> (LetExpr ;)*
+<pre><code>nonterminal ExprList <span class="hljs-built_in">Vec</span>&lt;LC&lt;Expr&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;&gt;
+ExprList --&gt; (LetExpr ;)*
 </code></pre>
 <p>This is because rustlr generates an internal non-terminal to represent the right-hand side <code>*</code> expression and assigns it type <code>Vec&lt;LC&lt;Expr&lt;'lt&gt;&gt;&gt;</code>.
 It then recognizes that this is a pass-thru case: the only symbol on the
@@ -2041,35 +1119,35 @@ automatically.  But much work needs to be done before we can parse
 arbitrary EBNF syntax.  We are currently exploring extensions of LR
 parsing including <em>delayed reductions</em>, which can potentially allow
 non-ambiguous grammars to be more easily composed without running into
-new conflicts: see the <a href="https://chuckcscccl.github.io/rustlr_project/appendix.html" target="_top">Appendix</a> of this tutorial for experimental
+new conflicts: see the <a href="https://chuckcscccl.github.io/rustlr_project/appendix.html">Appendix</a> of this tutorial for experimental
 features.</p>
 <hr>
 <h3 id="8-json-parser">8. JSON Parser</h3>
 <p>To give another, complete example of the features described in this chapter,
 we build a parser for JSON.  The grammar is as follows</p>
-<pre><code># Rustlr Grammar <span class="hljs-keyword">for</span> <span class="hljs-title class_">JSON</span>
+<pre><code># Rustlr Grammar <span class="hljs-keyword">for</span> JSON
 auto
 lifetime <span class="hljs-symbol">'lt</span>
 lexterminal LBRACE {
 lexterminal RBRACE }
 lexterminal LBRACK [
 lexterminal RBRACK ]
-lexterminal <span class="hljs-title function_ invoke__">LPAREN</span> (
+lexterminal LPAREN (
 lexterminal RPAREN )
 lexterminal COLON :
 lexterminal COMMA ,
 lexterminal NULL null
 lexterminal MINUS -
-valueterminal TRUE~ <span class="hljs-type">bool</span>~ <span class="hljs-title function_ invoke__">Alphanum</span>(<span class="hljs-string">"true"</span>)~ <span class="hljs-literal">true</span>
-valueterminal FALSE~ <span class="hljs-type">bool</span>~ <span class="hljs-title function_ invoke__">Alphanum</span>(<span class="hljs-string">"false"</span>)~ <span class="hljs-literal">false</span>
-valueterminal STRING~ &amp;<span class="hljs-symbol">'lt</span> <span class="hljs-type">str</span>~ <span class="hljs-title function_ invoke__">Strlit</span>(n)~ &amp;n[<span class="hljs-number">1</span>..n.<span class="hljs-title function_ invoke__">len</span>()-<span class="hljs-number">1</span>]
-valueterminal NUM~ <span class="hljs-type">i64</span>~ <span class="hljs-title function_ invoke__">Num</span>(n)~ n
-valueterminal FLOAT~ <span class="hljs-type">f64</span>~ <span class="hljs-title function_ invoke__">Float</span>(n)~ n
-valueterminal BIGNUM~ &amp;<span class="hljs-symbol">'lt</span> <span class="hljs-type">str</span>~ <span class="hljs-title function_ invoke__">BigNumber</span>(n)~ n
+valueterminal TRUE~ <span class="hljs-built_in">bool</span>~ Alphanum(<span class="hljs-string">"true"</span>)~ <span class="hljs-literal">true</span>
+valueterminal FALSE~ <span class="hljs-built_in">bool</span>~ Alphanum(<span class="hljs-string">"false"</span>)~ <span class="hljs-literal">false</span>
+valueterminal STRING~ &amp;<span class="hljs-symbol">'lt</span> <span class="hljs-built_in">str</span>~ Strlit(n)~ &amp;n[<span class="hljs-number">1</span>..n.len()-<span class="hljs-number">1</span>]
+valueterminal NUM~ <span class="hljs-built_in">i64</span>~ Num(n)~ n
+valueterminal FLOAT~ <span class="hljs-built_in">f64</span>~ Float(n)~ n
+valueterminal BIGNUM~ &amp;<span class="hljs-symbol">'lt</span> <span class="hljs-built_in">str</span>~ BigNumber(n)~ n
 
-nonterminal Integer <span class="hljs-type">i64</span>
-nonterminal Floatpt <span class="hljs-type">f64</span>
-nonterminal Boolean <span class="hljs-type">bool</span>
+nonterminal Integer <span class="hljs-built_in">i64</span>
+nonterminal Floatpt <span class="hljs-built_in">f64</span>
+nonterminal Boolean <span class="hljs-built_in">bool</span>
 nonterminals Value KeyValuePair Number
 nonterminal Object : Value
 nonterminal List : Value
@@ -2077,66 +1155,66 @@ nonterminal Boolean : Value
 topsym Value
 resync COMMA RBRACK RBRACE
 
-Integer -<span class="hljs-punctuation">-&gt;</span> MINUS?:m NUM:n {<span class="hljs-keyword">if</span> m.<span class="hljs-title function_ invoke__">is_some</span>() {n*-<span class="hljs-number">1</span>} <span class="hljs-keyword">else</span> {n}}
-Floatpt -<span class="hljs-punctuation">-&gt;</span> MINUS?:m FLOAT:n {<span class="hljs-keyword">if</span> m.<span class="hljs-title function_ invoke__">is_some</span>() {-<span class="hljs-number">1.0</span>*n} <span class="hljs-keyword">else</span> {n}} 
-Number:Bignum -<span class="hljs-punctuation">-&gt;</span> MINUS?:m BIGNUM
-Number:Int -<span class="hljs-punctuation">-&gt;</span> Integer
-Number:Float -<span class="hljs-punctuation">-&gt;</span> Floatpt
-Boolean -<span class="hljs-punctuation">-&gt;</span> TRUE | FALSE
+Integer --&gt; MINUS?:m NUM:n {<span class="hljs-keyword">if</span> m.is_some() {n*-<span class="hljs-number">1</span>} <span class="hljs-keyword">else</span> {n}}
+Floatpt --&gt; MINUS?:m FLOAT:n {<span class="hljs-keyword">if</span> m.is_some() {-<span class="hljs-number">1.0</span>*n} <span class="hljs-keyword">else</span> {n}} 
+Number:Bignum --&gt; MINUS?:m BIGNUM
+Number:Int --&gt; Integer
+Number:Float --&gt; Floatpt
+Boolean --&gt; TRUE | FALSE
 
-Value:Number -<span class="hljs-punctuation">-&gt;</span> Number
-Value:Boolean -<span class="hljs-punctuation">-&gt;</span> Boolean
-Value:Str -<span class="hljs-punctuation">-&gt;</span> STRING
-Value -<span class="hljs-punctuation">-&gt;</span> Object
-Value -<span class="hljs-punctuation">-&gt;</span> List
-Value -<span class="hljs-punctuation">-&gt;</span> NULL
-Value -<span class="hljs-punctuation">-&gt;</span> LPAREN Value RPAREN
-KeyValuePair -<span class="hljs-punctuation">-&gt;</span> STRING COLON Value
-List:List -<span class="hljs-punctuation">-&gt;</span> LBRACK Value&lt;COMMA*&gt; RBRACK
-Object:Object -<span class="hljs-punctuation">-&gt;</span> LBRACE KeyValuePair&lt;COMMA*&gt; RBRACE
+Value:Number --&gt; Number
+Value:Boolean --&gt; Boolean
+Value:Str --&gt; STRING
+Value --&gt; Object
+Value --&gt; List
+Value --&gt; NULL
+Value --&gt; LPAREN Value RPAREN
+KeyValuePair --&gt; STRING COLON Value
+List:List --&gt; LBRACK Value&lt;COMMA*&gt; RBRACK
+Object:Object --&gt; LBRACE KeyValuePair&lt;COMMA*&gt; RBRACE
 </code></pre>
 <p>The grammar is a hybrid with some manually defined types and actions
 along with automatically generated ones.
 The AST types that are created by this grammar are</p>
 <pre><code><span class="hljs-meta">#[derive(Debug)]</span>
-<span class="hljs-keyword">pub</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">Number</span>&lt;<span class="hljs-symbol">'lt</span>&gt; {
-  <span class="hljs-title function_ invoke__">Float</span>(<span class="hljs-type">f64</span>),
-  <span class="hljs-title function_ invoke__">Int</span>(<span class="hljs-type">i64</span>),
-  Bignum{m:<span class="hljs-type">Option</span>&lt;()&gt;,_item1_:&amp;<span class="hljs-symbol">'lt</span> <span class="hljs-type">str</span>},
+<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">Number</span></span>&lt;<span class="hljs-symbol">'lt</span>&gt; {
+  Float(<span class="hljs-built_in">f64</span>),
+  Int(<span class="hljs-built_in">i64</span>),
+  Bignum{m:<span class="hljs-built_in">Option</span>&lt;()&gt;,_item1_:&amp;<span class="hljs-symbol">'lt</span> <span class="hljs-built_in">str</span>},
   Number_Nothing,
 }
-<span class="hljs-keyword">impl</span>&lt;<span class="hljs-symbol">'lt</span>&gt; <span class="hljs-built_in">Default</span> <span class="hljs-keyword">for</span> <span class="hljs-title class_">Number</span>&lt;<span class="hljs-symbol">'lt</span>&gt; { <span class="hljs-keyword">fn</span> <span class="hljs-title function_">default</span>()<span class="hljs-punctuation">-&gt;</span><span class="hljs-keyword">Self</span> { Number::Number_Nothing } }
+<span class="hljs-keyword">impl</span>&lt;<span class="hljs-symbol">'lt</span>&gt; <span class="hljs-built_in">Default</span> <span class="hljs-keyword">for</span> Number&lt;<span class="hljs-symbol">'lt</span>&gt; { <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">default</span></span>()-&gt;<span class="hljs-keyword">Self</span> { Number::Number_Nothing } }
 
 <span class="hljs-meta">#[derive(Debug)]</span>
-<span class="hljs-keyword">pub</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">Value</span>&lt;<span class="hljs-symbol">'lt</span>&gt; {
-  <span class="hljs-title function_ invoke__">Boolean</span>(<span class="hljs-type">bool</span>),
-  <span class="hljs-title function_ invoke__">Number</span>(Number&lt;<span class="hljs-symbol">'lt</span>&gt;),
-  <span class="hljs-title function_ invoke__">Str</span>(&amp;<span class="hljs-symbol">'lt</span> <span class="hljs-type">str</span>),
+<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">Value</span></span>&lt;<span class="hljs-symbol">'lt</span>&gt; {
+  Boolean(<span class="hljs-built_in">bool</span>),
+  Number(Number&lt;<span class="hljs-symbol">'lt</span>&gt;),
+  Str(&amp;<span class="hljs-symbol">'lt</span> <span class="hljs-built_in">str</span>),
   NULL,
-  <span class="hljs-title function_ invoke__">Object</span>(<span class="hljs-type">Vec</span>&lt;LBox&lt;KeyValuePair&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;&gt;),
-  <span class="hljs-title function_ invoke__">List</span>(<span class="hljs-type">Vec</span>&lt;LBox&lt;Value&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;&gt;),
+  Object(<span class="hljs-built_in">Vec</span>&lt;LBox&lt;KeyValuePair&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;&gt;),
+  List(<span class="hljs-built_in">Vec</span>&lt;LBox&lt;Value&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;&gt;),
   Value_Nothing,
 }
-<span class="hljs-keyword">impl</span>&lt;<span class="hljs-symbol">'lt</span>&gt; <span class="hljs-built_in">Default</span> <span class="hljs-keyword">for</span> <span class="hljs-title class_">Value</span>&lt;<span class="hljs-symbol">'lt</span>&gt; { <span class="hljs-keyword">fn</span> <span class="hljs-title function_">default</span>()<span class="hljs-punctuation">-&gt;</span><span class="hljs-keyword">Self</span> { Value::Value_Nothing } }
+<span class="hljs-keyword">impl</span>&lt;<span class="hljs-symbol">'lt</span>&gt; <span class="hljs-built_in">Default</span> <span class="hljs-keyword">for</span> Value&lt;<span class="hljs-symbol">'lt</span>&gt; { <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">default</span></span>()-&gt;<span class="hljs-keyword">Self</span> { Value::Value_Nothing } }
 
 <span class="hljs-meta">#[derive(Default,Debug)]</span>
-<span class="hljs-keyword">pub</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">KeyValuePair</span>&lt;<span class="hljs-symbol">'lt</span>&gt;(<span class="hljs-keyword">pub</span> &amp;<span class="hljs-symbol">'lt</span> <span class="hljs-type">str</span>,<span class="hljs-keyword">pub</span> LBox&lt;Value&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;,);
+<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">KeyValuePair</span></span>&lt;<span class="hljs-symbol">'lt</span>&gt;(<span class="hljs-keyword">pub</span> &amp;<span class="hljs-symbol">'lt</span> <span class="hljs-built_in">str</span>,<span class="hljs-keyword">pub</span> LBox&lt;Value&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;,);
 </code></pre>
 <p>The following is the Debug-output of a sample AST produced by the parser,
 from which anyone familiar with JSON can surely discern the original source:</p>
-<pre><code><span class="hljs-selector-tag">Object</span>([<span class="hljs-built_in">KeyValuePair</span>(<span class="hljs-string">"firstName"</span>, <span class="hljs-built_in">Str</span>(<span class="hljs-string">"John"</span>)), <span class="hljs-built_in">KeyValuePair</span>(<span class="hljs-string">"lastName"</span>, <span class="hljs-built_in">Str</span>(<span class="hljs-string">"Smith"</span>)), <span class="hljs-built_in">KeyValuePair</span>(<span class="hljs-string">"isAlive"</span>, <span class="hljs-built_in">Boolean</span>(true)), <span class="hljs-built_in">KeyValuePair</span>(<span class="hljs-string">"age"</span>, <span class="hljs-built_in">Number</span>(<span class="hljs-built_in">Int</span>(<span class="hljs-number">27</span>))), <span class="hljs-built_in">KeyValuePair</span>(<span class="hljs-string">"address"</span>, <span class="hljs-built_in">Object</span>([<span class="hljs-built_in">KeyValuePair</span>(<span class="hljs-string">"streetAddress"</span>, <span class="hljs-built_in">Str</span>(<span class="hljs-string">"21 2nd Street"</span>)), <span class="hljs-built_in">KeyValuePair</span>(<span class="hljs-string">"city"</span>, <span class="hljs-built_in">Str</span>(<span class="hljs-string">"New York"</span>)), <span class="hljs-built_in">KeyValuePair</span>(<span class="hljs-string">"state"</span>, <span class="hljs-built_in">Str</span>(<span class="hljs-string">"NY"</span>)), <span class="hljs-built_in">KeyValuePair</span>(<span class="hljs-string">"postalCode"</span>, <span class="hljs-built_in">Str</span>(<span class="hljs-string">"10021-3100"</span>))])), <span class="hljs-built_in">KeyValuePair</span>(<span class="hljs-string">"phoneNumbers"</span>, <span class="hljs-built_in">List</span>([<span class="hljs-built_in">Object</span>([<span class="hljs-built_in">KeyValuePair</span>(<span class="hljs-string">"type"</span>, <span class="hljs-built_in">Str</span>(<span class="hljs-string">"home"</span>)), <span class="hljs-built_in">KeyValuePair</span>(<span class="hljs-string">"number"</span>, <span class="hljs-built_in">Str</span>(<span class="hljs-string">"212 555-1234"</span>))]), <span class="hljs-built_in">Object</span>([<span class="hljs-built_in">KeyValuePair</span>(<span class="hljs-string">"type"</span>, <span class="hljs-built_in">Str</span>(<span class="hljs-string">"office"</span>)), <span class="hljs-built_in">KeyValuePair</span>(<span class="hljs-string">"number"</span>, <span class="hljs-built_in">Str</span>(<span class="hljs-string">"646 555-4567"</span>))])])), <span class="hljs-built_in">KeyValuePair</span>(<span class="hljs-string">"children"</span>, <span class="hljs-built_in">List</span>([<span class="hljs-built_in">Str</span>(<span class="hljs-string">"Catherine"</span>), <span class="hljs-built_in">Str</span>(<span class="hljs-string">"Thomas"</span>), <span class="hljs-built_in">Str</span>(<span class="hljs-string">"Trevor"</span>)])), <span class="hljs-built_in">KeyValuePair</span>(<span class="hljs-string">"spouse"</span>, NULL)])
+<pre><code><span class="hljs-keyword">Object</span>([KeyValuePair(<span class="hljs-string">"firstName"</span>, Str(<span class="hljs-string">"John"</span>)), KeyValuePair(<span class="hljs-string">"lastName"</span>, Str(<span class="hljs-string">"Smith"</span>)), KeyValuePair(<span class="hljs-string">"isAlive"</span>, <span class="hljs-keyword">Boolean</span>(<span class="hljs-literal">true</span>)), KeyValuePair(<span class="hljs-string">"age"</span>, Number(<span class="hljs-keyword">Int</span>(<span class="hljs-number">27</span>))), KeyValuePair(<span class="hljs-string">"address"</span>, <span class="hljs-keyword">Object</span>([KeyValuePair(<span class="hljs-string">"streetAddress"</span>, Str(<span class="hljs-string">"21 2nd Street"</span>)), KeyValuePair(<span class="hljs-string">"city"</span>, Str(<span class="hljs-string">"New York"</span>)), KeyValuePair(<span class="hljs-string">"state"</span>, Str(<span class="hljs-string">"NY"</span>)), KeyValuePair(<span class="hljs-string">"postalCode"</span>, Str(<span class="hljs-string">"10021-3100"</span>))])), KeyValuePair(<span class="hljs-string">"phoneNumbers"</span>, <span class="hljs-keyword">List</span>([<span class="hljs-keyword">Object</span>([KeyValuePair(<span class="hljs-string">"type"</span>, Str(<span class="hljs-string">"home"</span>)), KeyValuePair(<span class="hljs-string">"number"</span>, Str(<span class="hljs-string">"212 555-1234"</span>))]), <span class="hljs-keyword">Object</span>([KeyValuePair(<span class="hljs-string">"type"</span>, Str(<span class="hljs-string">"office"</span>)), KeyValuePair(<span class="hljs-string">"number"</span>, Str(<span class="hljs-string">"646 555-4567"</span>))])])), KeyValuePair(<span class="hljs-string">"children"</span>, <span class="hljs-keyword">List</span>([Str(<span class="hljs-string">"Catherine"</span>), Str(<span class="hljs-string">"Thomas"</span>), Str(<span class="hljs-string">"Trevor"</span>)])), KeyValuePair(<span class="hljs-string">"spouse"</span>, <span class="hljs-literal">NULL</span>)])
 </code></pre>
 <p>Finally, here is an alternative way to parse JSON objects into
 Rust HashMaps.  We can override not only the type to be generated but the
 semantic action as well.  Modify the declarations and rules for Object as
 follows:</p>
 <pre><code>$<span class="hljs-keyword">use</span> std::collections::HashMap;
-nonterminal Object HashMap&lt;&amp;<span class="hljs-symbol">'lt</span> <span class="hljs-type">str</span>, LBox&lt;@Value&gt;&gt;
+nonterminal Object HashMap&lt;&amp;<span class="hljs-symbol">'lt</span> <span class="hljs-built_in">str</span>, LBox&lt;@Value&gt;&gt;
 
 Object ==&gt; LBRACE KeyValPair&lt;COMMA*&gt;:entries RBRACE {
-  <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">kvmap</span> = HashMap::<span class="hljs-title function_ invoke__">new</span>();
-  <span class="hljs-title function_ invoke__">for</span> (<span class="hljs-keyword">mut</span> lbx) <span class="hljs-keyword">in</span> entries {
-    <span class="hljs-keyword">if</span> <span class="hljs-keyword">let</span> <span class="hljs-variable">KeyValPair</span>(k,v) = lbx.<span class="hljs-title function_ invoke__">take</span>() { kvmap.<span class="hljs-title function_ invoke__">insert</span>(k,v); }
+  <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> kvmap = HashMap::new();
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">mut</span> lbx) <span class="hljs-keyword">in</span> entries {
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">let</span> KeyValPair(k,v) = lbx.take() { kvmap.insert(k,v); }
   }
   kvmap
   } &lt;==
@@ -2148,14 +1226,13 @@ only to the generated AST file as opposed to parser file. The syntax
 by the system for the nonterminal: the <code>@</code> symbol offers a convenience.)</p>
 <p>Each key-value pair inside the vector created by <code>&lt;COMMA*&gt;</code> is wrapped
 inside an LBox.  We can take the value from the box with
-<a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html#method.take" target="_top">LBox::take</a> (which leaves a default value inside the box).</p>
+<a href="https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html#method.take">LBox::take</a> (which leaves a default value inside the box).</p>
 <p>The debug output of the AST from the same JSON source would now be:</p>
-<pre><code><span class="hljs-selector-tag">Object</span>({"spouse": NULL, <span class="hljs-string">"age"</span>: <span class="hljs-built_in">Number</span>(<span class="hljs-built_in">Int</span>(<span class="hljs-number">27</span>)), <span class="hljs-string">"phoneNumbers"</span>: <span class="hljs-built_in">List</span>([<span class="hljs-built_in">Object</span>({"type": <span class="hljs-built_in">Str</span>(<span class="hljs-string">"home"</span>), <span class="hljs-string">"number"</span>: <span class="hljs-built_in">Str</span>(<span class="hljs-string">"212 555-1234"</span>)}), <span class="hljs-selector-tag">Object</span>({"number": <span class="hljs-built_in">Str</span>(<span class="hljs-string">"646 555-4567"</span>), <span class="hljs-string">"type"</span>: <span class="hljs-built_in">Str</span>(<span class="hljs-string">"office"</span>)})]), "children": <span class="hljs-built_in">List</span>([<span class="hljs-built_in">Str</span>(<span class="hljs-string">"Catherine"</span>), <span class="hljs-built_in">Str</span>(<span class="hljs-string">"Thomas"</span>), <span class="hljs-built_in">Str</span>(<span class="hljs-string">"Trevor"</span>)]), <span class="hljs-string">"lastName"</span>: <span class="hljs-built_in">Str</span>(<span class="hljs-string">"Smith"</span>), <span class="hljs-string">"address"</span>: <span class="hljs-built_in">Object</span>({"streetAddress": <span class="hljs-built_in">Str</span>(<span class="hljs-string">"21 2nd Street"</span>), <span class="hljs-string">"city"</span>: <span class="hljs-built_in">Str</span>(<span class="hljs-string">"New York"</span>), <span class="hljs-string">"state"</span>: <span class="hljs-built_in">Str</span>(<span class="hljs-string">"NY"</span>), <span class="hljs-string">"postalCode"</span>: <span class="hljs-built_in">Str</span>(<span class="hljs-string">"10021-3100"</span>)}), "isAlive": <span class="hljs-built_in">Boolean</span>(true), <span class="hljs-string">"firstName"</span>: <span class="hljs-built_in">Str</span>(<span class="hljs-string">"John"</span>)})
+<pre><code><span class="hljs-selector-tag">Object</span>({"spouse": NULL, <span class="hljs-string">"age"</span>: <span class="hljs-built_in">Number</span>(<span class="hljs-built_in">Int</span>(<span class="hljs-number">27</span>)), <span class="hljs-string">"phoneNumbers"</span>: <span class="hljs-built_in">List</span>([<span class="hljs-built_in">Object</span>({<span class="hljs-string">"type"</span>: <span class="hljs-built_in">Str</span>(<span class="hljs-string">"home"</span>), <span class="hljs-string">"number"</span>: <span class="hljs-built_in">Str</span>(<span class="hljs-string">"212 555-1234"</span>)}), <span class="hljs-selector-tag">Object</span>({"number": <span class="hljs-built_in">Str</span>(<span class="hljs-string">"646 555-4567"</span>), <span class="hljs-string">"type"</span>: <span class="hljs-built_in">Str</span>(<span class="hljs-string">"office"</span>)})]), "children": <span class="hljs-built_in">List</span>([<span class="hljs-built_in">Str</span>(<span class="hljs-string">"Catherine"</span>), <span class="hljs-built_in">Str</span>(<span class="hljs-string">"Thomas"</span>), <span class="hljs-built_in">Str</span>(<span class="hljs-string">"Trevor"</span>)]), <span class="hljs-string">"lastName"</span>: <span class="hljs-built_in">Str</span>(<span class="hljs-string">"Smith"</span>), <span class="hljs-string">"address"</span>: <span class="hljs-built_in">Object</span>({<span class="hljs-string">"streetAddress"</span>: <span class="hljs-built_in">Str</span>(<span class="hljs-string">"21 2nd Street"</span>), <span class="hljs-string">"city"</span>: <span class="hljs-built_in">Str</span>(<span class="hljs-string">"New York"</span>), <span class="hljs-string">"state"</span>: <span class="hljs-built_in">Str</span>(<span class="hljs-string">"NY"</span>), <span class="hljs-string">"postalCode"</span>: <span class="hljs-built_in">Str</span>(<span class="hljs-string">"10021-3100"</span>)}), "isAlive": <span class="hljs-built_in">Boolean</span>(true), <span class="hljs-string">"firstName"</span>: <span class="hljs-built_in">Str</span>(<span class="hljs-string">"John"</span>)})
 </code></pre>
 <p>Although we may at times want to insert such overrides, most of the
 automatically generated portions remain usable.</p>
-<p>Here are links to the <a href="https://cs.hofstra.edu/~cscccl/rustlr_project/jsontypes/json.grammar" target="_top">grammar</a>, <a href="https://cs.hofstra.edu/~cscccl/rustlr_project/jsontypes/src/jsonparser.rs" target="_top">parser</a>, <a href="https://cs.hofstra.edu/~cscccl/rustlr_project/jsontypes/src/json_ast.rs" target="_top">ast types</a> and <a href="https://cs.hofstra.edu/~cscccl/rustlr_project/jsontypes/src/main.rs" target="_top">main</a> of the project, which may differ slightly
+<p>Here are links to the <a href="https://cs.hofstra.edu/~cscccl/rustlr_project/jsontypes/json.grammar">grammar</a>, <a href="https://cs.hofstra.edu/~cscccl/rustlr_project/jsontypes/src/jsonparser.rs">parser</a>, <a href="https://cs.hofstra.edu/~cscccl/rustlr_project/jsontypes/src/json_ast.rs">ast types</a> and <a href="https://cs.hofstra.edu/~cscccl/rustlr_project/jsontypes/src/main.rs">main</a> of the project, which may differ slightly
 from the above.</p>
 <hr>
-</div>
-		</body></html>
+</div></body></html>

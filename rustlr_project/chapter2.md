@@ -542,7 +542,7 @@ B into C. This ability is not currently supported (as of Rustlr 0.3.5).
 Another choice in AST generation is the designation of "variant groups".
 This feature makes it possible to write production rules without
 any labels while still allowing meaningful AST types to be created.
-Instead of a separate enum variant for each rule, one can choose to unite
+Instead of a separate enum variant for each production rule, one can unite
 several rules under a single variant, discriminated by the name of some
 grammar symbol that's designated in the grammar as belonging to a group.
 Usually, the grammar symbols are operators.  For example, the grammar
@@ -554,7 +554,7 @@ nonterminal E
 nonterminal T : E
 topsym E
 
-variant-group BinaryOp + -
+variant-group-for E BinaryOp + -
 
 E --> E + T | E - T | T
 T:Neg --> - T
@@ -574,11 +574,14 @@ pub enum E {
 An expression such as `3+4` will be parsed as `E::BinaryOp("+",a,b)`
 where `a`, `b` are LBoxes containing `E::Val(3)` and `E::Val(4)`.
 
-The **`variant-group`** grammar directive associates grammar symbols
+The **`variant-group-for`** grammar directive associates the name of a
+nonterminal symbol (`E` in this case), and a group of grammar symbols
 (terminal or non-terminal) with a the name of a "group", in this case
-`BinaryOp`.  All production rules with right-hand sides that contain
-these symbols can then be united under a single enum variant, discriminated
-by a static string that corresponds to the name of the symbol.
+`BinaryOp`.  All production rules for the designated nonterminal on
+the left, with right-hand sides that contain these symbols can then be
+united under a single enum variant, discriminated by a static string
+that corresponds to the name of the grammar symbol.  Note: the symbol
+is referred to by its name in the grammar, not its lexical form.
 Typically, these symbols will be terminals representing operators. If
 the right-hand side of a rule contains multiple symbols that can be
 grouped, only the first one (from left to right) will have effect.
@@ -586,8 +589,14 @@ Furthermore, *only rules that contain no explicit left- or right-
 labels* are subject to such grouping.  In particular, the rule
 `T:Neg --> - T` still generates the separate variant for `Neg` because of the
 presence of left-hand side label.  The presence of any right-hand side label,
-including `[]`, will likewise cancel grouping.
+including `[]`, will likewise cancel grouping for that production.
 Thus, **a single tuple variant is created for each declared group.**
+
+There is also a deprecated `variant-group` directive that does not
+name a specific nonterminal to associate the grouping with.  This form
+is not recommended except for small grammars.  But in languages where,
+for example, `*` can mean more than multiplication, the
+`variant-group-for` directive is more appropriate.
 
 
 #### Emphasizing the Importance of Labels
