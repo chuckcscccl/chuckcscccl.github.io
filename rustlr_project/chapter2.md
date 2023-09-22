@@ -580,8 +580,7 @@ nonterminal symbol (`E` in this case), and a group of grammar symbols
 `BinaryOp`.  All production rules for the designated nonterminal on
 the left, with right-hand sides that contain these symbols can then be
 united under a single enum variant, discriminated by a static string
-that corresponds to the name of the grammar symbol.  Note: the symbol
-is referred to by its name in the grammar, not its lexical form.
+that corresponds to the **print name** of the grammar symbol.  
 Typically, these symbols will be terminals representing operators. If
 the right-hand side of a rule contains multiple symbols that can be
 grouped, only the first one (from left to right) will have effect.
@@ -591,6 +590,13 @@ labels* are subject to such grouping.  In particular, the rule
 presence of left-hand side label.  The presence of any right-hand side label,
 including `[]`, will likewise cancel grouping for that production.
 Thus, **a single tuple variant is created for each declared group.**
+
+Note: because the variant group operator is distinguished by a static
+string, rustlr will choose the lexical (print) form of the operator.
+That is, if you declared `lexterminal Plus +` then the static string
+will be `"+"` and the AST will be something of the form
+`BinaryOp("+",_,_)`.  However, when declaring the variant group either the
+print name or the grammar name may be used.
 
 There is also a deprecated `variant-group` directive that does not
 name a specific nonterminal to associate the grouping with.  This form
