@@ -422,15 +422,27 @@ non-terminals are mutually recursive.  It uses this information to
 determine where smart pointers are required when defining these
 recursive types.  Rustlr always uses its [LBox][2] custom smartpointer
 to also include line/column information.  Notice that the variant
-`enum::cons` has only the second component in an LBox.  One can, for
-the sake of recording position information, always create an LBox
-regardless of reachability by giving the component a "boxed label".
+`enum::cons` has only the second component in an LBox.
+
+#### **[LC][lc]** Instead of LBox
+
+LBoxes are always created for the AST of recursive structures.  However,
+there are situations when a smart pointer is not required, or redundant.
+In these cases, [LC] is preferred, which includes the lexical position
+and unique `uid` in an exposed tuple, can be stack-allocated, and can be
+pattern-matched against its contents.  Like LBox, `LC<T>` implements `Deref<T>`
+and `DerefMut<T>` to carry the extra information as non-intrusively as possible.
+For example, the automatic AST generator will create vector types of the form
+`Vec<LC<..>>` since Vec is already allocated on the heap.  
+
+One can also, for the sake of recording position information,
+specifically create a LC enclosure by giving a grammar symbol a "boxed label".
 That is,
 ```
   ExprList:cons --> Expr:[car] SEMICOLON ExprList:cdr
 ```
-will generate a variant that also has its first component in an
-LBox. The 'cdr' is already an LBox as required for recursion (writing
+will generate a variant that has its first component in an
+LC. The 'cdr' is already an LBox as required for recursion (writing
 `[cdr]` will have no additional effect).
 
 It is also possible to give a symbol an empty box label, which may be
@@ -438,7 +450,10 @@ desired if one still wishes to create a tuple struct/variant:
 ```
  ExprList:cons --> Expr:[] SEMICOLON ExprList
 ```
-will generate the tuple variant `cons(LBox<Expr>,LBox<ExprList>)`
+will generate the tuple variant `cons(LC<Expr>,LBox<ExprList>)`
+
+Note that the AST generator may ignore boxed labels when it deems them
+redundant, such as nested LC/LBoxes.
 
 Although the generated parser code may not be very readable, rustlr also generated semantic actions that create instances of these AST types.  For example, the rule `Expr:Plus --> Expr + Expr` will have a semantic action equivalent
 the following, manually written one:
@@ -447,7 +462,19 @@ Expr --> Expr:[a] + Expr:[b] {Plus(a,b)}
 ```
 When manually writing semantic actions, a label of the form `[a]` indicates
 to the parser to place the semantic value associated with the symbol in
-an [LBox][2].
+an [LBox][2] (not LC).
+This behavior is consistent with previous versions of Rustlr.
+
+It is also possible to manually create LBox and LC from expressions with the
+[parser.lbx][lbxfn] and [parser.lc][lcfn] functions, and to convert between LBox
+and LC with the [LBox::from_lc][fromlc] and [LC::from_lbox][fromlbox] functions.
+For example, on can also manually create a semantic action with
+```
+Expr --> Expr:a + Expr:b {Plus(parser.lbx(0,a),parser.lbx(2,b))}
+```
+In summary: in rules with automatically generated semantic actions, boxed labels
+represent LC unless the generated types requires recursion.  However, with
+manually written semantic actions, boxed labels represent LBox.
 
 
 #### **'Passthru'**
@@ -953,3 +980,7 @@ from the above.
 [appendix]:  https://cs.hofstra.edu/~cscccl/rustlr_project/appendix.html
 [box]: https://doc.rust-lang.org/std/boxed/struct.Box.html
 [lc]:https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LC.html
+[fromlbox]:https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LC.html#method.from_lbox
+[fromlc]:https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.LBox.html#method.from_lc
+[lbxfn]:https://docs.rs/rustlr/latest/rustlr/zc_parser/struct.ZCParser.html#method.lbx
+[lcfn]:https://docs.rs/rustlr/latest/rustlr/zc_parser/struct.ZCParser.html#method.lc

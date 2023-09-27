@@ -444,7 +444,8 @@ pub fn eval(expr:&E) -> Option<i32> {
 ```
 Besides [LBox][2], there is also a structure [LC][lc] that implements the
 same traits as LBox but contains the lexical location information as well as
-the encapsulated expression in the form of an exposed tuple.
+the encapsulated expression in the form of an exposed tuple.  It is preferred 
+when a smart pointer to heap is not required or redundant.
 
 <br>
 
