@@ -1,15 +1,62 @@
 ## Chapter 1: Simple Calculator.
 
-Please note that this tutorial is for **[Rustlr version 0.4.x][drs]**.
-The [older tutorial](https://cs.hofstra.edu/~cscccl/rustlr_project/index3.html)
-is still available.  Rustlr remains compatible with older grammars,
-but some may need to be recompiled.
+Please note that this tutorial is updated for the latest version of
+[Rustlr](https://crates.io/crates/rustlr).  There's an [older
+tutorial](https://cs.hofstra.edu/~cscccl/rustlr_project/index3.html)
+that was written prior to Rustlr Version 0.4 that is still available.
+Rustlr remains compatible with older grammars, but some may need to be
+recompiled.
 
 This tutorial is not an introduction to LR parsing, though only minimal
 knowledge of the concept is required to understand the examples.
 The first chapter of the tutorial will present three versions of a
 simple grammar illustrating the core features of Rustlr, while
 additional features and details will be presented in subsequent chapters.
+
+---------------
+
+### Installing Rustlr
+
+The rustlr crate contains the parser generation routines as well as runtime
+parsing routines that interpret the generated parse tables.  Either both
+are installed together, or the runtime parser can be installed alone.  To
+use the parser generator, you can either
+
+  1. install rustlr as a command-line application: **`cargo install rustlr`**.
+     
+  2. Call the rustlr crate's [generate](https://docs.rs/rustlr/latest/rustlr/fn.generate.html) function from within a rust program, after installing rustlr
+  as part of your crate (`cargo add rustlr`).  The function takes in a 
+  string slice the same arguments as the command-line application.  However,
+  when given the `-trace 0` option, rustlr produces no output during parser
+  generation, saving instead all messages in a script.
+
+After a parser has been generated for anothe application, rustlr can be
+installed in that application's crate with only the runtime parsing routines
+by either
+
+  1. **`cargo add rustlr --no-default-features`**
+  
+  2. including the following in Cargo.toml:
+   ```
+      [dependencies]
+      rustlr = { version = "0.5", default-features = false }
+   ```
+Turning off default features excludes the parser generation routines, making
+for a much smaller build.
+
+Optional Feature **`legacy-parser`**:  grammars and parsers for very early
+versions of Rustlr require the `legacy-parser` feature.  This feature can
+be installed with or without the parser generation routines.  For example,
+if you only need the legacy runtime parser, add the following to Cargo.toml:
+   ```
+      [dependencies]
+      rustlr = { version = "0.5", default-features = false, features = ["legacy-parser"] }
+   ```
+The [online documentation][drs] documents all features.
+
+---------------
+
+#### A Rustlr Grammar
 
 Rustlr uses its own syntax for grammars.  However, given Yacc/Bison
 style grammar in a file with a `.y` suffix, rustlr will convert it
@@ -46,7 +93,7 @@ This classic example of an unambiguous grammar is found in most
 compiler textbooks.  Rustlr recognizes operator precedence and associativity
 declarations (see below), but we start with a proper grammar.
 After you **`cargo install rustlr`** you can produce a LALR parser from this
-grammar file, which must end with `.grammar`, with:
+grammar file, which must end with `.grammar`, by running the rustlr executable with:
 
 >  **`rustlr calc1.grammar`**
 

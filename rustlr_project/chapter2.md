@@ -64,9 +64,11 @@ lexical scanner
 
 ### 1. Creating and Invoking the Parser
 
-To build a working parser and evaluator, `cargo new` a crate with "rustlr = 0.4"
-in its dependencies. Copy the grammar into the crate directory as
-**'calcauto.grammar'**.  Then run
+To build a working parser and evaluator, **`cargo new`** a crate and
+**`cargo add rustlr --no-default-features`** in the crate to include just
+the parts of rustlr that pertains to running the parsers.
+Copy the grammar into the crate directory as
+**'calcauto.grammar'**.  Then run the rustlr command-line application (`cargo install rustlr`):
 
 >  **`rustlr calcauto.grammar -o src/`**.
 
@@ -711,12 +713,7 @@ This would lead to the generation of a tuple struct for type ExprList:
 pub struct ExprList<'lt>(pub Vec<LC<Expr<'lt>>>,);
 ```
 Vectors created for these operators always contain values inside **[LC][lc]**
-structures.  LC contains an AST expression along with its lexical
-line/column information in an open tuple as opposed to 
-[LBox][2], which encapsulates a [Box][box]. The Box is not necessary here as Vectors
-are already heap-allocated.
-
-to retain the lexical-position information.
+structures.  Vectors are already heap-allocated.
 The operator **`*`** means a sequence of zero or more.  This is done by generating several new non-terminal symbols internally.
 Essentially, these correspond to
 ```
@@ -727,7 +724,7 @@ ExprList --> ES1:v {v}
 ```
 These rules replace the original in the grammar.  In the `auto` mode,
 rustlr also infers that symbols such as ; has no meaning at the
-AST level (because it has the unit type and noprecedence/associativity
+AST level (because it has the unit type and no precedence/associativity
 declaration). It therefore infers that the type of the nonterminal ES0
 is the same as Expr, and automatically generates the appropriate semantic action.
 If override of this behavior is required, one can manually rewrite the grammar
@@ -744,7 +741,10 @@ The type rustlr associates with the new non-terminal ES1
 will be `Vec<LC<Expr<'lt>>` and semantic actions are generated to
 create the vector for both ES1 rules.  A **`+`** means one or more
 `ES1` derivations, producing the same vector type, and a **`?`** will
-mean one or zero derivations with type `Option<LBox<Expr<'lt>>>`.
+mean one or zero derivations with type `Option<LBox<Expr<'lt>>>`.  A `?`
+operator will always result in an `Option<LBox<..>>` unless the type
+in question is a "primitive" type such as an integer, floating point, boolean,
+or immutable reference.
 
 Another way to generate the AST for `ExprList` is to manually define the type
 of `ExprList`, from which Rustlr will infer that it is a `pass-thru` case.
