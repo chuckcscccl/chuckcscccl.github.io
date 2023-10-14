@@ -17,10 +17,10 @@ additional features and details will be presented in subsequent chapters.
 
 ### Installing Rustlr
 
-The rustlr crate contains the parser generation routines as well as runtime
-parsing routines that interpret the generated parse tables.  Either both
-are installed together, or the runtime parser can be installed alone.  To
-use the parser generator, you can either
+The rustlr crate contains the parser generation routines as well as
+base runtime parsing routines required by all parsers.  Either both
+are installed together, or the runtime parsing routines can be
+installed alone.  To generate parsers, you can either
 
   1. install rustlr as a command-line application: **`cargo install rustlr`**.
      
@@ -30,7 +30,7 @@ use the parser generator, you can either
   when given the `-trace 0` option, rustlr produces no output during parser
   generation, saving instead all messages in a script.
 
-After a parser has been generated for anothe application, rustlr can be
+After a parser has been generated for another application, rustlr can be
 installed in that application's crate with only the runtime parsing routines
 by either
 
@@ -52,7 +52,6 @@ if you only need the legacy runtime parser, add the following to Cargo.toml:
       [dependencies]
       rustlr = { version = "0.5", default-features = false, features = ["legacy-parser"] }
    ```
-The [online documentation][drs] documents all features.
 
 ---------------
 
@@ -321,7 +320,7 @@ false as argument, it will turn off logging and print to stderr.
 Every call to `set_err_report` will **always erase existing error
 logs**.
 
-The main.rs should be placed in a cargo crate with **"rustlr = "0.4"** in its
+The main.rs should be placed in a cargo crate with **`rustlr = {version="0.5", default-features=false}`** in its
 dependencies. The files produced by rustlr for the grammar should also be
 inside the `src/` folder of the crate.
  The function `parse_with` is created *for each grammar*,
