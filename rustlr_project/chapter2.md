@@ -74,8 +74,8 @@ Copy the grammar into the crate directory as
 
 #### **Rustlr Command-Line Options**
 
-The first and the only required argument to the executable is the path of the
-grammar file.  Optional arguments (after the grammar path) that can be
+The only required argument to the executable is the path of the
+grammar file.  Additional, optional arguments that can be
 given to the executable are:
 
 - **-lr1** : this will create a full LR(1) parser if LALR does not suffice.
@@ -98,7 +98,8 @@ built-in [StrTokenizer][1].  This option is not recommended.
   the new zero-copy lexical analyzer trait.  This option is only retained
   for backwards compatibility with grammars and lexical scanners written prior
   to rustlr version 0.2.0.  This option is not capable of generating a lexical
-  scanner.
+  scanner.  Using this option also requires that rustlr be installed with
+  the **`--features legagcy-parser`** option.
 - **-lrsd** : enables "LR parsing with selective delays".  This is an
   experimental (but usable) extention of LR(1) parsing and accepts a larger
   class of grammars.  See the [Appendix][appendix] for details.
