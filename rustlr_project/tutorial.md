@@ -1,4 +1,4 @@
-## RUSTLR: Bottom-Up Parser Generator for Rust, Version 0.4.x
+## RUSTLR: Bottom-Up Parser Generator for Rust
 
 [Rustlr](https://crates.io/crates/rustlr) was originally created as a
 platform to explore advanced ideas in grammars and
