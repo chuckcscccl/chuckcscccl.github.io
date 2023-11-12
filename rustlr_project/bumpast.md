@@ -257,7 +257,7 @@ Formula:Implies --> Formula IMPLIES Formula
 
 FormulaSeq --> Formula<SEMICOLON+>
 
-# function to return negation normal form, injected into logic_ast.rs:
+# function to return negation normal form, injected into bumplogic_ast.rs:
 $
 $pub fn NNF<'t>(form:&'t Formula<'t>, bump:&'t bumpalo::Bump) -> &'t Formula<'t> {
 $ use Formula::*;
@@ -275,7 +275,7 @@ $   _ => form, //default no change to literals
 $ }//match
 $}
 
-# function injected into logicparser.rs:
+# function injected into bumplogicparser.rs:
 !mod bumplogic_ast;
 !use std::io::{Write};
 !fn main() {
