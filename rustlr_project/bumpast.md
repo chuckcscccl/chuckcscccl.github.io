@@ -18,7 +18,7 @@ in place of `auto`, which enables the generation of bump-allocated ASTs.
 (in Cargo.toml). Although user code do not need to reference the crate
 directly, the generated parser code does.
 
-The disadvantage of bumpalo is that it bipasses some of the memory
+The disadvantage of bumpalo is that it bypasses some of the memory
 safety checks of Rust. Bump-allocation is not recommended if frequent
 changes are made to the allocated structures.  They are appropriate if
 the AST remains relatively stable once created, with few changes if
@@ -88,7 +88,7 @@ Most of bumpalo's usage is well-encapsulated, although
 `bumpalo = "3"` does need to be added to the crate's
 dependencies.  The easiest way to enable bumpalo is through enhancements to
 the [Lexsource][lexsource] structure.  The following code fragment
-demonstrates how to envoke a parser generated from an `auto-bump` grammar,
+demonstrates how to invoke a parser generated from an `auto-bump` grammar,
 [bautocalc.grammar](https://cs.hofstra.edu/~cscccl/rustlr_project/bumpcalc/bautocalc.grammar),
 ```
    let srcfile = "test1.txt"; // srcfile names file to parse
@@ -97,7 +97,7 @@ demonstrates how to envoke a parser generated from an `auto-bump` grammar,
    let mut parser = bautocalcparser::make_parser();
    let result = bautocalcparser::parse_with(&mut parser, &mut scanner);
 ```
-A Rustlr [Lexsource][lexsource] object containing a [Bump](https://docs.rs/bumpalo/latest/bumpalo/struct.Bump.html) is created with [Lexsource::with_bump][withbump].
+A Rustlr [Lexsource][lexsource] object containing a [Bump](https://docs.rs/bumpalo/latest/bumpalo/struct.Bump.html) arena is created with [Lexsource::with_bump][withbump].
 The `parse_with` function, which is generated for individual parsers, will place
 a reference to the bump arena inside the parser.  The automatically
 generated semantic actions will call [Bump::alloc](https://docs.rs/bumpalo/latest/bumpalo/struct.Bump.html#method.alloc) to create ASTS that will have **the
@@ -128,7 +128,13 @@ Div{e1:&'lt LC<Expr<'lt>>,e2:&'lt LC<Expr<'lt>>},
 as well as semantic actions that inserts line/column information into the
 AST as LC enclosures.
 
-Note that a lifetime argument is required for all recursive types.
+A lifetime argument is required for all recursive types.
+
+Please note that, when it comes to vectors and other heap-allocated data
+structures, we chose *not* to use bumpalo's vectors.  Vectors that are
+part of the AST are still allocated on the heap, though they may contain
+references to bump-allocated structures.
+
 
 #### **Dealing with Recursive Structs**
 
@@ -215,15 +221,17 @@ The `NNF` function stands for *Negation Normal Form*: it pushes negations
 inward by applying the De Morgan laws and by eliminating double negations 
 until negations only appear before propositional variables.
 ```
-# using + for OR and * for AND:
+# Grammar "bumplogic" for propositional logic with bump-allocated ASTs
 auto-bump
 lifetime 'lt
 
+lexterminal AND *
+lexterminal OR +
 lexterminal NOT ~
 lexterminal IMPLIES ->
 lexterminal SEMICOLON ;
-terminals ( ) + *
-valueterminal ID ~ &'lt str ~ Alphanum(n) ~ n
+terminals ( )
+valterminal Prop Alphanumeric
 
 nonterminal FormulaSeq
 nonterminal Formula
@@ -234,17 +242,17 @@ resynch SEMICOLON
 
 topsym FormulaSeq
 
-left * 80
-left + 50
+left AND 80
+left OR 50
 right IMPLIES 30
 
 PrimaryFormula --> ( Formula )
-PrimaryFormula:Prop --> ID
+PrimaryFormula --> Prop
 PrimaryFormula:Neg --> NOT PrimaryFormula
 
 Formula --> PrimaryFormula
-Formula:And --> Formula * Formula
-Formula:Or --> Formula + Formula
+Formula:And --> Formula AND Formula
+Formula:Or --> Formula OR Formula
 Formula:Implies --> Formula IMPLIES Formula
 
 FormulaSeq --> Formula<SEMICOLON+>
@@ -268,14 +276,14 @@ $ }//match
 $}
 
 # function injected into logicparser.rs:
-!mod logic_ast;
+!mod bumplogic_ast;
 !use std::io::{Write};
 !fn main() {
 ! let bump = bumpalo::Bump::new();
 ! print!("Enter proposition: ");  let r=std::io::stdout().flush();
 ! let mut input = String::new();
 ! let res = std::io::stdin().read_line(&mut input);
-! let mut lexer1 = logiclexer::from_str(&input);
+! let mut lexer1 = bumplogiclexer::from_str(&input);
 ! let mut parser1 = make_parser();
 ! parser1.exstate.set(&bump);  //the exstate is a "Bumper"
 ! let fseq = parse_with(&mut parser1, &mut lexer1)
