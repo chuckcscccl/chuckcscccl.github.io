@@ -13,10 +13,11 @@ A grammar can begin with the declaration
 ```
 auto-bump
 ```
-in place of `auto`, which enables the generation of bump-allocated ASTs.
-**It is also necessary to place `bumpalo = "3"` in your crate dependencies**
-(in Cargo.toml). Although user code do not need to reference the crate
-directly, the generated parser code does.
+in place of `auto`, which enables the generation of bump-allocated
+ASTs.  **It is also necessary to `cargo add bumpalo`** or place
+`bumpalo = "3"` in your crate dependencies.  in Cargo.toml. Although
+user code do not need to reference the crate directly, the generated
+parser code does.
 
 The disadvantage of bumpalo is that it bypasses some of the memory
 safety checks of Rust. Bump-allocation is not recommended if frequent
@@ -202,7 +203,8 @@ reference-counted `shared_state` field of the same type.
 The only other situation that requires understanding of this implementation
 detail is when writing semantic actions manually that creates
 bump-allocated structures.  They should be created by calling
-`parser.exstate.make(...)`.
+`parser.exstate.make(...)`.  Here, `parser.exstate` is of type [Bumper](https://docs.rs/rustlr/latest/rustlr/generic_absyn/struct.Bumper.html).  See the
+documentation of Bumper for other functions that can be called.
 
 The same applies to `parser.shared_state` under `auto-bump`.
 
