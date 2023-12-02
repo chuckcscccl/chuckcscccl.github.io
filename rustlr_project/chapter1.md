@@ -241,7 +241,7 @@ The format of this line is as follows:
 
 Each component is separated by a `~`, which is not a Rust operator.
 The *token_value* must be of type *terminal_type.*  The last
-two components will be used form a 'match' clause, so we can write,
+two components will be used to form a 'match' clause, so we can write,
 for example,
 ```
   valueterminal Positive ~ u64 ~ Num(n) if n>0 ~ n as u64
@@ -305,8 +305,8 @@ fn main() {
   let mut tokenizer1 = calc1lexer::from_str(input);
   let result = parse_with(&mut parser1, &mut tokenizer1)
                .unwrap_or_else(|x|x);
+  println!("result after parsing {}: {:?}",input,result);
   // println!("Error Report: {}", parser1.get_err_report()); // option
-  println!("result after parsing {}: {}",input,result);
   // paser1.reset(); // option to reset parser before parsing from different src
 }//main
 ```
