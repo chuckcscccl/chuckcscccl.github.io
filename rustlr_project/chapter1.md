@@ -250,9 +250,12 @@ for example,
 to distinguish special cases. 
 The token category **`Num`** is a variant of [RawToken][rtk], the type of token
 produced by the built-in generic tokenizer, [StrTokenizer][1].
-Other common categories include **Alphanum** for alphanumeric sequences,
+Other common categories of tokens include **Alphanum** for alphanumeric sequences,
 **Symbol** for non-alphanumeric symbols, and **Strlit** for string literals.
-Each of these categories carries `str` slices with the same lifetime as the
+
+Please remember that there is a difference between *token* and *terminal symbol*: a relationship must be established between the two with one of the *terminal* declarations.
+
+Each of token categories carries `str` slices with the same lifetime as the
 input source, which can be defined with a `lifetime` declaration in the grammar.
 Essentially, it requires
 ```
