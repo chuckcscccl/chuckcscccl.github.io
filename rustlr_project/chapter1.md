@@ -112,7 +112,9 @@ application even with the `-trace 0` option.
 By default, rustlr tries to generate a LALR(1) parser. Two files are generated:
 **`calc1parser.rs`** and **`calc1_ast.rs`** in the working
 directory, although the second file won't contain much for this
-example.  It will derive the name of the grammar (calc1) from the file
+example.  The output directory can be changed with the `-o` option, such as
+in `rustlr calc1.grammar -o calc1crate/src/`.
+It will derive the name of the grammar (calc1) from the file
 path, unless there is a declaration of the form
 
 >  `grammarname somename`
@@ -253,7 +255,7 @@ produced by the built-in generic tokenizer, [StrTokenizer][1].
 Other common categories of tokens include **Alphanum** for alphanumeric sequences,
 **Symbol** for non-alphanumeric symbols, and **Strlit** for string literals.
 
-Please remember that there is a difference between *token* and *terminal symbol*: a relationship must be established between the two with one of the *terminal* declarations.
+Please remember that there is a difference between *token* and *terminal symbol*: a relationship must be established between the two with a *valueterminal* declaration.
 
 Each of token categories carries `str` slices with the same lifetime as the
 input source, which can be defined with a `lifetime` declaration in the grammar.

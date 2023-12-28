@@ -38,6 +38,9 @@ te --> type < . te >   # at this point, should be only item at least in kernel
   end action to reset the lexer's exclusion set at the end. - that should be
   easy.  BUT there is only one rule for te, so?  will set and reset multiple times for the recursive te as well.
 
+This can only be done if there is only one item in the kernel, with the dot
+to the right of a terminal symbol, and not at the end
+
 ........
 
 Look at Kernel items where the dot has advanced.
