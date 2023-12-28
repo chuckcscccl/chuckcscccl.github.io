@@ -379,11 +379,11 @@ the highest precedence, unless overridden as in the unary minus rule.
 One place where precedence declarations are arguably justified is the infamous
 "dangling else" problem:
 ```
-Statment --> if ( Expression ) Statment
-Statment --> if ( Expression ) Statment else Statment
+Statement --> if ( Expression ) Statement
+Statement --> if ( Expression ) Statement else Statement
 ```
 Rewriting this grammar unambiguously would require extra rules for all other
-cases of `Statment`.  Rustlr allows this problem to be solved by assigning
+cases of `Statement`.  Rustlr allows this problem to be solved by assigning
 'else' a higher precedence than 'if', which would force a shift and associate
 each 'else' with the nearest 'if'.
 

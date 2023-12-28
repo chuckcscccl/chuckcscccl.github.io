@@ -1,0 +1,60 @@
+some thoughts.
+Context sensitive lexical analysis?
+Instead of a global set of terminal symbols, with longest match returned first,
+a reachability analysis can be used to determine which terminals are possible
+under a context.
+
+Given any LR state, a reachability analysis can be applied to all the LHS symbols in all items to determine which symbols are possible.  In fact, instead of
+looking at LHS symbols, look at all symbols to the right of each dot in every item. This determines the set of terminal symbols that are possible in a successful parse at this point.  Then at each state, only those reachable symbols are tokenized.  This is expensive both at compile time and at runtime.
+
+Special actions to perform.  The tokenizer can be given an "exclusion set",
+meaning that we can exclude '>>' and '>>>' as tokens from the lexer, forcing
+the lexer to return these as individual symbols.  Other tokens can also be
+considered unrecognized.  But the exclusion set is different for every state.
+It would be better to set the exclusion set manually in each semantic action?
+But that's the equivalent to the priority multiset right now!
+
+
+But each item in a state also have a lookahead set.  If the lookahead token
+is not among the valid lookaheads, it should be unrecognized.  This info is already computed for each state.  So given each state, we just need to encode a bit more information as to which tokens to exclude.  The exclusion state literally needs to change with each state transition, then.  But really the only exclusions are those tokens that only have proper prefixes in the lookahead set.
+When forming the lexer We need to keep track of which token is a prefix of which other token.
+
+Only triples and doubles need to be checked.  The exculsion is one-time only:
+the exculsion set is reset to empty after each state transistion.
+The default is empty.  Definately more info need to be carried at runtime.
+
+---
+
+Other enhancements: safe binary file format instead of saving everything in one file?
+
+
+Don't have to change each state transition. Just add something to the semantic actions of ... of what?  Of states with a single rule base for all items?
+that is, all items are for the same rule with the dots in different places.
+
+te --> type < te >
+te --> type < . te >   # at this point, should be only item at least in kernel
+  -- look at terminals to right of . and exclude?  no. don't know how many
+  to insert in multiset, so can only exclude for the duration.  then insert
+  end action to reset the lexer's exclusion set at the end. - that should be
+  easy.  BUT there is only one rule for te, so?  will set and reset multiple times for the recursive te as well.
+
+........
+
+Look at Kernel items where the dot has advanced.
+If there is only one base rule for all items in the kernel, can insert
+semantic action into middle of the rule, via creation of a new rule.
+- may need to limit selective delay as well.
+
+-- but how is the exclusion set reset?
+-- priority multiset maybe better.
+
+The semantic action must exclude, or include terminal symbols that are prefixes of other symbols.  or identifiers - some way to disambiguate tokens.
+
+This can only be done during fsm generation time.  but inserting a new rule may require the fsm to be regenerated?  yes but only slightly.
+
+Do it alongside lrsd?
+
+
+??? token transform function - break one symbol into two.
+
+
