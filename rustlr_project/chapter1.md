@@ -109,7 +109,7 @@ that some messages will always be printed to stdio by the rustlr command-line
 application even with the `-trace 0` option.
 
 
-By default, rustlr tries to generate a LALR(1) parser. Two files are generated:
+By default, rustlr tries to generate a LALR(1) parser (modified with `-lr1` and `-lrsd` options). Two files are generated:
 **`calc1parser.rs`** and **`calc1_ast.rs`** in the working
 directory, although the second file won't contain much for this
 example.  The output directory can be changed with the `-o` option, such as
@@ -175,7 +175,7 @@ non-terminal on the left side of `-->` "nullable".
 
 Every terminal and non-terminal symbol is associated with the type of
 a semantic value.  In the `auto` mode types and semantic actions are
-always automatically created unless overrides are provided.
+automatically created unless overrides are provided.
 
 > **All such types are expected to impl `Default` and `Debug`**.
 
@@ -195,7 +195,7 @@ using ":" as mutable variables.
 #### **Creating a Lexical Scanner for the Terminal Symbols**
 
 A lexical scanner is automatically created from the declarations of
-the terminal symbols of the grammar.  These terminals can be
+the terminal symbols of the grammar in the auto mode.  These terminals can be
 categorized into ones that do not carry meaningful semantic values,
 and ones that do.  Those that do not carry values are assigned type
 `()`, as in *unit*, in the `auto` mode, and can be declared in one of
@@ -210,7 +210,7 @@ two ways:
     lexterminal COLON :
   ```
   In the grammar's production rules, the terminal should be referred to as
-  `COLON`.  **Certain reserved symbols including `:`, `|`, `%` and `{`, `}`
+  `COLON`.  **Certain reserved symbols including `:`, `|`, `%`, `-->` and `{`, `}`
   must be declared using `lexterminal`.**
 
 Terminal symbols that carry the most common types of values, including
@@ -230,7 +230,7 @@ integer type can be assigned to a terminal
 symbol using `valterminal` and likewise for floating point types (but see below).
 
 The **`valterminal`** directive is designed to simplify the specification
-of a lexer for the most common type of tokens using rustlr's built-in
+of a lexer for the most common types of tokens using rustlr's built-in
 tokenizer.  A `valterminal` declaration is actually the simplified form of
 a longer, `valueterminal` declaration.
 **`valterminal num i32`** is equivalent to
@@ -251,13 +251,13 @@ for example,
 ```
 to distinguish special cases. 
 The token category **`Num`** is a variant of [RawToken][rtk], the type of token
-produced by the built-in generic tokenizer, [StrTokenizer][1].
+produced by the built-in generic tokenizer, [StrTokenizer][1], and carries an i64 value.
 Other common categories of tokens include **Alphanum** for alphanumeric sequences,
 **Symbol** for non-alphanumeric symbols, and **Strlit** for string literals.
 
 Please remember that there is a difference between *token* and *terminal symbol*: a relationship must be established between the two with a *valueterminal* declaration.
 
-Each of token categories carries `str` slices with the same lifetime as the
+Each token carries a `str` slice with the same lifetime as the
 input source, which can be defined with a `lifetime` declaration in the grammar.
 Essentially, it requires
 ```

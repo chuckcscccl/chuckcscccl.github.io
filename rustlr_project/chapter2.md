@@ -83,7 +83,7 @@ given to the executable are:
   requiring full LR(1) can be found **[here](https://cs.hofstra.edu/~cscccl/rustlr_project/nonlalr.grammar).**
 - **-o filepath** : changes the default destination of the generated parser
   and AST files.  The filepath can be a directory ending in `\` or `/`, or a
-  file path for the parser: it will also save the AST file in the same
+  filename (such as `main.rs`). It will also save the AST file in the same
   directory.
 - **-nolex** : skips the automatic generation of a lexical scanner using the
 built-in [StrTokenizer][1].  This option is not recommended.
@@ -99,7 +99,7 @@ built-in [StrTokenizer][1].  This option is not recommended.
   for backwards compatibility with grammars and lexical scanners written prior
   to rustlr version 0.2.0.  This option is not capable of generating a lexical
   scanner.  Using this option also requires that rustlr be installed with
-  the **`--features legagcy-parser`** option.
+  the **`--features legacy-parser`** option.
 - **-lrsd** : enables "LR parsing with selective delays".  This is an
   experimental (but usable) extention of LR(1) parsing and accepts a larger
   class of grammars.  See the [Appendix][appendix] for details.
@@ -148,7 +148,7 @@ specifications in the grammar (in `valueterminal` lines) to be
 consistent with the generated AST types.  The lifetime is that of the
 input.  Currently, only a single lifetime declaration is allowed.
 The keywords "let" and "in", though alphanumeric are not recognized as `var`
-because they're declared as terminal symbols.
+because they're declared as verbatim terminal symbols.
 
 
 ### 3. Configuring the Lexical Scanner
@@ -269,8 +269,8 @@ expressions, including unary operations, are defined using
 different syntactic categories in the form of extra non-terminals
 `UnaryExpr` and `LetExpr`.  
 
-The operator precedence and associativity declarations are used to
-(statically) resolve *shift-reduce* conflicts in generating the LR
+The operator precedence and associativity declarations
+statically resolve *shift-reduce* conflicts in generating the LR
 state machine.  A terminal symbol that's to be used as an operator can
 be declared as left, right or non-associative (`nonassoc`) and a positive integer
 defines the precedence level.  Production rules can also be assigned
