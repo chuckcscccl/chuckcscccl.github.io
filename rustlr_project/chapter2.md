@@ -856,7 +856,6 @@ nonterminal Boolean bool
 nonterminals Value KeyValuePair Number
 nonterminal Object : Value
 nonterminal List : Value
-nonterminal Boolean : Value
 topsym Value
 resync COMMA RBRACK RBRACE
 
@@ -885,21 +884,22 @@ The AST types that are created by this grammar are
 ```
 #[derive(Debug)]
 pub enum Number<'lt> {
-  Float(f64),
   Int(i64),
+  Float(f64),
   Bignum{m:Option<()>,_item1_:&'lt str},
   Number_Nothing,
 }
-impl<'lt> Default for Number<'lt> { fn default()->Self { Number::Number_Nothing } }
+impl<'lt> Default for Number<'lt> { fn default()->Self { Number::Number_Nothing 
+} }
 
 #[derive(Debug)]
 pub enum Value<'lt> {
-  Boolean(bool),
-  Number(Number<'lt>),
-  Str(&'lt str),
   NULL,
-  Object(Vec<LBox<KeyValuePair<'lt>>>),
-  List(Vec<LBox<Value<'lt>>>),
+  Boolean(bool),
+  Str(&'lt str),
+  Number(Number<'lt>),
+  Object(Vec<LC<KeyValuePair<'lt>>>),
+  List(Vec<LC<Value<'lt>>>),
   Value_Nothing,
 }
 impl<'lt> Default for Value<'lt> { fn default()->Self { Value::Value_Nothing } }
@@ -947,10 +947,6 @@ Object({"spouse": NULL, "age": Number(Int(27)), "phoneNumbers": List([Object({"t
 
 Although we may at times want to insert such overrides, most of the
 automatically generated portions remain usable.
-
-Here are links to the [grammar](https://cs.hofstra.edu/~cscccl/rustlr_project/jsontypes/json.grammar), [parser](https://cs.hofstra.edu/~cscccl/rustlr_project/jsontypes/src/jsonparser.rs), [ast types](https://cs.hofstra.edu/~cscccl/rustlr_project/jsontypes/src/json_ast.rs) and [main](https://cs.hofstra.edu/~cscccl/rustlr_project/jsontypes/src/main.rs) of the project, which may differ slightly
-from the above.
-
 
 
 ------------
