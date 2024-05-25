@@ -119,8 +119,8 @@ list of expressions returned.
 fn main() {
    let src = rustlr::LexSource::new("input.txt").expect("input not found");
    let mut scanner4 = calcautoparser::calcautolexer::from_source(&src);
-   let mut parser4 = calcautoparser::make_parser();
-   let tree4= calcautoparser::parse_with(&mut parser4, &mut scanner4);
+   let mut parser4 = calcautoparser::make_parser(scanner4);
+   let tree4= calcautoparser::parse_with(&mut parser4);
    let result4 = tree4.unwrap_or_else(|x|{println!("Parsing errors encountered; 
 results are partial.."); x});
    println!("\nABSYN: {:?}\n",&result4);

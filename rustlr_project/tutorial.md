@@ -25,8 +25,8 @@ support them may lead to new ambiguities.
 compared to traditional LR and LALR, based on [*Selective Marcus-Leermakers*][bns] delayed reductions. For example, the following grammar
    ```
      S -->  a B c  |  A B d
-     B --> b | B b
      A --> a
+     B --> b | B b
    ```
 is unambiguous but is **not** LR(k) because it cannot decide whether to
 reduce a to A with a fixed number of lookaheads.  However, rustlr

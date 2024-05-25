@@ -39,7 +39,7 @@ by either
   2. including the following in Cargo.toml:
    ```
       [dependencies]
-      rustlr = { version = "0.5", default-features = false }
+      rustlr = { version = "0.6", default-features = false }
    ```
 Turning off default features excludes the parser generation routines, making
 for a much smaller build.
@@ -50,15 +50,15 @@ be installed with or without the parser generation routines.  For example,
 if you only need the legacy runtime parser, add the following to Cargo.toml:
    ```
       [dependencies]
-      rustlr = { version = "0.5", default-features = false, features = ["legacy-parser"] }
+      rustlr = { version = "0.6", default-features = false, features = ["legacy-parser"] }
    ```
 
 ---------------
 
 #### A Rustlr Grammar
 
-Rustlr uses its own syntax for grammars.  However, given Yacc/Bison
-style grammar in a file with a `.y` suffix, rustlr will convert it
+Rustlr uses its own syntax for grammars.  However, given a Yacc/Bison
+style grammar in a file with a `.y` suffix, rustlr can convert it
 into its own syntax while stripping away semantic actions and other
 language-specific content.  The new grammar will be saved at the same
 location with a `.grammar` suffix, which can then be further enhanced
@@ -104,10 +104,9 @@ stderr with the `-trace 0` option:
   let report = rustlr::generate("calc1.grammar -trace 0");
 ```
 The `generate` function returns an a `Result<String,String>` containing either
-a log of events on success, or error messages on failure.  Note, however,
-that some messages will always be printed to stdio by the rustlr command-line
-application even with the `-trace 0` option.
-
+a log of events on success, or error messages on failure.
+With the rustlr command-line application, some messages will always be
+printed to stdout/stderr even with the `-trace 0` option.
 
 By default, rustlr tries to generate a LALR(1) parser (modified with `-lr1` and `-lrsd` options). Two files are generated:
 **`calc1parser.rs`** and **`calc1_ast.rs`** in the working
@@ -120,7 +119,7 @@ path, unless there is a declaration of the form
 >  `grammarname somename`
 
 in the grammar spec. The parser must import some elements of rustlr so it
-should be used in a crate.  We will come back to how to run the
+should be in a crate.  We will come back to how to run the
 generated parser later.
 
 
@@ -210,7 +209,7 @@ two ways:
     lexterminal COLON :
   ```
   In the grammar's production rules, the terminal should be referred to as
-  `COLON`.  **Certain reserved symbols including `:`, `|`, `%`, `-->` and `{`, `}`
+  `COLON`.  **Certain reserved symbols including `:`, `|`, `%`, `-->`, `#` and `{`, `}`
   must be declared using `lexterminal`.**
 
 Terminal symbols that carry the most common types of values, including
@@ -305,16 +304,22 @@ fn main() {
   let mut input = "5+2*3";
   let args:Vec<String> = std::env::args().collect(); // command-line args
   if args.len()>1 {input = &args[1]; }
-  let mut parser1 = make_parser();
-  // parser1.set_err_report(true); // option to log errors instead of printing to stderr
   let mut tokenizer1 = calc1lexer::from_str(input);
-  let result = parse_with(&mut parser1, &mut tokenizer1)
-               .unwrap_or_else(|x|x);
+  let mut parser1 = make_parser(tokenizer1);
+  // parser1.set_err_report(true); // option to log errors instead of printing to stderr
+  let result = parse_with(&mut parser1).unwrap_or_else(|x|x);
   println!("result after parsing {}: {:?}",input,result);
   // println!("Error Report: {}", parser1.get_err_report()); // option
-  // paser1.reset(); // option to reset parser before parsing from different src
 }//main
 ```
+
+Please note that this main expects Rustlr version 0.6+.  In previous
+versions the parser and tokenizer interacted in a different way.
+The parser now takes posession of the tokenizer.  This allows
+semantic actions to directly control the tokenizer.  The tokenizer
+can still be accessed independently with the [get_tokenizer](https://docs.rs/rustlr/latest/rustlr/base_parser/struct.BaseParser.html#method.get_tokenizer) function.  The previous (version 0.5) style is still available
+by giving rustlr the `-zc` option, though this option may become part of the
+`legacy-parser` installation option in the future.
 
 Parser errors are by default printed to stderr.  This behavior can be
 changed by calling `set_err_report` on the parser instance, as the
@@ -325,12 +330,14 @@ false as argument, it will turn off logging and print to stderr.
 Every call to `set_err_report` will **always erase existing error
 logs**.
 
-The main.rs should be placed in a cargo crate with **`rustlr = {version="0.5", default-features=false}`** in its
-dependencies. The files produced by rustlr for the grammar should also be
-inside the `src/` folder of the crate.
- The function `parse_with` is created *for each grammar*,
+The main.rs should be placed in a crate with **`rustlr =
+{version="0.6", default-features=false}`** in its dependencies. The
+files produced by rustlr for the grammar should also be inside the
+`src/` folder of the crate.
+The function `parse_with` is created *for each grammar*,
 and returns a `Result<T,T>` where `T` is the semantic value type of the
-"topsym" (startsymbol) of the grammar. 
+"topsym" (startsymbol) of the grammar. Even in the event of parsing errors,
+a partial result is always returned.
 
 This main expects a command-line argument.  Alternatively, 
 we can create a lexer from a file source with:
@@ -338,6 +345,10 @@ we can create a lexer from a file source with:
   let source = rustlr::LexSource::new("file path").unwrap();
   let mut tokenizer1 = calc1lexer::from_source(&source);
 ```
+
+The same parser can be used to parse multiple sources by calling
+the [reset](https://docs.rs/rustlr/latest/rustlr/base_parser/struct.BaseParser.html#method.reset) function and by [swapping](https://docs.rs/rustlr/latest/rustlr/base_parser/struct.BaseParser.html#method.swap_tokenizer) in a different tokenizer.
+
 
 #### **Operator Precedence and Associativity Declarations**
 
@@ -393,7 +404,7 @@ each 'else' with the nearest 'if'.
 ### Generating Abstract Syntax Trees
 
 The first versions of the grammar computed numerical values directly, but
-more generally parsers create AST structures.  
+more generally, parsers create AST structures.  
 ```
 # calc2.grammar
 auto
@@ -468,7 +479,7 @@ regular [Box][box], an LBox includes a Box along with the line and column
 numbers of where the construct starts.  An additional, *unique identifier* **uid** is
 also associated with every LBox so that each AST component can always be
 uniquely identified.  All this information is automatically
-inserted into each LBox by the Rustlr runtime parser ([ZCParser][zcp]). 
+inserted into each LBox by the Rustlr runtime parser ([BaseParser][zcp]). 
 [Lbox][2] implements `Deref` and
 `DerefMut` so they can be used just like a regular Box, *except* when we 
 actually need the line/column information:
@@ -481,14 +492,14 @@ pub fn eval(expr:&E) -> Option<i32> {
     Plus(a,b) => eval(a).zip(eval(b)).map(|(x,y)|x+y),
     Minus(a,b) => eval(a).zip(eval(b)).map(|(x,y)|x-y),
     Times(a,b) => eval(a).zip(eval(b)).map(|(x,y)|x*y),
-    Divide(a,b) => eval(b)
-       .map(|y| {
+    Divide(a,b) =>
+       eval(b)
+       .and_then(|y| {
          if y == 0 {
            eprintln!("Division by zero line {}, column {}",b.line(),b.column());
            None
          } else { eval(a).map(|x| x/y) }
-       })
-       .flatten(),
+       }),
     _ => None,
   }//match
 }//eval
@@ -531,7 +542,7 @@ that will be explained fully in subsequent chapters.
 [tt]:https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.TerminalToken.html
 [rtk]:https://docs.rs/rustlr/latest/rustlr/lexer_interface/enum.RawToken.html
 [nextsymfun]:https://docs.rs/rustlr/latest/rustlr/lexer_interface/trait.Tokenizer.html#tymethod.nextsym
-[zcp]:https://docs.rs/rustlr/latest/rustlr/zc_parser/struct.ZCParser.html
+[zcp]:https://docs.rs/rustlr/latest/rustlr/base_parser/struct.BaseParser.html
 [fromraw]:https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.TerminalToken.html#method.from_raw
 [ttnew]:https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.TerminalToken.html#method.new
 [regex]:https://docs.rs/regex/latest/regex/
