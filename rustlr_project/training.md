@@ -15,7 +15,7 @@ for future, automatic retraining when a new parser is generated.
 As example, one can use the crate created from `calcauto.grammar` in [Chapter 2][chap2].
 Modify [main.rs](https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/src/main.rs) by changing the call to `parse_with` to
 ```
-  let tree4= calcautoparser::parse_train_with(&mut parser4, &mut scanner4,"src/calcautoparser.rs");
+  let tree4= calcautoparser::parse_train_with(&mut parser4,"src/calcautoparser.rs");
 ```
 For input with no errors, this call works the same way as `parse_with`  The
 `parse_train_with` function takes a path to a copy of the parser being trained

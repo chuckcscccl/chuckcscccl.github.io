@@ -84,10 +84,10 @@ the arena.  We can pass a reference to the "bump" to a function, which would
 then be able to construct and return bump-allocated structures using references
 of the same lifetime.
 
-Rustlr (since version 0.3.95) can generate such structures automatically.
+Rustlr can generate such structures automatically.
 Most of bumpalo's usage is well-encapsulated, although
 `bumpalo = "3"` does need to be added to the crate's
-dependencies.  The easiest way to enable bumpalo is through enhancements to
+dependencies.  The easiest way to enable bumpalo is with 
 the [Lexsource][lexsource] structure.  The following code fragment
 demonstrates how to invoke a parser generated from an `auto-bump` grammar,
 [bautocalc.grammar](https://cs.hofstra.edu/~cscccl/rustlr_project/bumpcalc/bautocalc.grammar),
@@ -95,8 +95,8 @@ demonstrates how to invoke a parser generated from an `auto-bump` grammar,
    let srcfile = "test1.txt"; // srcfile names file to parse
    let source=LexSource::with_bump(srcfile).unwrap();
    let mut scanner = bautocalcparser::bautocalclexer::from_source(&source);   
-   let mut parser = bautocalcparser::make_parser();
-   let result = bautocalcparser::parse_with(&mut parser, &mut scanner);
+   let mut parser = bautocalcparser::make_parser(scanner);
+   let result = bautocalcparser::parse_with(&mut parser);
 ```
 A Rustlr [Lexsource][lexsource] object containing a [Bump](https://docs.rs/bumpalo/latest/bumpalo/struct.Bump.html) arena is created with [Lexsource::with_bump][withbump].
 The `parse_with` function, which is generated for individual parsers, will place
@@ -104,15 +104,14 @@ a reference to the bump arena inside the parser.  The automatically
 generated semantic actions will call [Bump::alloc](https://docs.rs/bumpalo/latest/bumpalo/struct.Bump.html#method.alloc) to create ASTS that will have **the
 same lifetime as the Lexsource structure.**
 
-The link to the entire sample crate is [here](https://cs.hofstra.edu/~cscccl/rustlr_project/bumpcalc/).
-
 
 #### **Replace the LBox**
 
 Although the [LBox][2] is no longer needed, a device to capture the
 lexical position (line/column) information in the AST in a
-non-intrusive manner is still re required.  Along with the `auto-bump`
-option is the struct [LC][lc].  This is just a tuple with open fields
+non-intrusive manner is still re required.  
+The struct [LC][lc] replaces LBox when using bumpalo.
+This is just a tuple with open fields
 for the value, and an inner tuple with line and column numbers. We've
 implemented The Deref/DerefMut traits so the value can be exposed in
 the manner of a smart pointer, but there's in fact no pointer
@@ -286,9 +285,9 @@ $}
 ! let mut input = String::new();
 ! let res = std::io::stdin().read_line(&mut input);
 ! let mut lexer1 = bumplogiclexer::from_str(&input);
-! let mut parser1 = make_parser();
+! let mut parser1 = make_parser(lexer1);
 ! parser1.exstate.set(&bump);  //the exstate is a "Bumper"
-! let fseq = parse_with(&mut parser1, &mut lexer1)
+! let fseq = parse_with(&mut parser1)
 !     .unwrap_or_else(|x|{println!("Parsing Errors Encountered"); x});
 ! if let FormulaSeq(formulas) = fseq {
 !   for f in &formulas {

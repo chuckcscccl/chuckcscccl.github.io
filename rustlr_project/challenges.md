@@ -130,10 +130,11 @@ anticipated tokens.  Also, the lookahead symbol is read *before* determining
 the state transition or action to take.  These factors make it difficult to
 automatically customize the tokenizer based on the production rule.
 
-We again need to override some semantic actions and utilize the
-`parser.shared_state` to communicate with the lexer.
+We again need to override some semantic actions.  Since Rustlr version 0.6.0,
+these actions can directly control the tokenizer via `parser.get_tokenizer()`,
+which returns a mutable borrow of the tokenizer.
 
-The built-in, customizable lexer, [StrTokenzier][1], contains a *multiset* of symbols designated as **[priority symbols](https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html#structfield.priority_symbols)**.
+The built-in, customizable tokenizer, [StrTokenzier][1], contains a *multiset* of symbols designated as **[priority symbols](https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html#structfield.priority_symbols)**.
 A multiset is a set in which there could be multiple occurrences of each element.
 The multiset is initially empty.
 
@@ -144,53 +145,25 @@ tokens that should be prioritized over the norm.  Each match with some
 entry in the multiset decreases the number of occurrences of that
 entry in the multiset.
 
-The `>>` problem is solved with the following relevant declarations in the grammar:
+The `>>` problem is solved with the following relevant productions in the grammar, where terminal symbols `LT` and `GT` represent `<` and `>` respectively.
+
 ```
-$#[derive(Debug,Default)]
-$pub struct multiswitch(usize); 
-$impl multiswitch {
-$  pub fn set(&mut self) { self.0 += 1; }
-$  pub fn get(&mut self) -> usize {
-$    if self.0>0 { self.0 -= 1;  self.0+1 } // auto-decrement
-$    else {self.0}
-$  }//get
-$}//impl multiswitch
-
-externtype multiswitch
-
-lexconditional self.shared_state.borrow_mut().get()>0 ~ add_priority_symbol(">")
-
-# Relevant productions:
 type_arguments --> LT flag_state type_arg<COMMA+> GT
 
-flag_state -->  { parser.shared_state.borrow_mut().set(); ... }
+flag_state -->  { parser.get_tokenizer().add_priority_symbol(">"); ... }
 ```
 
-The terminal symbols `LT` and `GT` represent `<` and `>` respectively.
-
-In this scenario, the `shared_state` between the parser and lexer is a
-`multiswitch` struct that contains counter, initially zero by *Default*.
-The `get()` function returns the value of the counter and decreases the
-counter, so each call to increment the value via `set()` is only usable
-once.  The `lexconditional` directive specifies a boolean condition followed
-by an action on the lexer (`self` refers to the lexer).
-Before each attempt to scan the next token,
-the lexer will check each lexconditional statement.  The [StrTokenizer::add_priority_symbol](https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html#method.add_priority_symbol)
+The [StrTokenizer::add_priority_symbol](https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html#method.add_priority_symbol)
 function inserts a new symbol into the multiset.
 
 The `flag_state` non-terminal's sole purpose is to inject an additional
 semantic action into the `type_arguments` rule.  As `flag_state` is an
 empty production, this has the same effect as an intermediate action in
 Yacc/Bison. It will only be executed when the prefix to the left,
-`LT type_argument<COMMA+>`, is unambiguously confirmed.  The action sets
-the multiswitch, which will cause an instance of GT (`>`) to be added to
-the lexer's priority multiset.  This instance is automatically removed once
+`LT type_argument<COMMA+>`, is unambiguously confirmed.  The action
+adds an instance of GT (`>`) to
+the tokenizer's priority multiset.  This instance is automatically removed once
 matched.  
-
-Rustlr is structured so that the lexer is not directly controlled by the parser:
-the only way for them to communicate is via the `shared_state`.   
-
-
 
 
 --------------------
