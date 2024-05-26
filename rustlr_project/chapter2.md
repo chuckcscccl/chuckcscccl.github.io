@@ -935,6 +935,8 @@ only to the generated AST file as opposed to parser file. The syntax
 **`@Value`** refers to the type of the `Value` nonterminal (or you can say
 `Value<'lt>`, but you will in general know what type would be generated
 by the system for the nonterminal: the `@` symbol offers a convenience.)
+Note that LBox is required in the type of `Object` because `Object` is
+mutually recursive with `Value`.
 
 Each key-value pair inside the vector created by `<COMMA*>` is wrapped
 inside an LBox.  We can take the value from the box with
