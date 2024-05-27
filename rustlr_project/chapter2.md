@@ -129,7 +129,15 @@ results are partial.."); x});
 }//main   
 ```
 The last two lines of main relies on additional structures and functions
-defined inside [main.rs](https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/src/main.rs).  
+defined inside [main.rs](https://github.com/chuckcscccl/rustlr/blob/main/examples/autocalc/src/main.rs).  Remove them to see just the AST generated.
+
+Please note that an instance of the lexical tokenizer is created for each
+input source, and the proper function to initiate parsing is `parse_with`,
+which is custom generated for each grammar.  In the online documentation
+there are also `parse` methods but these should not be invoked directly,
+at least not in the `auto` mode.  This mode generates an internal enum for
+the various types associated with grammar symbols, and `parse_with` is
+required to decode the enum and return a usable value.
 
 The crate is now ready for **`cargo run`**. You will see that error recovery
 was effective and results were displayed for lines that parsed correctly.
