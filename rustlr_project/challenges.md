@@ -156,14 +156,14 @@ flag_state -->  { parser.get_tokenizer().add_priority_symbol(">"); ... }
 The [StrTokenizer::add_priority_symbol](https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html#method.add_priority_symbol)
 function inserts a new symbol into the multiset.
 
-The `flag_state` non-terminal's sole purpose is to inject an additional
-semantic action into the `type_arguments` rule.  As `flag_state` is an
-empty production, this has the same effect as an intermediate action in
-Yacc/Bison. It will only be executed when the prefix to the left,
-`LT type_argument<COMMA+>`, is unambiguously confirmed.  The action
-adds an instance of GT (`>`) to
-the tokenizer's priority multiset.  This instance is automatically removed once
-matched.  
+The `flag_state` non-terminal's sole purpose is to inject an
+additional semantic action into the `type_arguments` rule.  As
+`flag_state` is an empty production, this has the same effect as an
+intermediate action in Yacc/Bison. It will only be executed when the
+prefix to the left, `LT type_argument<COMMA+>`, is unambiguously
+confirmed.  The action adds an instance of GT (`>`) to the tokenizer's
+priority multiset.  This instance is automatically removed once
+matched.
 
 
 --------------------
