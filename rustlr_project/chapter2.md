@@ -94,15 +94,21 @@ built-in [StrTokenizer][1].  This option is not recommended.
   information.  Each greater level will print all information in lower levels.
   -trace 3 will print the states of the LR finite state machine, which could
   be useful for debugging and training the parser for error message output.
-- **-nozc** : this produces an older version of the runtime parser that does not use
-  the new zero-copy lexical analyzer trait.  This option is only retained
+- **-zc** : this produces a parser in the style prior to version 0.6, where the
+parser and tokenizer are independent entities
+- **-nozc** : this produces an even older version of the runtime parser, for versions prior to 0.2.
+  This option is only retained
   for backwards compatibility with grammars and lexical scanners written prior
   to rustlr version 0.2.0.  This option is not capable of generating a lexical
   scanner.  Using this option also requires that rustlr be installed with
-  the **`--features legacy-parser`** option.
+  the **`--features legacy-parser`** build option.
 - **-lrsd** : enables "LR parsing with selective delays".  This is an
   experimental (but usable) extention of LR(1) parsing and accepts a larger
   class of grammars.  See the [Appendix][appendix] for details.
+- **-table** : this option (introduced in Version 0.6.1) stores and loads
+  the parse table from a binary file instead of storing it inline as a static
+  array.  This option may be better for parsers with a large number of states,
+  especially if one wishes to use rustfmt on the generated parser.
 
 
 #### Sample main
