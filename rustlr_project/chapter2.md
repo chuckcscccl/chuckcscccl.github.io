@@ -108,7 +108,9 @@ parser and tokenizer are independent entities
 - **-table** : this option (introduced in Version 0.6.1) stores and loads
   the parse table from a binary file instead of storing it inline as a static
   array.  This option may be better for parsers with a large number of states,
-  especially if one wishes to use rustfmt on the generated parser.
+  especially if one wishes to use rustfmt on the generated parser.  This option
+  is not compatible with older style of parsers such as those enabled with
+  the `-zc` option.
 
 
 #### Sample main
