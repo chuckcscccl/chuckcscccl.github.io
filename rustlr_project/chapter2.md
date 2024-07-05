@@ -107,10 +107,13 @@ parser and tokenizer are independent entities
   class of grammars.  See the [Appendix][appendix] for details.
 - **-table** : this option (introduced in Version 0.6.1) stores and loads
   the parse table from a binary file instead of storing it inline as a static
-  array.  This option may be better for parsers with a large number of states,
+  array.  It will create a `.fsm` file in the same directory as the parser
+  and AST modules.  When loading the fsm file, it will look for it in either
+  the working directory or in the `./src/` directory.
+  This option may be better for parsers with a large number of states,
   especially if one wishes to use rustfmt on the generated parser.  This option
   is not compatible with older style of parsers such as those enabled with
-  the `-zc` option.
+  the `-zc` option. 
 
 
 #### Sample main
