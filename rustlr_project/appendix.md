@@ -258,64 +258,8 @@ there is a declared lifetime (such as via a `lifetime 'lt` grammar
 directive).  If it is declared, the value will be the verbatim string
 slice that was tokenized (`&'lt str`).
 
-In the rare cases when there is no lifetime, the value is a pair
-`(start,end)` that represents the positions of the input string slice.
-The actual text can be accessed from the lexical analyzer instance
-with the [Tokenizer::get_slice][getslice] function.  For example, with
-the following grammar:
-```
-terminals c a b
-nonterminal T usize
-nonterminal E
-topsym E
-
-T --> b {parser.current_position()}
-T --> _:@(x,y)@ {x}
-E --> a T*:positions b
-```
-and used the -auto (or -genabsyn) option when generating the parser, rustlr
-will generate a struct:
-```
-pub struct E {
-  pub positions:Vec<LBox<usize>>,
-}
-```
-It will not generate a type for `T` since its type was overridden with usize.
-The generated parser will record in a `Vec<LBox<usize>>` the starting positions
-of each wildcard or `b` token.  The following main can then be used to
-extract the actual text from the semantic information returned by the parser:
-```
-mod wc_ast;
-use wc_ast::*;
-mod wcparser;
-use rustlr::Tokenizer;  // needed to make the get_slice function visible
-
-fn main()
-{
-  let mut input = "a c d e f b b";
-  let mut scanner4 = wcparser::wclexer::from_str(input);
-  let mut parser4 = wcparser::make_parser();
-  let tree4= wcparser::parse_with(&mut parser4, &mut scanner4);
-  let result4 = tree4.unwrap_or_else(|x|{println!("Parsing errors encountered; results not guaranteed.."); x});
-  println!("\nABSYN: {:?}\n",&result4);
-  let E {positions:v} = result4;
-  if v.len()==0 {return;}
-  let start = *v[0];
-  let end = *v[v.len()-1];
-  let text = scanner4.get_slice(start,end);
-  println!("text of slice: {}",text);
-}//main
-```
-This code will produce the output
-```
-ABSYN: E { positions: [1, 3, 5, 7, 11] }
-
-text of slice:  c d e f b
-```
-
-In the even rarer case that all semantic values are of the same type
-(in older rustlr grammars) the value carried by the wildcard will be
-the default value of that type.
+Note that some older versions of Rustlr attached different types of semantic
+values to wildcards.  These should now be considered deprecated.
 
 
 [1]:https://docs.rs/rustlr/latest/rustlr/lexer_interface/struct.StrTokenizer.html

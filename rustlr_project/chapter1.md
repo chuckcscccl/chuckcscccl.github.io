@@ -488,10 +488,10 @@ pub fn eval(expr:&E) -> Option<i32> {
   use E::*;
   match expr {
     Val(n) => Some(*n),
-    Neg(n) => eval(n).map(|x|-x),
-    Plus(a,b) => eval(a).zip(eval(b)).map(|(x,y)|x+y),
-    Minus(a,b) => eval(a).zip(eval(b)).map(|(x,y)|x-y),
-    Times(a,b) => eval(a).zip(eval(b)).map(|(x,y)|x*y),
+    Neg(n) => Some(-1 * eval(n)?),
+    Plus(a,b) => Some(eval(a)? + eval(b)?),
+    Minus(a,b) => Some(eval(a)? - eval(b)?),
+    Times(a,b) => Some(eval(a)? * eval(b)?),
     Divide(a,b) =>
        eval(b)
        .and_then(|y| {
