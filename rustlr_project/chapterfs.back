@@ -8,8 +8,9 @@ This repository contains the runtime parser written in F\#.  The lexical
 analysis aspect of Fussless uses [CsLex][cslex], which is written in C\#.
 Fussless can automatically generate a CsLex .lex file from the grammar.
 Download Fussless and follow instructions in the [Fussless README][fussless]
-to install the system.  The readme also contains instructions on how to
-use the system to create a parser.
+to install the system.  If you're not using the latest Mono, you may have
+to re-compile absLexer.cs into a .dll, and then, using that
+.dll, compile RuntimeParser.fs to a .dll.
 
 At the time of this writing, there are still some features missing from
 Fussless compared to the native Rust parser generator. There is
@@ -18,10 +19,10 @@ option and the wildcard symbol are not currently supported
 and the interactive training feature is also not available.
 These limitations will gradually be resolved with future releases.
 
-The Fussless system can automatically generate the abstract syntax
-types and semantic actions from a grammar with the `auto` option.
-However, the first part of this chapter will show how to write
-grammars with manually defined types and actions.
+As of Rustlr release 4.0, the Fussless system can now automatically
+generate the abstract syntax types and semantic actions from a grammar with
+the `auto` option.  However, the first part of this chapter will show how
+to write grammars with manually defined types and actions.
 
 ### Invoking the Parser Generator
 
@@ -83,10 +84,11 @@ with absLexer.dll.
   -trace 3 will print the states of the LR finite state machine, which could
   be useful for debugging and training the parser for error message output.
 
-The generated parser will be a program `test1parser.fs` that contains
-a **`parse_with`** function.  RustLr will derive the name of the
-grammar (test1) from the file path, unless there is a declaration of
-the form
+The generated parser will be a program
+[test1parser.fs](https://cs.hofstra.edu/~cscccl/rustlr_project/fstarget/test1parser.fs)
+that contains a **`parse_with`** function.  RustLr will derive the
+name of the grammar (test1) from the file path, unless there is a
+declaration of the form
 
 >  grammarname somename
 
@@ -337,6 +339,22 @@ and lexer.  By default, this type is unit.  The class comes with two
 constructors: one taking a string, as used in the above program, and
 one taking a System.IO.FileStream.
 
+Assuming that [Fussless][fussless] has been downloaded and that 'absLexer.dll'
+and 'RuntimeParser.dll' are available, compile the test1parser.fs file with
+RuntimeParser.dll and the test1_lex.cs file (produced by lex.exe) with
+absLexer.dll.  Note that both the generated parser and lexer are defined within
+the 'Fussless' namespace and the parser is defined under the Test1 module, which
+is why 'open Test1' is used: you would have to call Test1.make_parser and
+Test1.parse_with otherwise.
+
+Now compile the above test1main.fs program with the .dlls of the parser and
+lexer.  Under mono this is done with
+
+>       fsharpc test1main.fs -r test1parser.dll -r test1_lex.dll
+
+which produces an executable.  Alternatively, there is a [Makefile](https://github.com/chuckcscccl/Fussless/blob/main/Makefile) included inside the Fussless
+repository.  Consult the [Fussless Readme](https://github.com/chuckcscccl/Fussless/blob/main/README.md) for instructions.
+
 The `parse_with` function must be passed instances of a parser and a lexer.
 It returns an **option type** value of type **valuetype option**.
 
@@ -452,73 +470,7 @@ to do with the result.
 
 
 
-Note that the - (minus) symbol serves as both a unary and a binary operator.
-As a unary operator, it should have precedence over \*.
-This means that using operator precedence/associativity declarations for
-the symbol is not enough.  "-3*5" should be parsed as (-3)\*5 and not as
--(3\*5): never mind that they both evaluate to -15: the point is that the
-parse trees are different.  Thus, a precedence level can also be assigned
-to a *rule*, which is done for the rule for unary minus.  Without a 
-particular precedence assignment, a rule is assigned the precedence of the
-highest precedence symbol it finds on the right-hand side.  Precedence declarations are definitely a *hack*, almost as bad as some parser generators that
-claim to "work with any grammar".
-They should not be overly relied on.  One place where it
-is useful is in disambiguating the *dangling else* problem: assign "else"
-a higher precedence than "if".  This will force a *shift* when an "else" is
-encountered, which means that it will be associated with the nearest "if".
-
-
-#### Using C\#
-
-Using C\# is possible by virtue of .Net interoperability.  The abstract syntax
-structures can be defined in C\# and the semantic actions to construct such
-structures should generally not be difficult to call from F\#.  The 
-integration of the .dlls from the different languages may face some challenges
-depending on your development platform. On Mono there where some problems
-importing a .dll compiled with F\# into a C\# project.  But these problems
-can be mostly avoided by writing some minimal components of the parser in 
-F#.  
-
-<br>
-
-### **Automatically Generating the Abstract Syntax**
-
-With Rustlr 0.4 and the latest Fussless the grammar can now generate the
-abstract syntax types and semantic actions automatically.  The auto mode
-allows any degree of manual override for both types and semantic actions.
-To override a type for a nonterminal, simply define the type as in
-```
-  nonterminal E int
-```
-Semantic actions can also be overridden by simply writing them inside
-curly braces.  It's also possible to inject custom code before the automatically
-generated code by writing actions of the form `{ /*injected code*/ ...}`.
-The ellipses can only occur at the end of the action.
-
-Essentially, the AST types for non-terminal symbols that are on the
-left-hand side of multiple productions generate discriminated unions
-while those with a single production generate records.  However, the
-AST types do not necessarily just mirror the grammar. For example,
-non-terminal symbols such as E, T and F (of the calculator grammar)
-can be specified to define a single union type as opposed to
-individual types.  Records can be absorbed or "flattened" into other
-types.  Rustlr/Fussless grammars contain a sub-language that defines
-how ASTs are to be created that can also be stable across small
-changes to the grammar. The system has the same capabilities as
-described for Rust parsers in **[Chapter 4][chap4]**.  In fact it is
-simpler since there is no need for lifetimes and smart pointers.
-Fussless *LBox* structures are created in the same way as their
-counterparts in Rust, without the pointer aspect.
-
-To invoke the auto feature, replace the "valuetype" declaration with "auto"
-at the top of the grammar.  In addition to the parser file, an `_ast.fs`
-file will be created.  Code can be injected into the AST file with lines
-beginning with `$`.
-
-
 #### Using Regular Expression-Like Operators +, \*, ?, etc
-
-**Please note that this feature only works reliably in the `auto` mode**.
 
 Rustlr allows grammar rules to be written in the following way:
 ```
@@ -554,55 +506,139 @@ allow the regex-like operators to be *nested*: such expressions easily become
 ambiguous.  Consider `(a?)+`:  a single `a` will have an infinite
 number of parse trees because any number of `a?` can be empty.
 
+
 #### A More Advanced Example
 
-  The grammar [calcautofs.grammar](https://github.com/chuckcscccl/Fussless/blob/main/calcautofs.grammar) demonstrates the automatic generation of ASTs.
-```
-  auto
-  
-  terminals + - * / ( ) = ;
-  terminals let in
-  valueterminal int ~ int ~ Num ~ int
-  valueterminal var ~ string ~ Alphanum ~ (fun x -> x)
-  lexattribute line_comment #
-  
-  nonterminal Expr
-  nonterminal ExprList
-  nonterminal UnaryExpr : Expr
-  nonterminal LetExpr : Expr
-  
-  topsym ExprList
+We consolidate the features of Fussless with a more advanced version
+of an online calculator.  In addition to several new terminal token
+types, this grammar approaches the sophistication of a programming
+language with let-expression, as in `let x=1 in x+(let x=3 in x+x)+x`
+(which should evaluate to 8).  Checking for the proper scoping of
+variables, however, is typically not done at the parsing stage.
+The language also allows a sequence of expressions separated by semicolons.
+The semicolon (`;`) is also declared as the error-recovery resynch point.
 
-  resync ;         
-  
-  left * 500
-  left / 500
-  left + 400
-  left - 400
-  
-  UnaryExpr:Val --> int
-  UnaryExpr:Var --> var
-  UnaryExpr:Neg --> - UnaryExpr
-  UnaryExpr --> ( LetExpr )
-  
-  Expr --> UnaryExpr
-  Expr:Plus--> Expr + Expr
-  Expr:Minus --> Expr:a - Expr:b
-  Expr:Div --> Expr / Expr
-  Expr:Times --> Expr:leftexpr * Expr
-  
-  LetExpr --> Expr
-  LetExpr:Let --> let var = Expr in LetExpr
-  
-  ExprList:nil -->
-  ExprList:cons --> LetExpr:car ; ExprList:cdr
-```
+This time, the parser will build abstract syntax trees, and we've injected
+the AST discriminated union type directly into the parser, though usually
+this is done separately in another module.  Discriminated unions and
+pattern matching definitely give F\# and similar languages an advantage over
+conventional languages when processing ASTs.  Even Rust cannot compete as
+recursive types require smart pointers (Box) that prevent deep pattern matching.
 
-Another, larger example can be found here:
-[fs7c.grammar](https://github.com/chuckcscccl/Fussless/blob/main/fs7c.grammar).
-This grammar defines a simplified, typed functional programming
-language that was used in a compilers class taught at Hofstra
-University.
+```
+!type expr = Val of int | Var of string | Float of float | Plus of expr*expr | Times of expr*expr | Minus of expr*expr | Divide of expr*expr | Negative of expr | Letexp of string*expr*expr | Equals of (expr*expr) | Uint of uint64;;
+!
+!let conv64 (x:string) :uint64 = System.UInt64.Parse(x.Substring(0,x.Length-2))
+
+valuetype Vec<expr>
+# Vec is defined in the Fussless namespace as an alias for ResizeArray
+
+nonterminal E expr
+nonterminal ES
+terminals + - * / ( ) == = ;
+terminals let in
+valueterminal Val ~ int ~ Num ~ int
+valueterminal Var ~ string ~ Alphanum ~ (fun x -> x)
+valueterminal Float ~ float ~ Float ~ float
+lexattribute custom U64 [0-9]+UL
+valueterminal Ulong ~ uint64 ~ U64 ~ conv64
+
+lexattribute line_comment #
+
+topsym ES
+resync ;
+
+left * 500
+left / 500
+left + 400
+left - 400
+nonassoc = 200
+right == 300
+
+E --> Val:m { Val(m) }
+E --> Var:s { Var(s) }
+E --> Float:f { Float(f) }
+E --> Ulong:u { Uint(u) }
+E --> let Var:x = E:e in E:b {Letexp(x,e,b)}
+E --> E:e1 + E:e2 { Plus(e1,e2) }
+E --> E:e1 - E:e2 { Minus(e1,e2) }
+E --> E:e1 * E:e2 { Times(e1,e2) }
+E ==> E:e1 / E:e2 {
+  if e2=Val(0) then
+     let (ln,cl) = parser.position(2)
+     printfn "Warning:obvious division by 0, line %d column %d" ln cl
+  Divide(e1,e2)
+  } <==
+
+E --> E:e1 == E:e2 { Equals(e1,e2) }
+E(600) --> - E:e { Negative(e) }
+E --> ( E:e )  { e }
+ES --> E<;+>:v ;? { v }
+
+EOF
+```
+Note that the - (minus) symbol serves as both a unary and a binary operator.
+As a unary operator, it should have precedence over \*.
+This means that using operator precedence/associativity declarations for
+the symbol is not enough.  "-3*5" should be parsed as (-3)\*5 and not as
+-(3\*5): never mind that they both evaluate to -15: the point is that the
+parse trees are different.  Thus, a precedence level can also be assigned
+to a *rule*, which is done for the rule for unary minus.  Without a 
+particular precedence assignment, a rule is assigned the precedence of the
+highest precedence symbol it finds on the right-hand side.  Precedence declarations are definitely a *hack*, almost as bad as some parser generators that
+claim to "work with any grammar".
+They should not be overly relied on.  One place where it
+is useful is in disambiguating the *dangling else* problem: assign "else"
+a higher precedence than "if".  This will force a *shift* when an "else" is
+encountered, which means that it will be associated with the nearest "if".
+
+
+#### Using C\#
+
+Using C\# is possible by virtue of .Net interoperability.  The abstract syntax
+structures can be defined in C\# and the semantic actions to construct such
+structures should generally not be difficult to call from F\#.  The 
+integration of the .dlls from the different languages may face some challenges
+depending on your development platform. On Mono there where some problems
+importing a .dll compiled with F\# into a C\# project.  But these problems
+can be mostly avoided by writing some minimal components of the parser in 
+F#.  
+
+<br>
+
+### **Automatically Generating the Abstract Syntax**
+
+With Rustlr 0.4 and the latest Fussless the grammar can now generate the
+abstract syntax types and semantic actions automatically.  Manual overrides
+are also possible.  Essentially, non-terminal symbols that are on the
+left-hand side of multiple productions generate discriminated unions while
+those with a single production generate records.  However, the AST types do 
+not necessarily just mirror the grammar. For
+example, non-terminal symbols such as E, T and F (of the calculator grammar)
+can be specified to define a single union type as opposed to individual
+types.  Records can be absorbed or "flattened" into other types.
+Rustlr/Fussless grammars contain a sub-language that defines 
+how ASTs are to be created that can also be stable across small changes to 
+the grammar. The system has the same capabilities as described for
+Rust parsers in **[Chapter 4][chap4]**.  In fact it is simpler since there
+is no need for lifetimes and smart pointers.  Fussless *LBox* structures
+are created in the same way as their counterparts in Rust, without the
+pointer aspect.
+
+Two sample grammars are available that demonstrate these abilities:
+
+  1. [calcautofs.grammar](https://github.com/chuckcscccl/Fussless/blob/main/calcautofs.grammar).  This grammar describes another version of the calculator
+grammar with `auto` types and actions and some overrides.  It also demonstrates the injection of code that precedes the automatically generated actions, and
+the 'flattening' feature for structs.
+
+  2. [fs7c.grammar](https://github.com/chuckcscccl/Fussless/blob/main/fs7c.grammar).  This grammar defines a simplified, typed functional
+programming language that was used in a compilers class taught at Hofstra
+University. 
+
+To invoke the feature, replace the "valuetype" declaration with "auto"
+at the top of the grammar.  In addition to the parser file, an `_ast.fs`
+file will be created.  Code can be injected into the AST file with lines
+beginning with `$`.
 
 
 --------------
