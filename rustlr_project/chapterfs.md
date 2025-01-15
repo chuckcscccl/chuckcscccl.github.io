@@ -505,7 +505,7 @@ individual types.  Records can be absorbed or "flattened" into other
 types.  Rustlr/Fussless grammars contain a sub-language that defines
 how ASTs are to be created that can also be stable across small
 changes to the grammar. The system has the same capabilities as
-described for Rust parsers in **[Chapter 4][chap4]**.  In fact it is
+described for [Rust parsers](https://chuckcscccl.github.io/rustlr_project/chapter2.html). In fact, for F\# it's
 simpler since there is no need for lifetimes and smart pointers.
 Fussless *LBox* structures are created in the same way as their
 counterparts in Rust, without the pointer aspect.
