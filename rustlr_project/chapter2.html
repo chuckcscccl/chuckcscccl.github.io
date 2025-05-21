@@ -467,14 +467,14 @@ to demonstrate a simple error recovery mechanism.</p>
 <p>The grammar is as follows:</p>
 <pre><code># Advanced Calculator
 auto
-lifetime <span class="hljs-symbol">'lt</span>
+lifetime <span class="hljs-string">'lt
 terminals + - * / = ;
-terminals <span class="hljs-keyword">let</span> <span class="hljs-variable">in</span>
-lexterminal <span class="hljs-title function_ invoke__">LPAREN</span> (
+terminals let in
+lexterminal LPAREN (
 lexterminal RPAREN )
-valueterminal int ~ <span class="hljs-type">i64</span> ~ <span class="hljs-title function_ invoke__">Num</span>(n) ~ n
-valueterminal var ~ &amp;<span class="hljs-symbol">'lt</span> <span class="hljs-type">str</span> ~ <span class="hljs-title function_ invoke__">Alphanum</span>(n) ~ n
-lexattribute <span class="hljs-title function_ invoke__">set_line_comment</span>(<span class="hljs-string">"#"</span>)
+valueterminal int ~ i64 ~ Num(n) ~ n
+valueterminal var ~ &amp;'</span>lt str <span class="hljs-operator">~</span> Alphanum(n) <span class="hljs-operator">~</span> n
+lexattribute set_line_comment("#")
 
 nonterminals Expr ExprList
 nonterminal UnaryExpr : Expr
@@ -483,29 +483,31 @@ nonterminal LetExpr : Expr
 topsym ExprList
 resync ;
 
-left * <span class="hljs-number">500</span>
-left / <span class="hljs-number">500</span>
-left + <span class="hljs-number">400</span>
-left - <span class="hljs-number">400</span>
+<span class="hljs-keyword">left</span> <span class="hljs-operator">*</span> <span class="hljs-number">500</span>
+<span class="hljs-keyword">left</span> <span class="hljs-operator">/</span> <span class="hljs-number">500</span>
+<span class="hljs-keyword">left</span> <span class="hljs-operator">+</span> <span class="hljs-number">400</span>
+<span class="hljs-keyword">left</span> <span class="hljs-operator">-</span> <span class="hljs-number">400</span>
 
-UnaryExpr:Val -<span class="hljs-punctuation">-&gt;</span> int
-UnaryExpr:Var -<span class="hljs-punctuation">-&gt;</span> var
-UnaryExpr:Neg -<span class="hljs-punctuation">-&gt;</span> - UnaryExpr
-UnaryExpr -<span class="hljs-punctuation">-&gt;</span> LPAREN LetExpr RPAREN
+UnaryExpr:Val <span class="hljs-comment">--&gt; int</span>
+UnaryExpr:Var <span class="hljs-comment">--&gt; var</span>
+UnaryExpr:Neg <span class="hljs-comment">--&gt; - UnaryExpr</span>
+UnaryExpr <span class="hljs-comment">--&gt; LPAREN LetExpr RPAREN</span>
 
-Expr -<span class="hljs-punctuation">-&gt;</span> UnaryExpr
-Expr:Plus -<span class="hljs-punctuation">-&gt;</span> Expr + Expr
-Expr:Minus -<span class="hljs-punctuation">-&gt;</span> Expr - Expr
-Expr:Div -<span class="hljs-punctuation">-&gt;</span> Expr / Expr
-Expr:Times -<span class="hljs-punctuation">-&gt;</span> Expr * Expr
+Expr <span class="hljs-comment">--&gt; UnaryExpr</span>
+Expr:Plus <span class="hljs-comment">--&gt; Expr + Expr</span>
+Expr:Minus <span class="hljs-comment">--&gt; Expr - Expr</span>
+Expr:Div <span class="hljs-comment">--&gt; Expr / Expr</span>
+Expr:Times <span class="hljs-comment">--&gt; Expr * Expr</span>
 
-LetExpr -<span class="hljs-punctuation">-&gt;</span> Expr
-LetExpr:Let -<span class="hljs-punctuation">-&gt;</span> <span class="hljs-keyword">let</span> <span class="hljs-variable">var</span>:let_var = Expr:init_value <span class="hljs-keyword">in</span> LetExpr:let_body
+LetExpr <span class="hljs-comment">--&gt; Expr</span>
+LetExpr:Let <span class="hljs-comment">--&gt; let var:let_var = Expr:init_value in LetExpr:let_body</span>
 
-ExprList:nil -<span class="hljs-punctuation">-&gt;</span>
-ExprList:cons -<span class="hljs-punctuation">-&gt;</span> LetExpr:car ; ExprList:cdr
-# alternative, will create a vector:
-# ExprList -<span class="hljs-punctuation">-&gt;</span> (LetExpr ;)*
+<span class="hljs-keyword">default</span> ExprList nil
+
+ExprList:nil <span class="hljs-comment">--&gt;</span>
+ExprList:cons <span class="hljs-comment">--&gt; LetExpr:car ; ExprList:cdr</span>
+# alternative, will <span class="hljs-keyword">create</span> a vector:
+# ExprList <span class="hljs-comment">--&gt; (LetExpr ;)*</span>
 </code></pre>
 <p>The grammar takes full advantage of the 'auto' mode: only the types of
 values carried by terminal symbols <code>var</code> and <code>int</code> need to be declared.
@@ -814,9 +816,8 @@ a struct).  The ASTs generated for the grammar of this chapter are</p>
 <span class="hljs-keyword">pub</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">ExprList</span>&lt;<span class="hljs-symbol">'lt</span>&gt; {
   nil,
   cons{car:Expr&lt;<span class="hljs-symbol">'lt</span>&gt;,cdr:LBox&lt;ExprList&lt;<span class="hljs-symbol">'lt</span>&gt;&gt;},
-  ExprList_Nothing,
 }
-<span class="hljs-keyword">impl</span>&lt;<span class="hljs-symbol">'lt</span>&gt; <span class="hljs-built_in">Default</span> <span class="hljs-keyword">for</span> <span class="hljs-title class_">ExprList</span>&lt;<span class="hljs-symbol">'lt</span>&gt; { <span class="hljs-keyword">fn</span> <span class="hljs-title function_">default</span>()<span class="hljs-punctuation">-&gt;</span><span class="hljs-keyword">Self</span> { ExprList::ExprList_Nothing } }
+<span class="hljs-keyword">impl</span>&lt;<span class="hljs-symbol">'lt</span>&gt; <span class="hljs-built_in">Default</span> <span class="hljs-keyword">for</span> <span class="hljs-title class_">ExprList</span>&lt;<span class="hljs-symbol">'lt</span>&gt; { <span class="hljs-keyword">fn</span> <span class="hljs-title function_">default</span>()<span class="hljs-punctuation">-&gt;</span><span class="hljs-keyword">Self</span> { <span class="hljs-keyword">use</span> ExprList::*; nil } }
 </code></pre>
 <p>An enum is created for each non-terminal symbol of the grammar that
 appears on the left-hand side of multiple production rules, unless the
@@ -825,7 +826,8 @@ explained above. The name of the enum is the same as the name of the
 non-terminal.  The names of the variants are derived from the labels
 given to the left-hand side nonterminal, or are automatically
 generated from the nonterminal name and the rule number (e.g. <code>Expr_8</code>).
-A special <code>Nothing</code> variant is also created to represent a default.
+A special <code>Nothing</code> variant is also created to represent a default, unless
+overridden by directives in the grammar file such as <code>default Expr Val(0)</code>.
 There is normally an enum variant for each production rule of this
 non-terminal.  Each variant is composed of the right-hand side symbols
 of the rule that are associated with <em>non-unit</em> types.  If none of the

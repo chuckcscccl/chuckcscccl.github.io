@@ -456,7 +456,12 @@ pub enum E {
 impl Default for E { fn default()->Self { E::E_Nothing } }
 ```
 The variant `E_Nothing` is created to implement the `Default` trait, which is
-required of all semantic value types.
+required of all semantic value types.  The default variant for enums can be
+overridden with directives in the grammar file such as
+```
+  default E Val(0)
+```
+Defaults for structs are always derived.
 
 #### What is an **LBox?**
 

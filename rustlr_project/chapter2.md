@@ -51,6 +51,8 @@ Expr:Times --> Expr * Expr
 LetExpr --> Expr
 LetExpr:Let --> let var:let_var = Expr:init_value in LetExpr:let_body
 
+default ExprList nil
+
 ExprList:nil -->
 ExprList:cons --> LetExpr:car ; ExprList:cdr
 # alternative, will create a vector:
@@ -369,9 +371,8 @@ impl<'lt> Default for Expr<'lt> { fn default()->Self { Expr::Expr_Nothing } }
 pub enum ExprList<'lt> {
   nil,
   cons{car:Expr<'lt>,cdr:LBox<ExprList<'lt>>},
-  ExprList_Nothing,
 }
-impl<'lt> Default for ExprList<'lt> { fn default()->Self { ExprList::ExprList_Nothing } }
+impl<'lt> Default for ExprList<'lt> { fn default()->Self { use ExprList::*; nil } }
 ```
 
 An enum is created for each non-terminal symbol of the grammar that
@@ -381,7 +382,8 @@ explained above. The name of the enum is the same as the name of the
 non-terminal.  The names of the variants are derived from the labels
 given to the left-hand side nonterminal, or are automatically
 generated from the nonterminal name and the rule number (e.g. `Expr_8`).
-A special `Nothing` variant is also created to represent a default.
+A special `Nothing` variant is also created to represent a default, unless
+overridden by directives in the grammar file such as `default Expr Val(0)`.
 There is normally an enum variant for each production rule of this
 non-terminal.  Each variant is composed of the right-hand side symbols
 of the rule that are associated with *non-unit* types.  If none of the
