@@ -42,7 +42,7 @@
 
 </style>
 <style media="screen">/*
- * Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+ * Copyright (c) 2016 Thibaut Rousseau
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -63,999 +63,117 @@
  * SOFTWARE.
  */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-prettylights-syntax-comment: #8b949e;
-    --color-prettylights-syntax-constant: #79c0ff;
-    --color-prettylights-syntax-entity: #d2a8ff;
-    --color-prettylights-syntax-storage-modifier-import: #c9d1d9;
-    --color-prettylights-syntax-entity-tag: #7ee787;
-    --color-prettylights-syntax-keyword: #ff7b72;
-    --color-prettylights-syntax-string: #a5d6ff;
-    --color-prettylights-syntax-variable: #ffa657;
-    --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
-    --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
-    --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
-    --color-prettylights-syntax-carriage-return-text: #f0f6fc;
-    --color-prettylights-syntax-carriage-return-bg: #b62324;
-    --color-prettylights-syntax-string-regexp: #7ee787;
-    --color-prettylights-syntax-markup-list: #f2cc60;
-    --color-prettylights-syntax-markup-heading: #1f6feb;
-    --color-prettylights-syntax-markup-italic: #c9d1d9;
-    --color-prettylights-syntax-markup-bold: #c9d1d9;
-    --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
-    --color-prettylights-syntax-markup-deleted-bg: #67060c;
-    --color-prettylights-syntax-markup-inserted-text: #aff5b4;
-    --color-prettylights-syntax-markup-inserted-bg: #033a16;
-    --color-prettylights-syntax-markup-changed-text: #ffdfb6;
-    --color-prettylights-syntax-markup-changed-bg: #5a1e02;
-    --color-prettylights-syntax-markup-ignored-text: #c9d1d9;
-    --color-prettylights-syntax-markup-ignored-bg: #1158c7;
-    --color-prettylights-syntax-meta-diff-range: #d2a8ff;
-    --color-prettylights-syntax-brackethighlighter-angle: #8b949e;
-    --color-prettylights-syntax-sublimelinter-gutter-mark: #484f58;
-    --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
-    --color-fg-default: #c9d1d9;
-    --color-fg-muted: #8b949e;
-    --color-fg-subtle: #484f58;
-    --color-canvas-default: #0d1117;
-    --color-canvas-subtle: #161b22;
-    --color-border-default: #30363d;
-    --color-border-muted: #21262d;
-    --color-neutral-muted: rgba(110,118,129,0.4);
-    --color-accent-fg: #58a6ff;
-    --color-accent-emphasis: #1f6feb;
-    --color-danger-fg: #f85149;
-  }
+@media (prefers-color-scheme: light) {
+	:root {
+		--back: white;
+		--text: #333333;
+		--link: #0088CC;
+		--alt-link: #005588;
+		--alt-back: #EEEEEE;
+	}
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --color-prettylights-syntax-comment: #6e7781;
-    --color-prettylights-syntax-constant: #0550ae;
-    --color-prettylights-syntax-entity: #8250df;
-    --color-prettylights-syntax-storage-modifier-import: #24292f;
-    --color-prettylights-syntax-entity-tag: #116329;
-    --color-prettylights-syntax-keyword: #cf222e;
-    --color-prettylights-syntax-string: #0a3069;
-    --color-prettylights-syntax-variable: #953800;
-    --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
-    --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
-    --color-prettylights-syntax-invalid-illegal-bg: #82071e;
-    --color-prettylights-syntax-carriage-return-text: #f6f8fa;
-    --color-prettylights-syntax-carriage-return-bg: #cf222e;
-    --color-prettylights-syntax-string-regexp: #116329;
-    --color-prettylights-syntax-markup-list: #3b2300;
-    --color-prettylights-syntax-markup-heading: #0550ae;
-    --color-prettylights-syntax-markup-italic: #24292f;
-    --color-prettylights-syntax-markup-bold: #24292f;
-    --color-prettylights-syntax-markup-deleted-text: #82071e;
-    --color-prettylights-syntax-markup-deleted-bg: #FFEBE9;
-    --color-prettylights-syntax-markup-inserted-text: #116329;
-    --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
-    --color-prettylights-syntax-markup-changed-text: #953800;
-    --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
-    --color-prettylights-syntax-markup-ignored-text: #eaeef2;
-    --color-prettylights-syntax-markup-ignored-bg: #0550ae;
-    --color-prettylights-syntax-meta-diff-range: #8250df;
-    --color-prettylights-syntax-brackethighlighter-angle: #57606a;
-    --color-prettylights-syntax-sublimelinter-gutter-mark: #8c959f;
-    --color-prettylights-syntax-constant-other-reference-link: #0a3069;
-    --color-fg-default: #24292f;
-    --color-fg-muted: #57606a;
-    --color-fg-subtle: #6e7781;
-    --color-canvas-default: #ffffff;
-    --color-canvas-subtle: #f6f8fa;
-    --color-border-default: #d0d7de;
-    --color-border-muted: hsla(210,18%,87%,1);
-    --color-neutral-muted: rgba(175,184,193,0.2);
-    --color-accent-fg: #0969da;
-    --color-accent-emphasis: #0969da;
-    --color-danger-fg: #cf222e;
-  }
+@media (prefers-color-scheme: dark) {
+	:root {
+		--back: #1C1B22;
+		--text: #FBFBFE;
+		--link: #55CCFF;
+		--alt-link: #0088CC;
+		--alt-back: #444444;
+	}
 }
 
 :root {
-  color: var(--color-fg-default);
-  background-color: var(--color-canvas-default);
+	background: var(--back);
+	color: var(--text);
 }
 
-.markdownroot {
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
-  font-size: 16px;
-  line-height: 1.5;
-  word-wrap: break-word;
+body {
+	font-family: 'Segoe UI', 'Lucida Grande', Helvetica, sans-serif;
+	line-height: 1.5;
+	margin: 2em;
 }
 
-.markdownroot .octicon {
-  display: inline-block;
-  fill: currentColor;
-  vertical-align: text-bottom;
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+	line-height: 1em;
+	margin: 20px 0;
 }
-
-.markdownroot h1:hover .anchor .octicon-link:before,
-.markdownroot h2:hover .anchor .octicon-link:before,
-.markdownroot h3:hover .anchor .octicon-link:before,
-.markdownroot h4:hover .anchor .octicon-link:before,
-.markdownroot h5:hover .anchor .octicon-link:before,
-.markdownroot h6:hover .anchor .octicon-link:before {
-  width: 16px;
-  height: 16px;
-  content: ' ';
-  display: inline-block;
-  background-color: currentColor;
-  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
-  mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
-}
-
-.markdownroot details,
-.markdownroot figcaption,
-.markdownroot figure {
-  display: block;
-}
-
-.markdownroot summary {
-  display: list-item;
-}
-
-.markdownroot a {
-  background-color: transparent;
-  color: var(--color-accent-fg);
-  text-decoration: none;
-}
-
-.markdownroot a:active,
-.markdownroot a:hover {
-  outline-width: 0;
-}
-
-.markdownroot abbr[title] {
-  border-bottom: none;
-  -webkit-text-decoration: underline dotted;
-  text-decoration: underline dotted;
-}
-
-.markdownroot b,
-.markdownroot strong {
-  font-weight: 600;
-}
-
-.markdownroot dfn {
-  font-style: italic;
-}
-
-.markdownroot h1 {
-  margin: .67em 0;
-  font-weight: 600;
-  padding-bottom: .3em;
-  font-size: 2em;
-  border-bottom: 1px solid var(--color-border-muted);
-}
-
-.markdownroot mark {
-  background-color: #ff0;
-  color: var(--color-text-primary);
-}
-
-.markdownroot small {
-  font-size: 90%;
-}
-
-.markdownroot sub,
-.markdownroot sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-
-.markdownroot sub {
-  bottom: -0.25em;
-}
-
-.markdownroot sup {
-  top: -0.5em;
-}
-
-.markdownroot img {
-  border-style: none;
-  max-width: 100%;
-  box-sizing: content-box;
-  background-color: var(--color-canvas-default);
-}
-
-.markdownroot code,
-.markdownroot kbd,
-.markdownroot pre,
-.markdownroot samp {
-  font-family: monospace,monospace;
-  font-size: 1em;
-}
-
-.markdownroot figure {
-  margin: 1em 40px;
-}
-
-.markdownroot hr {
-  box-sizing: content-box;
-  overflow: hidden;
-  background: transparent;
-  border-bottom: 1px solid var(--color-border-muted);
-  height: .25em;
-  padding: 0;
-  margin: 24px 0;
-  background-color: var(--color-border-default);
-  border: 0;
-}
-
-.markdownroot html [type=button],
-.markdownroot [type=reset],
-.markdownroot [type=submit] {
-  -webkit-appearance: button;
-}
-
-.markdownroot [type=button]::-moz-focus-inner,
-.markdownroot [type=reset]::-moz-focus-inner,
-.markdownroot [type=submit]::-moz-focus-inner {
-  border-style: none;
-  padding: 0;
-}
-
-.markdownroot [type=button]:-moz-focusring,
-.markdownroot [type=reset]:-moz-focusring,
-.markdownroot [type=submit]:-moz-focusring {
-  outline: 1px dotted ButtonText;
-}
-
-.markdownroot [type=checkbox],
-.markdownroot [type=radio] {
-  box-sizing: border-box;
-  padding: 0;
-}
-
-.markdownroot [type=number]::-webkit-inner-spin-button,
-.markdownroot [type=number]::-webkit-outer-spin-button {
-  height: auto;
-}
-
-.markdownroot [type=search] {
-  -webkit-appearance: textfield;
-  outline-offset: -2px;
-}
-
-.markdownroot [type=search]::-webkit-search-cancel-button,
-.markdownroot [type=search]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
-.markdownroot ::-webkit-input-placeholder {
-  color: inherit;
-  opacity: .54;
-}
-
-.markdownroot ::-webkit-file-upload-button {
-  -webkit-appearance: button;
-  font: inherit;
-}
-
-.markdownroot a:hover {
-  text-decoration: underline;
-}
-
-.markdownroot hr::before {
-  display: table;
-  content: "";
-}
-
-.markdownroot hr::after {
-  display: table;
-  clear: both;
-  content: "";
-}
-
-.markdownroot table {
-  border-spacing: 0;
-  border-collapse: collapse;
-  display: block;
-  width: max-content;
-  max-width: 100%;
-  overflow: auto;
-}
-
-.markdownroot td,
-.markdownroot th {
-  padding: 0;
-}
-
-.markdownroot details summary {
-  cursor: pointer;
-}
-
-.markdownroot details:not([open])>*:not(summary) {
-  display: none !important;
-}
-
-.markdownroot kbd {
-  display: inline-block;
-  padding: 3px 5px;
-  font: 11px ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
-  line-height: 10px;
-  color: var(--color-fg-default);
-  vertical-align: middle;
-  background-color: var(--color-canvas-subtle);
-  border: solid 1px var(--color-neutral-muted);
-  border-bottom-color: var(--color-neutral-muted);
-  border-radius: 6px;
-  box-shadow: inset 0 -1px 0 var(--color-neutral-muted);
-}
-
-.markdownroot h1,
-.markdownroot h2,
-.markdownroot h3,
-.markdownroot h4,
-.markdownroot h5,
-.markdownroot h6 {
-  margin-top: 24px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  line-height: 1.25;
-}
-
-.markdownroot h2 {
-  font-weight: 600;
-  padding-bottom: .3em;
-  font-size: 1.5em;
-  border-bottom: 1px solid var(--color-border-muted);
-}
-
-.markdownroot h3 {
-  font-weight: 600;
-  font-size: 1.25em;
-}
-
-.markdownroot h4 {
-  font-weight: 600;
-  font-size: 1em;
-}
-
-.markdownroot h5 {
-  font-weight: 600;
-  font-size: .875em;
-}
-
-.markdownroot h6 {
-  font-weight: 600;
-  font-size: .85em;
-  color: var(--color-fg-muted);
-}
-
-.markdownroot p {
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-.markdownroot blockquote {
-  margin: 0;
-  padding: 0 1em;
-  color: var(--color-fg-muted);
-  border-left: .25em solid var(--color-border-default);
-}
-
-.markdownroot ul,
-.markdownroot ol {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-left: 2em;
-}
-
-.markdownroot ol ol,
-.markdownroot ul ol {
-  list-style-type: lower-roman;
-}
-
-.markdownroot ul ul ol,
-.markdownroot ul ol ol,
-.markdownroot ol ul ol,
-.markdownroot ol ol ol {
-  list-style-type: lower-alpha;
-}
-
-.markdownroot dd {
-  margin-left: 0;
-}
-
-.markdownroot tt,
-.markdownroot code {
-  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
-  font-size: 12px;
-}
-
-.markdownroot pre {
-  margin-top: 0;
-  margin-bottom: 0;
-  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
-  font-size: 12px;
-  word-wrap: normal;
-}
-
-.markdownroot :-ms-input-placeholder {
-  color: var(--color-fg-subtle);
-  opacity: 1;
-}
-
-.markdownroot ::-ms-input-placeholder {
-  color: var(--color-fg-subtle);
-  opacity: 1;
-}
-
-.markdownroot ::placeholder {
-  color: var(--color-fg-subtle);
-  opacity: 1;
-}
-
-.markdownroot .pl-c {
-  color: var(--color-prettylights-syntax-comment);
-}
-
-.markdownroot .pl-c1,
-.markdownroot .pl-s .pl-v {
-  color: var(--color-prettylights-syntax-constant);
-}
-
-.markdownroot .pl-e,
-.markdownroot .pl-en {
-  color: var(--color-prettylights-syntax-entity);
-}
-
-.markdownroot .pl-smi,
-.markdownroot .pl-s .pl-s1 {
-  color: var(--color-prettylights-syntax-storage-modifier-import);
-}
-
-.markdownroot .pl-ent {
-  color: var(--color-prettylights-syntax-entity-tag);
-}
-
-.markdownroot .pl-k {
-  color: var(--color-prettylights-syntax-keyword);
-}
-
-.markdownroot .pl-s,
-.markdownroot .pl-pds,
-.markdownroot .pl-s .pl-pse .pl-s1,
-.markdownroot .pl-sr,
-.markdownroot .pl-sr .pl-cce,
-.markdownroot .pl-sr .pl-sre,
-.markdownroot .pl-sr .pl-sra {
-  color: var(--color-prettylights-syntax-string);
-}
-
-.markdownroot .pl-v,
-.markdownroot .pl-smw {
-  color: var(--color-prettylights-syntax-variable);
-}
-
-.markdownroot .pl-bu {
-  color: var(--color-prettylights-syntax-brackethighlighter-unmatched);
-}
-
-.markdownroot .pl-ii {
-  color: var(--color-prettylights-syntax-invalid-illegal-text);
-  background-color: var(--color-prettylights-syntax-invalid-illegal-bg);
-}
-
-.markdownroot .pl-c2 {
-  color: var(--color-prettylights-syntax-carriage-return-text);
-  background-color: var(--color-prettylights-syntax-carriage-return-bg);
-}
-
-.markdownroot .pl-sr .pl-cce {
-  font-weight: bold;
-  color: var(--color-prettylights-syntax-string-regexp);
-}
-
-.markdownroot .pl-ml {
-  color: var(--color-prettylights-syntax-markup-list);
-}
-
-.markdownroot .pl-mh,
-.markdownroot .pl-mh .pl-en,
-.markdownroot .pl-ms {
-  font-weight: bold;
-  color: var(--color-prettylights-syntax-markup-heading);
-}
-
-.markdownroot .pl-mi {
-  font-style: italic;
-  color: var(--color-prettylights-syntax-markup-italic);
-}
-
-.markdownroot .pl-mb {
-  font-weight: bold;
-  color: var(--color-prettylights-syntax-markup-bold);
-}
-
-.markdownroot .pl-md {
-  color: var(--color-prettylights-syntax-markup-deleted-text);
-  background-color: var(--color-prettylights-syntax-markup-deleted-bg);
+h1 {
+	font-size: 2.25em;
 }
-
-.markdownroot .pl-mi1 {
-  color: var(--color-prettylights-syntax-markup-inserted-text);
-  background-color: var(--color-prettylights-syntax-markup-inserted-bg);
-}
-
-.markdownroot .pl-mc {
-  color: var(--color-prettylights-syntax-markup-changed-text);
-  background-color: var(--color-prettylights-syntax-markup-changed-bg);
-}
-
-.markdownroot .pl-mi2 {
-  color: var(--color-prettylights-syntax-markup-ignored-text);
-  background-color: var(--color-prettylights-syntax-markup-ignored-bg);
-}
-
-.markdownroot .pl-mdr {
-  font-weight: bold;
-  color: var(--color-prettylights-syntax-meta-diff-range);
-}
-
-.markdownroot .pl-ba {
-  color: var(--color-prettylights-syntax-brackethighlighter-angle);
-}
-
-.markdownroot .pl-sg {
-  color: var(--color-prettylights-syntax-sublimelinter-gutter-mark);
-}
-
-.markdownroot .pl-corl {
-  text-decoration: underline;
-  color: var(--color-prettylights-syntax-constant-other-reference-link);
-}
-
-.markdownroot [data-catalyst] {
-  display: block;
-}
-
-.markdownroot g-emoji {
-  font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-  font-size: 1em;
-  font-style: normal !important;
-  font-weight: 400;
-  line-height: 1;
-  vertical-align: -0.075em;
-}
-
-.markdownroot g-emoji img {
-  width: 1em;
-  height: 1em;
-}
-
-.markdownroot::before {
-  display: table;
-  content: "";
-}
-
-.markdownroot::after {
-  display: table;
-  clear: both;
-  content: "";
-}
-
-.markdownroot>*:first-child {
-  margin-top: 0 !important;
-}
-
-.markdownroot>*:last-child {
-  margin-bottom: 0 !important;
-}
-
-.markdownroot a:not([href]) {
-  color: inherit;
-  text-decoration: none;
-}
-
-.markdownroot .absent {
-  color: var(--color-danger-fg);
-}
-
-.markdownroot .anchor {
-  float: left;
-  padding-right: 4px;
-  margin-left: -20px;
-  line-height: 1;
-}
-
-.markdownroot .anchor:focus {
-  outline: none;
-}
-
-.markdownroot p,
-.markdownroot blockquote,
-.markdownroot ul,
-.markdownroot ol,
-.markdownroot dl,
-.markdownroot table,
-.markdownroot pre,
-.markdownroot details {
-  margin-top: 0;
-  margin-bottom: 16px;
-}
-
-.markdownroot blockquote>:first-child {
-  margin-top: 0;
-}
-
-.markdownroot blockquote>:last-child {
-  margin-bottom: 0;
-}
-
-.markdownroot sup>a::before {
-  content: "[";
-}
-
-.markdownroot sup>a::after {
-  content: "]";
-}
-
-.markdownroot h1 .octicon-link,
-.markdownroot h2 .octicon-link,
-.markdownroot h3 .octicon-link,
-.markdownroot h4 .octicon-link,
-.markdownroot h5 .octicon-link,
-.markdownroot h6 .octicon-link {
-  color: var(--color-fg-default);
-  vertical-align: middle;
-  visibility: hidden;
-}
-
-.markdownroot h1:hover .anchor,
-.markdownroot h2:hover .anchor,
-.markdownroot h3:hover .anchor,
-.markdownroot h4:hover .anchor,
-.markdownroot h5:hover .anchor,
-.markdownroot h6:hover .anchor {
-  text-decoration: none;
-}
-
-.markdownroot h1:hover .anchor .octicon-link,
-.markdownroot h2:hover .anchor .octicon-link,
-.markdownroot h3:hover .anchor .octicon-link,
-.markdownroot h4:hover .anchor .octicon-link,
-.markdownroot h5:hover .anchor .octicon-link,
-.markdownroot h6:hover .anchor .octicon-link {
-  visibility: visible;
-}
-
-.markdownroot h1 tt,
-.markdownroot h1 code,
-.markdownroot h2 tt,
-.markdownroot h2 code,
-.markdownroot h3 tt,
-.markdownroot h3 code,
-.markdownroot h4 tt,
-.markdownroot h4 code,
-.markdownroot h5 tt,
-.markdownroot h5 code,
-.markdownroot h6 tt,
-.markdownroot h6 code {
-  padding: 0 .2em;
-  font-size: inherit;
-}
-
-.markdownroot ul.no-list,
-.markdownroot ol.no-list {
-  padding: 0;
-  list-style-type: none;
-}
-
-.markdownroot ol[type="1"] {
-  list-style-type: decimal;
-}
-
-.markdownroot ol[type=a] {
-  list-style-type: lower-alpha;
-}
-
-.markdownroot ol[type=i] {
-  list-style-type: lower-roman;
-}
-
-.markdownroot div>ol:not([type]) {
-  list-style-type: decimal;
-}
-
-.markdownroot ul ul,
-.markdownroot ul ol,
-.markdownroot ol ol,
-.markdownroot ol ul {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.markdownroot li>p {
-  margin-top: 16px;
-}
-
-.markdownroot li+li {
-  margin-top: .25em;
-}
-
-.markdownroot dl {
-  padding: 0;
-}
-
-.markdownroot dl dt {
-  padding: 0;
-  margin-top: 16px;
-  font-size: 1em;
-  font-style: italic;
-  font-weight: 600;
-}
-
-.markdownroot dl dd {
-  padding: 0 16px;
-  margin-bottom: 16px;
-}
-
-.markdownroot table th {
-  font-weight: 600;
-}
-
-.markdownroot table th,
-.markdownroot table td {
-  padding: 6px 13px;
-  border: 1px solid var(--color-border-default);
-}
-
-.markdownroot table tr {
-  background-color: var(--color-canvas-default);
-  border-top: 1px solid var(--color-border-muted);
-}
-
-.markdownroot table tr:nth-child(2n) {
-  background-color: var(--color-canvas-subtle);
-}
-
-.markdownroot table img {
-  background-color: transparent;
-}
-
-.markdownroot img[align=right] {
-  padding-left: 20px;
-}
-
-.markdownroot img[align=left] {
-  padding-right: 20px;
-}
-
-.markdownroot .emoji {
-  max-width: none;
-  vertical-align: text-top;
-  background-color: transparent;
-}
-
-.markdownroot span.frame {
-  display: block;
-  overflow: hidden;
-}
-
-.markdownroot span.frame>span {
-  display: block;
-  float: left;
-  width: auto;
-  padding: 7px;
-  margin: 13px 0 0;
-  overflow: hidden;
-  border: 1px solid var(--color-border-default);
-}
-
-.markdownroot span.frame span img {
-  display: block;
-  float: left;
-}
-
-.markdownroot span.frame span span {
-  display: block;
-  padding: 5px 0 0;
-  clear: both;
-  color: var(--color-fg-default);
-}
-
-.markdownroot span.align-center {
-  display: block;
-  overflow: hidden;
-  clear: both;
-}
-
-.markdownroot span.align-center>span {
-  display: block;
-  margin: 13px auto 0;
-  overflow: hidden;
-  text-align: center;
-}
-
-.markdownroot span.align-center span img {
-  margin: 0 auto;
-  text-align: center;
-}
-
-.markdownroot span.align-right {
-  display: block;
-  overflow: hidden;
-  clear: both;
-}
-
-.markdownroot span.align-right>span {
-  display: block;
-  margin: 13px 0 0;
-  overflow: hidden;
-  text-align: right;
-}
-
-.markdownroot span.align-right span img {
-  margin: 0;
-  text-align: right;
-}
-
-.markdownroot span.float-left {
-  display: block;
-  float: left;
-  margin-right: 13px;
-  overflow: hidden;
-}
-
-.markdownroot span.float-left span {
-  margin: 13px 0 0;
-}
-
-.markdownroot span.float-right {
-  display: block;
-  float: right;
-  margin-left: 13px;
-  overflow: hidden;
-}
-
-.markdownroot span.float-right>span {
-  display: block;
-  margin: 13px auto 0;
-  overflow: hidden;
-  text-align: right;
+h2 {
+	font-size: 1.75em;
 }
-
-.markdownroot code,
-.markdownroot tt {
-  padding: .2em .4em;
-  margin: 0;
-  font-size: 85%;
-  background-color: var(--color-neutral-muted);
-  border-radius: 6px;
-}
-
-.markdownroot code br,
-.markdownroot tt br {
-  display: none;
-}
-
-.markdownroot del code {
-  text-decoration: inherit;
-}
-
-.markdownroot pre code {
-  font-size: 100%;
-}
-
-.markdownroot pre>code {
-  padding: 0;
-  margin: 0;
-  word-break: normal;
-  white-space: pre;
-  background: transparent;
-  border: 0;
+h3 {
+	font-size: 1.5em;
 }
-
-.markdownroot .highlight {
-  margin-bottom: 16px;
+h4, h5, h6 {
+	font-size: 1.25em;
 }
 
-.markdownroot .highlight pre {
-  margin-bottom: 0;
-  word-break: normal;
+a {
+	color: var(--link);
+	text-decoration: none;
 }
-
-.markdownroot .highlight pre,
-.markdownroot pre {
-  padding: 16px;
-  overflow: auto;
-  font-size: 85%;
-  line-height: 1.45;
-  background-color: var(--color-canvas-subtle);
-  border-radius: 6px;
+a:hover, a:focus {
+	text-decoration: underline;
 }
-
-.markdownroot pre code,
-.markdownroot pre tt {
-  display: inline;
-  max-width: auto;
-  padding: 0;
-  margin: 0;
-  overflow: visible;
-  line-height: inherit;
-  word-wrap: normal;
-  background-color: transparent;
-  border: 0;
+a:visited {
+	color: var(--alt-link);
 }
 
-.markdownroot .csv-data td,
-.markdownroot .csv-data th {
-  padding: 5px;
-  overflow: hidden;
-  font-size: 12px;
-  line-height: 1;
-  text-align: left;
-  white-space: nowrap;
+img {
+	max-width: 100%;
 }
 
-.markdownroot .csv-data .blob-num {
-  padding: 10px 8px 9px;
-  text-align: right;
-  background: var(--color-canvas-default);
-  border: 0;
+li + li {
+	margin-top: 3px;
 }
-
-.markdownroot .csv-data tr {
-  border-top: 0;
+dt {
+	font-weight: bold;
 }
 
-.markdownroot .csv-data th {
-  font-weight: 600;
-  background: var(--color-canvas-subtle);
-  border-top: 0;
+code {
+	background: var(--alt-back);
+	font-family: "Consolas", "Lucida Console", monospace;
+	padding: 1px 5px;
 }
-
-.markdownroot .footnotes {
-  font-size: 12px;
-  color: var(--color-fg-muted);
-  border-top: 1px solid var(--color-border-default);
+pre {
+	background: var(--alt-back);
+	padding: 5px 10px;
+	white-space: pre-wrap;
 }
-
-.markdownroot .footnotes ol {
-  padding-left: 16px;
+pre code {
+	padding: 0;
 }
 
-.markdownroot .footnotes li {
-  position: relative;
+blockquote {
+	border-left: 5px solid var(--alt-back);
+	margin: 0;
+	padding: 0 10px;
 }
 
-.markdownroot .footnotes li:target::before {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  bottom: -8px;
-  left: -24px;
-  pointer-events: none;
-  content: "";
-  border: 2px solid var(--color-accent-emphasis);
-  border-radius: 6px;
+table {
+	border-collapse: collapse;
+	width: 100%;
 }
-
-.markdownroot .footnotes li:target {
-  color: var(--color-fg-default);
+table + table {
+	margin-top: 1em;
 }
-
-.markdownroot .footnotes .data-footnote-backref g-emoji {
-  font-family: monospace;
+thead {
+	background: var(--alt-back);
+	text-align: left;
 }
-
-.markdownroot [hidden] {
-  display: none !important;
+th, td {
+	border: 1px solid var(--alt-back);
+	padding: 5px 10px;
 }
 
-.markdownroot ::-webkit-calendar-picker-indicator {
-  filter: invert(50%);
+hr {
+	background: var(--alt-back);
+	border: 0;
+	height: 1px;
 }
 </style>
 <style media="print">:root {
@@ -1335,7 +453,7 @@ input#__markdown-viewer__show-tools:checked ~ #__markdown-viewer__toc::before {
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Chapter 2: Advanced Examples</title>
-<style></style></head><body><div id="__markdown-viewer__tools" class="floating"><input type="checkbox" id="__markdown-viewer__show-tools"><label for="__markdown-viewer__show-tools"></label><div id="__markdown-viewer__toc" class="toggleable"><ul><li><a target="_top" href="#chapter-2-advanced-examples">Chapter 2: Advanced Examples</a><ul><li><a target="_top" href="#1-creating-and-invoking-the-parser">1. Creating and Invoking the Parser</a><ul><li><a target="_top" href="#rustlr-command-line-options">Rustlr Command-Line Options</a></li><li><a target="_top" href="#sample-main">Sample main</a></li></ul></li><li><a target="_top" href="#2-input-lifetime">2. Input Lifetime</a></li><li><a target="_top" href="#3-configuring-the-lexical-scanner">3. Configuring the Lexical Scanner</a></li><li><a target="_top" href="#4-error-recovery">4. Error Recovery</a></li><li><a target="_top" href="#5-rules-of-conflict-resolution">5. Rules of Conflict Resolution</a></li><li><a target="_top" href="#6-rules-of-ast-generation">6. Rules of AST Generation</a><ul><li><a target="_top" href="#lc-instead-of-lbox">LC Instead of LBox</a></li><li><a target="_top" href="#passthru">'Passthru'</a></li><li><a target="_top" href="#flattening-structs">Flattening Structs</a></li><li><a target="_top" href="#variant-groups">Variant Groups</a></li><li><a target="_top" href="#emphasizing-the-importance-of-labels">Emphasizing the Importance of Labels</a></li><li><a target="_top" href="#overriding-types-and-actions">Overriding Types and Actions</a></li></ul></li><li><a target="_top" href="#7-using-regular-expression-style-operators-in-grammars">7. Using Regular-Expression Style Operators in Grammars</a><ul><li><a target="_top" href="#special-operators">Special Operators</a></li><li><a target="_top" href="#nesting-restriction">Nesting Restriction</a></li></ul></li><li><a target="_top" href="#8-json-parser">8. JSON Parser</a></li></ul></li></ul></div><p class="toggleable" id="__markdown-viewer__styleselect" style="display: none;">Pick a markdown and code style:<br><select id="__markdown-viewer__mdselect"><option value="sss">default</option><option value="github">github</option></select><select id="__markdown-viewer__hlselect"><option value="a11y-dark">a11y-dark</option><option value="a11y-light">a11y-light</option><option value="a11y-auto">a11y-auto</option><option value="agate">agate</option><option value="androidstudio">androidstudio</option><option value="an-old-hope">an-old-hope</option><option value="arduino-light">arduino-light</option><option value="arta">arta</option><option value="ascetic">ascetic</option><option value="atom-one-dark">atom-one-dark</option><option value="atom-one-dark-reasonable">atom-one-dark-reasonable</option><option value="atom-one-light">atom-one-light</option><option value="base16/3024">3024</option><option value="base16/apathy">apathy</option><option value="base16/apprentice">apprentice</option><option value="base16/ashes">ashes</option><option value="base16/atelier-cave-light">atelier-cave-light</option><option value="base16/atelier-cave">atelier-cave</option><option value="base16/atelier-cave-auto">atelier-cave-auto</option><option value="base16/atelier-dune-light">atelier-dune-light</option><option value="base16/atelier-dune">atelier-dune</option><option value="base16/atelier-dune-auto">atelier-dune-auto</option><option value="base16/atelier-estuary-light">atelier-estuary-light</option><option value="base16/atelier-estuary">atelier-estuary</option><option value="base16/atelier-estuary-auto">atelier-estuary-auto</option><option value="base16/atelier-forest-light">atelier-forest-light</option><option value="base16/atelier-forest">atelier-forest</option><option value="base16/atelier-forest-auto">atelier-forest-auto</option><option value="base16/atelier-heath-light">atelier-heath-light</option><option value="base16/atelier-heath">atelier-heath</option><option value="base16/atelier-heath-auto">atelier-heath-auto</option><option value="base16/atelier-lakeside-light">atelier-lakeside-light</option><option value="base16/atelier-lakeside">atelier-lakeside</option><option value="base16/atelier-lakeside-auto">atelier-lakeside-auto</option><option value="base16/atelier-plateau-light">atelier-plateau-light</option><option value="base16/atelier-plateau">atelier-plateau</option><option value="base16/atelier-plateau-auto">atelier-plateau-auto</option><option value="base16/atelier-savanna-light">atelier-savanna-light</option><option value="base16/atelier-savanna">atelier-savanna</option><option value="base16/atelier-savanna-auto">atelier-savanna-auto</option><option value="base16/atelier-seaside-light">atelier-seaside-light</option><option value="base16/atelier-seaside">atelier-seaside</option><option value="base16/atelier-seaside-auto">atelier-seaside-auto</option><option value="base16/atelier-sulphurpool-light">atelier-sulphurpool-light</option><option value="base16/atelier-sulphurpool">atelier-sulphurpool</option><option value="base16/atelier-sulphurpool-auto">atelier-sulphurpool-auto</option><option value="base16/atlas">atlas</option><option value="base16/bespin">bespin</option><option value="base16/black-metal-bathory">black-metal-bathory</option><option value="base16/black-metal-burzum">black-metal-burzum</option><option value="base16/black-metal-dark-funeral">black-metal-dark-funeral</option><option value="base16/black-metal-gorgoroth">black-metal-gorgoroth</option><option value="base16/black-metal-immortal">black-metal-immortal</option><option value="base16/black-metal-khold">black-metal-khold</option><option value="base16/black-metal-marduk">black-metal-marduk</option><option value="base16/black-metal-mayhem">black-metal-mayhem</option><option value="base16/black-metal-nile">black-metal-nile</option><option value="base16/black-metal-venom">black-metal-venom</option><option value="base16/black-metal">black-metal</option><option value="base16/brewer">brewer</option><option value="base16/bright">bright</option><option value="base16/brogrammer">brogrammer</option><option value="base16/brush-trees-dark">brush-trees-dark</option><option value="base16/brush-trees">brush-trees</option><option value="base16/chalk">chalk</option><option value="base16/circus">circus</option><option value="base16/classic-dark">classic-dark</option><option value="base16/classic-light">classic-light</option><option value="base16/classic-auto">classic-auto</option><option value="base16/codeschool">codeschool</option><option value="base16/colors">colors</option><option value="base16/cupcake">cupcake</option><option value="base16/cupertino">cupertino</option><option value="base16/danqing">danqing</option><option value="base16/darcula">darcula</option><option value="base16/dark-violet">dark-violet</option><option value="base16/darkmoss">darkmoss</option><option value="base16/darktooth">darktooth</option><option value="base16/decaf">decaf</option><option value="base16/default-dark">default-dark</option><option value="base16/default-light">default-light</option><option value="base16/default-auto">default-auto</option><option value="base16/dirtysea">dirtysea</option><option value="base16/dracula">dracula</option><option value="base16/edge-dark">edge-dark</option><option value="base16/edge-light">edge-light</option><option value="base16/edge-auto">edge-auto</option><option value="base16/eighties">eighties</option><option value="base16/embers">embers</option><option value="base16/equilibrium-dark">equilibrium-dark</option><option value="base16/equilibrium-gray-dark">equilibrium-gray-dark</option><option value="base16/equilibrium-gray-light">equilibrium-gray-light</option><option value="base16/equilibrium-gray-auto">equilibrium-gray-auto</option><option value="base16/equilibrium-light">equilibrium-light</option><option value="base16/espresso">espresso</option><option value="base16/eva-dim">eva-dim</option><option value="base16/eva">eva</option><option value="base16/flat">flat</option><option value="base16/framer">framer</option><option value="base16/fruit-soda">fruit-soda</option><option value="base16/gigavolt">gigavolt</option><option value="base16/github">github</option><option value="base16/google-dark">google-dark</option><option value="base16/google-light">google-light</option><option value="base16/google-auto">google-auto</option><option value="base16/grayscale-dark">grayscale-dark</option><option value="base16/grayscale-light">grayscale-light</option><option value="base16/grayscale-auto">grayscale-auto</option><option value="base16/green-screen">green-screen</option><option value="base16/gruvbox-dark-hard">gruvbox-dark-hard</option><option value="base16/gruvbox-dark-medium">gruvbox-dark-medium</option><option value="base16/gruvbox-dark-pale">gruvbox-dark-pale</option><option value="base16/gruvbox-dark-soft">gruvbox-dark-soft</option><option value="base16/gruvbox-light-hard">gruvbox-light-hard</option><option value="base16/gruvbox-light-medium">gruvbox-light-medium</option><option value="base16/gruvbox-light-soft">gruvbox-light-soft</option><option value="base16/hardcore">hardcore</option><option value="base16/harmonic16-dark">harmonic16-dark</option><option value="base16/harmonic16-light">harmonic16-light</option><option value="base16/harmonic16-auto">harmonic16-auto</option><option value="base16/heetch-dark">heetch-dark</option><option value="base16/heetch-light">heetch-light</option><option value="base16/heetch-auto">heetch-auto</option><option value="base16/helios">helios</option><option value="base16/hopscotch">hopscotch</option><option value="base16/horizon-dark">horizon-dark</option><option value="base16/horizon-light">horizon-light</option><option value="base16/horizon-auto">horizon-auto</option><option value="base16/humanoid-dark">humanoid-dark</option><option value="base16/humanoid-light">humanoid-light</option><option value="base16/humanoid-auto">humanoid-auto</option><option value="base16/ia-dark">ia-dark</option><option value="base16/ia-light">ia-light</option><option value="base16/ia-auto">ia-auto</option><option value="base16/icy-dark">icy-dark</option><option value="base16/ir-black">ir-black</option><option value="base16/isotope">isotope</option><option value="base16/kimber">kimber</option><option value="base16/london-tube">london-tube</option><option value="base16/macintosh">macintosh</option><option value="base16/marrakesh">marrakesh</option><option value="base16/materia">materia</option><option value="base16/material-darker">material-darker</option><option value="base16/material-lighter">material-lighter</option><option value="base16/material-palenight">material-palenight</option><option value="base16/material-vivid">material-vivid</option><option value="base16/material">material</option><option value="base16/mellow-purple">mellow-purple</option><option value="base16/mexico-light">mexico-light</option><option value="base16/mocha">mocha</option><option value="base16/monokai">monokai</option><option value="base16/nebula">nebula</option><option value="base16/nord">nord</option><option value="base16/nova">nova</option><option value="base16/ocean">ocean</option><option value="base16/oceanicnext">oceanicnext</option><option value="base16/one-light">one-light</option><option value="base16/onedark">onedark</option><option value="base16/outrun-dark">outrun-dark</option><option value="base16/papercolor-dark">papercolor-dark</option><option value="base16/papercolor-light">papercolor-light</option><option value="base16/papercolor-auto">papercolor-auto</option><option value="base16/paraiso">paraiso</option><option value="base16/pasque">pasque</option><option value="base16/phd">phd</option><option value="base16/pico">pico</option><option value="base16/pop">pop</option><option value="base16/porple">porple</option><option value="base16/qualia">qualia</option><option value="base16/railscasts">railscasts</option><option value="base16/rebecca">rebecca</option><option value="base16/ros-pine-dawn">ros-pine-dawn</option><option value="base16/ros-pine-moon">ros-pine-moon</option><option value="base16/ros-pine">ros-pine</option><option value="base16/sagelight">sagelight</option><option value="base16/sandcastle">sandcastle</option><option value="base16/seti-ui">seti-ui</option><option value="base16/shapeshifter">shapeshifter</option><option value="base16/silk-dark">silk-dark</option><option value="base16/silk-light">silk-light</option><option value="base16/silk-auto">silk-auto</option><option value="base16/snazzy">snazzy</option><option value="base16/solar-flare-light">solar-flare-light</option><option value="base16/solar-flare">solar-flare</option><option value="base16/solar-flare-auto">solar-flare-auto</option><option value="base16/solarized-dark">solarized-dark</option><option value="base16/solarized-light">solarized-light</option><option value="base16/solarized-auto">solarized-auto</option><option value="base16/spacemacs">spacemacs</option><option value="base16/summercamp">summercamp</option><option value="base16/summerfruit-dark">summerfruit-dark</option><option value="base16/summerfruit-light">summerfruit-light</option><option value="base16/summerfruit-auto">summerfruit-auto</option><option value="base16/synth-midnight-terminal-dark">synth-midnight-terminal-dark</option><option value="base16/synth-midnight-terminal-light">synth-midnight-terminal-light</option><option value="base16/synth-midnight-terminal-auto">synth-midnight-terminal-auto</option><option value="base16/tango">tango</option><option value="base16/tender">tender</option><option value="base16/tomorrow-night">tomorrow-night</option><option value="base16/tomorrow">tomorrow</option><option value="base16/twilight">twilight</option><option value="base16/unikitty-dark">unikitty-dark</option><option value="base16/unikitty-light">unikitty-light</option><option value="base16/unikitty-auto">unikitty-auto</option><option value="base16/vulcan">vulcan</option><option value="base16/windows-10-light">windows-10-light</option><option value="base16/windows-10">windows-10</option><option value="base16/windows-10-auto">windows-10-auto</option><option value="base16/windows-95-light">windows-95-light</option><option value="base16/windows-95">windows-95</option><option value="base16/windows-95-auto">windows-95-auto</option><option value="base16/windows-high-contrast-light">windows-high-contrast-light</option><option value="base16/windows-high-contrast">windows-high-contrast</option><option value="base16/windows-high-contrast-auto">windows-high-contrast-auto</option><option value="base16/windows-nt-light">windows-nt-light</option><option value="base16/windows-nt">windows-nt</option><option value="base16/windows-nt-auto">windows-nt-auto</option><option value="base16/woodland">woodland</option><option value="base16/xcode-dusk">xcode-dusk</option><option value="base16/zenburn">zenburn</option><option value="brown-paper">brown-paper</option><option value="codepen-embed">codepen-embed</option><option value="color-brewer">color-brewer</option><option value="dark">dark</option><option value="default">default</option><option value="devibeans">devibeans</option><option value="docco">docco</option><option value="far">far</option><option value="felipec">felipec</option><option value="foundation">foundation</option><option value="github-dark-dimmed">github-dark-dimmed</option><option value="github-dark">github-dark</option><option value="github">github</option><option value="gml">gml</option><option value="googlecode">googlecode</option><option value="gradient-dark">gradient-dark</option><option value="gradient-light">gradient-light</option><option value="gradient-auto">gradient-auto</option><option value="grayscale">grayscale</option><option value="hybrid">hybrid</option><option value="idea">idea</option><option value="intellij-light">intellij-light</option><option value="ir-black">ir-black</option><option value="isbl-editor-dark">isbl-editor-dark</option><option value="isbl-editor-light">isbl-editor-light</option><option value="isbl-editor-auto">isbl-editor-auto</option><option value="kimbie-dark">kimbie-dark</option><option value="kimbie-light">kimbie-light</option><option value="kimbie-auto">kimbie-auto</option><option value="lightfair">lightfair</option><option value="lioshi">lioshi</option><option value="magula">magula</option><option value="mono-blue">mono-blue</option><option value="monokai">monokai</option><option value="monokai-sublime">monokai-sublime</option><option value="night-owl">night-owl</option><option value="nnfx-dark">nnfx-dark</option><option value="nnfx-light">nnfx-light</option><option value="nnfx-auto">nnfx-auto</option><option value="nord">nord</option><option value="obsidian">obsidian</option><option value="panda-syntax-dark">panda-syntax-dark</option><option value="panda-syntax-light">panda-syntax-light</option><option value="panda-syntax-auto">panda-syntax-auto</option><option value="paraiso-dark">paraiso-dark</option><option value="paraiso-light">paraiso-light</option><option value="paraiso-auto">paraiso-auto</option><option value="pojoaque">pojoaque</option><option value="purebasic">purebasic</option><option value="qtcreator-dark">qtcreator-dark</option><option value="qtcreator-light">qtcreator-light</option><option value="qtcreator-auto">qtcreator-auto</option><option value="rainbow">rainbow</option><option value="routeros">routeros</option><option value="school-book">school-book</option><option value="shades-of-purple">shades-of-purple</option><option value="srcery">srcery</option><option value="stackoverflow-dark">stackoverflow-dark</option><option value="stackoverflow-light">stackoverflow-light</option><option value="stackoverflow-auto">stackoverflow-auto</option><option value="sunburst">sunburst</option><option value="tokyo-night-dark">tokyo-night-dark</option><option value="xt256">xt256</option><option value="tokyo-night-light">tokyo-night-light</option><option value="tokyo-night-auto">tokyo-night-auto</option><option value="tomorrow-night-blue">tomorrow-night-blue</option><option value="tomorrow-night-bright">tomorrow-night-bright</option><option value="vs2015">vs2015</option><option value="vs">vs</option><option value="xcode">xcode</option></select></p><p class="toggleable"><a id="__markdown-viewer__download" download="markdown.html" style="display: none;" href="blob:moz-extension://00acc243-b369-45e4-a740-659cfa439cd6/d494560a-028c-4ea6-bcf5-b0e8543c1653">Download as HTML</a></p><p class="toggleable"><a target="_top" href="view-source:file:///C:/cygwin/home/Chuck/classes/csc291q/chuckcscccl.github.io/rustlr_project/chapter2.md" id="__markdown-viewer__source">View Source</a></p></div><div class="markdownRoot"><h2 id="chapter-2-advanced-examples">Chapter 2: Advanced Examples</h2>
+<style></style></head><body><div id="__markdown-viewer__tools" class="floating"><input type="checkbox" id="__markdown-viewer__show-tools"><label for="__markdown-viewer__show-tools"></label><div id="__markdown-viewer__toc" class="toggleable"><ul><li><a target="_top" href="#chapter-2-advanced-examples">Chapter 2: Advanced Examples</a><ul><li><a target="_top" href="#1-creating-and-invoking-the-parser">1. Creating and Invoking the Parser</a><ul><li><a target="_top" href="#rustlr-command-line-options">Rustlr Command-Line Options</a></li><li><a target="_top" href="#sample-main">Sample main</a></li></ul></li><li><a target="_top" href="#2-input-lifetime">2. Input Lifetime</a></li><li><a target="_top" href="#3-configuring-the-lexical-scanner">3. Configuring the Lexical Scanner</a></li><li><a target="_top" href="#4-error-recovery">4. Error Recovery</a></li><li><a target="_top" href="#5-rules-of-conflict-resolution">5. Rules of Conflict Resolution</a></li><li><a target="_top" href="#6-rules-of-ast-generation">6. Rules of AST Generation</a><ul><li><a target="_top" href="#lc-instead-of-lbox">LC Instead of LBox</a></li><li><a target="_top" href="#passthru">'Passthru'</a></li><li><a target="_top" href="#flattening-structs">Flattening Structs</a></li><li><a target="_top" href="#variant-groups">Variant Groups</a></li><li><a target="_top" href="#emphasizing-the-importance-of-labels">Emphasizing the Importance of Labels</a></li><li><a target="_top" href="#overriding-types-and-actions">Overriding Types and Actions</a></li></ul></li><li><a target="_top" href="#7-using-regular-expression-style-operators-in-grammars">7. Using Regular-Expression Style Operators in Grammars</a><ul><li><a target="_top" href="#special-operators">Special Operators</a></li><li><a target="_top" href="#nesting-restriction">Nesting Restriction</a></li></ul></li><li><a target="_top" href="#8-json-parser">8. JSON Parser</a></li></ul></li></ul></div><p class="toggleable" id="__markdown-viewer__styleselect" style="display: none;">Pick a markdown and code style:<br><select id="__markdown-viewer__mdselect"><option value="sss">default</option><option value="github">github</option></select><select id="__markdown-viewer__hlselect"><option value="a11y-dark">a11y-dark</option><option value="a11y-light">a11y-light</option><option value="a11y-auto">a11y-auto</option><option value="agate">agate</option><option value="androidstudio">androidstudio</option><option value="an-old-hope">an-old-hope</option><option value="arduino-light">arduino-light</option><option value="arta">arta</option><option value="ascetic">ascetic</option><option value="atom-one-dark">atom-one-dark</option><option value="atom-one-dark-reasonable">atom-one-dark-reasonable</option><option value="atom-one-light">atom-one-light</option><option value="base16/3024">3024</option><option value="base16/apathy">apathy</option><option value="base16/apprentice">apprentice</option><option value="base16/ashes">ashes</option><option value="base16/atelier-cave-light">atelier-cave-light</option><option value="base16/atelier-cave">atelier-cave</option><option value="base16/atelier-cave-auto">atelier-cave-auto</option><option value="base16/atelier-dune-light">atelier-dune-light</option><option value="base16/atelier-dune">atelier-dune</option><option value="base16/atelier-dune-auto">atelier-dune-auto</option><option value="base16/atelier-estuary-light">atelier-estuary-light</option><option value="base16/atelier-estuary">atelier-estuary</option><option value="base16/atelier-estuary-auto">atelier-estuary-auto</option><option value="base16/atelier-forest-light">atelier-forest-light</option><option value="base16/atelier-forest">atelier-forest</option><option value="base16/atelier-forest-auto">atelier-forest-auto</option><option value="base16/atelier-heath-light">atelier-heath-light</option><option value="base16/atelier-heath">atelier-heath</option><option value="base16/atelier-heath-auto">atelier-heath-auto</option><option value="base16/atelier-lakeside-light">atelier-lakeside-light</option><option value="base16/atelier-lakeside">atelier-lakeside</option><option value="base16/atelier-lakeside-auto">atelier-lakeside-auto</option><option value="base16/atelier-plateau-light">atelier-plateau-light</option><option value="base16/atelier-plateau">atelier-plateau</option><option value="base16/atelier-plateau-auto">atelier-plateau-auto</option><option value="base16/atelier-savanna-light">atelier-savanna-light</option><option value="base16/atelier-savanna">atelier-savanna</option><option value="base16/atelier-savanna-auto">atelier-savanna-auto</option><option value="base16/atelier-seaside-light">atelier-seaside-light</option><option value="base16/atelier-seaside">atelier-seaside</option><option value="base16/atelier-seaside-auto">atelier-seaside-auto</option><option value="base16/atelier-sulphurpool-light">atelier-sulphurpool-light</option><option value="base16/atelier-sulphurpool">atelier-sulphurpool</option><option value="base16/atelier-sulphurpool-auto">atelier-sulphurpool-auto</option><option value="base16/atlas">atlas</option><option value="base16/bespin">bespin</option><option value="base16/black-metal-bathory">black-metal-bathory</option><option value="base16/black-metal-burzum">black-metal-burzum</option><option value="base16/black-metal-dark-funeral">black-metal-dark-funeral</option><option value="base16/black-metal-gorgoroth">black-metal-gorgoroth</option><option value="base16/black-metal-immortal">black-metal-immortal</option><option value="base16/black-metal-khold">black-metal-khold</option><option value="base16/black-metal-marduk">black-metal-marduk</option><option value="base16/black-metal-mayhem">black-metal-mayhem</option><option value="base16/black-metal-nile">black-metal-nile</option><option value="base16/black-metal-venom">black-metal-venom</option><option value="base16/black-metal">black-metal</option><option value="base16/brewer">brewer</option><option value="base16/bright">bright</option><option value="base16/brogrammer">brogrammer</option><option value="base16/brush-trees-dark">brush-trees-dark</option><option value="base16/brush-trees">brush-trees</option><option value="base16/chalk">chalk</option><option value="base16/circus">circus</option><option value="base16/classic-dark">classic-dark</option><option value="base16/classic-light">classic-light</option><option value="base16/classic-auto">classic-auto</option><option value="base16/codeschool">codeschool</option><option value="base16/colors">colors</option><option value="base16/cupcake">cupcake</option><option value="base16/cupertino">cupertino</option><option value="base16/danqing">danqing</option><option value="base16/darcula">darcula</option><option value="base16/dark-violet">dark-violet</option><option value="base16/darkmoss">darkmoss</option><option value="base16/darktooth">darktooth</option><option value="base16/decaf">decaf</option><option value="base16/default-dark">default-dark</option><option value="base16/default-light">default-light</option><option value="base16/default-auto">default-auto</option><option value="base16/dirtysea">dirtysea</option><option value="base16/dracula">dracula</option><option value="base16/edge-dark">edge-dark</option><option value="base16/edge-light">edge-light</option><option value="base16/edge-auto">edge-auto</option><option value="base16/eighties">eighties</option><option value="base16/embers">embers</option><option value="base16/equilibrium-dark">equilibrium-dark</option><option value="base16/equilibrium-gray-dark">equilibrium-gray-dark</option><option value="base16/equilibrium-gray-light">equilibrium-gray-light</option><option value="base16/equilibrium-gray-auto">equilibrium-gray-auto</option><option value="base16/equilibrium-light">equilibrium-light</option><option value="base16/espresso">espresso</option><option value="base16/eva-dim">eva-dim</option><option value="base16/eva">eva</option><option value="base16/flat">flat</option><option value="base16/framer">framer</option><option value="base16/fruit-soda">fruit-soda</option><option value="base16/gigavolt">gigavolt</option><option value="base16/github">github</option><option value="base16/google-dark">google-dark</option><option value="base16/google-light">google-light</option><option value="base16/google-auto">google-auto</option><option value="base16/grayscale-dark">grayscale-dark</option><option value="base16/grayscale-light">grayscale-light</option><option value="base16/grayscale-auto">grayscale-auto</option><option value="base16/green-screen">green-screen</option><option value="base16/gruvbox-dark-hard">gruvbox-dark-hard</option><option value="base16/gruvbox-dark-medium">gruvbox-dark-medium</option><option value="base16/gruvbox-dark-pale">gruvbox-dark-pale</option><option value="base16/gruvbox-dark-soft">gruvbox-dark-soft</option><option value="base16/gruvbox-light-hard">gruvbox-light-hard</option><option value="base16/gruvbox-light-medium">gruvbox-light-medium</option><option value="base16/gruvbox-light-soft">gruvbox-light-soft</option><option value="base16/hardcore">hardcore</option><option value="base16/harmonic16-dark">harmonic16-dark</option><option value="base16/harmonic16-light">harmonic16-light</option><option value="base16/harmonic16-auto">harmonic16-auto</option><option value="base16/heetch-dark">heetch-dark</option><option value="base16/heetch-light">heetch-light</option><option value="base16/heetch-auto">heetch-auto</option><option value="base16/helios">helios</option><option value="base16/hopscotch">hopscotch</option><option value="base16/horizon-dark">horizon-dark</option><option value="base16/horizon-light">horizon-light</option><option value="base16/horizon-auto">horizon-auto</option><option value="base16/humanoid-dark">humanoid-dark</option><option value="base16/humanoid-light">humanoid-light</option><option value="base16/humanoid-auto">humanoid-auto</option><option value="base16/ia-dark">ia-dark</option><option value="base16/ia-light">ia-light</option><option value="base16/ia-auto">ia-auto</option><option value="base16/icy-dark">icy-dark</option><option value="base16/ir-black">ir-black</option><option value="base16/isotope">isotope</option><option value="base16/kimber">kimber</option><option value="base16/london-tube">london-tube</option><option value="base16/macintosh">macintosh</option><option value="base16/marrakesh">marrakesh</option><option value="base16/materia">materia</option><option value="base16/material-darker">material-darker</option><option value="base16/material-lighter">material-lighter</option><option value="base16/material-palenight">material-palenight</option><option value="base16/material-vivid">material-vivid</option><option value="base16/material">material</option><option value="base16/mellow-purple">mellow-purple</option><option value="base16/mexico-light">mexico-light</option><option value="base16/mocha">mocha</option><option value="base16/monokai">monokai</option><option value="base16/nebula">nebula</option><option value="base16/nord">nord</option><option value="base16/nova">nova</option><option value="base16/ocean">ocean</option><option value="base16/oceanicnext">oceanicnext</option><option value="base16/one-light">one-light</option><option value="base16/onedark">onedark</option><option value="base16/outrun-dark">outrun-dark</option><option value="base16/papercolor-dark">papercolor-dark</option><option value="base16/papercolor-light">papercolor-light</option><option value="base16/papercolor-auto">papercolor-auto</option><option value="base16/paraiso">paraiso</option><option value="base16/pasque">pasque</option><option value="base16/phd">phd</option><option value="base16/pico">pico</option><option value="base16/pop">pop</option><option value="base16/porple">porple</option><option value="base16/qualia">qualia</option><option value="base16/railscasts">railscasts</option><option value="base16/rebecca">rebecca</option><option value="base16/ros-pine-dawn">ros-pine-dawn</option><option value="base16/ros-pine-moon">ros-pine-moon</option><option value="base16/ros-pine">ros-pine</option><option value="base16/sagelight">sagelight</option><option value="base16/sandcastle">sandcastle</option><option value="base16/seti-ui">seti-ui</option><option value="base16/shapeshifter">shapeshifter</option><option value="base16/silk-dark">silk-dark</option><option value="base16/silk-light">silk-light</option><option value="base16/silk-auto">silk-auto</option><option value="base16/snazzy">snazzy</option><option value="base16/solar-flare-light">solar-flare-light</option><option value="base16/solar-flare">solar-flare</option><option value="base16/solar-flare-auto">solar-flare-auto</option><option value="base16/solarized-dark">solarized-dark</option><option value="base16/solarized-light">solarized-light</option><option value="base16/solarized-auto">solarized-auto</option><option value="base16/spacemacs">spacemacs</option><option value="base16/summercamp">summercamp</option><option value="base16/summerfruit-dark">summerfruit-dark</option><option value="base16/summerfruit-light">summerfruit-light</option><option value="base16/summerfruit-auto">summerfruit-auto</option><option value="base16/synth-midnight-terminal-dark">synth-midnight-terminal-dark</option><option value="base16/synth-midnight-terminal-light">synth-midnight-terminal-light</option><option value="base16/synth-midnight-terminal-auto">synth-midnight-terminal-auto</option><option value="base16/tango">tango</option><option value="base16/tender">tender</option><option value="base16/tomorrow-night">tomorrow-night</option><option value="base16/tomorrow">tomorrow</option><option value="base16/twilight">twilight</option><option value="base16/unikitty-dark">unikitty-dark</option><option value="base16/unikitty-light">unikitty-light</option><option value="base16/unikitty-auto">unikitty-auto</option><option value="base16/vulcan">vulcan</option><option value="base16/windows-10-light">windows-10-light</option><option value="base16/windows-10">windows-10</option><option value="base16/windows-10-auto">windows-10-auto</option><option value="base16/windows-95-light">windows-95-light</option><option value="base16/windows-95">windows-95</option><option value="base16/windows-95-auto">windows-95-auto</option><option value="base16/windows-high-contrast-light">windows-high-contrast-light</option><option value="base16/windows-high-contrast">windows-high-contrast</option><option value="base16/windows-high-contrast-auto">windows-high-contrast-auto</option><option value="base16/windows-nt-light">windows-nt-light</option><option value="base16/windows-nt">windows-nt</option><option value="base16/windows-nt-auto">windows-nt-auto</option><option value="base16/woodland">woodland</option><option value="base16/xcode-dusk">xcode-dusk</option><option value="base16/zenburn">zenburn</option><option value="brown-paper">brown-paper</option><option value="codepen-embed">codepen-embed</option><option value="color-brewer">color-brewer</option><option value="dark">dark</option><option value="default">default</option><option value="devibeans">devibeans</option><option value="docco">docco</option><option value="far">far</option><option value="felipec">felipec</option><option value="foundation">foundation</option><option value="github-dark-dimmed">github-dark-dimmed</option><option value="github-dark">github-dark</option><option value="github">github</option><option value="gml">gml</option><option value="googlecode">googlecode</option><option value="gradient-dark">gradient-dark</option><option value="gradient-light">gradient-light</option><option value="gradient-auto">gradient-auto</option><option value="grayscale">grayscale</option><option value="hybrid">hybrid</option><option value="idea">idea</option><option value="intellij-light">intellij-light</option><option value="ir-black">ir-black</option><option value="isbl-editor-dark">isbl-editor-dark</option><option value="isbl-editor-light">isbl-editor-light</option><option value="isbl-editor-auto">isbl-editor-auto</option><option value="kimbie-dark">kimbie-dark</option><option value="kimbie-light">kimbie-light</option><option value="kimbie-auto">kimbie-auto</option><option value="lightfair">lightfair</option><option value="lioshi">lioshi</option><option value="magula">magula</option><option value="mono-blue">mono-blue</option><option value="monokai">monokai</option><option value="monokai-sublime">monokai-sublime</option><option value="night-owl">night-owl</option><option value="nnfx-dark">nnfx-dark</option><option value="nnfx-light">nnfx-light</option><option value="nnfx-auto">nnfx-auto</option><option value="nord">nord</option><option value="obsidian">obsidian</option><option value="panda-syntax-dark">panda-syntax-dark</option><option value="panda-syntax-light">panda-syntax-light</option><option value="panda-syntax-auto">panda-syntax-auto</option><option value="paraiso-dark">paraiso-dark</option><option value="paraiso-light">paraiso-light</option><option value="paraiso-auto">paraiso-auto</option><option value="pojoaque">pojoaque</option><option value="purebasic">purebasic</option><option value="qtcreator-dark">qtcreator-dark</option><option value="qtcreator-light">qtcreator-light</option><option value="qtcreator-auto">qtcreator-auto</option><option value="rainbow">rainbow</option><option value="routeros">routeros</option><option value="school-book">school-book</option><option value="shades-of-purple">shades-of-purple</option><option value="srcery">srcery</option><option value="stackoverflow-dark">stackoverflow-dark</option><option value="stackoverflow-light">stackoverflow-light</option><option value="stackoverflow-auto">stackoverflow-auto</option><option value="sunburst">sunburst</option><option value="tokyo-night-dark">tokyo-night-dark</option><option value="xt256">xt256</option><option value="tokyo-night-light">tokyo-night-light</option><option value="tokyo-night-auto">tokyo-night-auto</option><option value="tomorrow-night-blue">tomorrow-night-blue</option><option value="tomorrow-night-bright">tomorrow-night-bright</option><option value="vs2015">vs2015</option><option value="vs">vs</option><option value="xcode">xcode</option></select></p><p class="toggleable"><a id="__markdown-viewer__download" download="markdown.html" style="display: none;">Download as HTML</a></p><p class="toggleable"><a target="_top" href="view-source:file:///C:/cygwin/home/Chuck/git/chuckcscccl.github.io/rustlr_project/chapter2.md" id="__markdown-viewer__source">View Source</a></p></div><div class="markdownRoot"><h2 id="chapter-2-advanced-examples">Chapter 2: Advanced Examples</h2>
 <p>In the second chapter of this tutorial, we describe a more complete set of
 features of rustlr as well further details of it's capabilities introduced in
 <a href="https://chuckcscccl.github.io/rustlr_project/chapter1.html" target="_top">Chapter 1</a>.</p>
@@ -1576,7 +694,7 @@ points to raw text.
 This token type is intended to be paired with declarations in the
 grammar such as</p>
 <blockquote>
-<p>lexattribute add_custom("uint32",r"<sup class="footnote-ref"><a href="file:///C:/cygwin/home/Chuck/classes/csc291q/chuckcscccl.github.io/rustlr_project/chapter2.md#fn1" id="fnref1" target="_top">[1]</a></sup>+u32")</p>
+<p>lexattribute add_custom("uint32",r"<sup class="footnote-ref"><a href="file:///C:/cygwin/home/Chuck/git/chuckcscccl.github.io/rustlr_project/chapter2.md#fn1" id="fnref1" target="_top">[1]</a></sup>+u32")</p>
 </blockquote>
 <p>Text matching the given <a href="https://docs.rs/regex/latest/regex/" target="_top">regular expression</a> will be returned as a
 <strong><code>RawToken::Custom("uint32",_)</code></strong> token.  Custom regular expressions
@@ -1830,7 +948,7 @@ separate enum variant (at the cost of an extra LBox) that
 distinguishes the presence of the parentheses.  Note that the
 rule <code>UnaryExpr:Neg --&gt; - UnaryExpr</code>, was not recognized as a pass-thru
 case by virtue of the left-hand side label <code>Neg</code>.  Unlike the parentheses,
-the minus symbol certain has meaning beyond the syntactic level.
+the minus symbol certainly has meaning beyond the syntactic level.
 We can also force the minus sign to be
 included in the AST by giving it an explicit lable such as <code>-:minus UnaryExpr</code>.
 This would create an enum variant that includes a unit type value.</p>
@@ -2214,7 +1332,7 @@ automatically generated portions remain usable.</p>
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p>0-9 <a href="file:///C:/cygwin/home/Chuck/classes/csc291q/chuckcscccl.github.io/rustlr_project/chapter2.md#fnref1" class="footnote-backref" target="_top">↩︎</a></p>
+<li id="fn1" class="footnote-item"><p>0-9 <a href="file:///C:/cygwin/home/Chuck/git/chuckcscccl.github.io/rustlr_project/chapter2.md#fnref1" class="footnote-backref" target="_top">↩︎</a></p>
 </li>
 </ol>
 </section>

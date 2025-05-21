@@ -114,7 +114,7 @@ grammar for an early, pre-generics version of Java to accomodate
 generic type syntax.  That is, we wish to parse type expressions such
 as
 ```
-   HashSet<String,HashSet<String>>
+   HashMap<String,HashSet<String>>
 ```
 
 The problem here is that the "`>>`" symbol represents the

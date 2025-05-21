@@ -525,7 +525,7 @@ separate enum variant (at the cost of an extra LBox) that
 distinguishes the presence of the parentheses.  Note that the 
 rule `UnaryExpr:Neg --> - UnaryExpr`, was not recognized as a pass-thru
 case by virtue of the left-hand side label `Neg`.  Unlike the parentheses,
-the minus symbol certain has meaning beyond the syntactic level.
+the minus symbol certainly has meaning beyond the syntactic level.
 We can also force the minus sign to be
 included in the AST by giving it an explicit lable such as `-:minus UnaryExpr`.
 This would create an enum variant that includes a unit type value.
