@@ -461,7 +461,7 @@ overridden with directives in the grammar file such as
 ```
   default E Val(0)
 ```
-Defaults for structs are always derived.
+Defaults for structs can also be specified; otherwise, they're derived.
 
 #### What is an **LBox?**
 
