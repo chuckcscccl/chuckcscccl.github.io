@@ -17,9 +17,9 @@ additional features and details will be presented in subsequent chapters.
 
 ### Installing Rustlr
 
-The rustlr crate contains the parser generation routines as well as
+  The rustlr crate contains the parser generation routines as well as the
 base runtime parsing routines required by all parsers.  Either both
-are installed together, or the runtime parsing routines can be
+are installed together, or the runtime parsing routines are
 installed alone.  To generate parsers, you can either
 
   1. install rustlr as a command-line application: **`cargo install rustlr`**.
@@ -59,7 +59,7 @@ if you only need the legacy runtime parser, add the following to Cargo.toml:
 
 Rustlr uses its own syntax for grammars.  However, given a Yacc/Bison
 style grammar in a file with a `.y` suffix, rustlr can convert it
-into its own syntax while stripping away semantic actions and other
+into its own syntax while stripping away all semantic actions and other
 language-specific content.  The new grammar will be saved at the same
 location with a `.grammar` suffix, which can then be further enhanced
 with rustlr-specific features.  All examples are in the rustlr custom
