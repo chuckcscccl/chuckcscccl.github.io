@@ -463,6 +463,12 @@ overridden with directives in the grammar file such as
 ```
 Defaults for structs can also be specified; otherwise, they're derived.
 
+The Debug trait will always be derived.  You can specify additional
+traits to be derived for the generated struct with directives such as
+```
+  derive E Clone PartialEq Eq
+```
+
 #### What is an **LBox?**
 
 In a typical compiler/interpreter, the most meaningful error messages,
